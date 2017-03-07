@@ -26,7 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.2</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -224,6 +224,8 @@
     <Content Include="wwwroot\app.component.html" />
     <Content Include="wwwroot\contact\contact.component.html" />
     <Content Include="wwwroot\home\home.component.html" />
+    <Content Include="wwwroot\logout\logout.component.css" />
+    <Content Include="wwwroot\logout\logout.component.html" />
     <Content Include="wwwroot\tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
@@ -248,6 +250,8 @@
     <TypeScriptCompile Include="wwwroot\home\home.component.ts" />
     <TypeScriptCompile Include="wwwroot\home\home.routes.ts" />
     <TypeScriptCompile Include="wwwroot\home\shared\home.service.ts" />
+    <TypeScriptCompile Include="wwwroot\logout\logout.component.ts" />
+    <TypeScriptCompile Include="wwwroot\logout\logout.routes.ts" />
     <TypeScriptCompile Include="wwwroot\main.ts" />
   </ItemGroup>
   <ItemGroup>
