@@ -1,0 +1,36 @@
+﻿    .container{
+    width:600px;
+    height:350px;
+    margin:100px auto;
+    box-shadow: 2px 3px 15px -8px;
+}
+
+.content{
+    height:250px;
+    text-align: center;
+    padding: 70px;
+}
+
+.content span{
+    margin-bottom: 30px;
+}
+.div{
+    text-align:center;
+}
+.title{
+    font-size: 28px;
+    color: white;
+    padding: 20px;
+    }
+
+.panel-body{
+    padding: 45px;
+    padding-top:0px;
+}
+
+.panel-body span{
+    color:red;
+}
+.panel-body button{
+    background-color:chartreuse;
+}

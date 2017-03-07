@@ -4,6 +4,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { contactRoutes } from './contact/contact.routes';
 import { aboutRoutes }  from './about/about.routes';
 import { homeRoutes } from './home/home.routes';
+import { loginRoutes } from './login/login.routes';
+import { mapRoutes } from './map/map.routes';
+
+
 
 // Route Configuration
 export const routes: Routes = [
@@ -16,7 +20,9 @@ export const routes: Routes = [
     // Add routes form a different file
     ...contactRoutes,
     ...aboutRoutes,
-    ...homeRoutes
+    ...homeRoutes,
+    ...loginRoutes,
+    ...mapRoutes
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);

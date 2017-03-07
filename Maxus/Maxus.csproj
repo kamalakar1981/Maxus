@@ -190,6 +190,14 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="package.json" />
+    <Content Include="wwwroot\user\edit\edit.component.css" />
+    <Content Include="wwwroot\user\edit\edit.component.html" />
+    <Content Include="wwwroot\user\list\list.component.css" />
+    <Content Include="wwwroot\user\list\list.component.html" />
+    <Content Include="wwwroot\user\user.component.css" />
+    <Content Include="wwwroot\user\user.component.html" />
+    <Content Include="wwwroot\user\view\view.component.css" />
+    <Content Include="wwwroot\user\view\view.component.html" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -224,10 +232,17 @@
     <Content Include="wwwroot\app.component.html" />
     <Content Include="wwwroot\contact\contact.component.html" />
     <Content Include="wwwroot\home\home.component.html" />
+    <Content Include="wwwroot\login\login.component.css" />
+    <Content Include="wwwroot\login\login.component.html" />
+    <Content Include="wwwroot\map\filter\filter.component.css" />
+    <Content Include="wwwroot\map\filter\filter.component.html" />
+    <Content Include="wwwroot\map\map.component.css" />
+    <Content Include="wwwroot\map\map.component.html" />
     <Content Include="wwwroot\tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="wwwroot\shared\directives\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -248,7 +263,26 @@
     <TypeScriptCompile Include="wwwroot\home\home.component.ts" />
     <TypeScriptCompile Include="wwwroot\home\home.routes.ts" />
     <TypeScriptCompile Include="wwwroot\home\shared\home.service.ts" />
+    <TypeScriptCompile Include="wwwroot\login\login.component.ts" />
+    <TypeScriptCompile Include="wwwroot\login\login.routes.ts" />
+    <TypeScriptCompile Include="wwwroot\login\shared\authentication.service.ts" />
+    <TypeScriptCompile Include="wwwroot\login\shared\login.interface.ts" />
     <TypeScriptCompile Include="wwwroot\main.ts" />
+    <TypeScriptCompile Include="wwwroot\map\filter\filter.routes.ts" />
+    <TypeScriptCompile Include="wwwroot\map\filter\filter.component.ts" />
+    <TypeScriptCompile Include="wwwroot\map\filter\shared\filter.service.ts" />
+    <TypeScriptCompile Include="wwwroot\map\map.component.ts" />
+    <TypeScriptCompile Include="wwwroot\map\map.routes.ts" />
+    <TypeScriptCompile Include="wwwroot\map\shared\map.interface.ts" />
+    <TypeScriptCompile Include="wwwroot\map\shared\map.service.ts" />
+    <TypeScriptCompile Include="wwwroot\user\edit\edit.component.ts" />
+    <TypeScriptCompile Include="wwwroot\user\edit\edit.routes.ts" />
+    <TypeScriptCompile Include="wwwroot\user\list\list.component.ts" />
+    <TypeScriptCompile Include="wwwroot\user\list\list.routes.ts" />
+    <TypeScriptCompile Include="wwwroot\user\user.component.ts" />
+    <TypeScriptCompile Include="wwwroot\user\user.routes.ts" />
+    <TypeScriptCompile Include="wwwroot\user\view\view.component.ts" />
+    <TypeScriptCompile Include="wwwroot\user\view\view.routes.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
