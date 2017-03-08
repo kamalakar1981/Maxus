@@ -30,14 +30,15 @@
     "systemjs": "~0.20.9",
     "zone.js": "0.7.6"
   },
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-clean": "^0.3.2",
-    "gulp-concat": "^2.6.0",
-    "gulp-tsc": "^1.2.0",
-    "gulp-typescript": "^2.13.6",
-    "path": "^0.12.7",
-    "typescript": "^2.0.3",
-    "typings": "^1.4.0"
-  }
+	"devDependencies": {
+		"gulp": "^3.9.1",
+		"gulp-concat": "^2.6.0",
+		"gulp-sourcemaps": "^1.6.0",
+		"gulp-tsc": "^1.2.0",
+		"gulp-typescript": "^2.13.6",
+		"path": "^0.12.7",
+		"rimraf": "^2.6.1",
+		"typescript": "^2.0.3",
+		"typings": "^1.4.0"
+	}
 }
