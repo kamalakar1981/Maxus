@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using Maxus.Models;
+using Maxis.Models;
 
-namespace Maxus
+namespace Maxis
 {
     public partial class Startup
     {

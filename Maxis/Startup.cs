@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Maxus.Startup))]
-namespace Maxus
+[assembly: OwinStartupAttribute(typeof(Maxis.Startup))]
+namespace Maxis
 {
     public partial class Startup
     {

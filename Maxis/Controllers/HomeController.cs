@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Maxus.Controllers
+namespace Maxis.Controllers
 {
     public class HomeController : Controller
     {

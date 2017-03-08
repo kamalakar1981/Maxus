@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Maxus;
-using Maxus.Controllers;
+using Maxis;
+using Maxis.Controllers;
 
-namespace Maxus.Tests.Controllers
+namespace Maxis.Tests.Controllers
 {
     [TestClass]
     public class HomeControllerTest

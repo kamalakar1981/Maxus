@@ -92,9 +92,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Maxus\Maxus.csproj">
+    <ProjectReference Include="..\Maxis\Maxis.csproj">
       <Project>{FB9F52D2-655F-4B20-8BE2-BC14444E0BE6}</Project>
-      <Name>Maxus</Name>
+      <Name>Maxis</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

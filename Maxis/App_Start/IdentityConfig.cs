@@ -10,9 +10,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using Maxus.Models;
+using Maxis.Models;
 
-namespace Maxus
+namespace Maxis
 {
     public class EmailService : IIdentityMessageService
     {
