@@ -54,6 +54,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -170,18 +172,71 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Database\Maxis.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Maxis.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Maxis.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Maxis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Maxis.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Maxis.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ONNET_SRCH_BUILDING.cs">
+      <DependentUpon>Maxis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ONNET_SRCH_NE.cs">
+      <DependentUpon>Maxis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ONNET_SRCH_NE_ABE.cs">
+      <DependentUpon>Maxis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ONNET_SRCH_OSP_CABLE.cs">
+      <DependentUpon>Maxis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ONNET_SRCH_OSP_CABLE_STRUCT.cs">
+      <DependentUpon>Maxis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ONNET_SRCH_OSP_STRUCT.cs">
+      <DependentUpon>Maxis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ONNET_SRCH_OSP_THRESHOLD.cs">
+      <DependentUpon>Maxis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ONNET_USER.cs">
+      <DependentUpon>Maxis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ONNET_USERROLE.cs">
+      <DependentUpon>Maxis.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="fonts\Models\AccountViewModels.cs" />
+    <Compile Include="fonts\Models\IdentityModels.cs" />
+    <Compile Include="fonts\Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Database\Maxis.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Maxis.edmx</DependentUpon>
+      <LastGenOutput>Maxis.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Database\Maxis.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Maxis.edmx</DependentUpon>
+      <LastGenOutput>Maxis.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -198,6 +253,13 @@
     <Content Include="wwwroot\user\user.component.html" />
     <Content Include="wwwroot\user\view\view.component.css" />
     <Content Include="wwwroot\user\view\view.component.html" />
+    <EntityDeploy Include="Database\Maxis.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Maxis.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Database\Maxis.edmx.diagram">
+      <DependentUpon>Maxis.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -289,6 +351,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
