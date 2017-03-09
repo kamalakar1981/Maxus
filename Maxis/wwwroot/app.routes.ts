@@ -1,8 +1,8 @@
-﻿import { ModuleWithProviders }  from '@angular/core';
+﻿import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { contactRoutes } from './contact/contact.routes';
-import { aboutRoutes }  from './about/about.routes';
+import { aboutRoutes } from './about/about.routes';
 import { homeRoutes } from './home/home.routes';
 import { loginRoutes } from './login/login.routes';
 import { mapRoutes } from './map/map.routes';

@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { AuthenticationService,User } from './shared/authentication.service';
-
+import { AuthenticationService } from './shared/authentication.service';
+import { NgForm } from '@angular/forms';
+import { User } from './shared/login.interface';
 
 @Component({
     selector: 'login',
@@ -9,18 +10,20 @@ import { AuthenticationService,User } from './shared/authentication.service';
 })
 
 export class LoginComponent {
-    public user = new User('', '');
-    errorMsg: string;
 
-    constructor( private _service: AuthenticationService) { }
+    user = new User('', '');
 
-    login() {
-        if (!this._service.login(this.user)) {
-            this.errorMsg = 'UserName and password doesnt exist in LDAP';
-            return false;
-        } else {
-
-        }
+    constructor(private autenticationService: AuthenticationService) {
 
     }
+
+    submitForm(form: NgForm) {
+        this.autenticationService.postForm(this.user)
+            .subscribe(
+            data => console.log('success:', data),
+            err => console.log('error:', err)
+            )
+
+    }
+
 }
