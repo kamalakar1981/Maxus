@@ -9,15 +9,16 @@ namespace Maxis.Controllers
 {
     public class LoginController : Controller
     {
-        // GET: Login
         private MAXISDEVEntities10 db = new MAXISDEVEntities10();
+
+        // GET: Login
         public ActionResult Index()
         {
             return View();
         }
 
         // GET: Login/Details/5
-        public JsonResult Details(string Username, string Password)
+        public JsonResult Details(string Username,string Password)
         {
             try
             {

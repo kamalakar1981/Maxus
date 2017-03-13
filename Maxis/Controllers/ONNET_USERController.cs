@@ -14,26 +14,27 @@ namespace Maxis.Controllers
     {
         private MAXISDEVEntities10 db = new MAXISDEVEntities10();
 
-        // GET: ONNET_USER
-        public JsonResult Index()
+        // GET: ONNET_USER/Users
+        public JsonResult Users()
         {
-            var oNNET_USER = db.ONNET_USER.Include(o => o.ONNET_USERROLE);
-            return Json(oNNET_USER.ToList());
+            db.Configuration.ProxyCreationEnabled = false;
+            return Json(db.ONNET_USER.ToList(), JsonRequestBehavior.AllowGet);
         }
 
-        // GET: ONNET_USER/Details/5
-        public JsonResult Details(long? id)
+        // GET: ONNET_USER/Users1/5(user id)
+        public JsonResult Users1(long? id)
         {
-            if (id == null)
-            {
-                return Json(HttpStatusCode.BadRequest);
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            db.Configuration.ProxyCreationEnabled = false;
             ONNET_USER oNNET_USER = db.ONNET_USER.Find(id);
             if (oNNET_USER == null)
             {
-                return Json(HttpStatusCode.BadRequest);
+                Json(new object[] { new object() });
             }
-            return Json(oNNET_USER);
+            return Json(oNNET_USER, JsonRequestBehavior.AllowGet);
         }
 
         // GET: ONNET_USER/Create
