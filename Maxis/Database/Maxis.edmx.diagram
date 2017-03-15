@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f71b4fbb97fb4623b5ba41b606679fa2" Name="Diagram1">
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_BUILDING" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_NE" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_NE_ABE" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_OSP_CABLE" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_OSP_STRUCT" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_USER" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_USERROLE" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_OSP_CABLE_STRUCT" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_OSP_THRESHOLD" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="MAXISDEVModel.FK__ONNET_SRC__NE_ID__24927208" ManuallyRouted="false" />
+        <AssociationConnector Association="MAXISDEVModel.FK__ONNET_USE__RoleI__1920BF5C" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

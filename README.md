@@ -1,4 +1,4 @@
-# Maxus
+# Maxis
 Telephone cabling and tower information
 
 # Steps to run the project
