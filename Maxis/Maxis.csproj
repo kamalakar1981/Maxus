@@ -193,6 +193,9 @@
     <Compile Include="Database\ONNET_SRCH_BUILDING.cs">
       <DependentUpon>Maxis.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\ONNET_SRCH_DL_ID_LIST.cs">
+      <DependentUpon>Maxis.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\ONNET_SRCH_NE.cs">
       <DependentUpon>Maxis.tt</DependentUpon>
     </Compile>
@@ -312,6 +315,9 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Login\" />
     <Folder Include="Views\ONNET_USER\" />
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Views\Map\" />
+    <Folder Include="Views\User\" />
     <Folder Include="wwwroot\shared\directives\" />
   </ItemGroup>
   <ItemGroup>

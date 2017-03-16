@@ -13,10 +13,10 @@ namespace Maxis.Database
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MAXISDEVEntities14 : DbContext
+    public partial class MAXISDEVEntities13 : DbContext
     {
-        public MAXISDEVEntities14()
-            : base("name=MAXISDEVEntities14")
+        public MAXISDEVEntities13()
+            : base("name=MAXISDEVEntities13")
         {
         }
     

@@ -13,66 +13,49 @@ namespace Maxis.Controllers
 {
     public class MapController : Controller
     {
-        private MAXISDEVEntities10 db = new MAXISDEVEntities10();
+        private MAXISDEVEntities14 db = new MAXISDEVEntities14();
 
-        // GET: Map/Building
-        public JsonResult Buildings()
+        // GET: Map/LRD
+        //show LRD for NEtypes dropdown
+        public JsonResult LRD()
         {
-            return Json(db.ONNET_SRCH_BUILDING.ToList(), JsonRequestBehavior.AllowGet);
+            return Json(db.ONNET_SRCH_NE.Select(m => m.LRD).Distinct().ToList(), JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Map/Building/3(building id)
-        public JsonResult Building(string id)
+        // GET: MAP/NENAMES?LRD=AGNI
+        //show NENames for NENames dropdown based on lrd
+        public JsonResult NENames(string LRD)
         {
-            ONNET_SRCH_BUILDING oNNET_SRCH_BUILDING = db.ONNET_SRCH_BUILDING.Find(id);
-            if (oNNET_SRCH_BUILDING == null)
-            {
-                Json(new object[] { new object() });
-            }
-            return Json(oNNET_SRCH_BUILDING, JsonRequestBehavior.AllowGet);
-        }
-
-        // GET: Map/NE
-        public JsonResult NE()
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-            return Json(db.ONNET_SRCH_NE.ToList(), JsonRequestBehavior.AllowGet);
-        }
-
-        // GET: Map/NETypes
-        public JsonResult NETypes()
-        {
-            return Json(db.ONNET_SRCH_NE.Select(m => m.NE_OT_NAME).Distinct().ToList(), JsonRequestBehavior.AllowGet);
-        }
-
-        // GET: Map/Cables
-        public JsonResult Cables()
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-            return Json(db.ONNET_SRCH_OSP_CABLE.ToList(), JsonRequestBehavior.AllowGet);
+            return Json(db.ONNET_SRCH_NE.Where(m => m.LRD.ToUpper() == LRD.ToUpper()).Select(m => m.NE_NAME).ToList(), JsonRequestBehavior.AllowGet);
         }
 
         // GET: Map/CableTypes
+        //show cabletypes for cable type dropdown
         public JsonResult CableTypes()
         {
-            return Json(db.ONNET_SRCH_OSP_CABLE.Select(m => m.Cable_Type).Distinct().ToList(), JsonRequestBehavior.AllowGet);
-        }
-        
-        // GET: Map/CableDetails/3(cable id)
-        public JsonResult CableDetails(string id)
-        {
-            ONNET_SRCH_OSP_CABLE ONNET_SRCH_OSP_CABLE = db.ONNET_SRCH_OSP_CABLE.Find(id);
-            if (ONNET_SRCH_OSP_CABLE == null)
-            {
-                Json(new object[] { new object() });
-            }
-            return Json(ONNET_SRCH_OSP_CABLE, JsonRequestBehavior.AllowGet);
+            return Json(db.ONNET_SRCH_OSP_CABLE.Select(m => m.CABLE_TYPE).Distinct().ToList(), JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Map/Threshold/3(NE id)
-        public JsonResult Threshold(string id)
-        {            
-            return Json(db.ONNET_SRCH_OSP_THRESHOLD.Select(m => m.NE_ID == id).ToList(), JsonRequestBehavior.AllowGet);
+        // GET: Map/CableDetails
+        //show cablenames, geodata for cable names dropdown based on cable type
+        public JsonResult CableDetails(string cableType)
+        {
+            return Json(db.ONNET_SRCH_OSP_CABLE.Where(m => m.CABLE_TYPE.ToUpper() == cableType.ToUpper()).ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        // GET: Map/Building/nename(NEname)
+        //Show buildings based on nename
+        public JsonResult Building(string NEName)
+        {
+            return Json(db.ONNET_SRCH_NE_ABE.Where(m => m.NE_NAME.ToUpper() == NEName.ToUpper()).ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+
+        // GET: Map/Threshold/nename(NE name)
+        //Show threshold info on tower click
+        public JsonResult Threshold(string NEName)
+        {
+            return Json(db.ONNET_SRCH_OSP_THRESHOLD.Select(m => m.NE_NAME.ToUpper() == NEName.ToUpper()).ToList(), JsonRequestBehavior.AllowGet);
         }
 
     }
