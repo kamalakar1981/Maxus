@@ -14,21 +14,21 @@ namespace Maxis.Database
     
     public partial class ONNET_SRCH_OSP_THRESHOLD
     {
-        public string NE_ID { get; set; }
+        public long NE_ID { get; set; }
         public string NE_NAME { get; set; }
-        public string NE_OT_ID { get; set; }
-        public string DEV_ID { get; set; }
+        public Nullable<long> NE_OT_ID { get; set; }
+        public string NE_OT_NAME { get; set; }
+        public long DEV_ID { get; set; }
         public string DEV_NAME { get; set; }
-        public string DEV_OT_ID { get; set; }
-        public string THR_TEMPL_ID { get; set; }
+        public Nullable<long> DEV_OT_ID { get; set; }
+        public long THR_TEMPL_ID { get; set; }
         public string TRH_TEMPL_NAME { get; set; }
-        public string TOTAL { get; set; }
-        public string AVAIL { get; set; }
-        public string USED { get; set; }
-        public string VALUE { get; set; }
-        public string OLD_VALUE { get; set; }
-        public string PLANNED_TO_USE { get; set; }
-        public string IS_DEV { get; set; }
-        public string F16 { get; set; }
+        public Nullable<decimal> TOTAL { get; set; }
+        public Nullable<decimal> AVAIL { get; set; }
+        public Nullable<decimal> USED { get; set; }
+        public Nullable<decimal> VALUE { get; set; }
+        public Nullable<decimal> OLD_VALUE { get; set; }
+        public Nullable<decimal> PLANNED_TO_USE { get; set; }
+        public Nullable<decimal> IS_DEV { get; set; }
     }
 }

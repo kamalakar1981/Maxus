@@ -17,15 +17,17 @@ namespace Maxis.Database
         public string STATE { get; set; }
         public string CITY { get; set; }
         public string STREET { get; set; }
-        public string STREET_ID { get; set; }
+        public Nullable<long> STREET_ID { get; set; }
         public string BUILDING { get; set; }
-        public string BUILDING_ID { get; set; }
+        public long BUILDING_ID { get; set; }
         public string GEODATA { get; set; }
         public string AREA { get; set; }
-        public string CLUST { get; set; }
-        public string Post_Code { get; set; }
-        public string Block_Name { get; set; }
-        public string Number { get; set; }
+        public string CLUSTER { get; set; }
+        public string POST_CODE { get; set; }
+        public string BLOCK_NAME { get; set; }
+        public string NUMBER { get; set; }
         public string APARTMENTS { get; set; }
+        public Nullable<System.DateTime> LTST_CRTD_WHEN { get; set; }
+        public Nullable<System.DateTime> LTST_UPTD_WHEN { get; set; }
     }
 }

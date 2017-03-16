@@ -12,14 +12,15 @@ namespace Maxis.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class ONNET_SRCH_OSP_CABLE_STRUCT
+    public partial class ONNET_SRCH_DL_ID_LIST
     {
-        public long STRUCT_ID { get; set; }
-        public string STRUCT_NAME { get; set; }
-        public string STRUCT_OT_NAME { get; set; }
-        public long CABLE_ID { get; set; }
-        public string CABLE_NAME { get; set; }
-        public string CABLE_OT_NAME { get; set; }
-        public Nullable<int> ORDER_NUMBER { get; set; }
+        public long NE_ID { get; set; }
+        public Nullable<long> DL_ID { get; set; }
+        public string DL_NAME { get; set; }
+        public long DL_OT_ID { get; set; }
+        public string DL_OT_NAME { get; set; }
+        public long OBJECT_ID { get; set; }
+    
+        public virtual ONNET_SRCH_NE ONNET_SRCH_NE { get; set; }
     }
 }
