@@ -4,16 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f71b4fbb97fb4623b5ba41b606679fa2" Name="Diagram1">
-        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_BUILDING" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_NE" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_NE_ABE" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_OSP_CABLE" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_OSP_STRUCT" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_USER" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_USERROLE" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_OSP_CABLE_STRUCT" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+      <Diagram DiagramId="4f3e057b104e401599e5011544d56294" Name="Diagram1">
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_BUILDING" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_DL_ID_LIST" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_NE" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_NE_ABE" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_OSP_CABLE" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_USER" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_USERROLE" Width="1.5" PointX="5.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_OSP_CABLE_STRUCT" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_OSP_STRUCT" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_OSP_THRESHOLD" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="MAXISDEVModel.FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE" ManuallyRouted="false" />
         <AssociationConnector Association="MAXISDEVModel.FK__ONNET_SRC__NE_ID__24927208" ManuallyRouted="false" />
         <AssociationConnector Association="MAXISDEVModel.FK__ONNET_USE__RoleI__1920BF5C" ManuallyRouted="false" />
       </Diagram>

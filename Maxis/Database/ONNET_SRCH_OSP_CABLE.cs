@@ -14,15 +14,18 @@ namespace Maxis.Database
     
     public partial class ONNET_SRCH_OSP_CABLE
     {
-        public string CABLE_ID { get; set; }
-        public string NAME { get; set; }
-        public string OBJECT_TYPE_ID { get; set; }
-        public string NUM_OF_FIBERS { get; set; }
-        public string Cable_Type { get; set; }
+        public long CABLE_ID { get; set; }
+        public string CABLE_NAME { get; set; }
+        public long CABLE_OT_ID { get; set; }
+        public string CABLE_OT_NAME { get; set; }
+        public Nullable<int> NUM_OF_FIBERS { get; set; }
+        public string CABLE_TYPE { get; set; }
         public string LENGTH { get; set; }
         public string ADM_STATUS { get; set; }
         public string MANUFACTURER { get; set; }
         public string COLOR_SCHEMA { get; set; }
         public string GEODATA { get; set; }
+        public Nullable<System.DateTime> LTST_CRTD_WHEN { get; set; }
+        public Nullable<System.DateTime> LTST_UPTD_WHEN { get; set; }
     }
 }
