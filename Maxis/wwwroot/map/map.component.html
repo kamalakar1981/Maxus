@@ -1,21 +1,204 @@
-﻿<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
+﻿
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
         <div class="navbar-header">
+            <img src="/Content/Images/OnNet_Logo_V1.jpg" style="width: 105px;margin-left:-42px;
+    height: 50px;" />
+            <!--<img src="../about/Images/OnNet_Logo_V1.jpg" />-->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="glyphicon glyphicon-align-justify  "></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Map </a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Map Config </a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">User Admin</a></li>
-                    <li class="divider"></li>
-                </ul>
-            </li>
-            <li><a href="#" (click)="logout()"><span class="glyphicon glyphicon-search"></span> Logout</a></li>
-        </ul>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a routerLink="/">Home</a></li>
+                <li><a routerLink="map">Map</a></li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="glyphicon glyphicon-align-justify  "></span></a>
+                    <ul class="dropdown-menu">
+                        <li>Map</li>
+                        <li class="divider"></li>
+                        <li>Map Config </li>
+                        <li class="divider"></li>
+                        <li>User Admin</li>
+                        <li class="divider"></li>
+                    </ul>
+                </li>
+                <!--<li><a href="#" (click)="logout()"><span class="glyphicon glyphicon-search"></span> Logout</a></li>-->
+            </ul>
+
+
+
+
+
+        </div>
     </div>
+
+</div>
+
+<input type="checkbox" id="navigation" style="width:345px!important;" />
+<label for="navigation" >+</label>
+<nav>
+    <form [formGroup]="form" id="pannelForm">
+        <div id="pannel">
+            <a id="a" href="javascript:void(0)" style="position:absolute;top:0;right: 25px;font-size:36px;margin-left:50px;" onclick="closeNav()">&times;</a>
+            <div style="margin:60px 0 0">
+                <div style="display:inline;width:50%">
+                    <div style="margin:0;font-weight:400;font-family:inherit;text-align:center;">NE Types</div>
+                    <ng-select [options]="markerTypes" [multiple]="multiple1" formControlName="selectMultiple"  placeholder="Select multiple marker types" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onMultipleSelected($event)" (deselected)="onMultipleDeselected($event)"
+                               class="dropdown-header">
+                    </ng-select>
+
+                </div>
+                <br />
+                <div style="display:inline;width:50%">
+                    <div style="margin:0;font-weight:400;font-family:inherit;text-align:center;">NE Names</div>
+                    <ng-select [options]="markerNames" [multiple]="multiple0" formControlName="selectSingle" placeholder="Select one marker name" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onSingleSelected($event)" (deselected)="onSingleDeselected($event)"
+                               class="dropdown-header">
+                    </ng-select>
+                </div>
+            </div>
+
+            <div style="margin:30px 0 0">
+
+
+                <div style="display:inline;width:50%;">
+                    <div style="margin:0;font-weight:400;font-family:inherit;text-align:center;">Cable Types</div>
+                    <ng-select [options]="cabelTypes" [multiple]="multiple1" formControlName="selectMultiple1" placeholder="Select multiple cable types" (opened)="onMultipleOpened1()" (closed)="onMultipleClosed1()" (selected)="onMultipleSelected1($event)" (deselected)="onMultipleDeselected1($event)"
+                               class="dropdown-header">
+                    </ng-select>
+                </div>
+                <br />
+                <div style="display:inline;width:50%">
+                    <div style="margin:0;font-weight:400;font-family:inherit;text-align:center;">Cable Names</div>
+                    <ng-select [options]="cabelNames" [multiple]="multiple0" formControlName="selectSingle1" placeholder="Select one cabel name" [allowClear]="true" (opened)="onSingleOpened1()" (closed)="onSingleClosed1()" (selected)="onSingleSelected1($event)" (deselected)="onSingleDeselected1($event)"
+                               class="dropdown-header">
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        </form>
 </nav>
 
+
+
+<div style="position:fixed;display:block;padding:0;margin:0;left:10px;z-index:1001;">
+    <div style="position:relative;padding:0;margin:0;">
+        <div class="inner-addon right-addon">
+            <i class="glyphicon glyphicon-search"></i>
+            <input placeholder="search for location" autocorrect="on" autocapitalize="off" spellcheck="true" type="text" name="searchControl" #search style=" width: 363px;
+                   box-sizing: border-box;
+                   border: 2px solid #ccc;
+                   border-radius: 4px;
+                   font-size: 14px;
+                   background-color: white;
+                   background-position: 10px 10px;
+                   background-repeat: no-repeat;
+                   padding: 12px 30px 12px 26px;
+                   -webkit-transition: width 0.4s ease-in-out;
+                   transition: width 0.4s ease-in-out;" class="form-control" id="search">
+        </div>
+        <span style="font-size:16px;cursor:pointer;position:absolute;left:8px;top:8px;">&#9776;</span>
+    </div>
+</div>
+
+
+<sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" >
+    <div *ngFor="let m of markers;">
+        <sebm-google-map-marker *ngFor="let p of m.points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="'../Images/placeholder-16-blue.png'" (dragEnd)="markerDragEnd(p, $event)">
+            <sebm-google-map-info-window>
+                <strong>InfoWindow {{p.label}}</strong>
+            </sebm-google-map-info-window>
+        </sebm-google-map-marker>
+    </div>
+    <sebm-google-map-marker *ngFor="let p of points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="p.icon" (dragEnd)="markerDragEnd(p, $event)">
+        <sebm-google-map-info-window>
+            <strong>InfoWindow {{p.label}}</strong><br />
+            <strong>TOTAL:</strong>228<br />
+            <strong>AVAIL:</strong>8<br />
+            <strong>USED:</strong>220<br />
+            <strong>VALUE:</strong>96.49<br />
+            <strong>OLD_VAL:</strong>0<br />
+        </sebm-google-map-info-window>
+    </sebm-google-map-marker>
+
+
+    <sebm-google-map-marker *ngFor="let p of buildings" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon">
+        <sebm-google-map-info-window>
+            <strong>InfoWindow {{p.label}}</strong><br />
+        </sebm-google-map-info-window>
+    </sebm-google-map-marker>
+
+
+    <sebm-google-map-polyline *ngFor="let m of markers" [strokeColor]="m.color">
+        <sebm-google-map-polyline-point *ngFor="let p of m.points" [latitude]="p.lat" [longitude]="p.lng">
+        </sebm-google-map-polyline-point>
+    </sebm-google-map-polyline>
+
+
+    <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+</sebm-google-map>
+
+<!--<sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="true" [streetViewControl]="true" (mapClick)="mapClicked($event)">
+    <div *ngFor="let m of markers;">
+        <sebm-google-map-marker *ngFor="let p of m.points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="'../Images/placeholder-16-blue.png'" (dragEnd)="markerDragEnd(p, $event)">
+            <sebm-google-map-info-window>
+                <strong>InfoWindow {{p.label}}</strong>
+            </sebm-google-map-info-window>
+        </sebm-google-map-marker>
+    </div>
+    <sebm-google-map-marker *ngFor="let p of points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="p.icon" (dragEnd)="markerDragEnd(p, $event)">
+        <sebm-google-map-info-window>
+            <strong>InfoWindow {{p.label}}</strong><br />
+            <strong>TOTAL:</strong>228<br />
+            <strong>AVAIL:</strong>8<br />
+            <strong>USED:</strong>220<br />
+            <strong>VALUE:</strong>96.49<br />
+            <strong>OLD_VAL:</strong>0<br />
+        </sebm-google-map-info-window>
+    </sebm-google-map-marker>
+
+
+    <sebm-google-map-marker *ngFor="let p of buildings" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon">
+        <sebm-google-map-info-window>
+            <strong>InfoWindow {{p.label}}</strong><br />
+        </sebm-google-map-info-window>
+    </sebm-google-map-marker>
+
+
+    <sebm-google-map-polyline *ngFor="let m of markers" [strokeColor]="m.color">
+        <sebm-google-map-polyline-point *ngFor="let p of m.points" [latitude]="p.lat" [longitude]="p.lng">
+        </sebm-google-map-polyline-point>
+    </sebm-google-map-polyline>
+
+    <sebm-google-map-marker [latitude]="latitude" [longitude]="longitude"></sebm-google-map-marker>
+
+</sebm-google-map>-->
+<script>
+        function openNav() {
+            document.getElementById("a").style.display = "block";
+            document.getElementById("pannel").style.width = "363px";
+            document.getElementById("pannelForm").style.width = "363px";
+            document.getElementById("pannelForm").style.display = "block";
+        }
+
+        function closeNav() {
+            document.getElementById("a").style.display = "none";
+            document.getElementById("pannel").style.width = undefined;
+            document.getElementById("pannelForm").style.width = "0";
+            document.getElementById("pannelForm").style.display = "none";
+            //document.getElementById("search").val = " ";
+            document.getElementById('search').value = "";
+        }
+</script>
