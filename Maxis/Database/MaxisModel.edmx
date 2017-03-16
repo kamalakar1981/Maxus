@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MAXISDEVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MAXISDEVModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ONNET_SRCH_BUILDING">
           <Key>
             <PropertyRef Name="BUILDING_ID" />
@@ -199,7 +199,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MAXISDEVModelStoreContainer">
+        <EntityContainer Name="MAXISDEVModel1StoreContainer">
           <EntitySet Name="ONNET_SRCH_BUILDING" EntityType="Self.ONNET_SRCH_BUILDING" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ONNET_SRCH_DL_ID_LIST" EntityType="Self.ONNET_SRCH_DL_ID_LIST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ONNET_SRCH_NE" EntityType="Self.ONNET_SRCH_NE" Schema="dbo" store:Type="Tables" />
@@ -265,7 +265,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="MAXISDEVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="MAXISDEVModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="ONNET_SRCH_BUILDING">
           <Key>
             <PropertyRef Name="BUILDING_ID" />
@@ -460,7 +460,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MAXISDEVEntities14" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MAXISDEVEntities13" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ONNET_SRCH_BUILDING" EntityType="Self.ONNET_SRCH_BUILDING" />
           <EntitySet Name="ONNET_SRCH_DL_ID_LIST" EntityType="Self.ONNET_SRCH_DL_ID_LIST" />
           <EntitySet Name="ONNET_SRCH_NE" EntityType="Self.ONNET_SRCH_NE" />
@@ -489,9 +489,9 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MAXISDEVModelStoreContainer" CdmEntityContainer="MAXISDEVEntities14">
+        <EntityContainerMapping StorageEntityContainer="MAXISDEVModel1StoreContainer" CdmEntityContainer="MAXISDEVEntities13">
           <EntitySetMapping Name="ONNET_SRCH_BUILDING">
-            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_BUILDING">
+            <EntityTypeMapping TypeName="MAXISDEVModel1.ONNET_SRCH_BUILDING">
               <MappingFragment StoreEntitySet="ONNET_SRCH_BUILDING">
                 <ScalarProperty Name="STATE" ColumnName="STATE" />
                 <ScalarProperty Name="CITY" ColumnName="CITY" />
@@ -512,7 +512,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ONNET_SRCH_DL_ID_LIST">
-            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_DL_ID_LIST">
+            <EntityTypeMapping TypeName="MAXISDEVModel1.ONNET_SRCH_DL_ID_LIST">
               <MappingFragment StoreEntitySet="ONNET_SRCH_DL_ID_LIST">
                 <ScalarProperty Name="NE_ID" ColumnName="NE_ID" />
                 <ScalarProperty Name="DL_ID" ColumnName="DL_ID" />
@@ -524,7 +524,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ONNET_SRCH_NE">
-            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_NE">
+            <EntityTypeMapping TypeName="MAXISDEVModel1.ONNET_SRCH_NE">
               <MappingFragment StoreEntitySet="ONNET_SRCH_NE">
                 <ScalarProperty Name="NE_ID" ColumnName="NE_ID" />
                 <ScalarProperty Name="NE_NAME" ColumnName="NE_NAME" />
@@ -548,7 +548,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ONNET_SRCH_NE_ABE">
-            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_NE_ABE">
+            <EntityTypeMapping TypeName="MAXISDEVModel1.ONNET_SRCH_NE_ABE">
               <MappingFragment StoreEntitySet="ONNET_SRCH_NE_ABE">
                 <ScalarProperty Name="ABE_ID" ColumnName="ABE_ID" />
                 <ScalarProperty Name="ABE_NAME" ColumnName="ABE_NAME" />
@@ -562,7 +562,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ONNET_SRCH_OSP_CABLE">
-            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_OSP_CABLE">
+            <EntityTypeMapping TypeName="MAXISDEVModel1.ONNET_SRCH_OSP_CABLE">
               <MappingFragment StoreEntitySet="ONNET_SRCH_OSP_CABLE">
                 <ScalarProperty Name="CABLE_ID" ColumnName="CABLE_ID" />
                 <ScalarProperty Name="CABLE_NAME" ColumnName="CABLE_NAME" />
@@ -581,7 +581,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ONNET_USER">
-            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_USER">
+            <EntityTypeMapping TypeName="MAXISDEVModel1.ONNET_USER">
               <MappingFragment StoreEntitySet="ONNET_USER">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -594,7 +594,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ONNET_USERROLE">
-            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_USERROLE">
+            <EntityTypeMapping TypeName="MAXISDEVModel1.ONNET_USERROLE">
               <MappingFragment StoreEntitySet="ONNET_USERROLE">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
@@ -603,7 +603,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ONNET_SRCH_OSP_CABLE_STRUCT">
-            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_OSP_CABLE_STRUCT">
+            <EntityTypeMapping TypeName="MAXISDEVModel1.ONNET_SRCH_OSP_CABLE_STRUCT">
               <MappingFragment StoreEntitySet="ONNET_SRCH_OSP_CABLE_STRUCT">
                 <ScalarProperty Name="STRUCT_ID" ColumnName="STRUCT_ID" />
                 <ScalarProperty Name="STRUCT_NAME" ColumnName="STRUCT_NAME" />
@@ -616,7 +616,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ONNET_SRCH_OSP_STRUCT">
-            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_OSP_STRUCT">
+            <EntityTypeMapping TypeName="MAXISDEVModel1.ONNET_SRCH_OSP_STRUCT">
               <MappingFragment StoreEntitySet="ONNET_SRCH_OSP_STRUCT">
                 <ScalarProperty Name="STRUCT_ID" ColumnName="STRUCT_ID" />
                 <ScalarProperty Name="STRUCT_NAME" ColumnName="STRUCT_NAME" />
@@ -628,7 +628,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ONNET_SRCH_OSP_THRESHOLD">
-            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_OSP_THRESHOLD">
+            <EntityTypeMapping TypeName="MAXISDEVModel1.ONNET_SRCH_OSP_THRESHOLD">
               <MappingFragment StoreEntitySet="ONNET_SRCH_OSP_THRESHOLD">
                 <ScalarProperty Name="NE_ID" ColumnName="NE_ID" />
                 <ScalarProperty Name="NE_NAME" ColumnName="NE_NAME" />

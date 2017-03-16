@@ -14,9 +14,11 @@ namespace Maxis.Database
     
     public partial class ONNET_SRCH_OSP_STRUCT
     {
-        public string STRUCT_ID { get; set; }
+        public long STRUCT_ID { get; set; }
         public string STRUCT_NAME { get; set; }
         public string STRUCT_OT_NAME { get; set; }
         public string GEODATA { get; set; }
+        public Nullable<System.DateTime> LTST_CRTD_WHEN { get; set; }
+        public Nullable<System.DateTime> LTST_UPTD_WHEN { get; set; }
     }
 }
