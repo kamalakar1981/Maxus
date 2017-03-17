@@ -4,8 +4,6 @@ import { LoginComponent } from './../../login/login.component';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/observable';
 import { User } from './login.interface';
-
-
 @Injectable()
 export class AuthenticationService {
 

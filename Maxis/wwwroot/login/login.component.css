@@ -1,15 +1,15 @@
-﻿ .container{
-     text-align:center;
+﻿.container {
+    text-align: center;
     color: white;
     padding: 20px;
-    background-color:#FFA500;
-    width:600px;
-    height:350px;
-    margin:100px auto;
+    background-color: #FFA500;
+    width: 600px;
+    height: 350px;
+    margin: 100px auto;
     box-shadow: 2px 3px 15px -8px;
 }
 
 .centered {
-  width: 50%;
-  margin: auto;
+    width: 50%;
+    margin: auto;
 }
