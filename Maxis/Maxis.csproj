@@ -172,7 +172,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\ONNET_USERController.cs" />
     <Compile Include="Database\Maxis.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -311,6 +313,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Login\" />
+    <Folder Include="Views\ONNET_USER\" />
     <Folder Include="Infrastructure\" />
     <Folder Include="Views\Map\" />
     <Folder Include="Views\User\" />
