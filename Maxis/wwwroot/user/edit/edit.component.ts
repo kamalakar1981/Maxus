@@ -1,5 +1,4 @@
 ﻿import { Component, OnInit } from '@angular/core';
-
 @Component({
     selector: 'edit',
     templateUrl: 'wwwroot/user/edit/edit.component.html',
