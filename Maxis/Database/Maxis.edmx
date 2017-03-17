@@ -1,0 +1,675 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MAXISDEVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ONNET_SRCH_BUILDING">
+          <Key>
+            <PropertyRef Name="BUILDING_ID" />
+          </Key>
+          <Property Name="STATE" Type="varchar" MaxLength="200" />
+          <Property Name="CITY" Type="varchar" MaxLength="200" />
+          <Property Name="STREET" Type="varchar" MaxLength="200" />
+          <Property Name="STREET_ID" Type="bigint" />
+          <Property Name="BUILDING" Type="varchar" MaxLength="200" />
+          <Property Name="BUILDING_ID" Type="bigint" Nullable="false" />
+          <Property Name="GEODATA" Type="nvarchar(max)" />
+          <Property Name="AREA" Type="varchar" MaxLength="200" />
+          <Property Name="CLUSTER" Type="varchar" MaxLength="200" />
+          <Property Name="POST_CODE" Type="varchar" MaxLength="200" />
+          <Property Name="BLOCK_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="NUMBER" Type="varchar" MaxLength="400" />
+          <Property Name="APARTMENTS" Type="varchar" MaxLength="400" />
+          <Property Name="LTST_CRTD_WHEN" Type="date" />
+          <Property Name="LTST_UPTD_WHEN" Type="date" />
+        </EntityType>
+        <EntityType Name="ONNET_SRCH_DL_ID_LIST">
+          <Key>
+            <PropertyRef Name="OBJECT_ID" />
+          </Key>
+          <Property Name="NE_ID" Type="bigint" Nullable="false" />
+          <Property Name="DL_ID" Type="bigint" />
+          <Property Name="DL_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="DL_OT_ID" Type="bigint" Nullable="false" />
+          <Property Name="DL_OT_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="OBJECT_ID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ONNET_SRCH_NE">
+          <Key>
+            <PropertyRef Name="NE_ID" />
+          </Key>
+          <Property Name="NE_ID" Type="bigint" Nullable="false" />
+          <Property Name="NE_NAME" Type="varchar(max)" />
+          <Property Name="NE_OT_ID" Type="bigint" Nullable="false" />
+          <Property Name="NE_OT_NAME" Type="varchar" MaxLength="4000" />
+          <Property Name="ROLE" Type="varchar" MaxLength="4000" />
+          <Property Name="ST_ AMOUNT" Type="varchar" MaxLength="4000" />
+          <Property Name="DL_ID_LST" Type="varchar" MaxLength="4000" />
+          <Property Name="MANUFACTURER" Type="varchar" MaxLength="4000" />
+          <Property Name="STATUS" Type="varchar" MaxLength="200" />
+          <Property Name="STATE" Type="varchar" MaxLength="200" />
+          <Property Name="LRD" Type="varchar" MaxLength="4000" Nullable="false" />
+          <Property Name="ADDRESS" Type="varchar" MaxLength="4000" />
+          <Property Name="SITE_LONG_NAME" Type="varchar" MaxLength="4000" />
+          <Property Name="ENGINEERING_REGION" Type="varchar" MaxLength="200" />
+          <Property Name="OPERATION_REGION" Type="varchar" MaxLength="200" />
+          <Property Name="GEODATA" Type="nvarchar(max)" />
+          <Property Name="LTST_CRTD_WHEN" Type="date" />
+          <Property Name="LTST_UPTD_WHEN" Type="date" />
+        </EntityType>
+        <EntityType Name="ONNET_SRCH_NE_ABE">
+          <Key>
+            <PropertyRef Name="ABE_ID" />
+          </Key>
+          <Property Name="ABE_ID" Type="bigint" Nullable="false" />
+          <Property Name="ABE_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="ABE_OT_ID" Type="bigint" Nullable="false" />
+          <Property Name="ABE_OT_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="NE_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="NE_ID" Type="bigint" Nullable="false" />
+          <Property Name="NE_OT_ID" Type="bigint" Nullable="false" />
+          <Property Name="NE_OT_NAME" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="ONNET_SRCH_OSP_CABLE">
+          <Key>
+            <PropertyRef Name="CABLE_ID" />
+          </Key>
+          <Property Name="CABLE_ID" Type="bigint" Nullable="false" />
+          <Property Name="CABLE_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="CABLE_OT_ID" Type="bigint" Nullable="false" />
+          <Property Name="CABLE_OT_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="NUM_OF_FIBERS" Type="int" />
+          <Property Name="CABLE_TYPE" Type="varchar" MaxLength="200" />
+          <Property Name="LENGTH" Type="varchar" MaxLength="200" />
+          <Property Name="ADM_STATUS" Type="varchar" MaxLength="200" />
+          <Property Name="MANUFACTURER" Type="varchar" MaxLength="200" />
+          <Property Name="COLOR_SCHEMA" Type="varchar" MaxLength="200" />
+          <Property Name="GEODATA" Type="nvarchar(max)" />
+          <Property Name="LTST_CRTD_WHEN" Type="date" />
+          <Property Name="LTST_UPTD_WHEN" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_CABLE_STRUCT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ONNET_SRCH_OSP_CABLE_STRUCT">
+          <Key>
+            <PropertyRef Name="STRUCT_ID" />
+            <PropertyRef Name="CABLE_ID" />
+          </Key>
+          <Property Name="STRUCT_ID" Type="bigint" Nullable="false" />
+          <Property Name="STRUCT_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="STRUCT_OT_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="CABLE_ID" Type="bigint" Nullable="false" />
+          <Property Name="CABLE_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="CABLE_OT_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="ORDER_NUMBER" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_STRUCT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ONNET_SRCH_OSP_STRUCT">
+          <Key>
+            <PropertyRef Name="STRUCT_ID" />
+          </Key>
+          <Property Name="STRUCT_ID" Type="bigint" Nullable="false" />
+          <Property Name="STRUCT_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="STRUCT_OT_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="GEODATA" Type="nvarchar(max)" />
+          <Property Name="LTST_CRTD_WHEN" Type="date" />
+          <Property Name="LTST_UPTD_WHEN" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ONNET_SRCH_OSP_THRESHOLD">
+          <Key>
+            <PropertyRef Name="NE_ID" />
+            <PropertyRef Name="DEV_ID" />
+            <PropertyRef Name="THR_TEMPL_ID" />
+          </Key>
+          <Property Name="NE_ID" Type="bigint" Nullable="false" />
+          <Property Name="NE_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="NE_OT_ID" Type="bigint" />
+          <Property Name="NE_OT_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="DEV_ID" Type="bigint" Nullable="false" />
+          <Property Name="DEV_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="DEV_OT_ID" Type="bigint" />
+          <Property Name="THR_TEMPL_ID" Type="bigint" Nullable="false" />
+          <Property Name="TRH_TEMPL_NAME" Type="varchar" MaxLength="200" />
+          <Property Name="TOTAL" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="AVAIL" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="USED" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="VALUE" Type="decimal" Precision="30" Scale="2" />
+          <Property Name="OLD_VALUE" Type="decimal" Precision="30" Scale="2" />
+          <Property Name="PLANNED_TO_USE" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="IS_DEV" Type="decimal" Precision="38" Scale="3" />
+        </EntityType>
+        <EntityType Name="ONNET_USER">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateModified" Type="datetime" />
+          <Property Name="RoleId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ONNET_USERROLE">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="bigint" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="40" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__ONNET_SRC__NE_ID__24927208">
+          <End Role="ONNET_SRCH_NE" Type="Self.ONNET_SRCH_NE" Multiplicity="1" />
+          <End Role="ONNET_SRCH_NE_ABE" Type="Self.ONNET_SRCH_NE_ABE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ONNET_SRCH_NE">
+              <PropertyRef Name="NE_ID" />
+            </Principal>
+            <Dependent Role="ONNET_SRCH_NE_ABE">
+              <PropertyRef Name="NE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ONNET_USE__RoleI__1920BF5C">
+          <End Role="ONNET_USERROLE" Type="Self.ONNET_USERROLE" Multiplicity="1" />
+          <End Role="ONNET_USER" Type="Self.ONNET_USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ONNET_USERROLE">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="ONNET_USER">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE">
+          <End Role="ONNET_SRCH_NE" Type="Self.ONNET_SRCH_NE" Multiplicity="1" />
+          <End Role="ONNET_SRCH_DL_ID_LIST" Type="Self.ONNET_SRCH_DL_ID_LIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ONNET_SRCH_NE">
+              <PropertyRef Name="NE_ID" />
+            </Principal>
+            <Dependent Role="ONNET_SRCH_DL_ID_LIST">
+              <PropertyRef Name="NE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MAXISDEVModelStoreContainer">
+          <EntitySet Name="ONNET_SRCH_BUILDING" EntityType="Self.ONNET_SRCH_BUILDING" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ONNET_SRCH_DL_ID_LIST" EntityType="Self.ONNET_SRCH_DL_ID_LIST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ONNET_SRCH_NE" EntityType="Self.ONNET_SRCH_NE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ONNET_SRCH_NE_ABE" EntityType="Self.ONNET_SRCH_NE_ABE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ONNET_SRCH_OSP_CABLE" EntityType="Self.ONNET_SRCH_OSP_CABLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ONNET_USER" EntityType="Self.ONNET_USER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ONNET_USERROLE" EntityType="Self.ONNET_USERROLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ONNET_SRCH_OSP_CABLE_STRUCT" EntityType="Self.ONNET_SRCH_OSP_CABLE_STRUCT" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ONNET_SRCH_OSP_CABLE_STRUCT].[STRUCT_ID] AS [STRUCT_ID], 
+    [ONNET_SRCH_OSP_CABLE_STRUCT].[STRUCT_NAME] AS [STRUCT_NAME], 
+    [ONNET_SRCH_OSP_CABLE_STRUCT].[STRUCT_OT_NAME] AS [STRUCT_OT_NAME], 
+    [ONNET_SRCH_OSP_CABLE_STRUCT].[CABLE_ID] AS [CABLE_ID], 
+    [ONNET_SRCH_OSP_CABLE_STRUCT].[CABLE_NAME] AS [CABLE_NAME], 
+    [ONNET_SRCH_OSP_CABLE_STRUCT].[CABLE_OT_NAME] AS [CABLE_OT_NAME], 
+    [ONNET_SRCH_OSP_CABLE_STRUCT].[ORDER_NUMBER] AS [ORDER_NUMBER]
+    FROM [dbo].[ONNET_SRCH_OSP_CABLE_STRUCT] AS [ONNET_SRCH_OSP_CABLE_STRUCT]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ONNET_SRCH_OSP_STRUCT" EntityType="Self.ONNET_SRCH_OSP_STRUCT" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ONNET_SRCH_OSP_STRUCT].[STRUCT_ID] AS [STRUCT_ID], 
+    [ONNET_SRCH_OSP_STRUCT].[STRUCT_NAME] AS [STRUCT_NAME], 
+    [ONNET_SRCH_OSP_STRUCT].[STRUCT_OT_NAME] AS [STRUCT_OT_NAME], 
+    [ONNET_SRCH_OSP_STRUCT].[GEODATA] AS [GEODATA], 
+    [ONNET_SRCH_OSP_STRUCT].[LTST_CRTD_WHEN] AS [LTST_CRTD_WHEN], 
+    [ONNET_SRCH_OSP_STRUCT].[LTST_UPTD_WHEN] AS [LTST_UPTD_WHEN]
+    FROM [dbo].[ONNET_SRCH_OSP_STRUCT] AS [ONNET_SRCH_OSP_STRUCT]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ONNET_SRCH_OSP_THRESHOLD" EntityType="Self.ONNET_SRCH_OSP_THRESHOLD" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ONNET_SRCH_OSP_THRESHOLD].[NE_ID] AS [NE_ID], 
+    [ONNET_SRCH_OSP_THRESHOLD].[NE_NAME] AS [NE_NAME], 
+    [ONNET_SRCH_OSP_THRESHOLD].[NE_OT_ID] AS [NE_OT_ID], 
+    [ONNET_SRCH_OSP_THRESHOLD].[NE_OT_NAME] AS [NE_OT_NAME], 
+    [ONNET_SRCH_OSP_THRESHOLD].[DEV_ID] AS [DEV_ID], 
+    [ONNET_SRCH_OSP_THRESHOLD].[DEV_NAME] AS [DEV_NAME], 
+    [ONNET_SRCH_OSP_THRESHOLD].[DEV_OT_ID] AS [DEV_OT_ID], 
+    [ONNET_SRCH_OSP_THRESHOLD].[THR_TEMPL_ID] AS [THR_TEMPL_ID], 
+    [ONNET_SRCH_OSP_THRESHOLD].[TRH_TEMPL_NAME] AS [TRH_TEMPL_NAME], 
+    [ONNET_SRCH_OSP_THRESHOLD].[TOTAL] AS [TOTAL], 
+    [ONNET_SRCH_OSP_THRESHOLD].[AVAIL] AS [AVAIL], 
+    [ONNET_SRCH_OSP_THRESHOLD].[USED] AS [USED], 
+    [ONNET_SRCH_OSP_THRESHOLD].[VALUE] AS [VALUE], 
+    [ONNET_SRCH_OSP_THRESHOLD].[OLD_VALUE] AS [OLD_VALUE], 
+    [ONNET_SRCH_OSP_THRESHOLD].[PLANNED_TO_USE] AS [PLANNED_TO_USE], 
+    [ONNET_SRCH_OSP_THRESHOLD].[IS_DEV] AS [IS_DEV]
+    FROM [dbo].[ONNET_SRCH_OSP_THRESHOLD] AS [ONNET_SRCH_OSP_THRESHOLD]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__ONNET_SRC__NE_ID__24927208" Association="Self.FK__ONNET_SRC__NE_ID__24927208">
+            <End Role="ONNET_SRCH_NE" EntitySet="ONNET_SRCH_NE" />
+            <End Role="ONNET_SRCH_NE_ABE" EntitySet="ONNET_SRCH_NE_ABE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ONNET_USE__RoleI__1920BF5C" Association="Self.FK__ONNET_USE__RoleI__1920BF5C">
+            <End Role="ONNET_USERROLE" EntitySet="ONNET_USERROLE" />
+            <End Role="ONNET_USER" EntitySet="ONNET_USER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE" Association="Self.FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE">
+            <End Role="ONNET_SRCH_NE" EntitySet="ONNET_SRCH_NE" />
+            <End Role="ONNET_SRCH_DL_ID_LIST" EntitySet="ONNET_SRCH_DL_ID_LIST" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MAXISDEVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ONNET_SRCH_BUILDING">
+          <Key>
+            <PropertyRef Name="BUILDING_ID" />
+          </Key>
+          <Property Name="STATE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CITY" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="STREET" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="STREET_ID" Type="Int64" />
+          <Property Name="BUILDING" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BUILDING_ID" Type="Int64" Nullable="false" />
+          <Property Name="GEODATA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AREA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CLUSTER" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="POST_CODE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BLOCK_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NUMBER" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="APARTMENTS" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="LTST_CRTD_WHEN" Type="DateTime" Precision="0" />
+          <Property Name="LTST_UPTD_WHEN" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="ONNET_SRCH_DL_ID_LIST">
+          <Key>
+            <PropertyRef Name="OBJECT_ID" />
+          </Key>
+          <Property Name="NE_ID" Type="Int64" Nullable="false" />
+          <Property Name="DL_ID" Type="Int64" />
+          <Property Name="DL_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DL_OT_ID" Type="Int64" Nullable="false" />
+          <Property Name="DL_OT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="OBJECT_ID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="ONNET_SRCH_NE" Relationship="Self.FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE" FromRole="ONNET_SRCH_DL_ID_LIST" ToRole="ONNET_SRCH_NE" />
+        </EntityType>
+        <EntityType Name="ONNET_SRCH_NE">
+          <Key>
+            <PropertyRef Name="NE_ID" />
+          </Key>
+          <Property Name="NE_ID" Type="Int64" Nullable="false" />
+          <Property Name="NE_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NE_OT_ID" Type="Int64" Nullable="false" />
+          <Property Name="NE_OT_NAME" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="ROLE" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="ST__AMOUNT" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="DL_ID_LST" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="MANUFACTURER" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="STATUS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="STATE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="LRD" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="SITE_LONG_NAME" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="ENGINEERING_REGION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="OPERATION_REGION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="GEODATA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LTST_CRTD_WHEN" Type="DateTime" Precision="0" />
+          <Property Name="LTST_UPTD_WHEN" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="ONNET_SRCH_DL_ID_LIST" Relationship="Self.FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE" FromRole="ONNET_SRCH_NE" ToRole="ONNET_SRCH_DL_ID_LIST" />
+          <NavigationProperty Name="ONNET_SRCH_NE_ABE" Relationship="Self.FK__ONNET_SRC__NE_ID__24927208" FromRole="ONNET_SRCH_NE" ToRole="ONNET_SRCH_NE_ABE" />
+        </EntityType>
+        <EntityType Name="ONNET_SRCH_NE_ABE">
+          <Key>
+            <PropertyRef Name="ABE_ID" />
+          </Key>
+          <Property Name="ABE_ID" Type="Int64" Nullable="false" />
+          <Property Name="ABE_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ABE_OT_ID" Type="Int64" Nullable="false" />
+          <Property Name="ABE_OT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NE_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NE_ID" Type="Int64" Nullable="false" />
+          <Property Name="NE_OT_ID" Type="Int64" Nullable="false" />
+          <Property Name="NE_OT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ONNET_SRCH_NE" Relationship="Self.FK__ONNET_SRC__NE_ID__24927208" FromRole="ONNET_SRCH_NE_ABE" ToRole="ONNET_SRCH_NE" />
+        </EntityType>
+        <EntityType Name="ONNET_SRCH_OSP_CABLE">
+          <Key>
+            <PropertyRef Name="CABLE_ID" />
+          </Key>
+          <Property Name="CABLE_ID" Type="Int64" Nullable="false" />
+          <Property Name="CABLE_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CABLE_OT_ID" Type="Int64" Nullable="false" />
+          <Property Name="CABLE_OT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NUM_OF_FIBERS" Type="Int32" />
+          <Property Name="CABLE_TYPE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="LENGTH" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ADM_STATUS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MANUFACTURER" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="COLOR_SCHEMA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="GEODATA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LTST_CRTD_WHEN" Type="DateTime" Precision="0" />
+          <Property Name="LTST_UPTD_WHEN" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="ONNET_USER">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <Property Name="RoleId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="ONNET_USERROLE" Relationship="Self.FK__ONNET_USE__RoleI__1920BF5C" FromRole="ONNET_USER" ToRole="ONNET_USERROLE" />
+        </EntityType>
+        <EntityType Name="ONNET_USERROLE">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int64" Nullable="false" />
+          <Property Name="RoleName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ONNET_USER" Relationship="Self.FK__ONNET_USE__RoleI__1920BF5C" FromRole="ONNET_USERROLE" ToRole="ONNET_USER" />
+        </EntityType>
+        <EntityType Name="ONNET_SRCH_OSP_CABLE_STRUCT">
+          <Key>
+            <PropertyRef Name="STRUCT_ID" />
+            <PropertyRef Name="CABLE_ID" />
+          </Key>
+          <Property Name="STRUCT_ID" Type="Int64" Nullable="false" />
+          <Property Name="STRUCT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="STRUCT_OT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CABLE_ID" Type="Int64" Nullable="false" />
+          <Property Name="CABLE_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CABLE_OT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ORDER_NUMBER" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ONNET_SRCH_OSP_STRUCT">
+          <Key>
+            <PropertyRef Name="STRUCT_ID" />
+          </Key>
+          <Property Name="STRUCT_ID" Type="Int64" Nullable="false" />
+          <Property Name="STRUCT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="STRUCT_OT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="GEODATA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LTST_CRTD_WHEN" Type="DateTime" Precision="0" />
+          <Property Name="LTST_UPTD_WHEN" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="ONNET_SRCH_OSP_THRESHOLD">
+          <Key>
+            <PropertyRef Name="NE_ID" />
+            <PropertyRef Name="DEV_ID" />
+            <PropertyRef Name="THR_TEMPL_ID" />
+          </Key>
+          <Property Name="NE_ID" Type="Int64" Nullable="false" />
+          <Property Name="NE_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NE_OT_ID" Type="Int64" />
+          <Property Name="NE_OT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DEV_ID" Type="Int64" Nullable="false" />
+          <Property Name="DEV_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DEV_OT_ID" Type="Int64" />
+          <Property Name="THR_TEMPL_ID" Type="Int64" Nullable="false" />
+          <Property Name="TRH_TEMPL_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TOTAL" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="AVAIL" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="USED" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="VALUE" Type="Decimal" Precision="30" Scale="2" />
+          <Property Name="OLD_VALUE" Type="Decimal" Precision="30" Scale="2" />
+          <Property Name="PLANNED_TO_USE" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="IS_DEV" Type="Decimal" Precision="38" Scale="3" />
+        </EntityType>
+        <Association Name="FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE">
+          <End Role="ONNET_SRCH_NE" Type="Self.ONNET_SRCH_NE" Multiplicity="1" />
+          <End Role="ONNET_SRCH_DL_ID_LIST" Type="Self.ONNET_SRCH_DL_ID_LIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ONNET_SRCH_NE">
+              <PropertyRef Name="NE_ID" />
+            </Principal>
+            <Dependent Role="ONNET_SRCH_DL_ID_LIST">
+              <PropertyRef Name="NE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ONNET_SRC__NE_ID__24927208">
+          <End Role="ONNET_SRCH_NE" Type="Self.ONNET_SRCH_NE" Multiplicity="1" />
+          <End Role="ONNET_SRCH_NE_ABE" Type="Self.ONNET_SRCH_NE_ABE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ONNET_SRCH_NE">
+              <PropertyRef Name="NE_ID" />
+            </Principal>
+            <Dependent Role="ONNET_SRCH_NE_ABE">
+              <PropertyRef Name="NE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ONNET_USE__RoleI__1920BF5C">
+          <End Role="ONNET_USERROLE" Type="Self.ONNET_USERROLE" Multiplicity="1" />
+          <End Role="ONNET_USER" Type="Self.ONNET_USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ONNET_USERROLE">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="ONNET_USER">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MAXISDEVEntities14" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ONNET_SRCH_BUILDING" EntityType="Self.ONNET_SRCH_BUILDING" />
+          <EntitySet Name="ONNET_SRCH_DL_ID_LIST" EntityType="Self.ONNET_SRCH_DL_ID_LIST" />
+          <EntitySet Name="ONNET_SRCH_NE" EntityType="Self.ONNET_SRCH_NE" />
+          <EntitySet Name="ONNET_SRCH_NE_ABE" EntityType="Self.ONNET_SRCH_NE_ABE" />
+          <EntitySet Name="ONNET_SRCH_OSP_CABLE" EntityType="Self.ONNET_SRCH_OSP_CABLE" />
+          <EntitySet Name="ONNET_USER" EntityType="Self.ONNET_USER" />
+          <EntitySet Name="ONNET_USERROLE" EntityType="Self.ONNET_USERROLE" />
+          <EntitySet Name="ONNET_SRCH_OSP_CABLE_STRUCT" EntityType="Self.ONNET_SRCH_OSP_CABLE_STRUCT" />
+          <EntitySet Name="ONNET_SRCH_OSP_STRUCT" EntityType="Self.ONNET_SRCH_OSP_STRUCT" />
+          <EntitySet Name="ONNET_SRCH_OSP_THRESHOLD" EntityType="Self.ONNET_SRCH_OSP_THRESHOLD" />
+          <AssociationSet Name="FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE" Association="Self.FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE">
+            <End Role="ONNET_SRCH_NE" EntitySet="ONNET_SRCH_NE" />
+            <End Role="ONNET_SRCH_DL_ID_LIST" EntitySet="ONNET_SRCH_DL_ID_LIST" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ONNET_SRC__NE_ID__24927208" Association="Self.FK__ONNET_SRC__NE_ID__24927208">
+            <End Role="ONNET_SRCH_NE" EntitySet="ONNET_SRCH_NE" />
+            <End Role="ONNET_SRCH_NE_ABE" EntitySet="ONNET_SRCH_NE_ABE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ONNET_USE__RoleI__1920BF5C" Association="Self.FK__ONNET_USE__RoleI__1920BF5C">
+            <End Role="ONNET_USERROLE" EntitySet="ONNET_USERROLE" />
+            <End Role="ONNET_USER" EntitySet="ONNET_USER" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MAXISDEVModelStoreContainer" CdmEntityContainer="MAXISDEVEntities14">
+          <EntitySetMapping Name="ONNET_SRCH_BUILDING">
+            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_BUILDING">
+              <MappingFragment StoreEntitySet="ONNET_SRCH_BUILDING">
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="STREET" ColumnName="STREET" />
+                <ScalarProperty Name="STREET_ID" ColumnName="STREET_ID" />
+                <ScalarProperty Name="BUILDING" ColumnName="BUILDING" />
+                <ScalarProperty Name="BUILDING_ID" ColumnName="BUILDING_ID" />
+                <ScalarProperty Name="GEODATA" ColumnName="GEODATA" />
+                <ScalarProperty Name="AREA" ColumnName="AREA" />
+                <ScalarProperty Name="CLUSTER" ColumnName="CLUSTER" />
+                <ScalarProperty Name="POST_CODE" ColumnName="POST_CODE" />
+                <ScalarProperty Name="BLOCK_NAME" ColumnName="BLOCK_NAME" />
+                <ScalarProperty Name="NUMBER" ColumnName="NUMBER" />
+                <ScalarProperty Name="APARTMENTS" ColumnName="APARTMENTS" />
+                <ScalarProperty Name="LTST_CRTD_WHEN" ColumnName="LTST_CRTD_WHEN" />
+                <ScalarProperty Name="LTST_UPTD_WHEN" ColumnName="LTST_UPTD_WHEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ONNET_SRCH_DL_ID_LIST">
+            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_DL_ID_LIST">
+              <MappingFragment StoreEntitySet="ONNET_SRCH_DL_ID_LIST">
+                <ScalarProperty Name="NE_ID" ColumnName="NE_ID" />
+                <ScalarProperty Name="DL_ID" ColumnName="DL_ID" />
+                <ScalarProperty Name="DL_NAME" ColumnName="DL_NAME" />
+                <ScalarProperty Name="DL_OT_ID" ColumnName="DL_OT_ID" />
+                <ScalarProperty Name="DL_OT_NAME" ColumnName="DL_OT_NAME" />
+                <ScalarProperty Name="OBJECT_ID" ColumnName="OBJECT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ONNET_SRCH_NE">
+            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_NE">
+              <MappingFragment StoreEntitySet="ONNET_SRCH_NE">
+                <ScalarProperty Name="NE_ID" ColumnName="NE_ID" />
+                <ScalarProperty Name="NE_NAME" ColumnName="NE_NAME" />
+                <ScalarProperty Name="NE_OT_ID" ColumnName="NE_OT_ID" />
+                <ScalarProperty Name="NE_OT_NAME" ColumnName="NE_OT_NAME" />
+                <ScalarProperty Name="ROLE" ColumnName="ROLE" />
+                <ScalarProperty Name="ST__AMOUNT" ColumnName="ST_ AMOUNT" />
+                <ScalarProperty Name="DL_ID_LST" ColumnName="DL_ID_LST" />
+                <ScalarProperty Name="MANUFACTURER" ColumnName="MANUFACTURER" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="LRD" ColumnName="LRD" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="SITE_LONG_NAME" ColumnName="SITE_LONG_NAME" />
+                <ScalarProperty Name="ENGINEERING_REGION" ColumnName="ENGINEERING_REGION" />
+                <ScalarProperty Name="OPERATION_REGION" ColumnName="OPERATION_REGION" />
+                <ScalarProperty Name="GEODATA" ColumnName="GEODATA" />
+                <ScalarProperty Name="LTST_CRTD_WHEN" ColumnName="LTST_CRTD_WHEN" />
+                <ScalarProperty Name="LTST_UPTD_WHEN" ColumnName="LTST_UPTD_WHEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ONNET_SRCH_NE_ABE">
+            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_NE_ABE">
+              <MappingFragment StoreEntitySet="ONNET_SRCH_NE_ABE">
+                <ScalarProperty Name="ABE_ID" ColumnName="ABE_ID" />
+                <ScalarProperty Name="ABE_NAME" ColumnName="ABE_NAME" />
+                <ScalarProperty Name="ABE_OT_ID" ColumnName="ABE_OT_ID" />
+                <ScalarProperty Name="ABE_OT_NAME" ColumnName="ABE_OT_NAME" />
+                <ScalarProperty Name="NE_NAME" ColumnName="NE_NAME" />
+                <ScalarProperty Name="NE_ID" ColumnName="NE_ID" />
+                <ScalarProperty Name="NE_OT_ID" ColumnName="NE_OT_ID" />
+                <ScalarProperty Name="NE_OT_NAME" ColumnName="NE_OT_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ONNET_SRCH_OSP_CABLE">
+            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_OSP_CABLE">
+              <MappingFragment StoreEntitySet="ONNET_SRCH_OSP_CABLE">
+                <ScalarProperty Name="CABLE_ID" ColumnName="CABLE_ID" />
+                <ScalarProperty Name="CABLE_NAME" ColumnName="CABLE_NAME" />
+                <ScalarProperty Name="CABLE_OT_ID" ColumnName="CABLE_OT_ID" />
+                <ScalarProperty Name="CABLE_OT_NAME" ColumnName="CABLE_OT_NAME" />
+                <ScalarProperty Name="NUM_OF_FIBERS" ColumnName="NUM_OF_FIBERS" />
+                <ScalarProperty Name="CABLE_TYPE" ColumnName="CABLE_TYPE" />
+                <ScalarProperty Name="LENGTH" ColumnName="LENGTH" />
+                <ScalarProperty Name="ADM_STATUS" ColumnName="ADM_STATUS" />
+                <ScalarProperty Name="MANUFACTURER" ColumnName="MANUFACTURER" />
+                <ScalarProperty Name="COLOR_SCHEMA" ColumnName="COLOR_SCHEMA" />
+                <ScalarProperty Name="GEODATA" ColumnName="GEODATA" />
+                <ScalarProperty Name="LTST_CRTD_WHEN" ColumnName="LTST_CRTD_WHEN" />
+                <ScalarProperty Name="LTST_UPTD_WHEN" ColumnName="LTST_UPTD_WHEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ONNET_USER">
+            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_USER">
+              <MappingFragment StoreEntitySet="ONNET_USER">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ONNET_USERROLE">
+            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_USERROLE">
+              <MappingFragment StoreEntitySet="ONNET_USERROLE">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ONNET_SRCH_OSP_CABLE_STRUCT">
+            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_OSP_CABLE_STRUCT">
+              <MappingFragment StoreEntitySet="ONNET_SRCH_OSP_CABLE_STRUCT">
+                <ScalarProperty Name="STRUCT_ID" ColumnName="STRUCT_ID" />
+                <ScalarProperty Name="STRUCT_NAME" ColumnName="STRUCT_NAME" />
+                <ScalarProperty Name="STRUCT_OT_NAME" ColumnName="STRUCT_OT_NAME" />
+                <ScalarProperty Name="CABLE_ID" ColumnName="CABLE_ID" />
+                <ScalarProperty Name="CABLE_NAME" ColumnName="CABLE_NAME" />
+                <ScalarProperty Name="CABLE_OT_NAME" ColumnName="CABLE_OT_NAME" />
+                <ScalarProperty Name="ORDER_NUMBER" ColumnName="ORDER_NUMBER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ONNET_SRCH_OSP_STRUCT">
+            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_OSP_STRUCT">
+              <MappingFragment StoreEntitySet="ONNET_SRCH_OSP_STRUCT">
+                <ScalarProperty Name="STRUCT_ID" ColumnName="STRUCT_ID" />
+                <ScalarProperty Name="STRUCT_NAME" ColumnName="STRUCT_NAME" />
+                <ScalarProperty Name="STRUCT_OT_NAME" ColumnName="STRUCT_OT_NAME" />
+                <ScalarProperty Name="GEODATA" ColumnName="GEODATA" />
+                <ScalarProperty Name="LTST_CRTD_WHEN" ColumnName="LTST_CRTD_WHEN" />
+                <ScalarProperty Name="LTST_UPTD_WHEN" ColumnName="LTST_UPTD_WHEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ONNET_SRCH_OSP_THRESHOLD">
+            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_OSP_THRESHOLD">
+              <MappingFragment StoreEntitySet="ONNET_SRCH_OSP_THRESHOLD">
+                <ScalarProperty Name="NE_ID" ColumnName="NE_ID" />
+                <ScalarProperty Name="NE_NAME" ColumnName="NE_NAME" />
+                <ScalarProperty Name="NE_OT_ID" ColumnName="NE_OT_ID" />
+                <ScalarProperty Name="NE_OT_NAME" ColumnName="NE_OT_NAME" />
+                <ScalarProperty Name="DEV_ID" ColumnName="DEV_ID" />
+                <ScalarProperty Name="DEV_NAME" ColumnName="DEV_NAME" />
+                <ScalarProperty Name="DEV_OT_ID" ColumnName="DEV_OT_ID" />
+                <ScalarProperty Name="THR_TEMPL_ID" ColumnName="THR_TEMPL_ID" />
+                <ScalarProperty Name="TRH_TEMPL_NAME" ColumnName="TRH_TEMPL_NAME" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+                <ScalarProperty Name="AVAIL" ColumnName="AVAIL" />
+                <ScalarProperty Name="USED" ColumnName="USED" />
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+                <ScalarProperty Name="OLD_VALUE" ColumnName="OLD_VALUE" />
+                <ScalarProperty Name="PLANNED_TO_USE" ColumnName="PLANNED_TO_USE" />
+                <ScalarProperty Name="IS_DEV" ColumnName="IS_DEV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
