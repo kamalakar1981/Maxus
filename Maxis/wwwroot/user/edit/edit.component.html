@@ -1,10 +1,132 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-	<meta charset="utf-8" />
-</head>
-<body>
+﻿
 
-</body>
-</html>
+<nav class="navbar navbar-light" style="background-color:#66CDAA;margin-bottom: 0px;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-cog" style="color:white"> UserDetails</span></a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <span class="caret" style="color:white"></span></a>
+                <ul class="dropdown-menu"></ul>
+            </li>
+            <li><a href="#"><span class="glyphicon glyphicon-refresh" style="color:white"></span></a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="panel panel-default">
+    <div class="panel-body" style="padding:0px!important;">
+        <h2> Edit User</h2>
+    </div>
+</div>
+
+<div class="panel-body">
+    <div class="col-md-12">
+        <form>
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="email">User:</label>
+
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="email" placeholder="Enter email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="pwd">FullName:</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="pwd">Title:</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="pwd">Email:</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="pwd" style="color:red">User Role:</label>
+                        <div class="col-sm-8">
+
+                            <select class="form-control" id="sel1">
+                                <option></option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="email">Department:</label>
+
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="email" placeholder="Enter email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="pwd"></label>
+                        <div class="col-sm-8">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="email">Mobile No:</label>
+
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="email" placeholder="Enter Mobile No">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="email">Supervisor:</label>
+
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="email" placeholder="Enter Supervisor">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="email" style="color:red">Status:</label>
+
+                        <div class="col-sm-8">
+                            <div class="btn-group btn-toggle">
+                                <button class="btn btn-sm btn-default">YES</button>
+                                <button class="btn btn-sm btn-primary active">NO</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+
+        </form>
+
+
+    </div>
+
+</div>
+<div class="panel-footer clearfix" style="margin-top:200px; ">
+    <div class="container" align="center">
+        <button type="button" class="btn btn-warning">Cancel</button>
+        <button type="button" class="btn btn-success">Update</button>
+        <button type="button" class="btn btn-danger">Delete</button>
+
+        <button type="button" class="btn btn-primary">Return</button>
+    </div>
+</div>
+
+
