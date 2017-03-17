@@ -93,13 +93,13 @@ label{
     display:block;
     font-family:'helvetica neue', helvetica, arial, sans-serif;
     font-weight:700;
-    background:#d9534f;
+    background:black;
     line-height:42px;
     color:#fff;
     text-align:center;
     font-size:0.5em;
-    padding-top:16px;
-    width:13px;
+    padding-top:13px;
+    width:22px;
     height:34px;
     line-height:1.1em;
     position:fixed;

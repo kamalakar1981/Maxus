@@ -1,6 +1,8 @@
+
 ﻿//import { Component, OnInit, ElementRef, NgZone, ViewChild } from '@angular/core';
 //import { MapsAPILoader } from 'angular2-google-maps/core';
 //import { FormControl, FormGroup } from "@angular/forms";
+
 
 import { Component, NgModule, OnInit, ViewChild, NgZone, ElementRef } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
@@ -13,6 +15,7 @@ import { SelectModule } from "angular2-select";
 declare var google: any;
 @Component({
     selector: 'map',
+
     templateUrl: 'wwwroot/map/map.component.html',
     styleUrls: ['wwwroot/map/map.component.css']
 })
