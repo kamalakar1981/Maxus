@@ -21,6 +21,10 @@ namespace Maxis.Database
         public Nullable<System.DateTime> DateCreated { get; set; }
         public Nullable<System.DateTime> DateModified { get; set; }
         public long RoleId { get; set; }
+        public string Mobile { get; set; }
+        public string Department { get; set; }
+        public string Title { get; set; }
+        public string Status { get; set; }
     
         public virtual ONNET_USERROLE ONNET_USERROLE { get; set; }
     }
