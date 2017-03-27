@@ -11,11 +11,11 @@ namespace Maxis.Services.Abstract
 {
     public interface IMapService
     {
-        List<string> getLRDValues();
+        List<string> getNETypes(DbGeography searchPoint, int range);
 
-        List<string> getLRDRangeValues(DbGeography searchPoint, int range);
+        List<string> getLRDValues(DbGeography searchPoint, int range);
 
-        List<string> getNENames(string LRD);
+        List<string> getLRDRangeValues(DbGeography searchPoint, int range);        
 
         List<string> getCableTypes();
 

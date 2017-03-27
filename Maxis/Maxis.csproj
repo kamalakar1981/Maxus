@@ -79,6 +79,19 @@
       <HintPath>..\packages\Microsoft.Extensions.Primitives.1.0.0\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -207,6 +220,7 @@
     <Compile Include="App_Start\MappingConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\ExportController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Database\Maxis.Context.cs">
@@ -260,15 +274,21 @@
     <Compile Include="fonts\Models\AccountViewModels.cs" />
     <Compile Include="fonts\Models\IdentityModels.cs" />
     <Compile Include="fonts\Models\ManageViewModels.cs" />
+    <Compile Include="Infrastructure\Repositories\Abstract\IExportRepository.cs" />
     <Compile Include="Infrastructure\Repositories\Abstract\IMapRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\ExportRepository.cs" />
     <Compile Include="Infrastructure\Repositories\MapRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Abstract\IExportService.cs" />
     <Compile Include="Services\Abstract\IMapService.cs" />
+    <Compile Include="Services\ExportService.cs" />
     <Compile Include="Services\MapService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BuildingViewModel.cs" />
     <Compile Include="ViewModels\CableViewModel.cs" />
+    <Compile Include="ViewModels\PointViewModel.cs" />
     <Compile Include="ViewModels\ThresholdViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -354,6 +374,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Export\" />
     <Folder Include="Views\Map\" />
     <Folder Include="Views\User\" />
     <Folder Include="wwwroot\shared\directives\" />

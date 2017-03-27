@@ -20,20 +20,20 @@ namespace Maxis.Services
             _mapRepository = mapRepository;
         }
 
-        public List<string> getLRDValues()
+
+        public List<string> getNETypes(DbGeography searchPoint, int range)
         {
-            return _mapRepository.getLRDValues();
+            return _mapRepository.getNETypes(searchPoint, range);
+        }
+        public List<string> getLRDValues(DbGeography searchPoint, int range)
+        {
+            return _mapRepository.getLRDValues(searchPoint, range);
         }
 
         public List<string> getLRDRangeValues(DbGeography searchPoint, int range)
         {
             return _mapRepository.getLRDRangeValues(searchPoint, range);
-        }
-
-        public List<string> getNENames(string LRD)
-        {
-            return _mapRepository.getNENames(LRD);
-        }
+        }        
 
         public List<string> getCableTypes()
         {
