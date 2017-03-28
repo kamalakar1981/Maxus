@@ -27,5 +27,7 @@ namespace Maxis.Database
         public string Status { get; set; }
     
         public virtual ONNET_USERROLE ONNET_USERROLE { get; set; }
+
+        public string Roles { get; set; }
     }
 }

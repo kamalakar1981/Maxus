@@ -83,6 +83,7 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -208,7 +209,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Database\Maxis.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -261,13 +264,21 @@
     <Compile Include="fonts\Models\IdentityModels.cs" />
     <Compile Include="fonts\Models\ManageViewModels.cs" />
     <Compile Include="Infrastructure\Repositories\Abstract\IMapRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\Abstract\IUserRepository.cs" />
     <Compile Include="Infrastructure\Repositories\MapRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\UserRepository.cs" />
+    <Compile Include="Interfaces\CustomPrincipal.cs" />
+    <Compile Include="Interfaces\ICustomPrincipal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Abstract\IMapService.cs" />
+    <Compile Include="Services\Abstract\IUserService.cs" />
     <Compile Include="Services\MapService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BuildingViewModel.cs" />
     <Compile Include="ViewModels\CableViewModel.cs" />
+    <Compile Include="ViewModels\EditUserViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ThresholdViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -354,6 +365,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Login\" />
     <Folder Include="Views\Map\" />
     <Folder Include="Views\User\" />
     <Folder Include="wwwroot\shared\directives\" />
