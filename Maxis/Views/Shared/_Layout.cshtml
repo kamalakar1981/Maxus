@@ -11,17 +11,42 @@
     <script src="~/libs/reflect-metadata/Reflect.js"></script>
     <script src="~/libs/systemjs/dist/system.src.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+ 
 
     @*<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></link>
     <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>*@
+    <link rel="stylesheet" href="https://www.primefaces.org/primeng/resources/primeng.min.css"></link>
+    <link rel="stylesheet" href="https://www.primefaces.org/primeng/showcase/resources/icons/css/font-awesome.min.css"></link>
+    
+    <link rel="stylesheet" href="https://npmcdn.com/primeui/themes/delta/theme.css"></link>
+    <link rel="stylesheet" href="https://npmcdn.com/primeui/primeui-ng-all.min.css"></link>
+    <link rel="stylesheet" href="https://npmcdn.com/font-awesome/css/font-awesome.min.css"></link>
+    <script src="https://npmcdn.com/primeui/primeui-all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.0/jspdf.plugin.autotable.js"></script>
+
 
     <!-- 2. Configure SystemJS -->
+   
     <script src="~/systemjs.config.js"></script>
    
     @*<script src="http://maps.google.com/maps/api/js?key=AIzaSyBKcHWQkH8hS_Hn1vBGMAVUXRApKB17Xu8"></script>*@
 
+    <style media="screen">
+        .header {
+            background-color: #0143A3;
+            background: -webkit-linear-gradient(#0143A3, #0273D4);
+            background: linear-gradient(#0143A3, #0273D4);
+            color: #FFF;
+            padding: 30px;
+        }
+
+        section {
+            padding-top: 30px;
+        }
+    </style>
 
     <script>
         System.import('../Scripts/app/main').catch(function (err)

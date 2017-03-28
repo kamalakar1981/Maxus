@@ -14,7 +14,7 @@ export class AuthenticationService {
 
     private extractData(res: Response) {
         let body = res.json();
-        return body.user || {};
+        return body.data || {};
     }
 
     private handelError(error: any) {

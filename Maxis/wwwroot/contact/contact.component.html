@@ -1,1 +1,45 @@
-﻿<div class="pad-top100">{{title}}</div>
+﻿<nav class="navbar navbar-light" style="background-color:#66CDAA;margin-bottom: 0px;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-cog" style="color:white">UserList</span></a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <span class="caret" style="color:white"></span></a>
+                <ul class="dropdown-menu"></ul>
+            </li>
+            <li><a href="#"><span class="glyphicon glyphicon-refresh" style="color:white"></span></a></li>
+        </ul>
+    </div>
+</nav>
+
+<button type="button" class="btn btn-default" style="float:right" (click)="download()">
+PDF</button>
+<button type="button" class="btn btn-default" style="float:right">EXCEL</button>
+<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+    <i class="glyphicon glyphicon-search" style="margin:4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Search">
+</div>
+<p-dataTable [value]="contacts" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [rows]="10" [paginator]="true" sortMode="multiple" [globalFilter]="gb" #dt>
+    <p-column field="UserId" header="UserId" [sortable]="true" >
+        <template let-file="rowData" pTemplate type="body">
+            <a routerLink="/home">{{file.UserId}}</a>
+        </template>
+    </p-column>
+    <p-column field="UserName" header="UserName" [sortable]="true" ></p-column>
+    <p-column field="EmailId" header="EmailId" [sortable]="true"></p-column>
+    <p-column field="MobileNo" header="MobileNo" [sortable]="true">
+        <!--<ng-template>
+            <span >{{car[col.field]}}</span>
+        </ng-template>-->
+    </p-column>
+    <p-column field="Department" header="Department" [sortable]="true"></p-column>
+    <p-column field="Title" header="Title" [sortable]="true"></p-column>
+    <p-column field="Status" header="Status" [sortable]="true"></p-column>
+    <p-column field="Roles" header="Roles" [sortable]="true"></p-column>
+</p-dataTable>
+
+<!--<h3>Dynamic Columns</h3>
+<p-dataTable [value]="contacts">
+    <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"></p-column>
+</p-dataTable>-->

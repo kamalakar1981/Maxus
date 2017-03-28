@@ -2,7 +2,7 @@
 import { AuthenticationService } from './shared/authentication.service';
 import { NgForm } from '@angular/forms';
 import { User } from './shared/login.interface';
-
+import { Router } from '@angular/router';
 @Component({
     selector: 'login',
     templateUrl: 'wwwroot/login/login.component.html',
@@ -12,15 +12,23 @@ import { User } from './shared/login.interface';
 export class LoginComponent {
 
     user = new User('', '');
-
-    constructor(private autenticationService: AuthenticationService) {
+    loginInvalid = false;
+    constructor(private autenticationService: AuthenticationService, private router: Router) {
 
     }
 
     submitForm(form: NgForm) {
         this.autenticationService.postForm(this.user)
             .subscribe(
-            data => console.log('success:', data),
+            data => {
+                if (!data) {
+                    this.loginInvalid = true;
+                }
+                else {
+                    this.router.navigate(['map']);
+                    console.log('success:', data);
+                }
+            },
             err => console.log('error:', err)
             )
 

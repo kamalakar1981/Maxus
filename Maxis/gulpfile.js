@@ -25,7 +25,8 @@ gulp.task('scriptsNStyles', ['clean-libs'], function () {
         'jquery/dist/jquery.*js',
         'bootstrap/dist/js/bootstrap.*js',
         'angular2-google-maps/core/**',
-        'angular2-select/**'
+        'angular2-select/**',
+        'primeng/**'
     ], {
             cwd: "node_modules/**"
         })

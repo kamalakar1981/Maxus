@@ -24,9 +24,11 @@
             // other libraries
             'rxjs': 'npm:rxjs',
             'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
+            'primeng':                    'node_modules/primeng',
 
             'angular2-google-maps/core': 'npm:angular2-google-maps/core/core.umd.js',
-            'angular2-select': 'npm:angular2-select'
+            'angular2-select': 'npm:angular2-select',
+
 
         },
         // packages tells the System loader how to load when no filename and/or no extension
@@ -46,6 +48,9 @@
                 main: 'index.js',
                 defaultExtension: 'js'
             },
+            'primeng': {
+                defaultExtension: 'js'
+            } ,
 
 
         }

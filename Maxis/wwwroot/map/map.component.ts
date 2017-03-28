@@ -9,8 +9,14 @@ import { BrowserModule } from "@angular/platform-browser";
 import { MapsAPILoader } from "angular2-google-maps/core";
 import { FormControl, FormGroup } from '@angular/forms';
 import { } from '@types/googlemaps';
+import { Map } from './shared/map.interface';
+import { MapService } from './shared/map.service';
+import { Router } from '@angular/router';
+import { DataTableModule, SharedModule } from 'primeng/primeng';
+///import { SelectModule } from 'ng2-select';
 
-import { SelectModule } from "angular2-select";
+import { SelectModule } from 'angular2-select';
+// { SelectModule } from "angular2-select";
 //import { FormControl, FormsModule, FormGroup ,ReactiveFormsModule } from '@angular/forms';
 declare var google: any;
 @Component({
@@ -20,11 +26,35 @@ declare var google: any;
     styleUrls: ['wwwroot/map/map.component.css']
 })
 
-export class MapComponent {
+export class MapComponent implements OnInit {
+    errorMessage: string;
+    //public maps: Map[];
+
+    selectedMap: Map;
+
+    
+    onSelect(map: Map) {
+        this.selectedMap = map;
+    }
+    markerTypes: any[];
+    cabelTypes : any[];
+    
+
+    //console.log(markertypes);
+    getMarker() {
+        
+
+    }
+    getCabelTypes() {
+
+    }
     imgSize: number = 24;
     name: string = "Accionlabs";
     zoom: number = 18;
     //  initial center position for the map
+
+
+
     lat: number = 3.15104206724095;
     lng: number = 101.663805603203;
     markerNumber: string = "";
@@ -33,22 +63,49 @@ export class MapComponent {
     points: IMarker[] = this.getPoints();
     buildings: IMarker[];
 
-    markerTypes = this.getMarkerTypes();
-    getMarkerTypes(): any[] {
+    //markerTypes = this.getMarkerTypes();
+    //getMarkerTypes(): any[] {
+    //    return [
+    //        {
+    //            value: "Ethernet Switch",
+    //            label: "Ethernet Switch"
+    //        },
+    //        {
+    //            value: "Anymedia",
+    //            label: "Anymedia"
+    //        }
+    //    ];
+    //}
+   distance = this.getDistance();
+    getDistance() :any[]{
         return [
             {
-                value: "Ethernet Switch",
-                label: "Ethernet Switch"
+                value: "20",
+                label:"within 20 km"
             },
             {
-                value: "Anymedia",
-                label: "Anymedia"
-            }
+                value: "50",
+                label: "within 50 km"
+            },
+            {
+                value: "100",
+                label: "within 100 km"
+            },
+             {
+                 value: "150",
+                label: "within 150 km"
+
+             },
+             {
+                 value: "200",
+                 label:"within 200 km"
+
+             }
         ];
-    }
+    };
 
     markerNames = this.getMarkerNames([]);
-    cabelTypes = this.getCabelTypes();
+    //cabelTypes = this.getCabelTypes();
     cabelNames = this.getCabelNames([]);
 
 
@@ -63,10 +120,10 @@ export class MapComponent {
     }
 
     //mapClicked($event: MouseEvent) {
-    //    //this.markers.push({
-    //    //    lat : $event.coords.lat,
-    //    //    lng: $event.coords.lng
-    //    //});
+    //    this.markers.push({
+    //        lat : $event.coords.lat,
+    //        lng: $event.coords.lng
+    //    });
     //}
 
     //    markerDragEnd(m: IMarker, $event: MouseEvent): void {
@@ -268,28 +325,28 @@ export class MapComponent {
                 type: "Ethernet Switch",
                 lng: 113.104444444444,
                 lat: 1.61972222222222,
-                icon: "../Images/satellite-dish-" + this.imgSize + "-blue.png"
+                icon: "../../Content/Images/satellite-dish-" + this.imgSize + "-blue.png"
             },
             {
                 label: "WLANYWSEM002",
                 type: "Anymedia",
                 lng: 101.663805603203,
                 lat: 3.15104206724095,
-                icon: "../Images/satellite-dish-" + this.imgSize + "-red.png"
+                icon: "../../Content/Images/satellite-dish-" + this.imgSize + "-red.png"
             },
             {
                 label: "BLANYBAZE001",
                 type: "Anymedia",
                 lng: 101.594397799691,
                 lat: 3.11704281553864,
-                icon: "../Images/satellite-dish-" + this.imgSize + "-red.png"
+                icon: "../../Content/Images/satellite-dish-" + this.imgSize + "-red.png"
             },
             {
                 label: "BLANYBALI001",
                 type: "Anymedia",
                 lng: 100.252079072211,
                 lat: 5.3505828871373,
-                icon: "../Images/satellite-dish-" + this.imgSize + "-red.png"
+                icon: "../../Content/Images/satellite-dish-" + this.imgSize + "-red.png"
             }
         ];
     }
@@ -320,18 +377,18 @@ export class MapComponent {
         ].filter(a => types.indexOf(a.type) != -1);
     }
 
-    getCabelTypes(): any[] {
-        return [
-            {
-                value: "Ground",
-                label: "Ground"
-            },
-            {
-                value: "Aerial",
-                label: "Aerial"
-            }
-        ];
-    }
+    //getCabelTypes(): any[] {
+    //    return [
+    //        {
+    //            value: "Ground",
+    //            label: "Ground"
+    //        },
+    //        {
+    //            value: "Aerial",
+    //            label: "Aerial"
+    //        }
+    //    ];
+    //}
 
     getCabelNames(types: string[]): any[] {
         return [
@@ -344,6 +401,7 @@ export class MapComponent {
                 value: "PKUS0031144T07F",
                 label: "PKUS0031144T07F",
                 type: "Ground"
+
             },
             {
                 value: "BKMR0011096T01F",
@@ -353,8 +411,7 @@ export class MapComponent {
         ].filter(a => types.indexOf(a.type) != -1);
     }
 
-
-
+   
 
 
     form: FormGroup;
@@ -426,20 +483,30 @@ export class MapComponent {
     onSingleSelected1(item: any) {
         this.logSingle("- selected (value: " + item.value + ", label:" +
             item.label + ")");
-        }
-    //    var p: ICable = this.markers.filter(p => p.label === this.form.value["selectSingle1"])[0];
-    //    // this.lat = p.points
-    //    //     .reduce<number>((sum, a, i, ar) =>
-    //    //     {
-    //    //         sum += a.lat;
-    //    //         return i == ar.length - 1 ? (ar.length == 0 ? 0 : sum / ar.length) : sum;
-    //    //     }, 0);  
+    }
+   
+    onSingleSelected2(item: any) {
+        this.logSingle("- selected (value: " + item.value + ", label:" +
+            item.label + ")");
+    }
+    onSingleDeselected2(item: any) {
+        this.logSingle("- deselected (value: " + item.value + ", label:" + item.label + ")");
+    }
 
-    //    // this.lng = p.points
-    //    //     .reduce<number>((sum, a, i, ar) => {
-    //    //         sum += a.lng;
-    //    //         return i == ar.length - 1 ? (ar.length == 0 ? 0 : sum / ar.length) : sum;
-    //    //     }, 0);  
+
+    //    var p: ICable = this.markers.filter(p => p.label === this.form.value["selectSingle1"])[0];
+    //     this.lat = p.points
+    //         .reduce<number>((sum, a, i, ar) =>
+    //         {
+    //             sum += a.lat;
+    //             return i == ar.length - 1 ? (ar.length == 0 ? 0 : sum / ar.length) : sum;
+    //         }, 0);  
+
+    //     this.lng = p.points
+    //         .reduce<number>((sum, a, i, ar) => {
+    //             sum += a.lng;
+    //             return i == ar.length - 1 ? (ar.length == 0 ? 0 : sum / ar.length) : sum;
+    //         }, 0);  
     //    this.lat = p.points[Math.round(p.points.length / 2)].lat;
     //    this.lng = p.points[Math.round(p.points.length / 2)].lng;
     //    this.zoom = 18;
@@ -503,12 +570,14 @@ export class MapComponent {
 
     constructor(
         private mapsAPILoader: MapsAPILoader,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private router: Router, private mapService: MapService
+        //console.log(this.markerTypes),
     ) { }
 
     selectMultiple1: any;
     selectSingle1: any;
-
+    foo: any[];
 
         ngOnInit() {
 
@@ -518,13 +587,51 @@ export class MapComponent {
             this.form.addControl("selectSingle1", new FormControl(""));
             this.form.addControl("selectMultiple1", new FormControl(""));
             this.form.addControl("searchControl", new FormControl(""));
+            this.getMarker();
+            //this.getDistance();
+            this.getCabelTypes();
+            this.mapService.getMarker()
+                .subscribe((value) => {
+                    debugger;
+                    var NEArr = [];
+                    for (let v in value) {
+                        var NEList = {
+                            label: "",
+                            value:""
+                        };
+                        NEList.label = value[v]; 
+                        NEList.value = value[v];
+                        NEArr.push(NEList);
+                    }
+                    this.markerTypes = NEArr;
+                });
+            this.mapService.getCableTypes()
+                .subscribe((value) => {
+                    debugger;
+                    var CAArr = [];
+                    for (let c in value) {
+                        var CAList = {
+                            label: "",
+                            value: ""
+                        };
+                        CAList.label = value[c];
+                        CAList.value = value[c];
+//console.log(c);
+                        CAArr.push(CAList);
+                    }
+                    this.cabelTypes = CAArr;
+                });
 
-    //        // this.searchElementRef = this.form.value["searchControl"];
-
+            //function(value) {
+            //    return this.markerTypes = value
+            //}
+            //console.log(this.markerTypes);
+            //        // this.searchElementRef = this.form.value["searchControl"];
+            
     //        // set google maps defaults
-            this.zoom = 4;
-            this.lat = 39.8282;
-            this.lng = -98.5795;
+            this.zoom = 6;
+            this.lat = 4.210484;
+            this.lng = 101.97576600000002;
 
             // create search FormControl
             // this.searchControl = new FormControl();
@@ -532,7 +639,7 @@ export class MapComponent {
             // set current position
             this.setCurrentPosition();
 
-            // load Places Autocomplete
+            // load Places Autocompletes
             this.mapsAPILoader.load().then(() => {
                 let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
                     types: ["address"]
@@ -549,14 +656,16 @@ export class MapComponent {
                         }
 
                         // set latitude, longitude and zoom
+                        debugger;
                         this.lat = place.geometry.location.lat();
                         this.lng = place.geometry.location.lng();
+                        var point = "POINT(" + this.lat + " " + this.lng + ")";
+                        this.mapService.load(point).subscribe;
                         this.zoom = 12;
                         //this.openNav();
                     });
                 });
             });
-
 
             //document.getElementsByTagName("sebm-google-map")[0].style.height = screen.height;
         }

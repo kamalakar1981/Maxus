@@ -1,7 +1,6 @@
 ﻿<div class="container">
     <h3>Log In</h3>
-    <div class="alert alert-danger">
-        <a class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+    <div *ngIf="LoginInvalid" class="alert alert-danger">
         {{errorMsg}}
     </div>
 

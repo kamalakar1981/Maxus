@@ -20,7 +20,7 @@ namespace Maxis.Database
         public Nullable<long> STREET_ID { get; set; }
         public string BUILDING { get; set; }
         public long BUILDING_ID { get; set; }
-        public string GEODATA { get; set; }
+        public System.Data.Entity.Spatial.DbGeography GEODATA { get; set; }
         public string AREA { get; set; }
         public string CLUSTER { get; set; }
         public string POST_CODE { get; set; }
