@@ -18,6 +18,8 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
 import { HomeService } from './home/shared/home.service';
+import { ContactService } from './contact/shared/contact.service';
+
 import { EditComponent } from './user/edit/edit.component';
 import { EditService } from './user/edit/shared/edit.service';
 import { ListComponent } from './user/list/list.component';
@@ -27,14 +29,11 @@ import { AuthenticationService } from './login/shared/authentication.service';
 import { MapComponent } from './map/map.component';
 
 import { AgmCoreModule } from 'angular2-google-maps/core';
-<<<<<<< Updated upstream
 
 import { Router } from '@angular/router';
 
-=======
+
 import { MapService } from './map/shared/map.service';
-import { ContactService } from './contact/shared/contact.service';
->>>>>>> Stashed changes
 
 
 @NgModule({
@@ -60,10 +59,6 @@ import { ContactService } from './contact/shared/contact.service';
         ListComponent
     ],
     bootstrap: [AppComponent],
-<<<<<<< Updated upstream
-    providers: [HomeService, AuthenticationService, EditService, ListService]
-=======
-    providers: [HomeService, AuthenticationService, MapService, ContactService]
->>>>>>> Stashed changes
+    providers: [HomeService, AuthenticationService, EditService, ListService, MapService]
 })
 export class AppModule { }
