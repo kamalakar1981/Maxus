@@ -2,9 +2,6 @@
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/observable';
-
-
-
 @Injectable()
 export class EditService {
 
@@ -19,9 +16,6 @@ export class EditService {
     private handelError(error: any) {
         console.error('post error:', error);
         return Observable.throw(error.statusText);
-    }
-
-    
-
+    } 
 }
 

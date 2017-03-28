@@ -13,12 +13,12 @@ export class LoginComponent {
 
     user = new User('', '');
     loginInvalid = false;
-    constructor(private autenticationService: AuthenticationService, private router: Router) {
+    constructor(private _autenticationService: AuthenticationService, private router: Router) {
 
     }
 
     submitForm(form: NgForm) {
-        this.autenticationService.postForm(this.user)
+        this._autenticationService.postForm(this.user)
             .subscribe(
             data => {
                 if (!data) {
