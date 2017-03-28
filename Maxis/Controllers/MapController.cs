@@ -12,6 +12,8 @@ using Maxis.Infrastructure.Repositories;
 using Maxis.Infrastructure.Repositories.Abstract;
 using Maxis.Services.Abstract;
 using Maxis.Services;
+using Maxis.ViewModels;
+using System.Data.Spatial;
 
 namespace Maxis.Controllers
 {
@@ -24,20 +26,30 @@ namespace Maxis.Controllers
             _mapService = mapService;
         }
 
-        // GET: Map/LRD
-        //show LRD for NEtypes dropdown
-        public JsonResult LRD()
-        {
-            return Json(_mapService.getLRDValues(), JsonRequestBehavior.AllowGet);
-        }
 
-        // GET: MAP/NENAMES?LRD=AGNI
+        // GET: MAP/NEtypes
         //show NENames for NENames dropdown based on lrd
-        public JsonResult NENames(string LRD)
+        public JsonResult NEtypes(PointViewModel model)
         {
-            return Json(_mapService.getNENames(LRD), JsonRequestBehavior.AllowGet);
+            return Json(_mapService.getNETypes(DbGeography.FromText(model.SearchPoint), model.Range), JsonRequestBehavior.AllowGet);
         }
 
+
+        // GET: Map/LRD
+        //show LRD 
+        public JsonResult LRD(PointViewModel model)
+        {
+            return Json(_mapService.getLRDValues(DbGeography.FromText(model.SearchPoint), model.Range), JsonRequestBehavior.AllowGet);
+        }
+
+        // GET: Map/LRDNearby
+        //show LRD for NEtypes dropdown
+        public JsonResult LRDNearby(PointViewModel model)
+        {
+            return Json(_mapService.getLRDRangeValues(DbGeography.FromText(model.SearchPoint), model.Range), JsonRequestBehavior.AllowGet);
+        }
+
+        
         // GET: Map/CableTypes
         //show cabletypes for cable type dropdown
         public JsonResult CableTypes()

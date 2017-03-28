@@ -15,7 +15,7 @@
           <Property Name="STREET_ID" Type="bigint" />
           <Property Name="BUILDING" Type="varchar" MaxLength="200" />
           <Property Name="BUILDING_ID" Type="bigint" Nullable="false" />
-          <Property Name="GEODATA" Type="nvarchar(max)" />
+          <Property Name="GEODATA" Type="geography" />
           <Property Name="AREA" Type="varchar" MaxLength="200" />
           <Property Name="CLUSTER" Type="varchar" MaxLength="200" />
           <Property Name="POST_CODE" Type="varchar" MaxLength="200" />
@@ -45,7 +45,7 @@
           <Property Name="NE_OT_ID" Type="bigint" Nullable="false" />
           <Property Name="NE_OT_NAME" Type="varchar" MaxLength="4000" />
           <Property Name="ROLE" Type="varchar" MaxLength="4000" />
-          <Property Name="ST_ AMOUNT" Type="varchar" MaxLength="4000" />
+          <Property Name="ST_AMOUNT" Type="varchar" MaxLength="4000" />
           <Property Name="DL_ID_LST" Type="varchar" MaxLength="4000" />
           <Property Name="MANUFACTURER" Type="varchar" MaxLength="4000" />
           <Property Name="STATUS" Type="varchar" MaxLength="200" />
@@ -55,7 +55,7 @@
           <Property Name="SITE_LONG_NAME" Type="varchar" MaxLength="4000" />
           <Property Name="ENGINEERING_REGION" Type="varchar" MaxLength="200" />
           <Property Name="OPERATION_REGION" Type="varchar" MaxLength="200" />
-          <Property Name="GEODATA" Type="nvarchar(max)" />
+          <Property Name="GEODATA" Type="geography" />
           <Property Name="LTST_CRTD_WHEN" Type="date" />
           <Property Name="LTST_UPTD_WHEN" Type="date" />
         </EntityType>
@@ -114,7 +114,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_STRUCT' does not have 
           <Property Name="STRUCT_ID" Type="bigint" Nullable="false" />
           <Property Name="STRUCT_NAME" Type="varchar" MaxLength="200" />
           <Property Name="STRUCT_OT_NAME" Type="varchar" MaxLength="200" />
-          <Property Name="GEODATA" Type="nvarchar(max)" />
+          <Property Name="GEODATA" Type="geography" />
           <Property Name="LTST_CRTD_WHEN" Type="date" />
           <Property Name="LTST_UPTD_WHEN" Type="date" />
         </EntityType>
@@ -279,7 +279,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="STREET_ID" Type="Int64" />
           <Property Name="BUILDING" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="BUILDING_ID" Type="Int64" Nullable="false" />
-          <Property Name="GEODATA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GEODATA" Type="Geography" />
           <Property Name="AREA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="CLUSTER" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="POST_CODE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -310,7 +310,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="NE_OT_ID" Type="Int64" Nullable="false" />
           <Property Name="NE_OT_NAME" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Name="ROLE" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
-          <Property Name="ST__AMOUNT" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="ST_AMOUNT" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Name="DL_ID_LST" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Name="MANUFACTURER" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Name="STATUS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -320,7 +320,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="SITE_LONG_NAME" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Name="ENGINEERING_REGION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="OPERATION_REGION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="GEODATA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GEODATA" Type="Geography" />
           <Property Name="LTST_CRTD_WHEN" Type="DateTime" Precision="0" />
           <Property Name="LTST_UPTD_WHEN" Type="DateTime" Precision="0" />
           <NavigationProperty Name="ONNET_SRCH_DL_ID_LIST" Relationship="Self.FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE" FromRole="ONNET_SRCH_NE" ToRole="ONNET_SRCH_DL_ID_LIST" />
@@ -354,7 +354,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="ADM_STATUS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="MANUFACTURER" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="COLOR_SCHEMA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="GEODATA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GEODATA" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
           <Property Name="LTST_CRTD_WHEN" Type="DateTime" Precision="0" />
           <Property Name="LTST_UPTD_WHEN" Type="DateTime" Precision="0" />
         </EntityType>
@@ -404,7 +404,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="STRUCT_ID" Type="Int64" Nullable="false" />
           <Property Name="STRUCT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="STRUCT_OT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="GEODATA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GEODATA" Type="Geography" />
           <Property Name="LTST_CRTD_WHEN" Type="DateTime" Precision="0" />
           <Property Name="LTST_UPTD_WHEN" Type="DateTime" Precision="0" />
         </EntityType>
@@ -533,12 +533,13 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <EntitySetMapping Name="ONNET_SRCH_NE">
             <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_NE">
               <MappingFragment StoreEntitySet="ONNET_SRCH_NE">
+                <ScalarProperty Name="GEODATA" ColumnName="GEODATA" />
+                <ScalarProperty Name="ST_AMOUNT" ColumnName="ST_AMOUNT" />
                 <ScalarProperty Name="NE_ID" ColumnName="NE_ID" />
                 <ScalarProperty Name="NE_NAME" ColumnName="NE_NAME" />
                 <ScalarProperty Name="NE_OT_ID" ColumnName="NE_OT_ID" />
                 <ScalarProperty Name="NE_OT_NAME" ColumnName="NE_OT_NAME" />
                 <ScalarProperty Name="ROLE" ColumnName="ROLE" />
-                <ScalarProperty Name="ST__AMOUNT" ColumnName="ST_ AMOUNT" />
                 <ScalarProperty Name="DL_ID_LST" ColumnName="DL_ID_LST" />
                 <ScalarProperty Name="MANUFACTURER" ColumnName="MANUFACTURER" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
@@ -548,7 +549,6 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
                 <ScalarProperty Name="SITE_LONG_NAME" ColumnName="SITE_LONG_NAME" />
                 <ScalarProperty Name="ENGINEERING_REGION" ColumnName="ENGINEERING_REGION" />
                 <ScalarProperty Name="OPERATION_REGION" ColumnName="OPERATION_REGION" />
-                <ScalarProperty Name="GEODATA" ColumnName="GEODATA" />
                 <ScalarProperty Name="LTST_CRTD_WHEN" ColumnName="LTST_CRTD_WHEN" />
                 <ScalarProperty Name="LTST_UPTD_WHEN" ColumnName="LTST_UPTD_WHEN" />
               </MappingFragment>
