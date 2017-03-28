@@ -12,11 +12,12 @@ namespace Maxis.Infrastructure.Repositories.Abstract
 {
     public interface IMapRepository
     {
-        List<string> getLRDValues();
 
-        List<string> getLRDRangeValues(DbGeography searchPoint, int range);
+        List<string> getNETypes(DbGeography searchPoint, int range);
 
-        List<string> getNENames(string LRD);
+        List<string> getLRDValues(DbGeography searchPoint, int range);
+
+        List<string> getLRDRangeValues(DbGeography searchPoint, int range);        
 
         List<string> getCableTypes();
 
