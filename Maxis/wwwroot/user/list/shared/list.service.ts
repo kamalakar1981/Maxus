@@ -22,6 +22,16 @@ export class ListService {
         return Observable.throw(error.statusText);
     }
 
+
+    getCarsSmall() {
+        return this._http.get('./cars-small.json')
+            .toPromise()
+            .then(res => <Userlist[]>res.json().data)
+            .then(data => { return data; });
+    }
+
+
+
     getUserlist(): Observable<Userlist[]> {
         return this._http.get('USER/UsersList')
             .map((response: Response) => <Userlist[]>response.json())
@@ -30,4 +40,3 @@ export class ListService {
     }
 
 }
-
