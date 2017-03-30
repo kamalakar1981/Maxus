@@ -34,20 +34,20 @@ namespace Maxis.Controllers
             try
             {
 
-                using (var pCtx = new PrincipalContext(ContextType.ApplicationDirectory, server, "O=users", ContextOptions.SimpleBind, ldapUser, ldapPassword))
-                {
-                    functionReturnValue = pCtx.ValidateCredentials(userName, password);
-                }
+                //using (var pCtx = new PrincipalContext(ContextType.ApplicationDirectory, server, "O=users", ContextOptions.SimpleBind, ldapUser, ldapPassword))
+                //{
+                //    functionReturnValue = pCtx.ValidateCredentials(userName, password);
+                //}
 
-                if (functionReturnValue)
-                {
+                //if (functionReturnValue)
+                //{
                     var roles = Validate(new LoginViewModel
                     {
                         Password = password,
                         Username = userName
                     });
                     return Json(roles, JsonRequestBehavior.AllowGet);
-                }
+                //}
                 
 
             }
