@@ -157,35 +157,46 @@ input[type="checkbox"]:checked ~ section{
     background: url("../app/Images/favicon.ico") no-repeat;
 }
 
-
-    /*#pannel {
-        height: 100%;
-        width: 0;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        width:0;
-        background-color: #FFFF;
-        overflow-x: hidden;
-        transition: 0.5s;
-        padding-top: 60px;
-    }
-
-    #pannel a {
-        padding: 8px 8px 8px 32px;
-        text-decoration: none;
-        font-size: 25px;
-        color: #818181;
-        display: block;
-        transition: 0.3s
-    }
-
-    #pannel a:hover, .offcanvas a:focus{
-        color: #f1f1f1;
-    }*/
-
-
+.mapping {
+    width: 363px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: white;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 30px 12px 26px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+.onnetlogo {
+    width: 105px;
+    margin-left: -42px;
+    height: 50px;
+    
+}
+.distance {
+    margin: 0;
+    font-weight: 400;
+    font-family: inherit;
+    text-align: center;
+    margin-top: 115px;
+}
+.label-lrd {
+    margin: 0;
+    font-weight: 400;
+    font-family: inherit;
+    text-align: center;
+}
+.search {
+    position: fixed;
+    display: block;
+    padding: 0;
+    margin: 0;
+    left: 10px;
+    z-index: 1001;
+}
     @media screen and (max-height: 450px) {
       #pannel {padding-top: 80px;}
       #pannel a {font-size: 18px;}
