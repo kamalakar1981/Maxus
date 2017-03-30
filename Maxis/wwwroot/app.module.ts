@@ -21,14 +21,26 @@ import { LogoutService } from './logout/shared/logout.service';
 import { MapComponent } from './map/map.component';
 import { Router } from '@angular/router';
 import { DataTableModule, SharedModule } from 'primeng/primeng';
+import { NEComponent } from './NEtype/ne.component';
+import { PopoverModule } from 'ng2-bootstrap';
+import { SelectModule } from 'angular2-select';
+import { AgmCoreModule } from 'angular2-google-maps/core';
+import { DropdownModule } from "ngx-dropdown";
+import { MapService } from './map/shared/map.service';
+
 
 @NgModule({
     imports: [BrowserModule,
         HttpModule,
+        PopoverModule.forRoot(),
+        SelectModule,
         FormsModule,
         routing,
         DataTableModule,
         SharedModule,
+        AgmCoreModule.forRoot({ apiKey: "AIzaSyBKcHWQkH8hS_Hn1vBGMAVUXRApKB17Xu8", libraries: ["places"] }),
+        DropdownModule,
+
         ReactiveFormsModule
     ],
     declarations: [AppComponent,
@@ -39,9 +51,10 @@ import { DataTableModule, SharedModule } from 'primeng/primeng';
         LogoutComponent,
         MapComponent,
         EditComponent,
+        NEComponent,
         ListComponent
     ],
     bootstrap: [AppComponent],
-    providers: [HomeService, AuthenticationService, LoginGuard, EditService, ListService, LogoutService]
+    providers: [HomeService, AuthenticationService, LoginGuard, EditService, ListService, LogoutService,MapService]
 })
 export class AppModule { }
