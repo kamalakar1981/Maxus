@@ -25,8 +25,5 @@ export class ListComponent implements OnInit {
     //}
     ngOnInit() {
         this._listService.getCarsSmall().then(Userlist => this.userlists = Userlist);
-
-
-
-    }
+ }
 }
