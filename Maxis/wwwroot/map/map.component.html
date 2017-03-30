@@ -29,13 +29,13 @@
         </div>
     </div>
 </div>
-<input type="checkbox" id="navigation" style="width:345px!important;" />
+<input type="checkbox" id="navigation" class="navigation" />
 <label for="navigation" ><span class="glyphicon glyphicon-align-justify  "></span></label>
 <nav>
     <form [formGroup]="form" id="pannelForm">
         <div id="pannel">
             <a id="a" href="javascript:void(0)" class="dropdown" onclick="closeNav()">&times;</a>
-            <div style="margin:60px 0 0">
+            <div class="nav-top">
                 <div class="distance-div">
                     <div class="distance">Distance</div>
                     <ng-select [options]="distance"
@@ -51,8 +51,8 @@
                     </ng-select>
                 </div>
             </div>
-            <div style="margin:60px 0 0">
-                <div style="display:inline;width:50%">
+            <div class="nav-top">
+                <div class="distance-div">
                     <div class="label-lrd">LRD</div>
                     <ng-select [options]="markerTypes"
                                [multiple]="multiple1" formControlName="selectMultiple" placeholder="Select multiple marker types" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onMultipleSelected($event)" (deselected)="onMultipleDeselected($event)"
@@ -60,7 +60,7 @@
                     </ng-select>
                 </div>
                 <br />
-                <div style="display:inline;width:50%">
+                <div class="distance-div">
                     <div class="building-dropdown">Building {{res}}</div>
                     <ng-select [options]="markerNames" [multiple]="multiple0" formControlName="selectSingle" placeholder="Select one marker name" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onSingleSelected($event)" (deselected)="onSingleDeselected($event)"
                                class="dropdown-header">
@@ -86,8 +86,8 @@
                    </ng-select>
                </div>
                </div>-->
-            <div style="margin:30px 0 0">
-                <div style="display:inline;width:50%;">
+            <div class="nav-top">
+                <div class="distance-div">
                     <!--<div style="margin:0;font-weight:400;font-family:inherit;text-align:center;">Cable Names</div>-->
                     <!--<input type="checkbox" [checked]="saveUsername" (change)="saveUsername = !saveUsername" />-->
                     <input type="checkbox" [checked]="isAvailable" (change)="isAvailable = $event.target.checked">
@@ -99,7 +99,7 @@
 </nav>
 <div class="search">
     <div class="search-bar">
-        <div class="inner-addon right-addon" style="margin-left:11px;">
+        <div class="inner-addon right-addon search-addon" >
             <i class="glyphicon glyphicon-search"></i>
             <input placeholder="search for location" autocorrect="on" autocapitalize="off" spellcheck="true" type="text" name="searchControl" #search  class="form-control mapping" id="search">
         </div>

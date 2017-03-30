@@ -345,6 +345,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="package.json" />
+    <Content Include="wwwroot\NEtype\ne.component.html" />
     <Content Include="wwwroot\user\edit\edit.component.css" />
     <Content Include="wwwroot\user\edit\edit.component.html" />
     <Content Include="wwwroot\user\list\list.component.css" />
@@ -405,13 +406,13 @@
     <Content Include="wwwroot\map\map.component.css" />
     <Content Include="wwwroot\map\map.component.html" />
     <Content Include="wwwroot\tsconfig.json" />
-    <Content Include="wwwroot\contact\shared\cars-small.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Export\" />
     <Folder Include="Views\Map\" />
     <Folder Include="Views\User\" />
+    <Folder Include="wwwroot\contact\shared\" />
     <Folder Include="wwwroot\shared\directives\" />
   </ItemGroup>
   <ItemGroup>
@@ -431,11 +432,10 @@
     <TypeScriptCompile Include="wwwroot\app.routes.ts" />
     <TypeScriptCompile Include="wwwroot\contact\contact.component.ts" />
     <TypeScriptCompile Include="wwwroot\contact\contact.routes.ts" />
-    <TypeScriptCompile Include="wwwroot\contact\shared\contact.interface.ts" />
-    <TypeScriptCompile Include="wwwroot\contact\shared\contact.service.ts" />
     <TypeScriptCompile Include="wwwroot\home\home.component.ts" />
     <TypeScriptCompile Include="wwwroot\home\home.routes.ts" />
     <TypeScriptCompile Include="wwwroot\home\shared\home.service.ts" />
+    <TypeScriptCompile Include="wwwroot\NEtype\ne.component.ts" />
     <TypeScriptCompile Include="wwwroot\user\edit\edit.routes.ts" />
     <TypeScriptCompile Include="wwwroot\logout\logout.component.ts" />
     <TypeScriptCompile Include="wwwroot\logout\logout.routes.ts" />
@@ -444,7 +444,6 @@
     <TypeScriptCompile Include="wwwroot\login\shared\authentication.service.ts" />
     <TypeScriptCompile Include="wwwroot\login\shared\login.interface.ts" />
     <TypeScriptCompile Include="wwwroot\main.ts" />
-    <TypeScriptCompile Include="wwwroot\map\dummy-map.ts" />
     <TypeScriptCompile Include="wwwroot\map\filter\filter.routes.ts" />
     <TypeScriptCompile Include="wwwroot\map\filter\filter.component.ts" />
     <TypeScriptCompile Include="wwwroot\map\filter\shared\filter.service.ts" />

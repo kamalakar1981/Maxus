@@ -228,3 +228,33 @@ input[type="checkbox"]:checked ~ section{
 .distance-div {
     display:inline;width:50%;
 }
+.nav-top
+{
+    margin: 60px 0 0;
+}
+
+
+    
+        .header {
+            background-color: #0143A3;
+            background: -webkit-linear-gradient(#0143A3, #0273D4);
+            background: linear-gradient(#0143A3, #0273D4);
+            color: #FFF;
+            padding: 30px;
+        }
+
+        section {
+            padding-top: 30px;
+        }
+   
+
+
+
+.search-addon{
+    margin-left: 11px;
+}
+.navigation
+{
+    width:345px!important;
+
+}

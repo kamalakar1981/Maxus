@@ -1,9 +1,4 @@
 
-﻿//import { Component, OnInit, ElementRef, NgZone, ViewChild } from '@angular/core';
-//import { MapsAPILoader } from 'angular2-google-maps/core';
-//import { FormControl, FormGroup } from "@angular/forms";
-
-
 import { Component, NgModule, OnInit, ViewChild, NgZone, ElementRef } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { MapsAPILoader } from "angular2-google-maps/core";
@@ -13,12 +8,9 @@ import { Map } from './shared/map.interface';
 import { MapService } from './shared/map.service';
 import { Router } from '@angular/router';
 import { DataTableModule, SharedModule } from 'primeng/primeng';
-///import { SelectModule } from 'ng2-select';
 import { DropdownModule } from "ngx-dropdown";
 
 import { SelectModule } from 'angular2-select';
-// { SelectModule } from "angular2-select";
-//import { FormControl, FormsModule, FormGroup ,ReactiveFormsModule } from '@angular/forms';
 declare var google: any;
 @Component({
     selector: 'map',
