@@ -36,7 +36,7 @@ export class AuthenticationService {
         let options = new RequestOptions({ headers: headers });
         
 
-        return this.http.post('http://localhost:56026/Login/Details', body, options)
+        return this.http.post('Login/Details', body, options)
             .map(this.extractData)
             .catch(this.handelError);
     }

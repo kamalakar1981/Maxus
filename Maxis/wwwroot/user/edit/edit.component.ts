@@ -22,9 +22,9 @@ export class EditComponent implements OnInit, OnDestroy {
     private validationMessages: { [key: string]: { [key: string]: string } };
 
     constructor(private _editservice: EditService,
-        private fb: FormBuilder,
-        private router: Router,
-        private route: ActivatedRoute) {
+        private _formbuilder: FormBuilder,
+        private _router: Router,
+        private _route: ActivatedRoute) {
         // Defines all of the validation messages for the form.
         // These could instead be retrieved from a file or database.
         this.validationMessages = {
@@ -55,7 +55,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
 
     ngOnInit(): void {
-        this.editform = this.fb.group({
+        this.editform = this._formbuilder.group({
             userId: ['', Validators.required],
             userName: ['', Validators.required],
             emailId: ['', Validators.required ],
@@ -64,7 +64,7 @@ export class EditComponent implements OnInit, OnDestroy {
             title: ['', Validators.required]
         });
 
-        this.sub = this.route.params.subscribe(
+        this.sub = this._route.params.subscribe(
             params => {
                 let id = +params['id'];
                 this.getEditList(id);
@@ -92,7 +92,7 @@ export class EditComponent implements OnInit, OnDestroy {
         this.ulist = ulist;
 
        
-
+        //TODO:: 
         // update the data on the form
         //this.editform.patchvalue({
         //    userId: this.ulist.userId,
@@ -122,7 +122,7 @@ export class EditComponent implements OnInit, OnDestroy {
     onsavecomplete(): void {
         // reset the form to clear the flags
         this.editform.reset();
-        this.router.navigate(['/list']);
+        this._router.navigate(['/list']);
     }
 
 }

@@ -8,8 +8,7 @@ import { Userlist } from './../../list/shared/list.interface';
 export class EditService {
     private baseUrl = 'api/products';
 
-    constructor(
-        private _http: Http) { }
+    constructor(private _http: Http) { }
 
     private extractData(res: Response) {
         let body = res.json();
@@ -43,11 +42,5 @@ export class EditService {
             .do(data => console.log('updateList: ' + JSON.stringify(data)))
             .catch(this.handleError);
     }
-
-
-
-
-
-
 }
 

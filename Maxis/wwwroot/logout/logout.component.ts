@@ -8,13 +8,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class LogoutComponent implements OnInit {
-
-
-
     constructor(private _logoutService: LogoutService) {
 
     }
-
     ngOnInit() {
     }
     logout() {

@@ -1,21 +1,19 @@
 ﻿import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, CanDeactivate } from '@angular/router';
-
 import { EditComponent } from './../../edit/edit.component';
 
 @Injectable()
 export class UserDetailGuard implements CanActivate {
 
-    constructor(private router: Router) {
+    constructor(private _router: Router) {
     }
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
         let id = +route.url[1].path;
-        debugger
         if (isNaN(id) || id < 1) {
             alert('Invalid product Id');
             // start a new navigation to redirect to list page
-            this.router.navigate(['/lists']);
+            this._router.navigate(['/lists']);
             // abort current navigation
             return false;
         };
