@@ -24,7 +24,7 @@ namespace Maxis.Database
         public string ADM_STATUS { get; set; }
         public string MANUFACTURER { get; set; }
         public string COLOR_SCHEMA { get; set; }
-        public string GEODATA { get; set; }
+        public System.Data.Entity.Spatial.DbGeography GEODATA { get; set; }
         public Nullable<System.DateTime> LTST_CRTD_WHEN { get; set; }
         public Nullable<System.DateTime> LTST_UPTD_WHEN { get; set; }
     }

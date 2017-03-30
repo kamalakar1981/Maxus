@@ -10,8 +10,8 @@ namespace Maxis.Services.Abstract
 {
     public interface IExportService
     {
-        bool ExportToExcel(List<UserViewModel> model);
+        bool ExportToExcel(List<UserViewModel> userViewModel);
 
-        bool ExportToPDF(List<UserViewModel> model);
+        bool ExportToPDF(List<UserViewModel> userViewModel);
     }
 }

@@ -23,13 +23,13 @@ namespace Maxis.Infrastructure.Repositories
 {
     public class ExportRepository : IExportRepository
     {
-        public bool ExportToExcel(List<UserViewModel> model)
+        public bool ExportToExcel(List<UserViewModel> userViewModel)
         {
             try
             {
-                string json = new JavaScriptSerializer().Serialize(model);
+                string json = new JavaScriptSerializer().Serialize(userViewModel);
                 DataTable dt = (DataTable)JsonConvert.DeserializeObject<DataTable>(json);
-                EntityToExcelSheet("C:\\UserDetails.xls", "Users", dt);
+                EntityToExcelSheet("D:\\UserDetails.xls", "Users", dt);
                 return true;
             }
             catch(Exception e)
@@ -38,20 +38,20 @@ namespace Maxis.Infrastructure.Repositories
             }
         }
 
-        public bool ExportToPDF(List<UserViewModel> model)
+        public bool ExportToPDF(List<UserViewModel> userViewModel)
         {
             try
             {
-                string json = new JavaScriptSerializer().Serialize(model);
+                string json = new JavaScriptSerializer().Serialize(userViewModel);
                 DataTable dt = (DataTable)JsonConvert.DeserializeObject<DataTable>(json);
                 EntityToPDFDocument(dt);
                 return true;
-            }
+            }   
             catch (Exception e)
             {
                 return false;
-            }
-        }
+    }
+}
 
         private void EntityToExcelSheet(string excelFilePath, string sheetName, DataTable dt)
         {
@@ -127,7 +127,7 @@ namespace Maxis.Infrastructure.Repositories
                 pdf.Info.Title = "User Details";
                 PdfPage pdfPage = pdf.AddPage();
                 XGraphics graph = XGraphics.FromPdfPage(pdfPage);
-                XFont font = new XFont("Verdana", 20, XFontStyle.Regular);
+                XFont font = new XFont("Verdana", 16, XFontStyle.Regular);
 
                 yPoint = yPoint + 100;
 
@@ -144,21 +144,22 @@ namespace Maxis.Infrastructure.Repositories
                     graph.DrawString(Username, font, XBrushes.Black, new XRect(40, yPoint, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.TopLeft);
                     graph.DrawString(Email, font, XBrushes.Black, new XRect(90, yPoint, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.TopLeft);
                     graph.DrawString(Mobile, font, XBrushes.Black, new XRect(250, yPoint, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.TopLeft);
-                    graph.DrawString(Role, font, XBrushes.Black, new XRect(250, yPoint, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.TopLeft);
-                    graph.DrawString(Department, font, XBrushes.Black, new XRect(250, yPoint, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.TopLeft);
-                    graph.DrawString(Title, font, XBrushes.Black, new XRect(250, yPoint, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.TopLeft);
-                    graph.DrawString(Status, font, XBrushes.Black, new XRect(250, yPoint, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.TopLeft);
+                    graph.DrawString(Role, font, XBrushes.Black, new XRect(350, yPoint, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.TopLeft);
+                    graph.DrawString(Department, font, XBrushes.Black, new XRect(450, yPoint, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.TopLeft);
+                    graph.DrawString(Title, font, XBrushes.Black, new XRect(550, yPoint, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.TopLeft);
+                    graph.DrawString(Status, font, XBrushes.Black, new XRect(650, yPoint, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.TopLeft);
                     yPoint = yPoint + 40;
                 }
                 string pdfFilename = "UserDetails.pdf";
-                pdf.Save(pdfFilename);
-                Process.Start(pdfFilename);
+                //pdf.Save(pdfFilename);
+                pdf.Save("D:\\pdfFilename");
+                Process.Start("D:\\pdfFilename");
 
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
     }
 }

@@ -286,6 +286,8 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BuildingViewModel.cs" />
     <Compile Include="ViewModels\CableViewModel.cs" />
+    <Compile Include="ViewModels\LrdViewModel.cs" />
+    <Compile Include="ViewModels\NEViewModel.cs" />
     <Compile Include="ViewModels\PointViewModel.cs" />
     <Compile Include="ViewModels\ThresholdViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
