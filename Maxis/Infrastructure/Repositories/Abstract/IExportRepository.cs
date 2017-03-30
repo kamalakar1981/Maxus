@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Maxis.ViewModels;
 
 namespace Maxis.Infrastructure.Repositories.Abstract
@@ -11,6 +7,6 @@ namespace Maxis.Infrastructure.Repositories.Abstract
     {
         bool ExportToExcel(List<UserViewModel> userViewModel);
 
-        bool ExportToPDF(List<UserViewModel> userViewModel);
+        bool ExportToPdf(List<UserViewModel> userViewModel);
     }
 }

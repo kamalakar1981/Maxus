@@ -14,18 +14,18 @@ namespace Maxis.App_Start
         {
             AutoMapper.Mapper.Initialize(config =>
             {
-                config.CreateMap<ONNET_SRCH_NE_ABE, BuildingViewModel>()
-                .ForMember(dest => dest.AddressBookelementID, opt => opt.MapFrom(src => src.ABE_ID))
-                .ForMember(dest => dest.AddressBookElementName, opt => opt.MapFrom(src => src.ABE_NAME))
-                .ForMember(dest => dest.AddressBookElementOTID, opt => opt.MapFrom(src => src.ABE_OT_ID))
-                .ForMember(dest => dest.AddressBookElementOTNAME, opt => opt.MapFrom(src => src.ABE_OT_NAME))
-                .ForMember(dest => dest.NetworkElementName, opt => opt.MapFrom(src => src.NE_NAME))
-                .ForMember(dest => dest.NetworkElementID, opt => opt.MapFrom(src => src.NE_ID))
-                .ForMember(dest => dest.NetworkElementOTID, opt => opt.MapFrom(src => src.NE_OT_ID))
-                .ForMember(dest => dest.NetworkElementOTName, opt => opt.MapFrom(src => src.NE_OT_NAME));
+                //config.CreateMap<ONNET_SRCH_NE_ABE, BuildingViewModel>()
+                //.ForMember(dest => dest.AddressBookelementID, opt => opt.MapFrom(src => src.ABE_ID))
+                //.ForMember(dest => dest.AddressBookElementName, opt => opt.MapFrom(src => src.ABE_NAME))
+                //.ForMember(dest => dest.AddressBookElementOTID, opt => opt.MapFrom(src => src.ABE_OT_ID))
+                //.ForMember(dest => dest.AddressBookElementOTNAME, opt => opt.MapFrom(src => src.ABE_OT_NAME))
+                //.ForMember(dest => dest.NetworkElementName, opt => opt.MapFrom(src => src.NE_NAME))
+                //.ForMember(dest => dest.NetworkElementID, opt => opt.MapFrom(src => src.NE_ID))
+                //.ForMember(dest => dest.NetworkElementOTID, opt => opt.MapFrom(src => src.NE_OT_ID))
+                //.ForMember(dest => dest.NetworkElementOTName, opt => opt.MapFrom(src => src.NE_OT_NAME));
 
                 config.CreateMap<ONNET_SRCH_OSP_CABLE, CableViewModel>()
-                .ForMember(dest => dest.CableID, opt => opt.MapFrom(src => src.CABLE_ID))
+                .ForMember(dest => dest.CableId, opt => opt.MapFrom(src => src.CABLE_ID))
                 .ForMember(dest => dest.CableName, opt => opt.MapFrom(src => src.CABLE_NAME))
                 //.ForMember(dest => dest.CableOTID, opt => opt.MapFrom(src => src.CABLE_OT_ID))
                 //.ForMember(dest => dest.CableOTName, opt => opt.MapFrom(src => src.CABLE_OT_NAME))
@@ -57,8 +57,8 @@ namespace Maxis.App_Start
                 //.ForMember(dest => dest.PlannedToUse, opt => opt.MapFrom(src => src.PLANNED_TO_USE))
                 //.ForMember(dest => dest.IsDev, opt => opt.MapFrom(src => src.IS_DEV));
 
-                config.CreateMap<ONNET_SRCH_NE, NEViewModel>()
-                .ForMember(dest => dest.NetworkElementID, opt => opt.MapFrom(src => src.NE_ID))
+                config.CreateMap<ONNET_SRCH_NE, NeViewModel>()
+                .ForMember(dest => dest.NetworkElementId, opt => opt.MapFrom(src => src.NE_ID))
                 .ForMember(dest => dest.NetworkElementName, opt => opt.MapFrom(src => src.NE_NAME))
                 .ForMember(dest => dest.NetworkElementType, opt => opt.MapFrom(src => src.NE_OT_NAME))
                 .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.ROLE));

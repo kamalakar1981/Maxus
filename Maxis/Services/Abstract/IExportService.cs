@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Maxis.Services.Abstract;
-using System.Threading.Tasks;
 using Maxis.ViewModels;
 
 namespace Maxis.Services.Abstract
@@ -12,6 +11,6 @@ namespace Maxis.Services.Abstract
     {
         bool ExportToExcel(List<UserViewModel> userViewModel);
 
-        bool ExportToPDF(List<UserViewModel> userViewModel);
+        bool ExportToPdf(List<UserViewModel> userViewModel);
     }
 }

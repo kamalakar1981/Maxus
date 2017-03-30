@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
+﻿
 namespace Maxis.ViewModels
 {
     public class BuildingViewModel
     {
-        public long AddressBookelementID { get; set; }
-        public string AddressBookElementName { get; set; }
-        public long AddressBookElementOTID { get; set; }
-        public string AddressBookElementOTNAME { get; set; }
-        public string NetworkElementName { get; set; }
-        public long NetworkElementID { get; set; }
-        public long NetworkElementOTID { get; set; }
-        public string NetworkElementOTName { get; set; }
+        public long BuildingId { get; set; }
+        public string BuildingName { get; set; }
+        public long Street { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Geodata { get; set; }
+        public long NetworkElementId { get; set; }
+        public string Lrd { get; set; }
     }
 }
