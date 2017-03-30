@@ -1,16 +1,13 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { ListComponent } from './../../list/list.component';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/observable';
 import { Userlist } from './list.interface';
 
-
 @Injectable()
 export class ListService {
 
-    constructor(
-        private _http: Http) { }
+    constructor(private _http: Http) { }
 
     private extractData(res: Response) {
         let body = res.json();
@@ -21,17 +18,7 @@ export class ListService {
         console.error('post error:', error);
         return Observable.throw(error.statusText);
     }
-
-
-    getCarsSmall() {
-        return this._http.get('./cars-small.json')
-            .toPromise()
-            .then(res => <Userlist[]>res.json().data)
-            .then(data => { return data; });
-    }
-
-
-
+    
     getUserlist(): Observable<Userlist[]> {
         return this._http.get('USER/UsersList')
             .map((response: Response) => <Userlist[]>response.json())
@@ -39,4 +26,20 @@ export class ListService {
             .catch(this.handelError);
     }
 
+    getPdf(): Observable<Userlist[]> {
+        return this._http.get('USER/UsersList')
+            .map((response: Response) => <Userlist[]>response.json())
+            .do(data => console.log('All: ' + JSON.stringify(data)))
+            .catch(this.handelError);
+    }
+
+    getExl(): Observable<Userlist[]> {
+        return this._http.get('USER/UsersList')
+            .map((response: Response) => <Userlist[]>response.json())
+            .do(data => console.log('All: ' + JSON.stringify(data)))
+            .catch(this.handelError);
+    }
+   
+
 }
+

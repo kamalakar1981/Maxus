@@ -21,7 +21,7 @@ namespace Maxis.Database
             this.ONNET_SRCH_NE_ABE = new HashSet<ONNET_SRCH_NE_ABE>();
         }
     
-        public Int64 NE_ID { get; set; }
+        public long NE_ID { get; set; }
         public string NE_NAME { get; set; }
         public long NE_OT_ID { get; set; }
         public string NE_OT_NAME { get; set; }

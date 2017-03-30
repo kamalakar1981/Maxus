@@ -21,15 +21,15 @@ namespace Maxis.Controllers
             _exportService = exportService;
         }
         // GET: Export
-        public bool ExportExcel(List<UserViewModel> model)
+        public bool ExportExcel(List<UserViewModel> userViewModel)
         {
-            return _exportService.ExportToExcel(model);
+            return _exportService.ExportToExcel(userViewModel);
         }
 
         // GET: Export/Details/5
-        public bool ExportPDF(List<UserViewModel> model)
+        public bool ExportPDF(List<UserViewModel> userViewModel)
         {
-            return _exportService.ExportToPDF(model);
+            return _exportService.ExportToPDF(userViewModel);
         }        
     }
 }

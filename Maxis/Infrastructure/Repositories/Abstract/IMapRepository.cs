@@ -11,21 +11,21 @@ using System.Data.Spatial;
 namespace Maxis.Infrastructure.Repositories.Abstract
 {
     public interface IMapRepository
-    {
+    {           
 
-        List<string> getNETypes(DbGeography searchPoint, int range);
+        List<LrdViewModel> getLRDValues(DbGeography searchPoint, int range);
 
-        List<string> getLRDValues(DbGeography searchPoint, int range);
+        List<NEViewModel> getNENames(DbGeography searchPoint, int range, string lrd);
 
-        List<string> getLRDRangeValues(DbGeography searchPoint, int range);        
+        List<ThresholdViewModel> getThresholdDetails(string NEName);
 
-        List<string> getCableTypes();
+        List<CableViewModel> getCables(DbGeography searchPoint, int range);
 
         List<CableViewModel> getCableDetails(string cableType);
 
         List<BuildingViewModel> getBuildingDetails(string NEName);
 
-        List<ThresholdViewModel> getThresholdDetails(string NEName);
+        
 
 
 

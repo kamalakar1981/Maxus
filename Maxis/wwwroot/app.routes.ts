@@ -8,6 +8,7 @@ import { loginRoutes } from './login/login.routes';
 import { mapRoutes } from './map/map.routes';
 import { editRoutes } from './user/edit/edit.routes';
 import { listRoutes } from './user/list/list.routes';
+import { logoutRoutes } from './logout/logout.routes';
 
 // Route Configuration
 export const routes: Routes = [
@@ -24,7 +25,8 @@ export const routes: Routes = [
     ...loginRoutes,
     ...mapRoutes,
     ...editRoutes,
-    ...listRoutes
+    ...listRoutes,
+    ...logoutRoutes
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);
