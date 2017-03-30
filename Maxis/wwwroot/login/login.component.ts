@@ -16,11 +16,12 @@ export class LoginComponent {
     constructor(private _autenticationService: AuthenticationService,
                 private _router: Router,
                 private _route: ActivatedRoute ) {
+    constructor(private _autenticationService: AuthenticationService, private router: Router) {
 
     }
 
     submitForm(form: NgForm) {
-        this._autenticationService.postForm(this.user.username, this.user.password)
+        this.autenticationService.postForm(this.user)
             .subscribe(
             data => {
                 this._router.navigate(['map']);
