@@ -18,9 +18,7 @@ namespace Maxis.Infrastructure.Repositories
 
         public MapRepository() { }
 
-
-
-        public List<string> getNETypes(DbGeography searchPoint, int range)
+        public List<LrdViewModel> getLRDValues(DbGeography searchPoint, int range)
         {
             List<SqlParameter> parameterList = new List<SqlParameter>();
             parameterList.Add(new SqlParameter("@Lat", searchPoint.Latitude));
@@ -30,40 +28,48 @@ namespace Maxis.Infrastructure.Repositories
             List<ONNET_SRCH_NE> result = db.ONNET_SRCH_NE.SqlQuery("SELECT * FROM(SELECT *,(((acos(sin((@Lat*pi()/180)) * sin((GEODATA.Lat*pi()/180))+cos((@Lat*pi()/180)) " +
                 "* cos((GEODATA.Lat*pi()/180)) * cos(((@Long - GEODATA.Long)*pi()/180))))*180/pi())*60*1.1515*1.609344) " +
                 "as distance FROM ONNET_SRCH_NE) t WHERE distance <= @range", parameterList.ToArray()).ToList();
-            //return (from r in result select r.ToString()).ToList();
-            return result.Select(m => m.NE_OT_NAME).Distinct().ToList();
-            //return db.ONNET_SRCH_NE.Where(m => m.LRD.ToUpper() == LRD.ToUpper()).Select(m => m.NE_NAME).ToList();
+            return result.Select(m => new LrdViewModel {LrdName = m.LRD, GeodataValue = m.GEODATA.AsText()}).GroupBy(m => m.LrdName).Select(m => m.First()).ToList();            
         }
-        public List<string> getLRDValues(DbGeography searchPoint, int range)
+
+        public List<NEViewModel> getNENames(DbGeography searchPoint, int range, string lrd)
         {
             List<SqlParameter> parameterList = new List<SqlParameter>();
             parameterList.Add(new SqlParameter("@Lat", searchPoint.Latitude));
             parameterList.Add(new SqlParameter("@Long", searchPoint.Longitude));
             parameterList.Add(new SqlParameter("@range", range));
+            parameterList.Add(new SqlParameter("@LRD", lrd));
             SqlParameter[] parameters = parameterList.ToArray();
-            List<ONNET_SRCH_NE> result = db.ONNET_SRCH_NE.SqlQuery("SELECT * FROM(SELECT *,(((acos(sin((@Lat*pi()/180)) * sin((GEODATA.Lat*pi()/180))+cos((@Lat*pi()/180)) " +
+            List<NEViewModel> result = db.ONNET_SRCH_NE.SqlQuery("SELECT * FROM(SELECT *,(((acos(sin((@Lat*pi()/180)) * sin((GEODATA.Lat*pi()/180))+cos((@Lat*pi()/180)) " +
                 "* cos((GEODATA.Lat*pi()/180)) * cos(((@Long - GEODATA.Long)*pi()/180))))*180/pi())*60*1.1515*1.609344) " +
-                "as distance FROM ONNET_SRCH_NE) t WHERE distance <= @range", parameterList.ToArray()).ToList();
-            return result.Select(m => m.LRD).Distinct().ToList();
-            //return db.ONNET_SRCH_NE.Select(m => m.LRD).Distinct().ToList();
+                "as distance FROM ONNET_SRCH_NE) t WHERE distance <= @range and LRD=@LRD", parameterList.ToArray()).Select(g => new NEViewModel
+                {
+                    NetworkElementID = g.NE_ID,
+                    NetworkElementName = g.NE_NAME,
+                    NetworkElementType = g.NE_OT_NAME,
+                    Role = g.ROLE
+                }).ToList();
+            return result;            
         }
 
-        public List<string> getLRDRangeValues(DbGeography searchPoint, int range)
+        public List<ThresholdViewModel> getThresholdDetails(string NEName)
         {
-            List<SqlParameter> parameterList = new List<SqlParameter>();
-            parameterList.Add(new SqlParameter("@Lat", searchPoint.Latitude));
-            parameterList.Add(new SqlParameter("@Long", searchPoint.Longitude));
-            parameterList.Add(new SqlParameter("@range", range));
-            SqlParameter[] parameters = parameterList.ToArray();
-            List<ONNET_SRCH_NE> result =  db.ONNET_SRCH_NE.SqlQuery("SELECT * FROM(SELECT *,(((acos(sin((@Lat*pi()/180)) * sin((GEODATA.Lat*pi()/180))+cos((@Lat*pi()/180)) " +
-                "* cos((GEODATA.Lat*pi()/180)) * cos(((@Long - GEODATA.Long)*pi()/180))))*180/pi())*60*1.1515*1.609344) " +
-                "as distance FROM ONNET_SRCH_NE) t WHERE distance <= @range", parameterList.ToArray()).ToList();
-            return new List<string>();
-        }        
+            return db.ONNET_SRCH_OSP_THRESHOLD.Where(m => m.NE_NAME.ToUpper() == NEName.ToUpper()).ProjectTo<ThresholdViewModel>().ToList();
+        }
 
-        public List<string> getCableTypes()
+        public List<CableViewModel> getCables(DbGeography searchPoint, int range)
         {
-            return db.ONNET_SRCH_OSP_CABLE.Select(m => m.CABLE_TYPE).Distinct().ToList();
+            try
+            {
+                return db.ONNET_SRCH_OSP_CABLE.Select(c => new CableViewModel
+                {
+                    CableID = c.CABLE_ID,
+                    CableName = c.CABLE_NAME,
+                    CableType = c.CABLE_TYPE,
+                    NumberOfFibers = c.NUM_OF_FIBERS,
+                    Geodata = c.GEODATA.AsText()
+                }).ToList();
+            }
+            catch { throw new Exception("An error occured while loading cable information"); }
         }
 
         public List<CableViewModel> getCableDetails(string cableType)
@@ -77,9 +83,6 @@ namespace Maxis.Infrastructure.Repositories
             return db.ONNET_SRCH_NE_ABE.Where(m => m.NE_NAME.ToUpper() == NEName.ToUpper()).ProjectTo<BuildingViewModel>().ToList();
         }
 
-        public List<ThresholdViewModel> getThresholdDetails(string NEName)
-        {
-            return db.ONNET_SRCH_OSP_THRESHOLD.Where(m => m.NE_NAME.ToUpper() == NEName.ToUpper()).ProjectTo<ThresholdViewModel>().ToList();
-        }
+        
     }
 }

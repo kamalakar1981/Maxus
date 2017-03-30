@@ -18,8 +18,8 @@ namespace Maxis.Services
             _exportRepository = exportRepository;
         }
 
-        public bool ExportToExcel(List<UserViewModel> model) { return _exportRepository.ExportToExcel(model); }
+        public bool ExportToExcel(List<UserViewModel> userViewModel) { return _exportRepository.ExportToExcel(userViewModel); }
 
-        public bool ExportToPDF(List<UserViewModel> model) { return _exportRepository.ExportToPDF(model); }
+        public bool ExportToPDF(List<UserViewModel> userViewModel) { return _exportRepository.ExportToPDF(userViewModel); }
     }
 }
