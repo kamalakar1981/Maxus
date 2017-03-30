@@ -197,7 +197,34 @@ input[type="checkbox"]:checked ~ section{
     left: 10px;
     z-index: 1001;
 }
+.dropdown {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+.search-bar {
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+.building-dropdown {
+    margin: 0;
+    font-weight: 400;
+    font-family: inherit;
+    text-align: center;
+}
     @media screen and (max-height: 450px) {
       #pannel {padding-top: 80px;}
       #pannel a {font-size: 18px;}
     }
+.nav-colorbar {
+    color: black !important;
+}
+.nav-color {
+    background-color: skyblue;
+}
+.distance-div {
+    display:inline;width:50%;
+}
