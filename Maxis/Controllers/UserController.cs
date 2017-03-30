@@ -15,13 +15,13 @@ using Maxis.ViewModels;
 
 namespace Maxis.Controllers
 {
-    public class USERController : Controller
+    public class UserController : Controller
     {
         private MaxisEntities db = new MaxisEntities();
 
         private readonly IUserService _userService;
 
-        public USERController(IUserService userService)
+        public UserController(IUserService userService)
         {
             _userService = userService;
         }
@@ -40,9 +40,9 @@ namespace Maxis.Controllers
         // PUT: USER/EditUser/2
         [HttpPost]
 
-        public void EditUser(ONNET_USER onnet_user)
+        public void EditUser(EditUserViewModel model)
         {
-            _userService.EditUser(onnet_user);
+            _userService.EditUser(model);
         }
 
         protected override void Dispose(bool disposing)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Maxis.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -25,8 +26,12 @@ namespace Maxis.ViewModels
 
         public string Status { get; set; }
 
-        public Nullable<System.DateTime> DateCreated { get; set; }
+        public DateTime? DateCreated { get; set; }
 
-        public Nullable<System.DateTime> DateModified { get; set; }
+        public DateTime? DateModified { get; set; }
+
+        public virtual ONNET_USERROLE OnnetUserrole { get; set; }
+
+        public string Roles { get; set; }
     }
 }

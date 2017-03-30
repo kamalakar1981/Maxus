@@ -10,10 +10,10 @@ namespace Maxis.Repository
 {
     public interface IUserRepository
     {
-        List<ONNET_USER> SelectAll();
-        List<ONNET_USER> SelectByID(long id);
-        void Insert(ONNET_USER obj);
-        void Update(ONNET_USER obj);
+        List<EditUserViewModel> SelectAll();
+        List<EditUserViewModel> SelectByID(long id);
+        void Insert(LoginViewModel model);
+        void Update(EditUserViewModel model);
         void Save();
     }
 }

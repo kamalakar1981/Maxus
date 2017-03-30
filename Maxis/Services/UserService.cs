@@ -18,20 +18,25 @@ namespace Maxis.Services
             _userRepository = userRepository;
         }
 
-        public List<ONNET_USER> GetAllUsers()
+        public List<EditUserViewModel> GetAllUsers()
         {
             return _userRepository.SelectAll();
         }
 
-        public List<ONNET_USER> SelectById(long id)
+        public List<EditUserViewModel> SelectById(long id)
         {
             return _userRepository.SelectByID(id);
         }
 
 
-        public void EditUser(ONNET_USER obj)
+        public void EditUser(EditUserViewModel model)
         {
-            _userRepository.Update(obj);
+            _userRepository.Update(model);
+        }
+
+        public void CreateUser(LoginViewModel model)
+        {
+            _userRepository.Insert(model);
         }
     }
 }

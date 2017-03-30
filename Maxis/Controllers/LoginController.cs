@@ -11,13 +11,21 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using Maxis.ViewModels;
+using Maxis.Services.Abstract;
 
 namespace Maxis.Controllers
 {
     public class LoginController : Controller
     {
         private MaxisEntities db = new MaxisEntities();
-        private IUserRepository repository = null;
+        
+
+        private readonly IUserService _userService;
+
+        public LoginController(IUserService userService)
+        {
+            _userService = userService;
+        }
 
         public virtual ONNET_USER user { get; set; }
         // GET: Login
@@ -26,38 +34,39 @@ namespace Maxis.Controllers
             return View();
         }
 
-        public bool LdapLogin(string Username, string Password)
+        public JsonResult LdapLogin(string userName, string password)
         {
-            //return true;
             bool functionReturnValue = false;
             var server = WebConfigurationManager.AppSettings["Ldapserver"];
             var ldapUser = WebConfigurationManager.AppSettings["Ldapusername"];
-            var model1 = new LoginViewModel
-            {
-                Password = Password,
-                Username = Username
-            };
             var ldapPassword = WebConfigurationManager.AppSettings["Ldappassword"];
+           
             try
             {
 
                 using (PrincipalContext pCtx = new PrincipalContext(ContextType.ApplicationDirectory, server, "O=users", ContextOptions.SimpleBind, ldapUser, ldapPassword))
                 {
-                    functionReturnValue = pCtx.ValidateCredentials(Username, Password);
+                    functionReturnValue = pCtx.ValidateCredentials(userName, password);
                 }
 
                 if (functionReturnValue == true)
                 {
-                    Validate(model1);
+                    var roles = Validate(new LoginViewModel
+                    {
+                        Password = password,
+                        Username = userName
+                    });
+                    return Json(roles, JsonRequestBehavior.AllowGet);
                 }
-                return functionReturnValue;
+                
 
             }
             catch (Exception)
             {
-
-                return false;
+                return Json(false, JsonRequestBehavior.AllowGet);
             }
+
+            return Json(functionReturnValue, JsonRequestBehavior.AllowGet);
         }
         public void LogOff()
         {
@@ -65,64 +74,50 @@ namespace Maxis.Controllers
             FormsAuthentication.SignOut();
         }
 
-        [HttpPost]
-        private JsonResult Validate(LoginViewModel model)
+       
+        private IQueryable Validate(LoginViewModel model)
         {
-            if (LdapLogin(model.Username, model.Password))
-            {
                 var user = db.ONNET_USER.Where(u => u.Username == model.Username && u.Password == model.Password).FirstOrDefault();
 
                 if (user == null)
                 {
-                    var newuser = new ONNET_USER 
-                    {
-                        Username = model.Username,
-                        Password = model.Password,
-                        Email = null,
-                        Mobile = null,
-                        Department = null,
-                        Title = null,
-                        Status = null,
-                        RoleId = 1
-                    };
-                    using (var context = new MaxisEntities())
-                    {
-                        context.ONNET_USER.Add(newuser);
-                        context.SaveChanges();
-                    }
-
-                    return Json(true, JsonRequestBehavior.AllowGet);
+                    CreateUser(model);
                 }
-                CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
-                serializeModel.UserId = Convert.ToInt32(user.UserId);
-                serializeModel.Username = user.Username;
-                serializeModel.Password = user.Password;
+                var role = (from ep in db.ONNET_USER
+                                join e in db.ONNET_USERROLE on ep.RoleId equals e.RoleId
+                                where model.Username == ep.Username
+                                select new
+                                {
+                                    Roles = e.RoleName
+                                });
+                
+            CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
+            serializeModel.Username = user.Username;
+            serializeModel.Password = user.Password;
 
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
 
-                string userData = serializer.Serialize(serializeModel);
+            string userData = serializer.Serialize(serializeModel);
 
-                FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
-                         1,
-                         model.Username,
-                         DateTime.Now,
-                         DateTime.Now.AddMinutes(15),
-                         true,
-                         userData);
+            FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+                     1,
+                     model.Username,
+                     DateTime.Now,
+                     DateTime.Now.AddMinutes(15),
+                     true,
+                     userData);
 
-                string encTicket = FormsAuthentication.Encrypt(authTicket);
-                HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
-                Response.Cookies.Add(faCookie);
+            string encTicket = FormsAuthentication.Encrypt(authTicket);
+            HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+            Response.Cookies.Add(faCookie);
+            return role;
+        }
+        //POST:Login/CreateUser/
+        [HttpPost]
 
-                return Json(new
-                {
-                    redirectUrl = Url.Action("Index", "Home"),
-                    isRedirect = true
-                });
-
-            }
-
-            else { return Json(false, JsonRequestBehavior.AllowGet); }
+        private void CreateUser(LoginViewModel model)
+        {
+            _userService.CreateUser(model);
         }
     }
 }
