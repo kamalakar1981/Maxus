@@ -18,15 +18,35 @@ export class ListComponent implements OnInit {
 
     }
 
-    //ngOnInit(): void {
-    //    this._listService.getUserlist()
-    //        .subscribe(userlists => this.userlists = userlists,
-    //        error => this.errorMessage = <any>error);
-    //}
-    ngOnInit() {
-        this._listService.getCarsSmall().then(Userlist => this.userlists = Userlist);
+    ngOnInit(): void {
+        this._listService.getUserlist()
+            .subscribe(userlists => this.userlists = userlists,
+            error => this.errorMessage = <any>error);
+    }
 
-       
+    download() {
+        this._listService.getPdf()
+            .subscribe(
+            data => {
+                console.log('success:', data);
+            },
+            err => {
+                console.log('error:', err)
+            });
+
 
     }
+    downloadExl() {
+        this._listService.getExl()
+            .subscribe(
+            data => {
+                console.log('success:', data);
+            },
+            err => {
+                console.log('error:', err)
+            });
+
+
+    }
+
 }

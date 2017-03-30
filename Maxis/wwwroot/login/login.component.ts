@@ -14,14 +14,12 @@ export class LoginComponent {
     user: any = {};
     loginInvalid = false;
     constructor(private _autenticationService: AuthenticationService,
-                private _router: Router,
-                private _route: ActivatedRoute ) {
-    constructor(private _autenticationService: AuthenticationService, private router: Router) {
-
+        private _router: Router,
+        private _route: ActivatedRoute) {
     }
 
     submitForm(form: NgForm) {
-        this.autenticationService.postForm(this.user)
+        this._autenticationService.postForm(this.user.username,this.user.password)
             .subscribe(
             data => {
                 this._router.navigate(['map']);

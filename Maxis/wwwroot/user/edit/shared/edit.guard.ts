@@ -11,6 +11,7 @@ export class UserDetailGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
         let id = +route.url[1].path;
+        debugger
         if (isNaN(id) || id < 1) {
             alert('Invalid product Id');
             // start a new navigation to redirect to list page
