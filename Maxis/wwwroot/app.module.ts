@@ -24,7 +24,6 @@ import { DataTableModule, SharedModule } from 'primeng/primeng';
 
 @NgModule({
     imports: [BrowserModule,
-        routing,
         HttpModule,
         FormsModule,
         routing,
