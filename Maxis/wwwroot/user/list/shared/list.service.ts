@@ -39,7 +39,14 @@ export class ListService {
             .catch(this.handelError);
     }
 
-    getPdfExl(): Observable<Userlist[]> {
+    getPdf(): Observable<Userlist[]> {
+        return this._http.get('USER/UsersList')
+            .map((response: Response) => <Userlist[]>response.json())
+            .do(data => console.log('All: ' + JSON.stringify(data)))
+            .catch(this.handelError);
+    }
+
+    getExl(): Observable<Userlist[]> {
         return this._http.get('USER/UsersList')
             .map((response: Response) => <Userlist[]>response.json())
             .do(data => console.log('All: ' + JSON.stringify(data)))

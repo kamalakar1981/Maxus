@@ -24,7 +24,7 @@ export class ListComponent implements OnInit {
             error => this.errorMessage = <any>error);
     }
 
-    download() {
+    downloadPdf() {
         this._listService.getPdf()
             .subscribe(
             data => {
