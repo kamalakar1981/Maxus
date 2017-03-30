@@ -25,7 +25,7 @@ namespace Maxis.Services
 
         public List<EditUserViewModel> SelectById(long id)
         {
-            return _userRepository.SelectByID(id);
+            return _userRepository.SelectById(id);
         }
 
 

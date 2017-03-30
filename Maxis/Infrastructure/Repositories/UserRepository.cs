@@ -5,23 +5,19 @@ using Maxis.Database;
 using Maxis.Infrastructure.Repositories.Abstract;
 using Maxis.ViewModels;
 
-
-namespace Maxis.Infrastructure.Repositories.Abstract
+namespace Maxis.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
         private readonly MaxisEntities _db = new MaxisEntities();
-
-        // private readonly IUserRepository _context;
-
-      
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<EditUserViewModel> SelectAll()
         {
- 
             try
             {
-              
                     var result = (from ep in _db.ONNET_USER
                         join e in _db.ONNET_USERROLE on ep.RoleId equals e.RoleId
                         where ep.RoleId == e.RoleId
@@ -46,7 +42,12 @@ namespace Maxis.Infrastructure.Repositories.Abstract
             
         }
 
-        public List<EditUserViewModel> SelectByID(long id)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public List<EditUserViewModel> SelectById(long id)
         {
             try
             {
@@ -74,12 +75,15 @@ namespace Maxis.Infrastructure.Repositories.Abstract
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public IQueryable Insert(LoginViewModel model)
         {
             try
             {
-                //using (var entities = new MaxisEntities())
-                //{
                    var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == model.Username && u.Password == model.Password);
 
                     if (user == null)
@@ -127,11 +131,6 @@ namespace Maxis.Infrastructure.Repositories.Abstract
                         return role.AsQueryable();
 
                     }
-
-                   
-                 
-               // }
-                
             }
             catch (Exception)
             {
@@ -139,13 +138,15 @@ namespace Maxis.Infrastructure.Repositories.Abstract
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public void Update(EditUserViewModel model)
         {
            
             try
             {
-                //using (var entities = new MaxisEntities())
-                //{
                     var entity = _db.ONNET_USER.FirstOrDefault(u => u.UserId == model.UserId);
                     if (entity != null)
                     {
@@ -158,17 +159,11 @@ namespace Maxis.Infrastructure.Repositories.Abstract
                         entity.Status = model.Status;
                     }
                     _db.SaveChanges();
-               // }
             }
             catch (Exception)
             {
                 throw;
             }
         }
-
-        //public void Save()
-        //{
-        //    _db.SaveChanges();
-        //}
     }
 }

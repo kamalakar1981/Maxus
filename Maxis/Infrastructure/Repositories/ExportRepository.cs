@@ -1,28 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Data.Objects;
-using System.Data.EntityClient;
-using System.Web;
 using Maxis.Infrastructure.Repositories.Abstract;
-using Maxis.Database;
 using Excel = Microsoft.Office.Interop.Excel;
-using PdfSharp;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using System.Data;
-using System.Data.SqlClient;
 using Maxis.ViewModels;
 using Newtonsoft.Json;
 using System.Web.Script.Serialization;
-using System.Web.Mvc;
 using System.Diagnostics;
 
 namespace Maxis.Infrastructure.Repositories
 {
     public class ExportRepository : IExportRepository
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userViewModel"></param>
+        /// <returns></returns>
         public bool ExportToExcel(List<UserViewModel> userViewModel)
         {
             try
@@ -32,28 +29,39 @@ namespace Maxis.Infrastructure.Repositories
                 EntityToExcelSheet("D:\\UserDetails.xls", "Users", dt);
                 return true;
             }
-            catch(Exception e)
+            catch(Exception )
             {
                 return false;
             }
         }
 
-        public bool ExportToPDF(List<UserViewModel> userViewModel)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userViewModel"></param>
+        /// <returns></returns>
+        public bool ExportToPdf(List<UserViewModel> userViewModel)
         {
             try
             {
                 string json = new JavaScriptSerializer().Serialize(userViewModel);
                 DataTable dt = (DataTable)JsonConvert.DeserializeObject<DataTable>(json);
-                EntityToPDFDocument(dt);
+                EntityToPdfDocument(dt);
                 return true;
             }   
-            catch (Exception e)
+            catch (Exception )
             {
                 return false;
     }
 }
 
-        private void EntityToExcelSheet(string excelFilePath, string sheetName, DataTable dt)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="excelFilePath"></param>
+        /// <param name="sheetName"></param>
+        /// <param name="dt"></param>
+        private static void EntityToExcelSheet(string excelFilePath, string sheetName, DataTable dt)
         {
             Excel.Application oXL;
             Excel.Workbook oWB;
@@ -91,17 +99,6 @@ namespace Maxis.Infrastructure.Repositories
                 // Resize the columns 
                 oRange = oSheet.Range[oSheet.Cells[1, 1], oSheet.Cells[rowCount, dt.Columns.Count]];
                 oRange.Columns.AutoFit();
-                
-                // Save the sheet and close 
-                // oSheet = null;
-                //oRange = null;
-                //oWB.SaveAs(excelFilePath, Excel.XlFileFormat.xlWorkbookNormal, Missing.Value,
-                //  Missing.Value, Missing.Value, Missing.Value,
-                //  Excel.XlSaveAsAccessMode.xlExclusive, Missing.Value,
-                //  Missing.Value, Missing.Value, Missing.Value);
-                //oWB.Close(Missing.Value, Missing.Value, Missing.Value);
-                //oWB = null;
-                //oXL.Quit();
             }
             catch (Exception ex)
             {
@@ -109,7 +106,11 @@ namespace Maxis.Infrastructure.Repositories
             }
         }        
 
-        private void EntityToPDFDocument(DataTable dt)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dt"></param>
+        private static void EntityToPdfDocument(DataTable dt)
         {
             try
             {
@@ -150,8 +151,6 @@ namespace Maxis.Infrastructure.Repositories
                     graph.DrawString(Status, font, XBrushes.Black, new XRect(650, yPoint, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.TopLeft);
                     yPoint = yPoint + 40;
                 }
-                string pdfFilename = "UserDetails.pdf";
-                //pdf.Save(pdfFilename);
                 pdf.Save("D:\\pdfFilename");
                 Process.Start("D:\\pdfFilename");
 

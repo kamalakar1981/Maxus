@@ -1,10 +1,5 @@
-﻿//using Maxis.Database;
-using Maxis.Database;
-//using Maxis.Repository;
+﻿using Maxis.Database;
 using System;
-using System.DirectoryServices.AccountManagement;
-//using System.DirectoryServices.AccountManagement;
-//using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
@@ -26,37 +21,24 @@ namespace Maxis.Controllers
         }
         public JsonResult LdapLogin(string userName, string password)
         {
-            var functionReturnValue = false;
             var server = WebConfigurationManager.AppSettings["Ldapserver"];
             var ldapUser = WebConfigurationManager.AppSettings["Ldapusername"];
             var ldapPassword = WebConfigurationManager.AppSettings["Ldappassword"];
            
             try
             {
-
-                //using (var pCtx = new PrincipalContext(ContextType.ApplicationDirectory, server, "O=users", ContextOptions.SimpleBind, ldapUser, ldapPassword))
-                //{
-                //    functionReturnValue = pCtx.ValidateCredentials(userName, password);
-                //}
-
-                //if (functionReturnValue)
-                //{
                     var roles = Validate(new LoginViewModel
                     {
                         Password = password,
                         Username = userName
                     });
-                    return Json(roles, JsonRequestBehavior.AllowGet);
-                //}
-                
-
+                return Json(roles, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return Json(false, JsonRequestBehavior.AllowGet);
+                return Json(ex.Message.ToString(), JsonRequestBehavior.AllowGet);
             }
-
-            return Json(functionReturnValue, JsonRequestBehavior.AllowGet);
+           
         }
         public void LogOff()
         {
@@ -96,9 +78,9 @@ namespace Maxis.Controllers
             Response.Cookies.Add(faCookie);
             return Json(faCookie, JsonRequestBehavior.AllowGet);
         }
+
         //POST:Login/CreateUser/
         [HttpPost]
-
         private void CreateUser(LoginViewModel model)
         {
             _userService.CreateUser(model);

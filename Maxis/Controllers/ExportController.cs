@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Maxis.Database;
 using Maxis.Services.Abstract;
 using Maxis.ViewModels;
 
@@ -29,7 +22,7 @@ namespace Maxis.Controllers
         // GET: Export/Details/5
         public bool ExportPDF(List<UserViewModel> userViewModel)
         {
-            return _exportService.ExportToPDF(userViewModel);
+            return _exportService.ExportToPdf(userViewModel);
         }        
     }
 }
