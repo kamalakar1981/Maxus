@@ -4,8 +4,6 @@ import { LoginComponent } from './../../login/login.component';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/observable';
 import { User } from './login.interface';
-
-
 @Injectable()
 export class AuthenticationService {
 
@@ -14,6 +12,10 @@ export class AuthenticationService {
 
     private extractData(res: Response) {
         let body = res.json();
+        if (body && body.token) {
+            // store user details and token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('currentUser', JSON.stringify(body));
+        }
         return body.data || {};
     }
 
@@ -22,12 +24,19 @@ export class AuthenticationService {
         return Observable.throw(error.statusText);
     }
 
-    postForm(user: User): Observable<any> {
-        let body = JSON.stringify(user);
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
+    postForm(username: string, password: string): Observable<any> {
+        let body = JSON.stringify({ username: username, password: password });
+        //let headers = new Headers({ 'Content-Type': 'application/json' });
+        //let options = new RequestOptions({ headers: headers });
 
-        return this.http.post('http://localhost:56026/Login/Details', body, options)
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+     //   headers.append('Authorization', 'Basic ' + localStorage.getItem("authToken"));
+
+        let options = new RequestOptions({ headers: headers });
+        
+
+        return this.http.post('Login/Details', body, options)
             .map(this.extractData)
             .catch(this.handelError);
     }

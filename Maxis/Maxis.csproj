@@ -401,6 +401,8 @@
     <TypeScriptCompile Include="wwwroot\home\home.component.ts" />
     <TypeScriptCompile Include="wwwroot\home\home.routes.ts" />
     <TypeScriptCompile Include="wwwroot\home\shared\home.service.ts" />
+    <TypeScriptCompile Include="wwwroot\login\shared\login.guard.ts" />
+    <TypeScriptCompile Include="wwwroot\logout\shared\logout.service.ts" />
     <TypeScriptCompile Include="wwwroot\user\edit\edit.routes.ts" />
     <TypeScriptCompile Include="wwwroot\logout\logout.component.ts" />
     <TypeScriptCompile Include="wwwroot\logout\logout.routes.ts" />
@@ -417,6 +419,7 @@
     <TypeScriptCompile Include="wwwroot\map\shared\map.interface.ts" />
     <TypeScriptCompile Include="wwwroot\map\shared\map.service.ts" />
     <TypeScriptCompile Include="wwwroot\user\edit\edit.component.ts" />
+    <TypeScriptCompile Include="wwwroot\user\edit\shared\edit.guard.ts" />
     <TypeScriptCompile Include="wwwroot\user\edit\shared\edit.interface.ts" />
     <TypeScriptCompile Include="wwwroot\user\edit\shared\edit.service.ts" />
     <TypeScriptCompile Include="wwwroot\user\list\list.component.ts" />
