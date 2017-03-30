@@ -1,0 +1,20 @@
+﻿import { Injectable } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { LogoutComponent } from './../../logout/logout.component';
+import 'rxjs/Rx';
+import { Observable } from 'rxjs/observable';
+@Injectable()
+export class LogoutService {
+
+    constructor(
+        private _http: Http) { }
+
+
+    logout() {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        return this._http.post('/login/logoff', JSON.stringify({}), options);
+    }
+
+}

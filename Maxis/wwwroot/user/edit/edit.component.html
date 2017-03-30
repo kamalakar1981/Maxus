@@ -1,14 +1,15 @@
-﻿<nav class="navbar navbar-light" style="background-color:#66CDAA;margin-bottom: 0px;">
+﻿<nav class="navbar navbar-light" >
+    <!--style="background-color:#66CDAA;margin-bottom: 0px;"-->
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-cog" style="color:white"> UserDetails</span></a>
+            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-cog"> UserDetails</span></a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <span class="caret" style="color:white"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <span class="caret"></span></a>
                 <ul class="dropdown-menu"></ul>
             </li>
-            <li><a href="#"><span class="glyphicon glyphicon-refresh" style="color:white"></span></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-refresh"></span></a></li>
         </ul>
     </div>
 </nav>
@@ -21,75 +22,112 @@
 
 <div class="panel-body">
     <div class="col-md-12">
-        <form>
+        <form  novalidate
+              (ngSubmit)="saveEdit()"
+              [formGroup]="editForm" >
             <div class="col-md-6">
                 <div class="form-horizontal">
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="email">User:</label>
+                    <div class="form-group" [ngClass]="{'has-error': displayMessage.userId }">
+                        <label class="control-label col-sm-2" for="useridId">UserId:</label>
                         <div class="col-sm-8">
-                            <input type="email" class="form-control" id="email" placeholder="Enter email">
+                            <input class="form-control"
+                                   id="useridId"
+                                   type="text"
+                                   placeholder="UserId (required)"
+                                   formControlName="userId" />
+                            <span class="help-block" *ngIf="displayMessage.userId">
+                                {{displayMessage.userId}}
+                            </span>
+                             </div>
+                    </div>
+                    <div class="form-group" [ngClass]="{'has-error': displayMessage.userName }">
+                        <label class="control-label col-sm-2" for="userNameId">UserName:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control"
+                                   id="userNameId"
+                                   type="text"
+                                   placeholder="UserName (required)"
+                                   formControlName="userName" />
+                            <span class="help-block" *ngIf="displayMessage.userName">
+                                {{displayMessage.userName}}
+                            </span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="pwd">FullName:</label>
+                    <div class="form-group" [ngClass]="{'has-error': displayMessage.emailId }">
+                        <label class="control-label col-sm-2" for="emailidId">EmailId:</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" id="pwd" placeholder="Enter password">
-                        </div>
+                            <input class="form-control"
+                                   id="emailidId"
+                                   type="text"
+                                   placeholder="EmailId (required)"
+                                   formControlName="emailId" />
+                            <span class="help-block" *ngIf="displayMessage.emailId">
+                                {{displayMessage.emailId}}
+                            </span>
+                             </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="pwd">Title:</label>
+                    <div class="form-group" [ngClass]="{'has-error': displayMessage.mobileNo }">
+                        <label class="control-label col-sm-2" for="mobileNoId">Mobile No:</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" id="pwd" placeholder="Enter password">
-                        </div>
+                            <input class="form-control"
+                                   id="mobileNoId"
+                                   type="text"
+                                   placeholder="MobileNo(required)"
+                                   formControlName="mobileNo" />
+                            <span class="help-block" *ngIf="displayMessage.mobileNo">
+                                {{displayMessage.mobileNo}}
+                            </span>
+                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="pwd">Email:</label>
-                        <div class="col-sm-8">
-                            <input type="password" class="form-control" id="pwd" placeholder="Enter password">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="pwd" style="color:red">User Role:</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" id="sel1">
-                                <option></option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                            </select>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-horizontal">
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="email">Department:</label>
+                    <div class="form-group"  [ngClass]="{'has-error': displayMessage.userRole }">
+                        <label class="control-label col-sm-2" for="userRoleId" style="color:red">User Role:</label>
                         <div class="col-sm-8">
-                            <input type="email" class="form-control" id="email" placeholder="Enter email">
+                            <select class="form-control" id="userRoleId" formControlName="userRole" >
+                                <option></option>
+                                <option>Admin</option>
+                                <option>Normal User</option>
+                                                             
+                            </select>
+                            <span class="help-block" *ngIf="displayMessage.userRole">
+                                {{displayMessage.userRole}}
+                            </span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="pwd"></label>
-                        <div class="col-sm-8">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="email">Mobile No:</label>
-                        <div class="col-sm-8">
-                            <input type="email" class="form-control" id="email" placeholder="Enter Mobile No">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="email">Supervisor:</label>
 
+                    <div class="form-group"  [ngClass]="{'has-error': displayMessage.department }">
+                        <label class="control-label col-sm-2" for="departmentId">Department:</label>
                         <div class="col-sm-8">
-                            <input type="email" class="form-control" id="email" placeholder="Enter Supervisor">
+                            <input class="form-control"
+                                   id="departmentId"
+                                   type="text"
+                                   placeholder="Department (required)"
+                                   formControlName="department" />
+                            <span class="help-block" *ngIf="displayMessage.department">
+                                {{displayMessage.department}}
+                            </span>
                         </div>
                     </div>
+                    <div class="form-group" [ngClass]="{'has-error': displayMessage.title }">
+                        <label class="control-label col-sm-2" for="titleId">Title:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control"
+                                   id="titleId"
+                                   type="text"
+                                   placeholder="Title (required)"
+                                   formControlName="title" />
+                            <span class="help-block" *ngIf="displayMessage.title">
+                                {{displayMessage.title}}
+                            </span>
+                        </div>
+                    </div>
+                   
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="email" style="color:red">Status:</label>
+                        <label class="control-label col-sm-2" for="statusId" style="color:red">Status:</label>
                         <div class="col-sm-8">
                             <div class="btn-group btn-toggle">
                                 <button class="btn btn-sm btn-default">YES</button>
@@ -99,14 +137,33 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="col-md-4 col-md-offset-2">
+                    <span>
+                        <button class="btn btn-primary"
+                                type="submit"
+                                [disabled]='!editForm.valid'>
+                            Save
+                        </button>
+                    </span>
+                    <span>
+                        <a class="btn btn-default"
+                           [routerLink]="['/list']">
+                            Cancel
+                        </a>
+                    </span>
+                    
+                </div>
+            </div>
         </form>
+        <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
     </div>
 </div>
-<div class="panel-footer clearfix" style="margin-top:200px; ">
+<!--<div class="panel-footer clearfix" style="margin-top:200px; ">
     <div class="container" align="center">
         <button type="button" class="btn btn-warning">Cancel</button>
         <button type="button" class="btn btn-success">Update</button>
         <button type="button" class="btn btn-danger">Delete</button>
         <button type="button" class="btn btn-primary">Return</button>
     </div>
-</div>
+</div>-->
