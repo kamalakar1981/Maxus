@@ -8,7 +8,6 @@ import { SelectModule } from 'angular2-select';
 //import { ReactiveFormsModule } from '@angular/forms';
 //import { DataTableModule, InputTextModule } from 'primeng';
 import { DataTableModule, SharedModule } from 'primeng/primeng';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //import { FormsModule } from "@angular/forms";
@@ -18,7 +17,6 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
 import { HomeService } from './home/shared/home.service';
-import { ContactService } from './contact/shared/contact.service';
 
 import { EditComponent } from './user/edit/edit.component';
 import { EditService } from './user/edit/shared/edit.service';
@@ -27,8 +25,10 @@ import { ListService } from './user/list/shared/list.service';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './login/shared/authentication.service';
 import { MapComponent } from './map/map.component';
-
+import { DropdownModule } from "ngx-dropdown";
+import { NEComponent } from './NEtype/ne.component';
 import { AgmCoreModule } from 'angular2-google-maps/core';
+import { PopoverModule } from 'ng2-bootstrap';
 
 import { Router } from '@angular/router';
 
@@ -40,11 +40,12 @@ import { MapService } from './map/shared/map.service';
     imports: [BrowserModule,
         routing,
         HttpModule,
-
         SelectModule,
+        PopoverModule.forRoot(),
         DataTableModule,
         SharedModule,
         FormsModule,
+        DropdownModule,
         ReactiveFormsModule,
         AgmCoreModule.forRoot({ apiKey: "AIzaSyBKcHWQkH8hS_Hn1vBGMAVUXRApKB17Xu8", libraries: ["places"] })
 
@@ -56,7 +57,8 @@ import { MapService } from './map/shared/map.service';
         LoginComponent,
         MapComponent,
         EditComponent,
-        ListComponent
+        ListComponent,
+        NEComponent
     ],
     bootstrap: [AppComponent],
     providers: [HomeService, AuthenticationService, EditService, ListService, MapService]
