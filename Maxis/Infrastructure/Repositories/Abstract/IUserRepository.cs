@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Maxis.Repository
+namespace Maxis.Infrastructure.Repositories.Abstract
 {
     public interface IUserRepository
     {
@@ -14,6 +14,6 @@ namespace Maxis.Repository
         List<EditUserViewModel> SelectByID(long id);
         IQueryable Insert(LoginViewModel model);
         void Update(EditUserViewModel model);
-        void Save();
+        
     }
 }

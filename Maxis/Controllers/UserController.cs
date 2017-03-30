@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿
 using System.Web.Mvc;
-using Maxis.Database;
-using Maxis.Repository;
-using Newtonsoft.Json;
 using Maxis.Services.Abstract;
-using Maxis.Services;
 using Maxis.ViewModels;
 
 namespace Maxis.Controllers
@@ -38,7 +28,7 @@ namespace Maxis.Controllers
         // PUT: USER/EditUser/2
         [HttpPost]
 
-        public void EditUser(EditUserViewModel model)
+        public void UpdateUser(EditUserViewModel model)
         {
             _userService.EditUser(model);
         }

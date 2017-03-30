@@ -23,7 +23,7 @@ namespace Maxis.Infrastructure.Repositories.Abstract
 
         List<CableViewModel> getCableDetails(string cableType);
 
-        List<BuildingViewModel> getBuildingDetails(string NEName);
+        List<BuildingViewModel> getBuildingDetails(DbGeography searchPoint, int range);
 
         
 

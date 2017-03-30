@@ -1,5 +1,5 @@
 ﻿using Maxis.Database;
-using Maxis.Repository;
+using Maxis.Infrastructure.Repositories.Abstract;
 using Maxis.Services.Abstract;
 using Maxis.ViewModels;
 using System;

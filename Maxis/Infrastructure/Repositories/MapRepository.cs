@@ -77,10 +77,10 @@ namespace Maxis.Infrastructure.Repositories
             return db.ONNET_SRCH_OSP_CABLE.Where(m => m.CABLE_TYPE.ToUpper() == cableType.ToUpper()).ProjectTo<CableViewModel>().ToList();
         }
 
-        public List<BuildingViewModel> getBuildingDetails(string NEName)
+        public List<BuildingViewModel> getBuildingDetails(DbGeography searchPoint, int range)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            return db.ONNET_SRCH_NE_ABE.Where(m => m.NE_NAME.ToUpper() == NEName.ToUpper()).ProjectTo<BuildingViewModel>().ToList();
+            return db.ONNET_SRCH_NE_ABE.Where(m => m.NE_NAME.ToUpper() == " ").ProjectTo<BuildingViewModel>().ToList();
         }
 
         

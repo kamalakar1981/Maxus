@@ -1,8 +1,10 @@
-﻿using Maxis.Database;
+﻿//using Maxis.Database;
+using Maxis.Database;
+//using Maxis.Repository;
 using System;
-using System.Collections.Generic;
 using System.DirectoryServices.AccountManagement;
-using System.Linq;
+//using System.DirectoryServices.AccountManagement;
+//using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
@@ -10,15 +12,12 @@ using System.Web.Script.Serialization;
 using System.Web.Security;
 using Maxis.ViewModels;
 using Maxis.Services.Abstract;
-using Maxis.ViewModels;
 
 namespace Maxis.Controllers
 {
     public class LoginController : Controller
     {
-        private MaxisEntities db = new MaxisEntities();
         
-
         private readonly IUserService _userService;
 
         public LoginController(IUserService userService)
@@ -27,7 +26,7 @@ namespace Maxis.Controllers
         }
         public JsonResult LdapLogin(string userName, string password)
         {
-            bool functionReturnValue = false;
+            var functionReturnValue = false;
             var server = WebConfigurationManager.AppSettings["Ldapserver"];
             var ldapUser = WebConfigurationManager.AppSettings["Ldapusername"];
             var ldapPassword = WebConfigurationManager.AppSettings["Ldappassword"];
@@ -35,12 +34,12 @@ namespace Maxis.Controllers
             try
             {
 
-                using (PrincipalContext pCtx = new PrincipalContext(ContextType.ApplicationDirectory, server, "O=users", ContextOptions.SimpleBind, ldapUser, ldapPassword))
+                using (var pCtx = new PrincipalContext(ContextType.ApplicationDirectory, server, "O=users", ContextOptions.SimpleBind, ldapUser, ldapPassword))
                 {
                     functionReturnValue = pCtx.ValidateCredentials(userName, password);
                 }
 
-                if (functionReturnValue == true)
+                if (functionReturnValue)
                 {
                     var roles = Validate(new LoginViewModel
                     {
@@ -72,15 +71,19 @@ namespace Maxis.Controllers
             {
                 CreateUser(model);
             }
-            CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
-            serializeModel.Username = model.Username;
-            serializeModel.Password = model.Password;
 
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var serializeModel = new CustomPrincipalSerializeModel
+            {
+                Username = model.Username,
+                Password = model.Password
+            };
 
-            string userData = serializer.Serialize(serializeModel);
 
-            FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+            var serializer = new JavaScriptSerializer();
+
+            var userData = serializer.Serialize(serializeModel);
+
+            var authTicket = new FormsAuthenticationTicket(
                      1,
                      model.Username,
                      DateTime.Now,
@@ -88,8 +91,8 @@ namespace Maxis.Controllers
                      true,
                      userData);
 
-            string encTicket = FormsAuthentication.Encrypt(authTicket);
-            HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+            var encTicket = FormsAuthentication.Encrypt(authTicket);
+            var faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
             Response.Cookies.Add(faCookie);
             return Json(faCookie, JsonRequestBehavior.AllowGet);
         }

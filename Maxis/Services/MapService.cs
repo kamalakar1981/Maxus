@@ -46,9 +46,9 @@ namespace Maxis.Services
             return _mapRepository.getCableDetails(cableType);
         }
 
-        public List<BuildingViewModel> getBuildingDetails(string NEName)
+        public List<BuildingViewModel> getBuildingDetails(DbGeography searchPoint, int range)
         {
-            return _mapRepository.getBuildingDetails(NEName);
+            return _mapRepository.getBuildingDetails(searchPoint, range);
         }
         
     }

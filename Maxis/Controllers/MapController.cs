@@ -64,9 +64,9 @@ namespace Maxis.Controllers
 
         // GET: Map/Building/nename(NEname)
         //Show buildings based on nename
-        public JsonResult Building(string NEName)
+        public JsonResult Buildings(PointViewModel pointViewModel)
         {
-            return Json(_mapService.getBuildingDetails(NEName), JsonRequestBehavior.AllowGet);
+            return Json(_mapService.getBuildingDetails(DbGeography.FromText(pointViewModel.SearchPoint), pointViewModel.Range), JsonRequestBehavior.AllowGet);
         }
 
 
