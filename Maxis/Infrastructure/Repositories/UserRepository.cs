@@ -32,7 +32,7 @@ namespace Maxis.Infrastructure.Repositories
                             Roles = e.RoleName
                         }).ToList();
  
-                    return (result.ToList());
+                    return result;
                 
             }
             catch(Exception)
@@ -80,18 +80,18 @@ namespace Maxis.Infrastructure.Repositories
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public IQueryable Insert(LoginViewModel model)
+        public IQueryable Insert(LoginViewModel loginViewModel)
         {
             try
             {
-                   var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == model.Username && u.Password == model.Password);
+                   var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == loginViewModel.Username && u.Password == loginViewModel.Password);
 
                     if (user == null)
                     {
                         var newuser = new ONNET_USER
                         {
-                            Username = model.Username,
-                            Password = model.Password,
+                            Username = loginViewModel.Username,
+                            Password = loginViewModel.Password,
                             Email = null,
                             Mobile = null,
                             Department = null,
@@ -100,15 +100,14 @@ namespace Maxis.Infrastructure.Repositories
                             RoleId = 3
                         };
 
-                        using (var context = new MaxisEntities())
-                        {
-                            context.ONNET_USER.Add(newuser);
-                            context.SaveChanges();
-                        }
 
-                        IQueryable role = (from ep in _db.ONNET_USER
+                    _db.ONNET_USER.Add(newuser);
+                    _db.SaveChanges();
+                        
+
+                        var role = (from ep in _db.ONNET_USER
                                            join e in _db.ONNET_USERROLE on ep.RoleId equals e.RoleId
-                                           where model.Username == ep.Username
+                                           where loginViewModel.Username == ep.Username
                                            select new
                                            {
                                                Roles = e.RoleName
@@ -119,9 +118,9 @@ namespace Maxis.Infrastructure.Repositories
                     }
                     else
                     {
-                        IQueryable role = (from ep in _db.ONNET_USER
+                        var role = (from ep in _db.ONNET_USER
                                            join e in _db.ONNET_USERROLE on ep.RoleId equals e.RoleId
-                                           where model.Username == ep.Username
+                                           where loginViewModel.Username == ep.Username
                                            select new
                                            {
                                                Roles = e.RoleName
@@ -142,21 +141,21 @@ namespace Maxis.Infrastructure.Repositories
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public void Update(EditUserViewModel model)
+        public void Update(EditUserViewModel editViewModel)
         {
            
             try
             {
-                    var entity = _db.ONNET_USER.FirstOrDefault(u => u.UserId == model.UserId);
+                    var entity = _db.ONNET_USER.FirstOrDefault(u => u.UserId == editViewModel.UserId);
                     if (entity != null)
                     {
-                        entity.UserId = model.UserId;
-                        entity.Username = model.Username;
-                        entity.Email = model.Email;
-                        entity.Mobile = model.Mobile;
-                        entity.Department = model.Department;
-                        entity.Title = model.Title;
-                        entity.Status = model.Status;
+                        entity.UserId = editViewModel.UserId;
+                        entity.Username = editViewModel.Username;
+                        entity.Email = editViewModel.Email;
+                        entity.Mobile = editViewModel.Mobile;
+                        entity.Department = editViewModel.Department;
+                        entity.Title = editViewModel.Title;
+                        entity.Status = editViewModel.Status;
                     }
                     _db.SaveChanges();
             }

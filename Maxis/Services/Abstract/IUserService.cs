@@ -8,7 +8,7 @@ namespace Maxis.Services.Abstract
     {
         List<EditUserViewModel> GetAllUsers();
         List<EditUserViewModel> SelectById(long id);
-        void EditUser(EditUserViewModel model);
-        void CreateUser(LoginViewModel model);
+        void EditUser(EditUserViewModel editUserViewModel);
+        void CreateUser(LoginViewModel loginViewModel);
     }
 }

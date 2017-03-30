@@ -19,15 +19,15 @@ namespace Maxis.Controllers
         {
             _userService = userService;
         }
-        public JsonResult LdapLogin(string userName, string password)
+        public JsonResult Login(string userName, string password)
         {
-            var server = WebConfigurationManager.AppSettings["Ldapserver"];
-            var ldapUser = WebConfigurationManager.AppSettings["Ldapusername"];
-            var ldapPassword = WebConfigurationManager.AppSettings["Ldappassword"];
+            //var server = WebConfigurationManager.AppSettings["Ldapserver"];
+            //var ldapUser = WebConfigurationManager.AppSettings["Ldapusername"];
+            //var ldapPassword = WebConfigurationManager.AppSettings["Ldappassword"];
            
             try
             {
-                    var roles = Validate(new LoginViewModel
+                    var roles = Authentication(new LoginViewModel
                     {
                         Password = password,
                         Username = userName
@@ -47,17 +47,17 @@ namespace Maxis.Controllers
         }
 
        
-        private JsonResult Validate(LoginViewModel model)
+        private JsonResult Authentication(LoginViewModel loginViewModel)
         {
-            if (model != null)
+            if (loginViewModel != null)
             {
-                CreateUser(model);
+                CreateUser(loginViewModel);
             }
 
             var serializeModel = new CustomPrincipalSerializeModel
             {
-                Username = model.Username,
-                Password = model.Password
+                Username = loginViewModel.Username,
+                Password = loginViewModel.Password
             };
 
 
@@ -67,7 +67,7 @@ namespace Maxis.Controllers
 
             var authTicket = new FormsAuthenticationTicket(
                      1,
-                     model.Username,
+                     loginViewModel.Username,
                      DateTime.Now,
                      DateTime.Now.AddMinutes(15),
                      true,
@@ -79,11 +79,11 @@ namespace Maxis.Controllers
             return Json(faCookie, JsonRequestBehavior.AllowGet);
         }
 
-        //POST:Login/CreateUser/
+       
         [HttpPost]
-        private void CreateUser(LoginViewModel model)
+        private void CreateUser(LoginViewModel loginViewModel)
         {
-            _userService.CreateUser(model);
+            _userService.CreateUser(loginViewModel);
         }
     }
 }

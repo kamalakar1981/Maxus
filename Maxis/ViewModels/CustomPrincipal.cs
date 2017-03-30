@@ -2,9 +2,9 @@
 using System.Security.Principal;
 
 
-namespace Maxis.Database
+namespace Maxis.ViewModels
 {
-    public class CustomPrincipal : ICustomPrincipal
+    public class CustomPrincipal : IPrincipal
     {
         public IIdentity Identity { get; }
         public bool IsInRole(string role) { return false; }

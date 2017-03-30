@@ -29,14 +29,14 @@ namespace Maxis.Services
         }
 
 
-        public void EditUser(EditUserViewModel model)
+        public void EditUser(EditUserViewModel editUserModel)
         {
-            _userRepository.Update(model);
+            _userRepository.Update(editUserModel);
         }
 
-        public void CreateUser(LoginViewModel model)
+        public void CreateUser(LoginViewModel loginViewModel)
         {
-            _userRepository.Insert(model);
+            _userRepository.Insert(loginViewModel);
         }
     }
 }

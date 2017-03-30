@@ -28,7 +28,7 @@ namespace Maxis.Infrastructure.Repositories
                 new SqlParameter("@Long", searchPoint.Longitude),
                 new SqlParameter("@range", range)
             };
-            // SqlParameter[] parameters = parameterList.ToArray();
+            //SqlParameter[] parameters = parameterList.ToArray();
             var result = _db.ONNET_SRCH_NE.SqlQuery("SELECT * FROM(SELECT *,(((acos(sin((@Lat*pi()/180)) * sin((GEODATA.Lat*pi()/180))+cos((@Lat*pi()/180)) " +
                 "* cos((GEODATA.Lat*pi()/180)) * cos(((@Long - GEODATA.Long)*pi()/180))))*180/pi())*60*1.1515*1.609344) " +
                 "as distance FROM ONNET_SRCH_NE) t WHERE distance <= @range", parameterList.ToArray()).ToList();
@@ -122,10 +122,10 @@ namespace Maxis.Infrastructure.Repositories
                 new SqlParameter("@range", range)
             };
             //SqlParameter[] parameters = parameterList.ToArray();
-            //db.ONNET_SRCH_BUILDING.SqlQuery("SELECT * FROM(SELECT *,(((acos(sin((@Lat*pi()/180)) * sin((GEODATA.Lat*pi()/180))+cos((@Lat*pi()/180)) " +
+            //_db.ONNET_SRCH_BUILDING.SqlQuery("SELECT * FROM(SELECT *,(((acos(sin((@Lat*pi()/180)) * sin((GEODATA.Lat*pi()/180))+cos((@Lat*pi()/180)) " +
             //    "* cos((GEODATA.Lat*pi()/180)) * cos(((@Long - GEODATA.Long)*pi()/180))))*180/pi())*60*1.1515*1.609344) " +
-            //    "as distance FROM ONNET_SRCH_BUILDING) t WHERE distance <= @range", parameterList.ToArray()).Join(db.ONNET_SRCH_NE_ABE, b => b.BUILDING_ID, a => a.ABE_ID,
-            //    (b, a) => new { b, a }).Join(db.ONNET_SRCH_NE, n => n.a.NE_ID, ne => ne.NE_ID, (n, ne) => new { n, ne }).Select(m => new BuildingViewModel
+            //    "as distance FROM ONNET_SRCH_BUILDING) t WHERE distance <= @range", parameterList.ToArray()).Join(_db.ONNET_SRCH_NE_ABE, b => b.BUILDING_ID, a => a.ABE_ID,
+            //    (b, a) => new { b, a }).Join(_db.ONNET_SRCH_NE, n => n.a.NE_ID, ne => ne.NE_ID, (n, ne) => new { n, ne }).Select(m => new BuildingViewModel
             //    {
             //        BuildingID = 
             //        BuildingName =

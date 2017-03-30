@@ -8,8 +8,8 @@ namespace Maxis.Infrastructure.Repositories.Abstract
     {
         List<EditUserViewModel> SelectAll();
         List<EditUserViewModel> SelectById(long id);
-        IQueryable Insert(LoginViewModel model);
-        void Update(EditUserViewModel model);
+        IQueryable Insert(LoginViewModel loginViewModel);
+        void Update(EditUserViewModel editUserViewModel);
         
     }
 }

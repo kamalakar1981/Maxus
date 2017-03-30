@@ -226,8 +226,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Database\CustomPrincipal.cs" />
-    <Compile Include="Database\ICustomPrincipal.cs" />
+    <Compile Include="ViewModels\CustomPrincipal.cs" />
     <Compile Include="Database\Maxis.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
