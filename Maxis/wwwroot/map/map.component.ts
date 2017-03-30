@@ -7,13 +7,14 @@
 import { Component, NgModule, OnInit, ViewChild, NgZone, ElementRef } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { MapsAPILoader } from "angular2-google-maps/core";
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import { } from '@types/googlemaps';
 import { Map } from './shared/map.interface';
 import { MapService } from './shared/map.service';
 import { Router } from '@angular/router';
 import { DataTableModule, SharedModule } from 'primeng/primeng';
 ///import { SelectModule } from 'ng2-select';
+import { DropdownModule } from "ngx-dropdown";
 
 import { SelectModule } from 'angular2-select';
 // { SelectModule } from "angular2-select";
@@ -29,6 +30,7 @@ declare var google: any;
 export class MapComponent implements OnInit {
     errorMessage: string;
     //public maps: Map[];
+    private res;
 
     selectedMap: Map;
 
@@ -45,6 +47,7 @@ export class MapComponent implements OnInit {
         
 
     }
+    
     getCabelTypes() {
 
     }
@@ -76,6 +79,7 @@ export class MapComponent implements OnInit {
     //        }
     //    ];
     //}
+
    distance = this.getDistance();
     getDistance() :any[]{
         return [
@@ -429,6 +433,8 @@ export class MapComponent implements OnInit {
     logMultipleString: string = "";
 
 
+
+
     onSingleOpened() {
         this.logSingle("- opened");
     }
@@ -460,6 +466,38 @@ export class MapComponent implements OnInit {
 
     onMultipleSelected(item: any) {
         this.logMultiple("- selected (value: " + item.value + ", label:" + item.label + ")");
+        this.mapService.postNEtypes(this.form.value["selectMultiple"])
+            .subscribe((value) => {
+                debugger;
+                var NEArr = [];
+                for (let v in value) {
+                    var NEList = {
+                        label: "",
+                        value: ""
+                    };
+                    NEList.label = value[v];
+                    NEList.value = value[v];
+                    NEArr.push(NEList);
+                }
+                this.markerTypes = NEArr;
+            });
+            this.res = [
+                      {
+                        "NEName": "GCKCA",
+                        "NEType": "one",
+                        "Roles": "one R"
+                      },
+                      {
+                        "NEName": "GGKPA",
+                        "NEType": "two",
+                        "Roles": "Two R"
+                      },
+                      {
+                        "NEName": "GSRWA",
+                        "NEType": "three",
+                        "Roles": "Three R"
+                      }
+                    ];
         this.markerNames = this.getMarkerNames(this.form.value["selectMultiple"]);
     }
 
@@ -486,9 +524,26 @@ export class MapComponent implements OnInit {
     }
    
     onSingleSelected2(item: any) {
+
         this.logSingle("- selected (value: " + item.value + ", label:" +
             item.label + ")");
-    }
+        this.mapService.postLRD(item)
+                .subscribe((value) => {
+                    debugger;
+                    var NEArr = [];
+                    for (let v in value) {
+                        var NEList = {
+                            label: "",
+                            value:""
+                        };
+                        NEList.label = value[v]; 
+                        NEList.value = value[v];
+                        NEArr.push(NEList);
+                    }
+                    this.markerTypes = NEArr;
+                });
+       
+            }
     onSingleDeselected2(item: any) {
         this.logSingle("- deselected (value: " + item.value + ", label:" + item.label + ")");
     }
@@ -535,7 +590,14 @@ export class MapComponent implements OnInit {
        this.cabelNames = this.getCabelNames(this.form.value["selectMultiple1"]);
     }
 
+    check(checked) {
 
+        if (checked) {
+            // checked
+        } else {
+            // not checked
+        }
+    }
     private logSingle(msg: string) {
         this.logSingleString += msg + "\n";
 
@@ -567,11 +629,13 @@ export class MapComponent implements OnInit {
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
+    isAvailable = true;
 
     constructor(
         private mapsAPILoader: MapsAPILoader,
         private ngZone: NgZone,
-        private router: Router, private mapService: MapService
+        private router: Router, private mapService: MapService,
+
         //console.log(this.markerTypes),
     ) { }
 
@@ -587,24 +651,24 @@ export class MapComponent implements OnInit {
             this.form.addControl("selectSingle1", new FormControl(""));
             this.form.addControl("selectMultiple1", new FormControl(""));
             this.form.addControl("searchControl", new FormControl(""));
-            this.getMarker();
+           // this.getMarker();
             //this.getDistance();
             this.getCabelTypes();
-            this.mapService.getMarker()
-                .subscribe((value) => {
-                    debugger;
-                    var NEArr = [];
-                    for (let v in value) {
-                        var NEList = {
-                            label: "",
-                            value:""
-                        };
-                        NEList.label = value[v]; 
-                        NEList.value = value[v];
-                        NEArr.push(NEList);
-                    }
-                    this.markerTypes = NEArr;
-                });
+            //this.mapService.getMarker()
+            //    .subscribe((value) => {
+            //        debugger;
+            //        var NEArr = [];
+            //        for (let v in value) {
+            //            var NEList = {
+            //                label: "",
+            //                value:""
+            //            };
+            //            NEList.label = value[v]; 
+            //            NEList.value = value[v];
+            //            NEArr.push(NEList);
+            //        }
+            //        this.markerTypes = NEArr;
+            //    });
             this.mapService.getCableTypes()
                 .subscribe((value) => {
                     debugger;
@@ -660,6 +724,7 @@ export class MapComponent implements OnInit {
                         this.lat = place.geometry.location.lat();
                         this.lng = place.geometry.location.lng();
                         var point = "POINT(" + this.lat + " " + this.lng + ")";
+                        // Service -> Set Distance with Point
                         this.mapService.load(point).subscribe;
                         this.zoom = 12;
                         //this.openNav();

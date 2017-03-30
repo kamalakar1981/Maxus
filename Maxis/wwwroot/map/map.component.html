@@ -20,24 +20,24 @@
                 <li><a style="color:black!important" routerLink="map">Map</a></li>
 
             </ul>
-           <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="glyphicon glyphicon-align-justify  "></span></a>
+            <div class="nav navbar-right">
+
+                <div class="dropdown" dropdown [dropdownToggle]="true" (onOpen)="doSomeActionOnOpen()" (onClose)="doSomeActionOnClose()">
+                    <button class="btn btn-primary" dropdown-open><span class="glyphicon glyphicon-align-justify" style="vertical-align:middle"></span> 
+</button>
                     <ul class="dropdown-menu">
-                        <li>Map</li>
-                        <li class="divider"></li>
-                        <li>Map Config </li>
-                        <li class="divider"></li>
-                        <li>User Admin</li>
-                        <li class="divider"></li>
+                        <li><a>Map</a></li>
+                        <li><a>Map config</a></li>
+                        <li><a>Logout</a></li>
                     </ul>
-                </li></ul>
+                </div>
+                </div>
                 <!--<li><logout></logout></li>-->
-         
 
 
 
-        </div>
+
+            </div>
         
     </div>
 
@@ -85,14 +85,20 @@
                     </div>
                     <br />
                     <div style="display:inline;width:50%">
-                        <div style="margin:0;font-weight:400;font-family:inherit;text-align:center;">Building</div>
+                        <div style="margin:0;font-weight:400;font-family:inherit;text-align:center;">Building {{res}}</div>
                         <ng-select [options]="markerNames" [multiple]="multiple0" formControlName="selectSingle" placeholder="Select one marker name" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onSingleSelected($event)" (deselected)="onSingleDeselected($event)"
                                    class="dropdown-header">
                         </ng-select>
+                        <span>
+                            
+                            <netypetable [sourcedata]="res"></netypetable>
+                        </span>
                     </div>
                 </div>
 
-                <div style="margin:30px 0 0">
+            
+
+                <!--<div style="margin:30px 0 0">
 
 
                     <div style="display:inline;width:50%;">
@@ -100,6 +106,7 @@
                         <ng-select [options]="cabelTypes" [multiple]="multiple1" formControlName="selectMultiple1" placeholder="Select multiple cable types" (opened)="onMultipleOpened1()" (closed)="onMultipleClosed1()" (selected)="onMultipleSelected1($event)" (deselected)="onMultipleDeselected1($event)"
                                    class="dropdown-header">
                         </ng-select>
+
                     </div>
                     <br />
                     <div style="display:inline;width:50%">
@@ -108,10 +115,18 @@
                                    class="dropdown-header">
                         </ng-select>
                     </div>
-                </div>
+                </div>-->
+                           <div style="margin:30px 0 0">
+                               <div style="display:inline;width:50%;">
+                                   <!--<div style="margin:0;font-weight:400;font-family:inherit;text-align:center;">Cable Names</div>-->
 
-
-            </div>    
+                                   
+                                   <!--<input type="checkbox" [checked]="saveUsername" (change)="saveUsername = !saveUsername" />-->
+                                   <input type="checkbox" [checked]="isAvailable" (change)="isAvailable = $event.target.checked">
+                                   <pre>{{ isAvailable | json }}</pre>
+                                  </div>
+                               </div>
+                               </div>
 
 
 
