@@ -9,6 +9,6 @@ namespace Maxis.ViewModels
     {
         public string LrdName { get; set; }
 
-        public String GeodataValue { get; set; }
+        public string GeodataValue { get; set; }
     }
 }

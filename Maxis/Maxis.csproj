@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
@@ -96,6 +96,7 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -222,7 +223,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\ExportController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="ViewModels\CustomPrincipal.cs" />
     <Compile Include="Database\Maxis.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -276,57 +280,32 @@
     <Compile Include="fonts\Models\ManageViewModels.cs" />
     <Compile Include="Infrastructure\Repositories\Abstract\IExportRepository.cs" />
     <Compile Include="Infrastructure\Repositories\Abstract\IMapRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\Abstract\IUserRepository.cs" />
     <Compile Include="Infrastructure\Repositories\ExportRepository.cs" />
     <Compile Include="Infrastructure\Repositories\MapRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Abstract\IExportService.cs" />
     <Compile Include="Services\Abstract\IMapService.cs" />
+    <Compile Include="Services\Abstract\IUserService.cs" />
     <Compile Include="Services\ExportService.cs" />
     <Compile Include="Services\MapService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BuildingViewModel.cs" />
     <Compile Include="ViewModels\CableViewModel.cs" />
+    <Compile Include="ViewModels\EditUserViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\LrdViewModel.cs" />
+    <Compile Include="ViewModels\NEViewModel.cs" />
     <Compile Include="ViewModels\PointViewModel.cs" />
+    <Compile Include="ViewModels\StructureViewmodel.cs" />
     <Compile Include="ViewModels\ThresholdViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\flats-16-black.png" />
-    <Content Include="Content\Images\flats-16-blue.png" />
-    <Content Include="Content\Images\flats-16-red.png" />
-    <Content Include="Content\Images\flats-16-voilate.png" />
-    <Content Include="Content\Images\flats-24-black.png" />
-    <Content Include="Content\Images\flats-24-blue.png" />
-    <Content Include="Content\Images\flats-24-red.png" />
-    <Content Include="Content\Images\flats-24-voilate.png" />
-    <Content Include="Content\Images\flats-32-black.png" />
-    <Content Include="Content\Images\flats-32-blue.png" />
-    <Content Include="Content\Images\flats-32-red.png" />
-    <Content Include="Content\Images\flats-32-voilate.png" />
-    <Content Include="Content\Images\OnNet_Logo_V1.jpg" />
-    <Content Include="Content\Images\placeholder-16-black.png" />
-    <Content Include="Content\Images\placeholder-16-blue.png" />
-    <Content Include="Content\Images\placeholder-16-red.png" />
-    <Content Include="Content\Images\placeholder-16-voilate.png" />
-    <Content Include="Content\Images\placeholder-24-black.png" />
-    <Content Include="Content\Images\placeholder-24-blue.png" />
-    <Content Include="Content\Images\placeholder-24-red.png" />
-    <Content Include="Content\Images\placeholder-24-voilate.png" />
-    <Content Include="Content\Images\placeholder-32-black.png" />
-    <Content Include="Content\Images\placeholder-32-blue.png" />
-    <Content Include="Content\Images\placeholder-32-red.png" />
-    <Content Include="Content\Images\placeholder-32-voilate.png" />
-    <Content Include="Content\Images\satellite-dish-16-blue.png" />
-    <Content Include="Content\Images\satellite-dish-16-green.png" />
-    <Content Include="Content\Images\satellite-dish-16-red.png" />
-    <Content Include="Content\Images\satellite-dish-24-blue.png" />
-    <Content Include="Content\Images\satellite-dish-24-green.png" />
-    <Content Include="Content\Images\satellite-dish-24-red.png" />
-    <Content Include="Content\Images\satellite-dish-32-blue.png" />
-    <Content Include="Content\Images\satellite-dish-32-green.png" />
-    <Content Include="Content\Images\satellite-dish-32-red.png" />
     <Content Include="Database\Maxis.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Maxis.edmx</DependentUpon>
@@ -345,7 +324,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="package.json" />
-    <Content Include="wwwroot\NEtype\ne.component.html" />
     <Content Include="wwwroot\user\edit\edit.component.css" />
     <Content Include="wwwroot\user\edit\edit.component.html" />
     <Content Include="wwwroot\user\list\list.component.css" />
@@ -412,7 +390,6 @@
     <Folder Include="Views\Export\" />
     <Folder Include="Views\Map\" />
     <Folder Include="Views\User\" />
-    <Folder Include="wwwroot\contact\shared\" />
     <Folder Include="wwwroot\shared\directives\" />
   </ItemGroup>
   <ItemGroup>
@@ -435,7 +412,8 @@
     <TypeScriptCompile Include="wwwroot\home\home.component.ts" />
     <TypeScriptCompile Include="wwwroot\home\home.routes.ts" />
     <TypeScriptCompile Include="wwwroot\home\shared\home.service.ts" />
-    <TypeScriptCompile Include="wwwroot\NEtype\ne.component.ts" />
+    <TypeScriptCompile Include="wwwroot\login\shared\login.guard.ts" />
+    <TypeScriptCompile Include="wwwroot\logout\shared\logout.service.ts" />
     <TypeScriptCompile Include="wwwroot\user\edit\edit.routes.ts" />
     <TypeScriptCompile Include="wwwroot\logout\logout.component.ts" />
     <TypeScriptCompile Include="wwwroot\logout\logout.routes.ts" />
@@ -452,6 +430,7 @@
     <TypeScriptCompile Include="wwwroot\map\shared\map.interface.ts" />
     <TypeScriptCompile Include="wwwroot\map\shared\map.service.ts" />
     <TypeScriptCompile Include="wwwroot\user\edit\edit.component.ts" />
+    <TypeScriptCompile Include="wwwroot\user\edit\shared\edit.guard.ts" />
     <TypeScriptCompile Include="wwwroot\user\edit\shared\edit.interface.ts" />
     <TypeScriptCompile Include="wwwroot\user\edit\shared\edit.service.ts" />
     <TypeScriptCompile Include="wwwroot\user\list\list.component.ts" />

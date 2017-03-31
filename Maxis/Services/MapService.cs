@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Maxis.Infrastructure.Repositories.Abstract;
-using Maxis.Infrastructure.Repositories;
-using Maxis.Database;
 using Maxis.Services.Abstract;
 using Maxis.ViewModels;
 using System.Data.Spatial;
@@ -21,35 +17,40 @@ namespace Maxis.Services
         }
         
         
-        public List<LrdViewModel> getLRDValues(DbGeography searchPoint, int range)
+        public List<LrdViewModel> GetLrdValues(DbGeography searchPoint, int range)
         {
-            return _mapRepository.getLRDValues(searchPoint, range);
+            return _mapRepository.GetLrdValues(searchPoint, range);
         }
 
-        public List<NEViewModel> getNENames(DbGeography searchPoint, int range, string lrd)
+        public List<NeViewModel> GetNeNames(DbGeography searchPoint, int range, string lrd)
         {
-            return _mapRepository.getNENames(searchPoint, range, lrd);
+            return _mapRepository.GetNeNames(searchPoint, range, lrd);
         }
 
-        public List<ThresholdViewModel> getThresholdDetails(string NEName)
+        public List<ThresholdViewModel> GetThresholdDetails(string neName)
         {
-            return _mapRepository.getThresholdDetails(NEName);
+            return _mapRepository.GetThresholdDetails(neName);
         }
 
-        public List<CableViewModel> getCables(DbGeography searchPoint, int range)
+        public List<CableViewModel> GetCables(DbGeography searchPoint, int range)
         {
-            return _mapRepository.getCables(searchPoint, range);
+            return _mapRepository.GetCables(searchPoint, range);
         }
 
-        public List<CableViewModel> getCableDetails(string cableType)
+        public List<CableViewModel> GetCableDetails(string cableType)
         {
-            return _mapRepository.getCableDetails(cableType);
+            return _mapRepository.GetCableDetails(cableType);
         }
 
-        public List<BuildingViewModel> getBuildingDetails(string NEName)
+        public List<BuildingViewModel> GetBuildingDetails(DbGeography searchPoint, int range)
         {
-            return _mapRepository.getBuildingDetails(NEName);
+            return _mapRepository.GetBuildingDetails(searchPoint, range);
         }
-        
+
+        public List<StructureViewmodel> GetStructureDetails(DbGeography searchPoint, int range)
+        {
+            return _mapRepository.GetStructureDetails(searchPoint, range);
+        }
+
     }
 }
