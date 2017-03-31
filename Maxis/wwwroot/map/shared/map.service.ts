@@ -10,88 +10,54 @@ export class MapService {
 
     public values: any;
 
-    constructor(public _http: Http) { }
+    constructor(private _http: Http) { }
+    private _mapNEtypesUrl = 'Map/NEtypes';
+    private _mapLRDUrl = 'Map/LRD';
+    private _mapNEUrl = 'Map/CableTypes';
+    private _point;
+    private _range;
+    private _requestOption = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-    private MapLRDUrl = 'Map/LRD'; // URL to web api
-    private MapNEtypesUrl = 'Map/NEtypes'; // URL to web api
-    private MapNEUrl = 'Map/CableTypes';
-    private point;
-    private range;
-    //getMarker() {
-    //    return this._http.get(this.MapUrl)
-    //        .map(res => <Map[]>res.json())
-    //        .catch(this.handleError);
-    //}
-
-    //       Fetch all existing comments
     getMarker(): Observable<any[]> {
-        // ...using get request 
-        return this._http.get(this.MapLRDUrl)
-            // ...and calling .json() on the response to return data
+        return this._http.get(this._mapLRDUrl)
             .map((res: Response) => res.json())
-            //...errors if any
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-
     }
+
     getCableTypes(): Observable<any[]> {
-        // ...using get request 
-        return this._http.get(this.MapNEUrl)
-            // ...and calling .json() on the response to return data
+        return this._http.get(this._mapNEUrl)
             .map((res: Response) => res.json())
-            //...errors if any
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 
     }
-    load(point: any): Observable<any> {
-        this.point = point;
-        let body = JSON.stringify(point);
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
 
-        return this._http.post(this.MapLRDUrl, body, options)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    postLRD(value: any): Observable<any> {
-        let point = this.point;
-        this.range = value.value;
-        point = "POINT (101.623333055556 3.05305611111111)";
-        let body = JSON.stringify({ SearchPoint: point, Range: this.range });
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-
-        return this._http.post(this.MapLRDUrl, body, options)
+    getLRD(value: any): Observable<any> {
+        let point = this._point;
+        this._range = value.value;
+        let body = JSON.stringify({ SearchPoint: this._point, Range: this._range });
+        return this._http.post(this._mapLRDUrl, body, this._requestOption)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    postNEtypes(value: any): Observable<any> {
-        let point = this.point;
-        point = "POINT (101.623333055556 3.05305611111111)";
-        let body = JSON.stringify({ SearchPoint: point, Range: this.range, LRD: value[0] });
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
+    getNEtypes(value: any): Observable<any> {
+        let body = JSON.stringify({ SearchPoint: this._point, Range: this._range, LRD: value[0] });
+        return this._http.post(this._mapNEtypesUrl, body, this._requestOption)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
-        return this._http.post(this.MapNEtypesUrl, body, options)
+    getBuilding(value: any): Observable<any> {
+        this._range = value.value;
+        let body = JSON.stringify({ SearchPoint: this._point, Range: this._range });
+        return this._http.post(this._mapLRDUrl, body, this._requestOption)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     getDistance(value: any): Observable<any> {
         let body = JSON.stringify(value);
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-
-        return this._http.post(this.MapLRDUrl, body, options)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    getLRD(value: any): Observable<any> {
-        let body = JSON.stringify(value);
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-
-        return this._http.post(this.MapLRDUrl, body, options)
+        return this._http.post(this._mapLRDUrl, body, this._requestOption)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -101,12 +67,8 @@ export class MapService {
         return body || [];
     }
 
-
     private handleError(error: Response) {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
     }
-
 }
-
-

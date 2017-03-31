@@ -1,4 +1,4 @@
-﻿﻿<div class="navbar navbar-inverse navbar-fixed-top" class="nav-color">
+﻿<div class="navbar navbar-inverse navbar-fixed-top nav-color">
     <div class="container">
         <div class="navbar-header">
             <img src="/Content/Images/OnNet_Logo_V1.jpg" class="onnetlogo" />
@@ -29,7 +29,7 @@
         </div>
     </div>
 </div>
-<input type="checkbox" id="navigation" class="navigation" />
+<input type="checkbox" id="navigation" style="width:345px!important;" />
 <label for="navigation"><span class="glyphicon glyphicon-align-justify  "></span></label>
 <nav>
     <form [formGroup]="form" id="pannelForm">
@@ -61,7 +61,7 @@
                 </div>
                 <br />
                 <div class="distance-div">
-                    <div class="building-dropdown">Building {{res}}</div>
+                    <div class="building-dropdown">Building</div>
                     <ng-select [options]="markerNames" [multiple]="multiple0" formControlName="selectSingle" placeholder="Select one marker name" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onSingleSelected($event)" (deselected)="onSingleDeselected($event)"
                                class="dropdown-header">
                     </ng-select>
@@ -70,28 +70,10 @@
                     </span>
                 </div>
             </div>
-            <!--<div style="margin:30px 0 0">
-               <div style="display:inline;width:50%;">
-                   <div style="margin:0;font-weight:400;font-family:inherit;text-align:center;">Cable Types</div>
-                   <ng-select [options]="cabelTypes" [multiple]="multiple1" formControlName="selectMultiple1" placeholder="Select multiple cable types" (opened)="onMultipleOpened1()" (closed)="onMultipleClosed1()" (selected)="onMultipleSelected1($event)" (deselected)="onMultipleDeselected1($event)"
-                              class="dropdown-header">
-                   </ng-select>
 
-               </div>
-               <br />
-               <div style="display:inline;width:50%">
-                   <div style="margin:0;font-weight:400;font-family:inherit;text-align:center;">Cable Names</div>
-                   <ng-select [options]="cabelNames" [multiple]="multiple0" formControlName="selectSingle1" placeholder="Select one cabel name" [allowClear]="true" (opened)="onSingleOpened1()" (closed)="onSingleClosed1()" (selected)="onSingleSelected1($event)" (deselected)="onSingleDeselected1($event)"
-                              class="dropdown-header">
-                   </ng-select>
-               </div>
-               </div>-->
             <div class="nav-top">
                 <div class="distance-div">
-                    <!--<div style="margin:0;font-weight:400;font-family:inherit;text-align:center;">Cable Names</div>-->
-                    <!--<input type="checkbox" [checked]="saveUsername" (change)="saveUsername = !saveUsername" />-->
                     <input type="checkbox" [checked]="isAvailable" (change)="isAvailable = $event.target.checked">
-                    <pre>{{ isAvailable | json }}</pre>
                 </div>
             </div>
         </div>
@@ -99,7 +81,7 @@
 </nav>
 <div class="search">
     <div class="search-bar">
-        <div class="inner-addon right-addon search-addon">
+        <div class="inner-addon right-addon" style="margin-left:11px;">
             <i class="glyphicon glyphicon-search"></i>
             <input placeholder="search for location" autocorrect="on" autocapitalize="off" spellcheck="true" type="text" name="searchControl" #search class="form-control mapping" id="search">
         </div>
@@ -109,23 +91,17 @@
     <div *ngFor="let m of markers;">
         <sebm-google-map-marker *ngFor="let p of m.points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="'../../Content/Images/placeholder-16-blue.png'" (dragEnd)="markerDragEnd(p, $event)">
             <sebm-google-map-info-window>
-                <strong>InfoWindow {{p.label}}</strong>
+                <strong>{{p.label}}</strong>
             </sebm-google-map-info-window>
         </sebm-google-map-marker>
     </div>
     <sebm-google-map-marker *ngFor="let p of points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="p.icon" (dragEnd)="markerDragEnd(p, $event)">
         <sebm-google-map-info-window>
-            <strong>InfoWindow {{p.label}}</strong><br />
-            <strong>TOTAL:</strong>228<br />
-            <strong>AVAIL:</strong>8<br />
-            <strong>USED:</strong>220<br />
-            <strong>VALUE:</strong>96.49<br />
-            <strong>OLD_VAL:</strong>0<br />
         </sebm-google-map-info-window>
     </sebm-google-map-marker>
     <sebm-google-map-marker *ngFor="let p of buildings" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon">
         <sebm-google-map-info-window>
-            <strong>InfoWindow {{p.label}}</strong><br />
+            <strong> {{p.label}}</strong><br />
         </sebm-google-map-info-window>
     </sebm-google-map-marker>
     <sebm-google-map-polyline *ngFor="let m of markers" [strokeColor]="m.color">
