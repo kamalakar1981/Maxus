@@ -5,7 +5,7 @@ namespace Maxis.ViewModels
     {
         public long BuildingId { get; set; }
         public string BuildingName { get; set; }
-        public long Street { get; set; }
+        public string Street { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Geodata { get; set; }
