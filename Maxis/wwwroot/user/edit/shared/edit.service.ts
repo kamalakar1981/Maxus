@@ -6,7 +6,7 @@ import { Userlist } from './../../list/shared/list.interface';
 
 @Injectable()
 export class EditService {
-    private baseUrl = 'api/products';
+    private baseUrl = 'User/Edit';
 
     constructor(private _http: Http) { }
 
@@ -20,8 +20,8 @@ export class EditService {
         return Observable.throw(error.json().error || 'Server error');
     } 
 
-    getEditList(id: number): Observable<Userlist> {
-        const url = `${this.baseUrl}/${id}`;
+    getEditList(userid: number): Observable<Userlist> {
+        const url = `${this.baseUrl}/${userid}`;
         return this._http.get(url)
             .map(this.extractData)
             .do(data => console.log('getEditList: ' + JSON.stringify(data)))

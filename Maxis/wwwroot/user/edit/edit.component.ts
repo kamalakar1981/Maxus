@@ -40,6 +40,9 @@ export class EditComponent implements OnInit, OnDestroy {
             mobileNo: {
                 range: 'Mobile No is required.'
             },
+            userRole: {
+                range: 'user role is required.'
+            },
             department: {
                 range: 'Department is required.'
             },
@@ -60,10 +63,11 @@ export class EditComponent implements OnInit, OnDestroy {
             userName: ['', Validators.required],
             emailId: ['', Validators.required ],
             mobileNo: ['', Validators.required],
+            userRole: ['', ],
             department: ['', Validators.required],
             title: ['', Validators.required]
         });
-
+        console.log(this._router)
         this.sub = this._route.params.subscribe(
             params => {
                 let id = +params['id'];

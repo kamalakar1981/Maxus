@@ -23,15 +23,16 @@
     <i class="glyphicon glyphicon-search" style="margin:4px 4px 0 0"></i>
     <input #gb type="text" pInputText size="50" placeholder="Search">
 </div>
-<p-dataTable [value]="contacts" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [rows]="10" [paginator]="true" sortMode="multiple" [globalFilter]="gb" #dt>
+<p-dataTable [value]="userlists" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" [rows]="10" [paginator]="true" sortMode="multiple" [globalFilter]="gb" #dt>
     <p-column field="UserId" header="UserId" [sortable]="true">
         <template let-file="rowData" pTemplate type="body">
-            <a routerLink="/home">{{file.UserId}}</a>
+            <a [routerLink]="['/Edit', file.UserId]>{{file.UserId}}</a>
         </template>
     </p-column>
-    <p-column field="UserName" header="UserName" [sortable]="true"></p-column>
-    <p-column field="EmailId" header="EmailId" [sortable]="true"></p-column>
-    <p-column field="MobileNo" header="MobileNo" [sortable]="true">
+
+    <p-column field="Username" header="Username" [sortable]="true"></p-column>
+    <p-column field="Email" header="Email" [sortable]="true"></p-column>
+    <p-column field="Mobileno" header="Mobileno" [sortable]="true">
         <!--<ng-template>
             <span >{{car[col.field]}}</span>
         </ng-template>-->

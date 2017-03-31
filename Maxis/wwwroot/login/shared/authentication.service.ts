@@ -12,11 +12,11 @@ export class AuthenticationService {
 
     private extractData(res: Response) {
         let body = res.json();
-        if (body && body.token) {
+        if (body && body.Data && body.Data.Value) {
             // store user details and token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(body));
+            localStorage.setItem('currentUser', body.Data.Value);
         }
-        return body.data || {};
+        return body.Data.Value || {};
     }
 
     private handelError(error: any) {
@@ -36,7 +36,7 @@ export class AuthenticationService {
         let options = new RequestOptions({ headers: headers });
         
 
-        return this.http.post('Login/Details', body, options)
+        return this.http.post('Login/Login', body, options)
             .map(this.extractData)
             .catch(this.handelError);
     }

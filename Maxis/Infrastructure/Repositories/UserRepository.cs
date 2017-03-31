@@ -84,8 +84,8 @@ namespace Maxis.Infrastructure.Repositories
         {
             try
             {
-                   var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == loginViewModel.Username && u.Password == loginViewModel.Password);
-
+                var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == loginViewModel.Username && u.Password == loginViewModel.Password);
+               // var user = "username"; 
                     if (user == null)
                     {
                         var newuser = new ONNET_USER
