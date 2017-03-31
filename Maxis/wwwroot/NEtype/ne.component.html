@@ -1,0 +1,25 @@
+﻿<table  class="table table-bordered">
+    <thead>
+        <tr>
+            <th>NE Name</th>
+            <th>NE Type</th>
+            <th>NE Roles</th>
+            <th>Capacity</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let user of sourcedataMck">
+        <tr>
+            <td>{{ user.NEName }}</td>
+            <td>{{ user.NEType }}</td>
+            <td>{{ user.Roles }}</td>
+            <td><template #popTemplate>
+                <div [innerHtml]="html"></div>
+            </template>
+            <button type="button" class="btn btn-default btn-secondary"
+                    [popover]="popTemplate" placement="right">
+                Capacity
+            </button>
+            </td>
+          </tr>
+    </tbody>
+</table>
