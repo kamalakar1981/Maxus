@@ -1,11 +1,10 @@
 ﻿export interface Userlist {
-    userId;
-    userName;
-    emailId;
-    mobileNo;
-    department;
-    title;
-    status;
-    roles;
-
+    userId: number;
+    userName: string;
+    emailId: string;
+    mobileNo: number;
+    department: string;
+    title: string;
+    status: number;
+    roles: string;
 }
