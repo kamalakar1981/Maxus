@@ -458,7 +458,7 @@ export class MapComponent implements OnInit {
 
     onMultipleSelected(item: any) {
         this.logMultiple("- selected (value: " + item.value + ", label:" + item.label + ")");
-        this.mapService.postNEtypes(this.form.value["selectMultiple"])
+        this.mapService.getNEtypes(this.form.value["selectMultiple"])
             .subscribe((value) => {
                 debugger;
                 var NEArr = [];
@@ -519,7 +519,7 @@ export class MapComponent implements OnInit {
 
         this.logSingle("- selected (value: " + item.value + ", label:" +
             item.label + ")");
-        this.mapService.postLRD(item)
+        this.mapService.getLRD(item)
                 .subscribe((value) => {
                     debugger;
                     var NEArr = [];
@@ -717,7 +717,7 @@ export class MapComponent implements OnInit {
                         this.lng = place.geometry.location.lng();
                         var point = "POINT(" + this.lat + " " + this.lng + ")";
                         // Service -> Set Distance with Point
-                        this.mapService.load(point).subscribe;
+                        this.mapService.getload(point).subscribe;
                         this.zoom = 12;
                         //this.openNav();
                     });
