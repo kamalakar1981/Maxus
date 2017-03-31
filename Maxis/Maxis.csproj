@@ -299,6 +299,7 @@
     <Compile Include="ViewModels\LrdViewModel.cs" />
     <Compile Include="ViewModels\NEViewModel.cs" />
     <Compile Include="ViewModels\PointViewModel.cs" />
+    <Compile Include="ViewModels\StructureViewmodel.cs" />
     <Compile Include="ViewModels\ThresholdViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>

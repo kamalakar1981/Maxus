@@ -30,14 +30,14 @@ namespace Maxis.Controllers
         }
 
         // GET: Map/Threshold/nename(NE name)
-        //Show threshold info on tower click
+        //Show threshold information
         public JsonResult Threshold(string NEName)
         {
             return Json(_mapService.GetThresholdDetails(NEName), JsonRequestBehavior.AllowGet);
         } 
                       
         // GET: Map/CableTypes
-        //show cabletypes for cable type dropdown
+        //show cable information
         public JsonResult Cables(PointViewModel pointViewModel)
         {
             return Json(_mapService.GetCables(DbGeography.FromText(pointViewModel.SearchPoint), pointViewModel.Range), JsonRequestBehavior.AllowGet);
@@ -50,15 +50,20 @@ namespace Maxis.Controllers
             return Json(_mapService.GetCableDetails(cableType), JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Map/Building/nename(NEname)
+        // GET: Map/Building
         //Show buildings based on nename
         public JsonResult Buildings(PointViewModel pointViewModel)
         {
             return Json(_mapService.GetBuildingDetails(DbGeography.FromText(pointViewModel.SearchPoint), pointViewModel.Range), JsonRequestBehavior.AllowGet);
         }
 
+        //GET: Map/Structures
+        //Show cable structures 
+        public JsonResult Structures(PointViewModel pointViewModel)
+        {
+            return Json(_mapService.GetStructureDetails(DbGeography.FromText(pointViewModel.SearchPoint), pointViewModel.Range), JsonRequestBehavior.AllowGet);
+        }
 
-        
 
     }
 }
