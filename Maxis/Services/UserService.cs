@@ -1,42 +1,32 @@
-﻿using Maxis.Database;
-using Maxis.Repository;
+using Maxis.Infrastructure.Repositories.Abstract;
 using Maxis.Services.Abstract;
 using Maxis.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Maxis.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-
         public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
-
         public List<EditUserViewModel> GetAllUsers()
         {
             return _userRepository.SelectAll();
         }
-
-        public List<EditUserViewModel> SelectById(long id)
+        public EditUserViewModel SelectById(long id)
         {
-            return _userRepository.SelectByID(id);
+            return _userRepository.SelectById(id);
         }
-
-
-        public void EditUser(EditUserViewModel model)
+        public void EditUser(EditUserViewModel editUserModel)
         {
-            _userRepository.Update(model);
+            _userRepository.Update(editUserModel);
         }
-
-        public void CreateUser(LoginViewModel model)
+        public LoginViewModel CreateUser(LoginViewModel loginViewModel)
         {
-            _userRepository.Insert(model);
+            return _userRepository.Insert(loginViewModel);
         }
     }
 }

@@ -1,165 +1,171 @@
-﻿using Maxis.Database;
-using Maxis.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using Maxis.Database;
+using Maxis.Infrastructure.Repositories.Abstract;
+using Maxis.ViewModels;
+using System.Text;
+using System.Security.Cryptography;
+using System.IO;
 
-namespace Maxis.Repository
+namespace Maxis.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private MaxisEntities db = new MaxisEntities();
-
-        // private readonly IUserRepository _context;
-
-        public UserRepository()
-        {
-
-        }
-
+        private readonly MaxisEntities _db = new MaxisEntities();
         public List<EditUserViewModel> SelectAll()
         {
-            db.Configuration.ProxyCreationEnabled = false;
-
             try
             {
-                using (MaxisEntities db = new MaxisEntities())
-                {
-
-                    var result = (from ep in db.ONNET_USER
-                                  join e in db.ONNET_USERROLE on ep.RoleId equals e.RoleId
-                                  where ep.RoleId == e.RoleId
-                                  select new
-                                  {
-                                      UserId = ep.UserId,
-                                      Username = ep.Username,
-                                      Email = ep.Email,
-                                      Department = ep.Department,
-                                      Title = ep.Title,
-                                      Status = ep.Status,
-                                      Roles = e.RoleName
-                                  }).ToList()
-    .Select(x => new EditUserViewModel()
-    {
-        UserId = x.UserId,
-        Username = x.Username,
-        Email = x.Email,
-        Department = x.Department,
-        Title = x.Title,
-        Status = x.Status,
-        Roles = x.Roles
-    });
-
-                    return (result.ToList());
-                }
+                    var result = (from ep in _db.ONNET_USER
+                        join e in _db.ONNET_USERROLE on ep.RoleId equals e.RoleId
+                        where ep.RoleId == e.RoleId
+                        select new EditUserViewModel()
+                        {
+                            UserId = ep.UserId,
+                            Username = ep.Username,
+                            Email = ep.Email,
+                            Mobile = ep.Mobile,
+                            Department = ep.Department,
+                            Title = ep.Title,
+                            Status = ep.Status,
+                            Roles = e.RoleName
+                        }).ToList();
+ 
+                    return result;
+                
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                throw (ex);
+                throw;
             }
             
         }
-
-        public List<EditUserViewModel> SelectByID(long id)
+        public EditUserViewModel SelectById(long id)
         {
-            db.Configuration.ProxyCreationEnabled = false;
             try
             {
-                using (MaxisEntities db = new MaxisEntities())
-                {
-                    var result = (from ep in db.ONNET_USER
-                            join e in db.ONNET_USERROLE on ep.RoleId equals e.RoleId
-                            where ep.UserId == id
-                            select new
-                            {
-                                UserId = ep.UserId,
-                                Username = ep.Username,
-                                Email = ep.Email,
-                                Department = ep.Department,
-                                Title = ep.Title,
-                                Status = ep.Status,
-                                Roles = e.RoleName
-                            }).ToList()
-                        .Select(x => new EditUserViewModel()
+                    var result = (from ep in _db.ONNET_USER
+                        join e in _db.ONNET_USERROLE on ep.RoleId equals e.RoleId
+                        where ep.UserId == id
+                        select new EditUserViewModel()
                         {
-                            UserId = x.UserId,
-                            Username = x.Username,
-                            Email = x.Email,
-                            Department = x.Department,
-                            Title = x.Title,
-                            Status = x.Status,
-                            Roles = x.Roles
-                        });
-                    return (result.ToList());
-                }
+                            UserId = ep.UserId,
+                            Username = ep.Username,
+                            Email = ep.Email,
+                            Mobile = ep.Mobile,
+                            Department = ep.Department,
+                            Title = ep.Title,
+                            Status = ep.Status,
+                            Roles = e.RoleName
+                        }).Single();
+                     
+                    return (result); 
             }
-            catch (Exception ex)
+            catch (Exception )
             {
-                throw ex;
+                throw;
             }
         }
-
-        public void Insert(LoginViewModel model)
+        public LoginViewModel Insert(LoginViewModel loginViewModel)
         {
-            db.Configuration.ProxyCreationEnabled = false;
             try
             {
-                using (MaxisEntities entities = new MaxisEntities())
-                {
+                var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == loginViewModel.Username && u.Password == loginViewModel.Password);
 
-                    var newuser = new ONNET_USER
+                    if (user == null)
                     {
-                        Username = model.Username,
-                        Password = model.Password,
-                        Email = null,
-                        Mobile = null,
-                        Department = null,
-                        Title = null,
-                        Status = null,
-                        RoleId = 3
-                    };
-                    using (var context = new MaxisEntities())
-                    {
-                        context.ONNET_USER.Add(newuser);
-                        context.SaveChanges();
+                        var newuser = new ONNET_USER
+                        {
+                            Username = loginViewModel.Username,
+                            //Password = Encrypt(new  LoginViewModel
+                            //{
+                                Password =loginViewModel.Password,
+                            //}),
+                            Email = null,
+                            Mobile = null,
+                            Department = null,
+                            Title = null,
+                            Status = null,
+                            RoleId = 3
+                        };
+                        using (MaxisEntities _db = new MaxisEntities())
+                        {
+                               _db.ONNET_USER.Add(newuser);
+                               _db.SaveChanges();
+                        }
+                        var role = (from ep in _db.ONNET_USER
+                            join e in _db.ONNET_USERROLE on ep.RoleId equals e.RoleId
+                            where loginViewModel.Username == ep.Username
+                            select new LoginViewModel()
+                            {
+                                Roles = e.RoleName,
+                                RoleId = e.RoleId
+                            }).Single();
+
+                    return role;
                     }
-
-                }
+                    else
+                    {
+                        var role = (from ep in _db.ONNET_USER
+                            join e in _db.ONNET_USERROLE on ep.RoleId equals e.RoleId
+                            where loginViewModel.Username == ep.Username
+                            select new LoginViewModel()
+                            {
+                                Roles = e.RoleName,
+                                RoleId = e.RoleId
+                            }).Single();
+                    return role;
+                    }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
+            }
+        }
+        public void Update(EditUserViewModel editViewModel)
+        {
+           try
+            {
+                    var entity = _db.ONNET_USER.FirstOrDefault(u => u.UserId == editViewModel.UserId);
+                    if (entity != null)
+                    {
+                        entity.UserId = editViewModel.UserId;
+                        entity.Username = editViewModel.Username;
+                        entity.Email = editViewModel.Email;
+                        entity.Mobile = editViewModel.Mobile;
+                        entity.Department = editViewModel.Department;
+                        entity.Title = editViewModel.Title;
+                        entity.Status = editViewModel.Status;
+                    }
+                    _db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
-        public void Update(EditUserViewModel model)
+        public string Encrypt(LoginViewModel loginModel)
         {
-            db.Configuration.ProxyCreationEnabled = false;
-            try
+            const string encryptionKey = "MAKV2SPBNI99212";
+            var clearBytes = Encoding.Unicode.GetBytes(loginModel.Password);
+            using (var encryptor = Aes.Create())
             {
-                using (MaxisEntities entities = new MaxisEntities())
+                var pdb = new Rfc2898DeriveBytes(encryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (var ms = new MemoryStream())
                 {
-                    var entity = entities.ONNET_USER.FirstOrDefault(u => u.UserId == model.UserId);
-                    entity.UserId = model.UserId;
-                    entity.Username = model.Username;
-                    entity.Email = model.Email;
-                    entity.Mobile = model.Mobile;
-                    entity.Department = model.Department;
-                    entity.Title = model.Title;
-                    entity.Status = model.Status;
-                    entities.SaveChanges();
+                    using (var cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    loginModel.Password = Convert.ToBase64String(ms.ToArray());
                 }
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public void Save()
-        {
-            db.SaveChanges();
+            return loginModel.Password;
         }
     }
 }

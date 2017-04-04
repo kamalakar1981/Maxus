@@ -1,3 +1,23 @@
 ﻿.glyphicon.glyphicon-cog {
     font-size: 15px;
 }
+.navbar-light {
+    background-color:#66CDAA;
+    margin-bottom: 0px;
+}
+.glyphicon-cog {
+    color:white;
+}
+.caret {
+    color:white;
+}
+.glyphicon-refresh{
+    color:white;
+}
+.btn-primary {
+    width:80px;
+    margin-right:10px;
+}
+.btn-default {
+    width:80px;
+}

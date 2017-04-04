@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+
 using System.Web.Mvc;
-using Maxis.Database;
-using Maxis.Repository;
-using Newtonsoft.Json;
 using Maxis.Services.Abstract;
-using Maxis.Services;
 using Maxis.ViewModels;
 
 namespace Maxis.Controllers
 {
     public class UserController : Controller
     {
-        private MaxisEntities db = new MaxisEntities();
 
         private readonly IUserService _userService;
 
@@ -39,19 +28,9 @@ namespace Maxis.Controllers
 
         // PUT: USER/EditUser/2
         [HttpPost]
-
-        public void EditUser(EditUserViewModel model)
+        public void UpdateUser(EditUserViewModel editUserViewModel)
         {
-            _userService.EditUser(model);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            _userService.EditUser(editUserViewModel);
         }
     }
 }

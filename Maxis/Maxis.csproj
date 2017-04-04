@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
@@ -77,6 +77,19 @@
     </Reference>
     <Reference Include="Microsoft.Extensions.Primitives, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.1.0.0\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -208,6 +221,7 @@
     <Compile Include="App_Start\MappingConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\ExportController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MapController.cs" />
@@ -257,21 +271,24 @@
     <Compile Include="Database\ONNET_USERROLE.cs">
       <DependentUpon>Maxis.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\CustomPrincipal.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="fonts\Models\AccountViewModels.cs" />
     <Compile Include="fonts\Models\IdentityModels.cs" />
     <Compile Include="fonts\Models\ManageViewModels.cs" />
+    <Compile Include="Infrastructure\Repositories\Abstract\IExportRepository.cs" />
     <Compile Include="Infrastructure\Repositories\Abstract\IMapRepository.cs" />
     <Compile Include="Infrastructure\Repositories\Abstract\IUserRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\ExportRepository.cs" />
     <Compile Include="Infrastructure\Repositories\MapRepository.cs" />
     <Compile Include="Infrastructure\Repositories\UserRepository.cs" />
-    <Compile Include="Interfaces\CustomPrincipal.cs" />
-    <Compile Include="Interfaces\ICustomPrincipal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Abstract\IExportService.cs" />
     <Compile Include="Services\Abstract\IMapService.cs" />
     <Compile Include="Services\Abstract\IUserService.cs" />
+    <Compile Include="Services\ExportService.cs" />
     <Compile Include="Services\MapService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
@@ -279,7 +296,13 @@
     <Compile Include="ViewModels\CableViewModel.cs" />
     <Compile Include="ViewModels\EditUserViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\LrdViewModel.cs" />
+    <Compile Include="ViewModels\NEViewModel.cs" />
+    <Compile Include="ViewModels\PointViewModel.cs" />
+	  <Compile Include="ViewModels\StructureViewmodel.cs" />
+	   <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\ThresholdViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -365,7 +388,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Login\" />
+    <Folder Include="Views\Export\" />
     <Folder Include="Views\Map\" />
     <Folder Include="Views\User\" />
     <Folder Include="wwwroot\shared\directives\" />
@@ -390,6 +413,8 @@
     <TypeScriptCompile Include="wwwroot\home\home.component.ts" />
     <TypeScriptCompile Include="wwwroot\home\home.routes.ts" />
     <TypeScriptCompile Include="wwwroot\home\shared\home.service.ts" />
+    <TypeScriptCompile Include="wwwroot\login\shared\login.guard.ts" />
+    <TypeScriptCompile Include="wwwroot\logout\shared\logout.service.ts" />
     <TypeScriptCompile Include="wwwroot\user\edit\edit.routes.ts" />
     <TypeScriptCompile Include="wwwroot\logout\logout.component.ts" />
     <TypeScriptCompile Include="wwwroot\logout\logout.routes.ts" />
@@ -406,6 +431,7 @@
     <TypeScriptCompile Include="wwwroot\map\shared\map.interface.ts" />
     <TypeScriptCompile Include="wwwroot\map\shared\map.service.ts" />
     <TypeScriptCompile Include="wwwroot\user\edit\edit.component.ts" />
+    <TypeScriptCompile Include="wwwroot\user\edit\shared\edit.guard.ts" />
     <TypeScriptCompile Include="wwwroot\user\edit\shared\edit.interface.ts" />
     <TypeScriptCompile Include="wwwroot\user\edit\shared\edit.service.ts" />
     <TypeScriptCompile Include="wwwroot\user\list\list.component.ts" />

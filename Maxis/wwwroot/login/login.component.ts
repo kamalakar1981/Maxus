@@ -2,7 +2,7 @@
 import { AuthenticationService } from './shared/authentication.service';
 import { NgForm } from '@angular/forms';
 import { User } from './shared/login.interface';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
     selector: 'login',
     templateUrl: 'wwwroot/login/login.component.html',
@@ -10,27 +10,26 @@ import { Router } from '@angular/router';
 })
 
 export class LoginComponent {
-
-    user = new User('', '');
+    errorMsg:string = "Username and password does not exist in LDAP";
+    user: any = {};
     loginInvalid = false;
-    constructor(private autenticationService: AuthenticationService, private router: Router) {
-
+    constructor(private _autenticationService: AuthenticationService,
+        private _router: Router,
+        private _route: ActivatedRoute) {
     }
 
     submitForm(form: NgForm) {
-        this.autenticationService.postForm(this.user)
+        this._autenticationService.postForm(this.user.username,this.user.password)
             .subscribe(
             data => {
-                if (!data) {
-                    this.loginInvalid = true;
-                }
-                else {
-                    this.router.navigate(['map']);
-                    console.log('success:', data);
-                }
+                this._router.navigate(['map']);
+                console.log('success:', data);
             },
-            err => console.log('error:', err)
-            )
+            err => {
+                this.loginInvalid = true;
+                console.log('error:', err)
+            });
+            
 
     }
 

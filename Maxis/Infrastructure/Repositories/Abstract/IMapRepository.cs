@@ -1,33 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
-using Maxis.Database;
+﻿using System.Collections.Generic;
 using Maxis.ViewModels;
 using System.Data.Spatial;
 
 namespace Maxis.Infrastructure.Repositories.Abstract
 {
     public interface IMapRepository
-    {
-        List<string> getLRDValues();
+    {           
 
-        List<string> getLRDRangeValues(DbGeography searchPoint, int range);
+        List<LrdViewModel> GetLrdValues(DbGeography searchPoint, int range);
 
-        List<string> getNENames(string LRD);
+        List<NeViewModel> GetNeNames(DbGeography searchPoint, int range, string lrd);
 
-        List<string> getCableTypes();
+        List<ThresholdViewModel> GetThresholdDetails(string neName);
 
-        List<CableViewModel> getCableDetails(string cableType);
+        List<CableViewModel> GetCables(DbGeography searchPoint, int range);
 
-        List<BuildingViewModel> getBuildingDetails(string NEName);
+        List<CableViewModel> GetCableDetails(string cableType);
 
-        List<ThresholdViewModel> getThresholdDetails(string NEName);
+        List<BuildingViewModel> GetBuildingDetails(DbGeography searchPoint, int range);
 
-
-
+        List<StructureViewmodel> GetStructureDetails(DbGeography searchPoint, int range);
 
     }
 }

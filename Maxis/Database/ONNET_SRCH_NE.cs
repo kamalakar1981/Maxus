@@ -26,7 +26,7 @@ namespace Maxis.Database
         public long NE_OT_ID { get; set; }
         public string NE_OT_NAME { get; set; }
         public string ROLE { get; set; }
-        public string ST__AMOUNT { get; set; }
+        public string ST_AMOUNT { get; set; }
         public string DL_ID_LST { get; set; }
         public string MANUFACTURER { get; set; }
         public string STATUS { get; set; }
@@ -36,7 +36,7 @@ namespace Maxis.Database
         public string SITE_LONG_NAME { get; set; }
         public string ENGINEERING_REGION { get; set; }
         public string OPERATION_REGION { get; set; }
-        public string GEODATA { get; set; }
+        public System.Data.Entity.Spatial.DbGeography GEODATA { get; set; }
         public Nullable<System.DateTime> LTST_CRTD_WHEN { get; set; }
         public Nullable<System.DateTime> LTST_UPTD_WHEN { get; set; }
     

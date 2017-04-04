@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using Maxis.Database;
-using Newtonsoft.Json;
-using Maxis.Infrastructure.Repositories;
-using Maxis.Infrastructure.Repositories.Abstract;
+﻿using System.Web.Mvc;
 using Maxis.Services.Abstract;
-using Maxis.Services;
+using Maxis.ViewModels;
+using System.Data.Spatial;
 
 namespace Maxis.Controllers
 {
@@ -25,47 +15,55 @@ namespace Maxis.Controllers
         }
 
         // GET: Map/LRD
-        //show LRD for NEtypes dropdown
-        public JsonResult LRD()
+        //show LRD 
+        public JsonResult LRD(PointViewModel pointViewModel)
         {
-            return Json(_mapService.getLRDValues(), JsonRequestBehavior.AllowGet);
+            return Json(_mapService.GetLrdValues(DbGeography.FromText(pointViewModel.SearchPoint), pointViewModel.Range), JsonRequestBehavior.AllowGet);
         }
 
-        // GET: MAP/NENAMES?LRD=AGNI
+
+        // GET: MAP/NENames
         //show NENames for NENames dropdown based on lrd
-        public JsonResult NENames(string LRD)
+        public JsonResult NENames(PointViewModel pointViewModel)
         {
-            return Json(_mapService.getNENames(LRD), JsonRequestBehavior.AllowGet);
+            return Json(_mapService.GetNeNames(DbGeography.FromText(pointViewModel.SearchPoint), pointViewModel.Range, pointViewModel.Lrd), JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Map/CableTypes
-        //show cabletypes for cable type dropdown
-        public JsonResult CableTypes()
+        // GET: Map/Threshold/nename(NE name)
+        //Show threshold information
+        public JsonResult Threshold(string NEName)
         {
-            return Json(_mapService.getCableTypes(), JsonRequestBehavior.AllowGet);
+            return Json(_mapService.GetThresholdDetails(NEName), JsonRequestBehavior.AllowGet);
+        } 
+                      
+        // GET: Map/CableTypes
+        //show cable information
+        public JsonResult Cables(PointViewModel pointViewModel)
+        {
+            return Json(_mapService.GetCables(DbGeography.FromText(pointViewModel.SearchPoint), pointViewModel.Range), JsonRequestBehavior.AllowGet);
         }
 
         // GET: Map/CableDetails
         //show cablenames, geodata for cable names dropdown based on cable type
         public JsonResult CableDetails(string cableType)
         {
-            return Json(_mapService.getCableDetails(cableType), JsonRequestBehavior.AllowGet);
+            return Json(_mapService.GetCableDetails(cableType), JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Map/Building/nename(NEname)
+        // GET: Map/Building
         //Show buildings based on nename
-        public JsonResult Building(string NEName)
+        public JsonResult Buildings(PointViewModel pointViewModel)
         {
-            return Json(_mapService.getBuildingDetails(NEName), JsonRequestBehavior.AllowGet);
+            return Json(_mapService.GetBuildingDetails(DbGeography.FromText(pointViewModel.SearchPoint), pointViewModel.Range), JsonRequestBehavior.AllowGet);
         }
 
-
-        // GET: Map/Threshold/nename(NE name)
-        //Show threshold info on tower click
-        public JsonResult Threshold(string NEName)
+        //GET: Map/Structures
+        //Show cable structures 
+        public JsonResult Structures(PointViewModel pointViewModel)
         {
-            return Json(_mapService.getThresholdDetails(NEName), JsonRequestBehavior.AllowGet);
+            return Json(_mapService.GetStructureDetails(DbGeography.FromText(pointViewModel.SearchPoint), pointViewModel.Range), JsonRequestBehavior.AllowGet);
         }
+
 
     }
 }
