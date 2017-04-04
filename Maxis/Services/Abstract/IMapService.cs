@@ -18,7 +18,7 @@ namespace Maxis.Services.Abstract
 
         List<BuildingViewModel> GetBuildingDetails(DbGeography searchPoint, int range);
 
-        List<StructureViewmodel> GetStructureDetails(DbGeography searchPoint, int range);
+        List<StructureViewmodel> GetStructureDetails(DbGeography searchPoint, int range, long cableId);
 
     }
 }
