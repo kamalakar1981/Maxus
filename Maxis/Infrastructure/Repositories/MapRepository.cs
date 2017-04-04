@@ -141,7 +141,7 @@ namespace Maxis.Infrastructure.Repositories
                     NetworkElementId = m.ne.NE_ID,
                     Lrd = m.ne.LRD
                 });
-            return result.ToList();
+            return result.GroupBy(m => m.BuildingId).Select(m => m.First()).ToList();
         }
 
         /// <summary>
@@ -149,19 +149,23 @@ namespace Maxis.Infrastructure.Repositories
         /// </summary>
         /// <param name="searchPoint">Search coordinates</param>
         /// <param name="range">Range</param>
+        /// <param name="cableId">CableId</param>
         /// <returns>StructureViewmodel</returns>
-        public List<StructureViewmodel> GetStructureDetails(DbGeography searchPoint, int range)
+        public List<StructureViewmodel> GetStructureDetails(DbGeography searchPoint, int range, long cableId)
         {
+           
             var parameterList = new List<SqlParameter>
             {
                 new SqlParameter("@Lat", searchPoint.Latitude),
                 new SqlParameter("@Long", searchPoint.Longitude),
                 new SqlParameter("@range", range)
             };
-            var result = _db.ONNET_SRCH_OSP_STRUCT.SqlQuery("SELECT * FROM(SELECT *,(((acos(sin((@Lat*pi()/180)) * sin((GEODATA.Lat*pi()/180))+cos((@Lat*pi()/180)) " +
-                "* cos((GEODATA.Lat*pi()/180)) * cos(((@Long - GEODATA.Long)*pi()/180))))*180/pi())*60*1.1515*1.609344) " +
-                "as distance FROM ONNET_SRCH_OSP_STRUCT) t WHERE distance <= @range", parameterList.ToArray()).Join(_db.ONNET_SRCH_OSP_CABLE_STRUCT, s => s.STRUCT_ID, cs => cs.STRUCT_ID,
-                (s, cs) => new { s, cs }).Select(m => new StructureViewmodel()
+            var result = _db.ONNET_SRCH_OSP_STRUCT.SqlQuery(
+                    "SELECT * FROM(SELECT *,(((acos(sin((@Lat*pi()/180)) * sin((GEODATA.Lat*pi()/180))+cos((@Lat*pi()/180)) " +
+                    "* cos((GEODATA.Lat*pi()/180)) * cos(((@Long - GEODATA.Long)*pi()/180))))*180/pi())*60*1.1515*1.609344) " +
+                    "as distance FROM ONNET_SRCH_OSP_STRUCT) t WHERE distance <= @range", parameterList.ToArray())
+                .Join(_db.ONNET_SRCH_OSP_CABLE_STRUCT, s => s.STRUCT_ID, cs => cs.STRUCT_ID,
+                    (s, cs) => new {s, cs}).Select(m => new StructureViewmodel()
                 {
                     StructureId = m.s.STRUCT_ID,
                     StructureName = m.s.STRUCT_NAME,
@@ -169,7 +173,8 @@ namespace Maxis.Infrastructure.Repositories
                     Geodata = m.s.GEODATA.AsText(),
                     CableId = m.cs.CABLE_ID
                 });
-            return result.ToList();
+            return result.Where(m => m.CableId == cableId).ToList();
+            
         }
 
     }

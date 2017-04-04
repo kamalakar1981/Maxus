@@ -61,7 +61,7 @@ namespace Maxis.Controllers
         //Show cable structures 
         public JsonResult Structures(PointViewModel pointViewModel)
         {
-            return Json(_mapService.GetStructureDetails(DbGeography.FromText(pointViewModel.SearchPoint), pointViewModel.Range), JsonRequestBehavior.AllowGet);
+            return Json(_mapService.GetStructureDetails(DbGeography.FromText(pointViewModel.SearchPoint), pointViewModel.Range, pointViewModel.CableId), JsonRequestBehavior.AllowGet);
         }
 
 

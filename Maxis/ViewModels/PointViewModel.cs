@@ -7,5 +7,6 @@ namespace Maxis.ViewModels
         public int Range { get; set; }
         public string Netype { get; set; }
         public string Lrd { get; set; }
+        public long CableId { get; set; }
     }
 }
