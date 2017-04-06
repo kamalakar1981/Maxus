@@ -43,13 +43,6 @@ namespace Maxis.Controllers
             return Json(_mapService.GetCables(DbGeography.FromText(pointViewModel.SearchPoint), pointViewModel.Range), JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Map/CableDetails
-        //show cablenames, geodata for cable names dropdown based on cable type
-        public JsonResult CableDetails(string cableType)
-        {
-            return Json(_mapService.GetCableDetails(cableType), JsonRequestBehavior.AllowGet);
-        }
-
         // GET: Map/Building
         //Show buildings based on nename
         public JsonResult Buildings(PointViewModel pointViewModel)

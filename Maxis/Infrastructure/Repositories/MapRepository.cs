@@ -31,7 +31,7 @@ namespace Maxis.Infrastructure.Repositories
             var result = _db.ONNET_SRCH_NE.SqlQuery("SELECT * FROM(SELECT *,(((acos(sin((@Lat*pi()/180)) * sin((GEODATA.Lat*pi()/180))+cos((@Lat*pi()/180)) " +
                 "* cos((GEODATA.Lat*pi()/180)) * cos(((@Long - GEODATA.Long)*pi()/180))))*180/pi())*60*1.1515*1.609344) " +
                 "as distance FROM ONNET_SRCH_NE) t WHERE distance <= @range", parameterList.ToArray()).ToList();
-            return result.Select(m => new LrdViewModel {LrdName = m.LRD, GeodataValue = m.GEODATA.AsText()}).GroupBy(m => m.LrdName).Select(m => m.First()).ToList();            
+            return result.Select(m => new LrdViewModel {LrdName = m.LRD, GeodataValue = m.GEODATA.AsText()}).GroupBy(m => m.LrdName).Select(m => m.First()).OrderBy(m => m.LrdName).ToList();            
         }
 
         /// <summary>
@@ -43,23 +43,28 @@ namespace Maxis.Infrastructure.Repositories
         /// <returns>NeViewModel</returns>
         public List<NeViewModel> GetNeNames(DbGeography searchPoint, int range, string lrd)
         {
+            var lrdArray = lrd.Split(',');
+            var lrdParms = lrdArray.Select((s, i) => "@Lrd" + i.ToString()).ToArray();
+            var inClause = string.Join(",", lrdParms);
+
             var parameterList = new List<SqlParameter>
             {
                 new SqlParameter("@Lat", searchPoint.Latitude),
                 new SqlParameter("@Long", searchPoint.Longitude),
-                new SqlParameter("@range", range),
-                new SqlParameter("@LRD", lrd)
+                new SqlParameter("@range", range)
             };
+            parameterList.AddRange(lrdArray.Select((t, i) => new SqlParameter(lrdParms[i], t)));
+
             var result = _db.ONNET_SRCH_NE.SqlQuery("SELECT * FROM(SELECT *,(((acos(sin((@Lat*pi()/180)) * sin((GEODATA.Lat*pi()/180))+cos((@Lat*pi()/180)) " +
                 "* cos((GEODATA.Lat*pi()/180)) * cos(((@Long - GEODATA.Long)*pi()/180))))*180/pi())*60*1.1515*1.609344) " +
-                "as distance FROM ONNET_SRCH_NE) t WHERE distance <= @range and LRD=@LRD", parameterList.ToArray()).Select(g => new NeViewModel
+                "as distance FROM ONNET_SRCH_NE) t WHERE distance <= @range and LRD IN ("+ inClause +")", parameterList.ToArray()).Select(g => new NeViewModel
                 {
                     NetworkElementId = g.NE_ID,
                     NetworkElementName = g.NE_NAME,
                     NetworkElementType = g.NE_OT_NAME,
                     Role = g.ROLE
-                }).ToList();
-            return result;            
+                }).OrderBy(m => m.NetworkElementName).ToList();
+            return result;             
         }
 
         /// <summary>
@@ -69,7 +74,7 @@ namespace Maxis.Infrastructure.Repositories
         /// <returns>ThresholdViewModel</returns>
         public List<ThresholdViewModel> GetThresholdDetails(string neName)
         {
-            return _db.ONNET_SRCH_OSP_THRESHOLD.Where(m => m.NE_NAME.ToUpper() == neName.ToUpper()).ProjectTo<ThresholdViewModel>().ToList();
+            return _db.ONNET_SRCH_OSP_THRESHOLD.Where(m => m.NE_NAME.ToUpper() == neName.ToUpper() && m.TOTAL > 0).OrderBy(m => m.TRH_TEMPL_NAME).ProjectTo<ThresholdViewModel>().ToList();
         }
 
         /// <summary>
@@ -98,7 +103,7 @@ namespace Maxis.Infrastructure.Repositories
                         NumberOfFibers = c.NUM_OF_FIBERS,
                         CableType = c.CABLE_TYPE,
                         Geodata = c.GEODATA.AsText()
-                    }).ToList();
+                    }).OrderBy(m => m.CableName).ToList();
             return result;
         }
 
@@ -141,7 +146,7 @@ namespace Maxis.Infrastructure.Repositories
                     NetworkElementId = m.ne.NE_ID,
                     Lrd = m.ne.LRD
                 });
-            return result.GroupBy(m => m.BuildingId).Select(m => m.First()).ToList();
+            return result.GroupBy(m => m.BuildingId).Select(m => m.First()).OrderBy(m => m.BuildingName).ToList();
         }
 
         /// <summary>

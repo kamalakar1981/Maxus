@@ -12,6 +12,5 @@ namespace Maxis.ViewModels
         public Nullable<decimal> Available { get; set; }
         public Nullable<decimal> Used { get; set; }
         public Nullable<decimal> Value { get; set; }
-        public Nullable<decimal> OldValue { get; set; }
     }
 }
