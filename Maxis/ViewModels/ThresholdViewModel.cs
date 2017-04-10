@@ -8,9 +8,9 @@ namespace Maxis.ViewModels
     public class ThresholdViewModel
     {
         public string ThresholdTemplateName { get; set; }
-        public Nullable<decimal> Total { get; set; }
-        public Nullable<decimal> Available { get; set; }
-        public Nullable<decimal> Used { get; set; }
-        public Nullable<decimal> Value { get; set; }
+        public decimal? Total { get; set; }
+        public decimal? Available { get; set; }
+        public decimal? Used { get; set; }
+        public decimal? Value { get; set; }
     }
 }
