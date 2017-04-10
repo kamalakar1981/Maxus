@@ -90,7 +90,7 @@ namespace Maxis.Infrastructure.Repositories
                     CableName = c.CABLE_NAME,
                     CableType = c.CABLE_TYPE,
                     NumberOfFibers = c.NUM_OF_FIBERS,
-                    Geodata = c.GEODATA.AsText()
+                    //Geodata = c.GEODATA.AsText()
                 }).ToList();
             }
             catch { throw new Exception("An error occured while loading cable information"); }

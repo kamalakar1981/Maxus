@@ -7,64 +7,57 @@ using System.Web.Script.Serialization;
 using System.Web.Security;
 using Maxis.ViewModels;
 using Maxis.Services.Abstract;
+using System.Web.SessionState;
 
 namespace Maxis.Controllers
 {
     public class LoginController : Controller
     {
-        
+
         private readonly IUserService _userService;
 
         public LoginController(IUserService userService)
         {
             _userService = userService;
         }
-        public JsonResult Login(string userName, string password)
+        public JsonResult Login(LoginViewModel loginModel)
         {
-            //var server = WebConfigurationManager.AppSettings["Ldapserver"];
-            //var ldapUser = WebConfigurationManager.AppSettings["Ldapusername"];
-            //var ldapPassword = WebConfigurationManager.AppSettings["Ldappassword"];
-           
-            try
+            Session["username"] = loginModel.Username;
+            var roles = Authentication(new LoginViewModel
             {
-                    var roles = Authentication(new LoginViewModel
-                    {
-                        Password = password,
-                        Username = userName
-                    });
-                return Json(roles, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
+                Password = loginModel.Password,
+                Username = loginModel.Username
+            });
+            Validation(new LoginViewModel
             {
-                return Json(ex.Message.ToString(), JsonRequestBehavior.AllowGet);
-            }
-           
+                Password = loginModel.Password,
+                Username = loginModel.Username
+            });
+            return Json(new RoleViewModel() { RoleId = roles.RoleId,Roles = roles.Roles}, JsonRequestBehavior.AllowGet);
         }
         public void LogOff()
         {
-            Session.Clear();
             FormsAuthentication.SignOut();
+            Session.Abandon();
+            Session.Clear();
+            Session["username"] = null;
         }
 
-       
-        private JsonResult Authentication(LoginViewModel loginViewModel)
+        private LoginViewModel Authentication(LoginViewModel loginViewModel)
         {
-            if (loginViewModel != null)
-            {
-                CreateUser(loginViewModel);
-            }
+            var roles1 = CreateUser(loginViewModel);
+            return roles1;
+        }
 
+        private void Validation(LoginViewModel loginViewModel)
+        {
             var serializeModel = new CustomPrincipalSerializeModel
             {
                 Username = loginViewModel.Username,
                 Password = loginViewModel.Password
             };
-
-
             var serializer = new JavaScriptSerializer();
-
             var userData = serializer.Serialize(serializeModel);
-
             var authTicket = new FormsAuthenticationTicket(
                      1,
                      loginViewModel.Username,
@@ -76,14 +69,11 @@ namespace Maxis.Controllers
             var encTicket = FormsAuthentication.Encrypt(authTicket);
             var faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
             Response.Cookies.Add(faCookie);
-            return Json(faCookie, JsonRequestBehavior.AllowGet);
         }
-
-       
         [HttpPost]
-        private void CreateUser(LoginViewModel loginViewModel)
+        private LoginViewModel CreateUser(LoginViewModel loginViewModel)
         {
-            _userService.CreateUser(loginViewModel);
+            return _userService.CreateUser(loginViewModel);
         }
     }
 }

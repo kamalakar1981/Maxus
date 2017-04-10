@@ -25,6 +25,7 @@
             'rxjs': 'npm:rxjs',
             'primeng': 'node_modules/primeng',
             'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
+            'angular2-ui-switch': 'npm:angular2-ui-switch/dist'
         },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -40,6 +41,10 @@
                 defaultExtension: 'js'
             },
             'primeng': {
+                defaultExtension: 'js'
+            },
+            'angular2-ui-switch': {
+                main: './index.js',
                 defaultExtension: 'js'
             }
         }

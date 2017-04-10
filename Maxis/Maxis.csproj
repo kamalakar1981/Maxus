@@ -226,7 +226,6 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="ViewModels\CustomPrincipal.cs" />
     <Compile Include="Database\Maxis.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -272,6 +271,7 @@
     <Compile Include="Database\ONNET_USERROLE.cs">
       <DependentUpon>Maxis.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\CustomPrincipal.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -299,12 +299,15 @@
     <Compile Include="ViewModels\LrdViewModel.cs" />
     <Compile Include="ViewModels\NEViewModel.cs" />
     <Compile Include="ViewModels\PointViewModel.cs" />
+    <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\ThresholdViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images.jpg" />
+    <Content Include="Content\student_login.png" />
     <Content Include="Database\Maxis.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Maxis.edmx</DependentUpon>
@@ -323,6 +326,14 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="package.json" />
+    <Content Include="wwwroot\about\about.component.css" />
+    <Content Include="wwwroot\about\about.component.html" />
+    <Content Include="wwwroot\contact\contact.component.css" />
+    <Content Include="wwwroot\contact\contact.component.html" />
+    <Content Include="wwwroot\home\home.component.css" />
+    <Content Include="wwwroot\home\home.component.html" />
+    <Content Include="wwwroot\login\Images\images.jpg" />
+    <Content Include="wwwroot\login\Images\student_login.png" />
     <Content Include="wwwroot\user\edit\edit.component.css" />
     <Content Include="wwwroot\user\edit\edit.component.html" />
     <Content Include="wwwroot\user\list\list.component.css" />
@@ -367,13 +378,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="tsconfig.json" />
     <Content Include="typings.json" />
-    <Content Include="wwwroot\about\about.component.css" />
-    <Content Include="wwwroot\about\about.component.html" />
-    <Content Include="wwwroot\contact\contact.component.css" />
-    <Content Include="wwwroot\home\home.component.css" />
     <Content Include="wwwroot\app.component.html" />
-    <Content Include="wwwroot\contact\contact.component.html" />
-    <Content Include="wwwroot\home\home.component.html" />
     <Content Include="wwwroot\logout\logout.component.css" />
     <Content Include="wwwroot\logout\logout.component.html" />
     <Content Include="wwwroot\login\login.component.css" />

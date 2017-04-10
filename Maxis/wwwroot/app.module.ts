@@ -21,7 +21,7 @@ import { LogoutService } from './logout/shared/logout.service';
 import { MapComponent } from './map/map.component';
 import { Router } from '@angular/router';
 import { DataTableModule, SharedModule } from 'primeng/primeng';
-
+import { UiSwitchModule } from 'angular2-ui-switch';
 @NgModule({
     imports: [BrowserModule,
         HttpModule,
@@ -29,7 +29,8 @@ import { DataTableModule, SharedModule } from 'primeng/primeng';
         routing,
         DataTableModule,
         SharedModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        UiSwitchModule
     ],
     declarations: [AppComponent,
         AboutComponent,

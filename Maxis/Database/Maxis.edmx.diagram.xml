@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bd8b2eb437a74f3da508838a6f7ef093" Name="Diagram1">
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_BUILDING" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_DL_ID_LIST" Width="1.5" PointX="8" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_NE" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_OSP_CABLE" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_USER" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_USERROLE" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_NE_ABE" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_OSP_CABLE_STRUCT" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_OSP_STRUCT" Width="1.5" PointX="8.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SRCH_OSP_THRESHOLD" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="MAXISDEVModel.FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE" ManuallyRouted="false" />
+        <AssociationConnector Association="MAXISDEVModel.FK_ONNET_USER_ONNET_USERROLE" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

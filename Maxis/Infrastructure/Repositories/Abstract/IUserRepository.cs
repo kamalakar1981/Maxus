@@ -7,9 +7,9 @@ namespace Maxis.Infrastructure.Repositories.Abstract
     public interface IUserRepository
     {
         List<EditUserViewModel> SelectAll();
-        List<EditUserViewModel> SelectById(long id);
-        IQueryable Insert(LoginViewModel loginViewModel);
+        EditUserViewModel SelectById(long id);
+        LoginViewModel Insert(LoginViewModel loginViewModel);
         void Update(EditUserViewModel editUserViewModel);
-        
+
     }
 }

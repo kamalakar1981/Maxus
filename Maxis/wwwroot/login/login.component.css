@@ -2,7 +2,7 @@
     text-align: center;
     color: white;
     padding: 20px;
-    background-color: #FFA500;
+    background-color: #6DBDD6;
     width: 600px;
     height: 350px;
     margin: 100px auto;
@@ -13,3 +13,23 @@
     width: 50%;
     margin: auto;
 }
+body
+{
+    background-color: #1b1b1b;
+    padding-top: 40px;
+}
+
+
+.input-group-addon
+{
+    background-color: rgb(50, 118, 177);
+    border-color: rgb(40, 94, 142);
+    color: rgb(255, 255, 255);
+}
+.form-control:focus
+{
+    background-color: rgb(50, 118, 177);
+    border-color: rgb(40, 94, 142);
+    color: rgb(255, 255, 255);
+}
+.form-signup input[type="text"],.form-signup input[type="password"] { border: 1px solid rgb(50, 118, 177); }

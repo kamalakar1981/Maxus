@@ -23,7 +23,7 @@ namespace Maxis.Services
             return _userRepository.SelectAll();
         }
 
-        public List<EditUserViewModel> SelectById(long id)
+        public EditUserViewModel SelectById(long id)
         {
             return _userRepository.SelectById(id);
         }
@@ -34,9 +34,9 @@ namespace Maxis.Services
             _userRepository.Update(editUserModel);
         }
 
-        public void CreateUser(LoginViewModel loginViewModel)
+        public LoginViewModel CreateUser(LoginViewModel loginViewModel)
         {
-            _userRepository.Insert(loginViewModel);
+            return _userRepository.Insert(loginViewModel);
         }
     }
 }

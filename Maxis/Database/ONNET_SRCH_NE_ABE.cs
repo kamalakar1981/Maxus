@@ -22,7 +22,5 @@ namespace Maxis.Database
         public long NE_ID { get; set; }
         public long NE_OT_ID { get; set; }
         public string NE_OT_NAME { get; set; }
-    
-        public virtual ONNET_SRCH_NE ONNET_SRCH_NE { get; set; }
     }
 }
