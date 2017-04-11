@@ -1,15 +1,12 @@
-
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Maxis.Services.Abstract;
 using Maxis.ViewModels;
 
 namespace Maxis.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
-
         private readonly IUserService _userService;
-
         public UserController(IUserService userService)
         {
             _userService = userService;
@@ -19,14 +16,12 @@ namespace Maxis.Controllers
         {
             return Json(_userService.GetAllUsers(), JsonRequestBehavior.AllowGet);
         }
-
         // GET: USER/Edit/5
         public JsonResult Edit(long id)
         {
             return Json(_userService.SelectById(id), JsonRequestBehavior.AllowGet);
         }
-
-        // PUT: USER/EditUser/2
+        // PUT: USER/UpdateUser/
         [HttpPost]
         public void UpdateUser(EditUserViewModel editUserViewModel)
         {

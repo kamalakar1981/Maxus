@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -15,59 +15,46 @@ namespace Maxis.Controllers
         {
             _userService = userService;
         }
+
         public JsonResult Login(LoginViewModel loginModel)
         {
-            Session["username"] = loginModel.Username;
-                var roles =  Authentication(new LoginViewModel
-                {
-                    Password = loginModel.Password,
-                    Username = loginModel.Username
-                });
-            
-            Validation(new LoginViewModel
-                {
-                    Password = loginModel.Password,
-                    Username = loginModel.Username
-                });
-            return Json(new RoleViewModel() { RoleId = roles.RoleId, Roles = roles.Roles}, JsonRequestBehavior.AllowGet);
+            ValidateUser(loginModel);
+            var userDetails = SelectByUser(loginModel.Username);
+            CreateToken(userDetails);
+            return Json(userDetails, JsonRequestBehavior.AllowGet);
         }
+
         public void LogOff()
         {
             FormsAuthentication.SignOut();
-            Session.Abandon();
-            Session.Clear();
-            Session["username"] = null;
         }
-        private LoginViewModel Authentication(LoginViewModel loginViewModel)
+        private void CreateToken(UserDetailsViewModel userModel)
         {
-                var roles1 = CreateUser(loginViewModel);
-                return roles1;
-        }
-        private void Validation(LoginViewModel loginViewModel)
-        {
-            var serializeModel = new CustomPrincipalSerializeModel
+            var userData = new JavaScriptSerializer().Serialize(new UserModel
             {
-                Username = loginViewModel.Username,
-                Password = loginViewModel.Password
-            };
-            var serializer = new JavaScriptSerializer();
-            var userData = serializer.Serialize(serializeModel);
+                Username = userModel.Username
+            });
             var authTicket = new FormsAuthenticationTicket(
                      1,
-                     loginViewModel.Username,
+                     userModel.Username,
                      DateTime.Now,
                      DateTime.Now.AddMinutes(15),
-                     true,
+                     false,
                      userData);
 
             var encTicket = FormsAuthentication.Encrypt(authTicket);
             var faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
             Response.Cookies.Add(faCookie);
         }
-        [HttpPost]
-        private LoginViewModel CreateUser(LoginViewModel loginViewModel)
+
+        private void ValidateUser(LoginViewModel loginViewModel)
         {
-            return _userService.CreateUser(loginViewModel);
+             _userService.CreateUser(loginViewModel);
+        }
+
+        public UserDetailsViewModel SelectByUser(string username)
+        {
+            return _userService.SelectByUser(username);
         }
     }
 }

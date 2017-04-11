@@ -1,4 +1,4 @@
-using Maxis.ViewModels;
+﻿using Maxis.ViewModels;
 using System.Collections.Generic;
 
 namespace Maxis.Infrastructure.Repositories.Abstract
@@ -6,8 +6,9 @@ namespace Maxis.Infrastructure.Repositories.Abstract
     public interface IUserRepository
     {
         List<EditUserViewModel> SelectAll();
-        EditUserViewModel SelectById(long id);
-        LoginViewModel Insert(LoginViewModel loginViewModel);
-        void Update(EditUserViewModel editUserViewModel);  
+        List<EditUserViewModel> SelectById(long id);
+        List<UserDetailsViewModel> ValidateUser(LoginViewModel loginViewModel);
+        bool Update(EditUserViewModel editUserViewModel);
+        UserDetailsViewModel SelectByUser(string username);
     }
 }

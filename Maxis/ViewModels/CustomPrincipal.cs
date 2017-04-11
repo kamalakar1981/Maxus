@@ -1,7 +1,4 @@
-﻿
-using System.Security.Principal;
-
-
+﻿using System.Security.Principal;
 namespace Maxis.ViewModels
 {
     public class CustomPrincipal : IPrincipal
@@ -23,16 +20,14 @@ namespace Maxis.ViewModels
         public int RoleId { get; set; }
     }
 
-    public class CustomPrincipalSerializeModel
+    public class UserModel
     {
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
         public string Email { get; set; }
-        public string Mobile { get; set; }
         public string Department { get; set; }
+        public string Mobile { get; set; }
         public string Title { get; set; }
         public string Status { get; set; }
-        public int RoleId { get; set; }
     }
 }

@@ -1,7 +1,8 @@
-using Maxis.Infrastructure.Repositories.Abstract;
+﻿using Maxis.Infrastructure.Repositories.Abstract;
 using Maxis.Services.Abstract;
 using Maxis.ViewModels;
 using System.Collections.Generic;
+using System;
 
 namespace Maxis.Services
 {
@@ -16,17 +17,22 @@ namespace Maxis.Services
         {
             return _userRepository.SelectAll();
         }
-        public EditUserViewModel SelectById(long id)
+        public List<EditUserViewModel> SelectById(long id)
         {
             return _userRepository.SelectById(id);
         }
-        public void EditUser(EditUserViewModel editUserModel)
+        public bool EditUser(EditUserViewModel editUserModel)
         {
-            _userRepository.Update(editUserModel);
+            return _userRepository.Update(editUserModel);
         }
-        public LoginViewModel CreateUser(LoginViewModel loginViewModel)
+        public List<UserDetailsViewModel> CreateUser(LoginViewModel loginViewModel)
         {
-            return _userRepository.Insert(loginViewModel);
+            return _userRepository.ValidateUser(loginViewModel);
+        }
+
+        public UserDetailsViewModel SelectByUser(string username)
+        {
+            return _userRepository.SelectByUser(username);
         }
     }
 }
