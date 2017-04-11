@@ -47,9 +47,9 @@ namespace Maxis.Services
             return _mapRepository.GetBuildingDetails(searchPoint, range);
         }
 
-        public List<StructureViewmodel> GetStructureDetails(DbGeography searchPoint, int range)
+        public List<StructureViewmodel> GetStructureDetails(DbGeography searchPoint, int range, long cableId)
         {
-            return _mapRepository.GetStructureDetails(searchPoint, range);
+            return _mapRepository.GetStructureDetails(searchPoint, range, cableId);
         }
 
     }
