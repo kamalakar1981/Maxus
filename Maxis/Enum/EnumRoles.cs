@@ -1,6 +1,6 @@
 ﻿namespace Maxis.Enum
 {
-    public enum Roles : long
+    public enum Roles
     {
         Admin = 1,
         Ldap,
