@@ -52,9 +52,9 @@ namespace Maxis.Controllers
              _userService.CreateUser(loginViewModel);
         }
 
-        public UserDetailsViewModel GetDataByUser(string username)
+        public UserDetailsViewModel GetDataByUser(string userName)
         {
-            return _userService.GetDataByUser(username);
+            return _userService.GetDataByUser(userName);
         }
     }
 }

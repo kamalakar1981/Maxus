@@ -122,11 +122,11 @@ namespace Maxis.Infrastructure.Repositories
             }
         }
 
-        public UserDetailsViewModel GetDataByUser(string username)
+        public UserDetailsViewModel GetDataByUser(string userName)
         {
             var user = (from ep in _db.ONNET_USER
                         join e in _db.ONNET_USERROLE on ep.RoleId equals e.RoleId
-                        where ep.Username == username
+                        where ep.Username == userName
                         select new UserDetailsViewModel()
                         {
                             UserId = ep.UserId,

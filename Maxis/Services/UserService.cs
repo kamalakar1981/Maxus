@@ -29,9 +29,9 @@ namespace Maxis.Services
             return _userRepository.ValidateUser(loginViewModel);
         }
 
-        public UserDetailsViewModel GetDataByUser(string username)
+        public UserDetailsViewModel GetDataByUser(string userName)
         {
-            return _userRepository.GetDataByUser(username);
+            return _userRepository.GetDataByUser(userName);
         }
     }
 }

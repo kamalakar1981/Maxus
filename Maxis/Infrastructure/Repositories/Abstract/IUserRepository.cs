@@ -9,6 +9,6 @@ namespace Maxis.Infrastructure.Repositories.Abstract
         List<EditUserViewModel> UserById(long id);
         List<UserDetailsViewModel> ValidateUser(LoginViewModel loginViewModel);
         bool Update(EditUserViewModel editUserViewModel);
-        UserDetailsViewModel GetDataByUser(string username);
+        UserDetailsViewModel GetDataByUser(string userName);
     }
 }
