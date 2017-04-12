@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Maxis.ViewModels
+﻿namespace Maxis.ViewModels
 {
     public class UserDetailsViewModel
     {

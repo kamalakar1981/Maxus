@@ -2,7 +2,6 @@
 using Maxis.Services.Abstract;
 using Maxis.ViewModels;
 using System.Collections.Generic;
-using System;
 
 namespace Maxis.Services
 {
@@ -15,11 +14,11 @@ namespace Maxis.Services
         }
         public List<EditUserViewModel> GetAllUsers()
         {
-            return _userRepository.SelectAll();
+            return _userRepository.UserList();
         }
-        public List<EditUserViewModel> SelectById(long id)
+        public List<EditUserViewModel> GetUserById(long id)
         {
-            return _userRepository.SelectById(id);
+            return _userRepository.UserById(id);
         }
         public bool EditUser(EditUserViewModel editUserModel)
         {
@@ -30,9 +29,9 @@ namespace Maxis.Services
             return _userRepository.ValidateUser(loginViewModel);
         }
 
-        public UserDetailsViewModel SelectByUser(string username)
+        public UserDetailsViewModel GetDataByUser(string username)
         {
-            return _userRepository.SelectByUser(username);
+            return _userRepository.GetDataByUser(username);
         }
     }
 }

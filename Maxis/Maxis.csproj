@@ -296,6 +296,7 @@
     <Compile Include="ViewModels\BuildingViewModel.cs" />
     <Compile Include="ViewModels\CableViewModel.cs" />
     <Compile Include="ViewModels\EditUserViewModel.cs" />
+    <Compile Include="Enum\EnumRoles.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\LrdViewModel.cs" />
     <Compile Include="ViewModels\NEViewModel.cs" />

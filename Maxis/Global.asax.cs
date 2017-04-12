@@ -33,7 +33,7 @@ namespace Maxis
             var serializeModel = serializer.Deserialize<UserModel>(authTicket.UserData);
             var newUser = new CustomPrincipal(authTicket.Name)
             {
-                Username = serializeModel.Username,
+                Username = serializeModel.Username
             };
             HttpContext.Current.User = newUser;
         }

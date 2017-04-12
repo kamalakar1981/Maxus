@@ -19,7 +19,7 @@ namespace Maxis.Controllers
         public JsonResult Login(LoginViewModel loginModel)
         {
             ValidateUser(loginModel);
-            var userDetails = SelectByUser(loginModel.Username);
+            var userDetails = GetDataByUser(loginModel.Username);
             CreateToken(userDetails);
             return Json(userDetails, JsonRequestBehavior.AllowGet);
         }
@@ -52,9 +52,9 @@ namespace Maxis.Controllers
              _userService.CreateUser(loginViewModel);
         }
 
-        public UserDetailsViewModel SelectByUser(string username)
+        public UserDetailsViewModel GetDataByUser(string username)
         {
-            return _userService.SelectByUser(username);
+            return _userService.GetDataByUser(username);
         }
     }
 }

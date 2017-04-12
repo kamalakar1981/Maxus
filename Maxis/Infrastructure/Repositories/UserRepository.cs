@@ -13,7 +13,7 @@ namespace Maxis.Infrastructure.Repositories
     {
         private readonly MaxisEntities _db = new MaxisEntities();
 
-        public List<EditUserViewModel> SelectAll()
+        public List<EditUserViewModel> UserList()
         {
             try
             {
@@ -43,25 +43,25 @@ namespace Maxis.Infrastructure.Repositories
 
         }
 
-        public List<EditUserViewModel> SelectById(long id)
+        public List<EditUserViewModel> UserById(long id)
         {
             try
             {
-                var result = (from ep in _db.ONNET_USER
-                              join e in _db.ONNET_USERROLE on ep.RoleId equals e.RoleId
-                              where ep.UserId == id
-                              select new EditUserViewModel()
-                              {
-                                  UserId = ep.UserId,
-                                  Username = ep.Username,
-                                  Email = ep.Email,
-                                  Mobile = ep.Mobile,
-                                  Department = ep.Department,
-                                  Title = ep.Title,
-                                  Status = ep.Status,
-                                  Roles = e.RoleName,
-                                  RoleId = e.RoleId
-                              });
+                var result = from ep in _db.ONNET_USER
+                    join e in _db.ONNET_USERROLE on ep.RoleId equals e.RoleId
+                    where ep.UserId == id
+                    select new EditUserViewModel()
+                    {
+                        UserId = ep.UserId,
+                        Username = ep.Username,
+                        Email = ep.Email,
+                        Mobile = ep.Mobile,
+                        Department = ep.Department,
+                        Title = ep.Title,
+                        Status = ep.Status,
+                        Roles = e.RoleName,
+                        RoleId = e.RoleId
+                    };
 
                 return result.ToList();
             }
@@ -78,33 +78,23 @@ namespace Maxis.Infrastructure.Repositories
                 var encyptval = Encrypt(loginViewModel.Password);
                 var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == loginViewModel.Username && u.Password == encyptval);
 
-                if (user == null)
+                if (user != null) return GetRoles(loginViewModel);
+                var newuser = new ONNET_USER
                 {
-                    var newuser = new ONNET_USER
-                    {
-                        Username = loginViewModel.Username,
-                        Password = encyptval,
-                        RoleId = 3
-                    };
+                    Username = loginViewModel.Username,
+                    Password = encyptval,
+                    RoleId = (long)Enum.Roles.Normal
+                };
 
-                    _db.ONNET_USER.Add(newuser);
-                    _db.SaveChanges();
+                _db.ONNET_USER.Add(newuser);
+                _db.SaveChanges();
 
-                    return Roles(loginViewModel);
-
-                }
-
-                else
-                {
-                    return Roles(loginViewModel);
-                }
-
+                return GetRoles(loginViewModel);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
         }
 
         public bool Update(EditUserViewModel editViewModel)
@@ -132,7 +122,7 @@ namespace Maxis.Infrastructure.Repositories
             }
         }
 
-        public UserDetailsViewModel SelectByUser(string username)
+        public UserDetailsViewModel GetDataByUser(string username)
         {
             var user = (from ep in _db.ONNET_USER
                         join e in _db.ONNET_USERROLE on ep.RoleId equals e.RoleId
@@ -153,31 +143,29 @@ namespace Maxis.Infrastructure.Repositories
 
         public static string Encrypt(string password)
         {
-            password = password ?? "";
             var encoding = new System.Text.ASCIIEncoding();
-            var res = "";
+            string result;
             var keyByte = encoding.GetBytes(password);
             var messageBytes = encoding.GetBytes(ConfigurationManager.AppSettings["Hashkey"]);
             using (var hmacsha256 = new HMACSHA256(keyByte))
             {
                 var hashmessage = hmacsha256.ComputeHash(messageBytes);
-                res = Convert.ToBase64String(hashmessage);
+                result = Convert.ToBase64String(hashmessage);
             }
 
-            return res;
+            return result;
         }
 
-        public List<UserDetailsViewModel> Roles(LoginViewModel loginViewModel)
+        public List<UserDetailsViewModel> GetRoles(LoginViewModel loginViewModel)
         {
-            var role = (from ep in _db.ONNET_USER
-                        join e in _db.ONNET_USERROLE on ep.RoleId equals e.RoleId
-                        where loginViewModel.Username == ep.Username
-                        select new UserDetailsViewModel()
-                        {
-                            Username = ep.Username,
-                            Roles = e.RoleName
-                        });
-
+            var role = from ep in _db.ONNET_USER
+                join e in _db.ONNET_USERROLE on ep.RoleId equals e.RoleId
+                where loginViewModel.Username == ep.Username
+                select new UserDetailsViewModel()
+                {
+                    Username = ep.Username,
+                    Roles = e.RoleName
+                };
             return role.ToList();
         }
     }

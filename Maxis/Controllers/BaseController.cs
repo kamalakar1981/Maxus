@@ -3,7 +3,7 @@ using Maxis.ViewModels;
 
 namespace Maxis.Controllers
 {
-    public class BaseController : System.Web.Mvc.Controller
+    public class BaseController : Controller
     {
         protected new virtual CustomPrincipal User
         {
@@ -12,6 +12,5 @@ namespace Maxis.Controllers
                 return HttpContext.User as CustomPrincipal;
             }
         }
-
     }
 }

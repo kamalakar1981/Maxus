@@ -98,7 +98,7 @@ namespace Maxis.Infrastructure.Repositories
                         "as distance FROM ONNET_SRCH_OSP_CABLE) t WHERE distance <= @range", parameterList.ToArray())
                     .Select(c => new CableViewModel
                     {
-                        CableId = c.CABLE_ID,
+                        CableId = c.CABLE_ID.ToString(),
                         CableName = c.CABLE_NAME,
                         NumberOfFibers = c.NUM_OF_FIBERS,
                         CableType = c.CABLE_TYPE,

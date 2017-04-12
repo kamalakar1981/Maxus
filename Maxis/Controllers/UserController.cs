@@ -19,7 +19,7 @@ namespace Maxis.Controllers
         // GET: USER/Edit/5
         public JsonResult Edit(long id)
         {
-            return Json(_userService.SelectById(id), JsonRequestBehavior.AllowGet);
+            return Json(_userService.GetUserById(id), JsonRequestBehavior.AllowGet);
         }
         // PUT: USER/UpdateUser/
         [HttpPost]
