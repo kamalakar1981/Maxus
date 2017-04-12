@@ -150,11 +150,11 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
         </EntityType>
         <EntityType Name="ONNET_USER">
           <Key>
-            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Username" />
           </Key>
-          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="UserId" Type="bigint" StoreGeneratedPattern="None" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Mobile" Type="varchar" MaxLength="50" />
           <Property Name="Department" Type="varchar" MaxLength="50" />
@@ -360,11 +360,11 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
         </EntityType>
         <EntityType Name="ONNET_USER">
           <Key>
-            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Username" />
           </Key>
           <Property Name="UserId" Type="Int64" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="DateModified" Type="DateTime" Precision="3" />
