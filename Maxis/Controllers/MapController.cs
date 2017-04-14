@@ -5,7 +5,7 @@ using System.Data.Spatial;
 
 namespace Maxis.Controllers
 {
-    public class MapController : Controller
+    public class MapController : BaseController
     {
         private readonly IMapService _mapService;
 
