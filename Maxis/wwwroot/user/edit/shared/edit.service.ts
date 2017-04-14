@@ -6,13 +6,14 @@ import { Userlist } from './../../list/shared/list.interface';
 
 @Injectable()
 export class EditService {
-    private baseUrl = 'api/products';
-
+    private baseUrl = 'User/Edit';
+    private url = 'User/UpdateUser';
+    
     constructor(private _http: Http) { }
 
     private extractData(res: Response) {
         let body = res.json();
-        return body.data || {};
+        return body || {};
     }
 
     private handleError(error: any) {
@@ -20,8 +21,8 @@ export class EditService {
         return Observable.throw(error.json().error || 'Server error');
     } 
 
-    getEditList(id: number): Observable<Userlist> {
-        const url = `${this.baseUrl}/${id}`;
+    getEditList(UserId: number): Observable<Userlist> {
+        const url = `${this.baseUrl}/${UserId}`;
         return this._http.get(url)
             .map(this.extractData)
             .do(data => console.log('getEditList: ' + JSON.stringify(data)))
@@ -36,8 +37,8 @@ export class EditService {
     }
 
     private updateList(ulist: Userlist, options: RequestOptions): Observable<Userlist> {
-        const url = `${this.baseUrl}/${ulist.userId}`;
-        return this._http.put(url, ulist, options)
+        const url = `${this.url}`;
+        return this._http.post(url, ulist, options)
             .map(() => ulist)
             .do(data => console.log('updateList: ' + JSON.stringify(data)))
             .catch(this.handleError);

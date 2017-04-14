@@ -8,11 +8,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class LogoutComponent implements OnInit {
-    constructor(private _logoutService: LogoutService) {
+    constructor(private _logoutService: LogoutService) { }
 
-    }
-    ngOnInit() {
-    }
+    ngOnInit() { }
+
     logout() {
         this._logoutService.logout().subscribe(() => {
             localStorage.removeItem('currentUser');

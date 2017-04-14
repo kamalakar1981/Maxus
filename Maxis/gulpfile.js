@@ -26,7 +26,8 @@ gulp.task('scriptsNStyles', ['clean-libs'], function () {
         'bootstrap/dist/js/bootstrap.*js',
         'angular2-google-maps/core/**',
         'angular2-select/**',
-        'primeng/**'
+        'primeng/**',
+		'angular2-ui-switch/dist/**'
     ], {
             cwd: "node_modules/**"
         })

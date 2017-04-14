@@ -1,6 +1,5 @@
 ﻿import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { contactRoutes } from './contact/contact.routes';
 import { aboutRoutes } from './about/about.routes';
 import { homeRoutes } from './home/home.routes';
@@ -15,7 +14,7 @@ export const routes: Routes = [
     //default
     {
         path: '',
-        redirectTo: '/home',
+        redirectTo: '/login',
         pathMatch: 'full'
     },
     // Add routes form a different file
@@ -29,4 +28,4 @@ export const routes: Routes = [
     ...logoutRoutes
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(routes);
+export const routing: ModuleWithProviders = RouterModule.forRoot(routes, {useHash:true});

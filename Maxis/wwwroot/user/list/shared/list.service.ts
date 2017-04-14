@@ -20,7 +20,7 @@ export class ListService {
     }
     
     getUserlist(): Observable<Userlist[]> {
-        return this._http.get('USER/UsersList')
+        return this._http.get('User/UsersList')
             .map((response: Response) => <Userlist[]>response.json())
             .do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handelError);

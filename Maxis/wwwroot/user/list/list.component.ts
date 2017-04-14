@@ -13,17 +13,19 @@ export class ListComponent implements OnInit {
 
     userlists: Userlist[];
     errorMessage: string;
-   
-    constructor(private _listService: ListService) {
 
-    }
+    constructor(private _listService: ListService) { }
 
     ngOnInit(): void {
         this._listService.getUserlist()
             .subscribe(userlists => this.userlists = userlists,
-            error => this.errorMessage = <any>error);
+                       error => this.errorMessage = <any>error);
     }
-
+    //TODO
+    //goto(UserId) {
+    //    console.log(UserId);
+    //  //  this._router.navigate(['/list'])
+    //}
     downloadPdf() {
         this._listService.getPdf()
             .subscribe(
@@ -33,9 +35,8 @@ export class ListComponent implements OnInit {
             err => {
                 console.log('error:', err)
             });
-
-
     }
+
     downloadExl() {
         this._listService.getExl()
             .subscribe(
@@ -45,8 +46,5 @@ export class ListComponent implements OnInit {
             err => {
                 console.log('error:', err)
             });
-
-
     }
-
 }

@@ -13,5 +13,4 @@ export class LogoutService {
 
         return this._http.post('/login/logoff', JSON.stringify({}), options);
     }
-
 }
