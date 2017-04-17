@@ -2,19 +2,22 @@
 import { Component, NgModule, OnInit, ViewChild, NgZone, ElementRef } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { MapsAPILoader } from "angular2-google-maps/core";
-import { FormControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import { FormControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { } from '@types/googlemaps';
 import { Map } from './shared/map.interface';
 import { MapService } from './shared/map.service';
 import { Router } from '@angular/router';
 import { DataTableModule, SharedModule } from 'primeng/primeng';
 import { DropdownModule } from "ngx-dropdown";
+import { NEComponent } from './../NEtype/ne.component';
+//import { ThreshComponent } from './../Threshold/thresh.component';
+//import { ThresholdComponent } from './../../Threshold/thresh.component';
 
+import { LogoutComponent } from './../logout/logout.component';
 import { SelectModule } from 'angular2-select';
 declare var google: any;
 @Component({
     selector: 'map',
-
     templateUrl: 'wwwroot/map/map.component.html',
     styleUrls: ['wwwroot/map/map.component.css']
 })
@@ -22,27 +25,26 @@ declare var google: any;
 export class MapComponent implements OnInit {
     errorMessage: string;
     //public maps: Map[];
-    private res;
-
+    private neNameData;
+    private data;
     selectedMap: Map;
 
-    
+
     onSelect(map: Map) {
         this.selectedMap = map;
     }
     markerTypes: any[];
-    cabelTypes : any[];
-    
+    cableTypes: any[];
+    buildLRD: any[];
+    buildingNames: any[];
+    structNames: any[];
+    getMarker() { }
 
-    //console.log(markertypes);
-    getMarker() {
-        
-
-    }
-    
-    getCabelTypes() {
-
-    }
+    getBuilding() { }
+    getCabelTypes() { }
+    getCable() { }
+    getStruct() { }
+    getLRD() { }
     imgSize: number = 24;
     name: string = "Accionlabs";
     zoom: number = 18;
@@ -54,30 +56,21 @@ export class MapComponent implements OnInit {
     lng: number = 101.663805603203;
     markerNumber: string = "";
 
-    markers: ICable[] = this.getCables();
-    points: IMarker[] = this.getPoints();
-    buildings: IMarker[];
-
-    //markerTypes = this.getMarkerTypes();
-    //getMarkerTypes(): any[] {
-    //    return [
-    //        {
-    //            value: "Ethernet Switch",
-    //            label: "Ethernet Switch"
-    //        },
-    //        {
-    //            value: "Anymedia",
-    //            label: "Anymedia"
-    //        }
-    //    ];
-    //}
-
-   distance = this.getDistance();
-    getDistance() :any[]{
+    //markers: ICable[];
+    //points: IMarker[];
+    points: IMarker[];
+    //points = this.getLRD();
+    // NEName = this.getThreshold();
+    buildings: any[];
+    structs: IMarker[];
+    cables: IMarker[];
+    markers: ICable[];
+    distance = this.getDistance();
+    getDistance(): any[] {
         return [
             {
                 value: "20",
-                label:"within 20 km"
+                label: "within 20 km"
             },
             {
                 value: "50",
@@ -87,33 +80,32 @@ export class MapComponent implements OnInit {
                 value: "100",
                 label: "within 100 km"
             },
-             {
-                 value: "150",
+            {
+                value: "150",
                 label: "within 150 km"
 
-             },
-             {
-                 value: "200",
-                 label:"within 200 km"
+            },
+            {
+                value: "200",
+                label: "within 200 km"
 
-             }
+            }
         ];
     };
 
-    markerNames = this.getMarkerNames([]);
-    //cabelTypes = this.getCabelTypes();
+    cabelTypes: any[];
     cabelNames = this.getCabelNames([]);
 
 
-    clickedMarker(label: string, index: number): void {
-        console.log(`clicked the marker: ${label || index}`);
-        var marker: IMarker = this.points.filter(function (value: IMarker, index: number, array: IMarker[]) {
-            return value.label === label;
-        })[0];
-        console.log(marker);
-        this.buildings = this.getBuildings(marker);
-        console.log(this.buildings);
-    }
+    //clickedMarker(label: string, index: number): void {
+    //    console.log(`clicked the marker: ${label || index}`);
+    //    var marker = this.points.filter(function (value:any , index: number, array: any[]) {
+    //        return value.label === label;
+    //    })[0];
+    //    console.log(marker);
+    //    this.buildings = this.getBuildings(marker);
+    //    console.log(this.buildings);
+    //}
 
     //mapClicked($event: MouseEvent) {
     //    this.markers.push({
@@ -123,171 +115,50 @@ export class MapComponent implements OnInit {
     //}
 
     //    markerDragEnd(m: IMarker, $event: MouseEvent): void {
-    //        console.log("dragEnd", m, $event);
+    //        consolgete.log("dragEnd", m, $event);
     //    }
 
-    getCables(): ICable[] {
-        return [
-            {
-                label: "DSH10033048D01F",
-                type: "Ground",
-                color: "#FF0000",
-                points: [
-                    { lng: 101.661624891656, lat: 3.15132481835553, label: "0" },
-                    { lng: 101.661662601572, lat: 3.15139295675658, label: "1" },
-                    { lng: 101.66158663452, lat: 3.1516968851479, label: "2" },
-                    { lng: 101.661678813831, lat: 3.15173617912158, label: "3" },
-                    { lng: 101.66158663452, lat: 3.1516968851479, label: "4" },
-                    { lng: 101.661498775045, lat: 3.15203941342749, label: "5" },
-                    { lng: 101.661377434071, lat: 3.15241818650256, label: "6" },
-                    { lng: 101.661162732456, lat: 3.1528622852578, label: "7" },
-                    { lng: 101.660932361839, lat: 3.15327448416946, label: "8" },
-                    { lng: 101.660635098485, lat: 3.15378689428319, label: "9" },
-                    { lng: 101.660701887957, lat: 3.1538642665171, label: "10" },
-                    { lng: 101.660635098485, lat: 3.15378689428319, label: "11" },
-                    { lng: 101.660387942413, lat: 3.15419973920578, label: "12" },
-                    { lng: 101.660178904651, lat: 3.15451365232348, label: "13" },
-                    { lng: 101.659935032836, lat: 3.15480354918789, label: "14" },
-                    { lng: 101.660021924976, lat: 3.15486535321321, label: "15" },
-                    { lng: 101.659935032836, lat: 3.15480354918789, label: "16" },
-                    { lng: 101.659758105792, lat: 3.15501372475782, label: "17" },
-                    { lng: 101.659495011708, lat: 3.15523877910271, label: "18" },
-                    { lng: 101.659553646016, lat: 3.15533450148464, label: "19" }
-                ]
-            },
-            {
-                label: "PKUS0031144T07F",
-                type: "Ground",
-                color: "#FF0000",
-                points: [
-                    { lng: 100.312398842349, lat: 5.43499947931377, label: "0" },
-                    { lng: 100.313164120186, lat: 5.43459217923592, label: "1" },
-                    { lng: 100.313621439352, lat: 5.43549662009443, label: "2" },
-                    { lng: 100.312488981233, lat: 5.43657112089993, label: "3" },
-                    { lng: 100.311558603082, lat: 5.43750755478676, label: "4" },
-                    { lng: 100.311138207669, lat: 5.4369652065531, label: "5" },
-                    { lng: 100.310957838768, lat: 5.43711771192328, label: "6" },
-                    { lng: 100.310770241846, lat: 5.43727023296558, label: "7" }
-                ]
-            },
-            {
-                label: "BKMR0011096T01F",
+    getCables(cableID): ICable[] {
+        var cableVal = this.cableTypes;
+        var CableArr = [];
+        for (let v in cableVal) {
+            var CableList = {
+                label: "",
                 type: "Aerial",
-                color: "#00FF00",
-                points: [
-                    { lng: 100.629028, lat: 4.950213, label: "0" },
-                    { lng: 100.62957136228, lat: 4.95071523379341, label: "1" },
-                    { lng: 100.630197687514, lat: 4.95119598491416, label: "2" },
-                    { lng: 100.630792073044, lat: 4.9517250432082, label: "3" },
-                    { lng: 100.631386301842, lat: 4.95218979525765, label: "4" },
-                    { lng: 100.631964580891, lat: 4.95268673872097, label: "5" },
-                    { lng: 100.632510762567, lat: 4.95316768416949, label: "6" },
-                    { lng: 100.63308900376, lat: 4.95364854974343, label: "7" },
-                    { lng: 100.633651216351, lat: 4.95412945412419, label: "8" },
-                    { lng: 100.634197400317, lat: 4.95461039736399, label: "9" },
-                    { lng: 100.634711644775, lat: 4.95513964810104, label: "10" },
-                    { lng: 100.634744296314, lat: 4.95538071362638, label: "11" },
-                    { lng: 100.634809085774, lat: 4.95565385250679, label: "12" },
-                    { lng: 100.635050080366, lat: 4.95587832635359, label: "13" },
-                    { lng: 100.635804807544, lat: 4.95642305722245, label: "14" },
-                    { lng: 100.635918041947, lat: 4.95684076358062, label: "15" },
-                    { lng: 100.635646490769, lat: 4.95722726941219, label: "16" },
-                    { lng: 100.635727429126, lat: 4.95754859726455, label: "17" },
-                    { lng: 100.636417645329, lat: 4.95793272226047, label: "18" },
-                    { lng: 100.636883330925, lat: 4.95826917330729, label: "19" },
-                    { lng: 100.637268631991, lat: 4.95850936468418, label: "20" },
-                    { lng: 100.637621121731, lat: 4.95844418561165, label: "21" },
-                    { lng: 100.637797128869, lat: 4.95831513825627, label: "22" },
-                    { lng: 100.638181479159, lat: 4.95816949802762, label: "23" },
-                    { lng: 100.638758658139, lat: 4.95821629607497, label: "24" },
-                    { lng: 100.638951328605, lat: 4.95834442929094, label: "25" },
-                    { lng: 100.639624644573, lat: 4.95837491167911, label: "26" },
-                    { lng: 100.639864808543, lat: 4.95826178108746, label: "27" },
-                    { lng: 100.640249356316, lat: 4.95819652118145, label: "28" },
-                    { lng: 100.640538243202, lat: 4.95834049137044, label: "29" },
-                    { lng: 100.641002858584, lat: 4.95824287951544, label: "30" },
-                    { lng: 100.641483900171, lat: 4.95830599019238, label: "31" },
-                    { lng: 100.641918283248, lat: 4.95894796531786, label: "32" },
-                    { lng: 100.642302870526, lat: 4.95889878040868, label: "33" },
-                    { lng: 100.642510577713, lat: 4.95862496608365, label: "34" },
-                    { lng: 100.643086961291, lat: 4.95835023511466, label: "35" },
-                    { lng: 100.64334347164, lat: 4.95836567358349, label: "36" },
-                    { lng: 100.643616130644, lat: 4.95842930081501, label: "37" },
-                    { lng: 100.644114553585, lat: 4.9590389617894, label: "38" },
-                    { lng: 100.644339164369, lat: 4.95911878450966, label: "39" },
-                    { lng: 100.644419828634, lat: 4.95932757613665, label: "40" },
-                    { lng: 100.644933446736, lat: 4.95959959518111, label: "41" },
-                    { lng: 100.645110248066, lat: 4.95979207091191, label: "42" },
-                    { lng: 100.645400927724, lat: 4.96065946875374, label: "43" },
-                    { lng: 100.645771437162, lat: 4.96139805664019, label: "44" },
-                    { lng: 100.646157658337, lat: 4.96200799427898, label: "45" },
-                    { lng: 100.646544079635, lat: 4.96269831254454, label: "46" },
-                    { lng: 100.646882134268, lat: 4.96327621675814, label: "47" },
-                    { lng: 100.647188050803, lat: 4.96382204816902, label: "48" },
-                    { lng: 100.647510196954, lat: 4.96444822030464, label: "49" },
-                    { lng: 100.647816114769, lat: 4.96499405105399, label: "50" },
-                    { lng: 100.64810620325, lat: 4.96562030255227, label: "51" },
-                    { lng: 100.648396372301, lat: 4.96627870613556, label: "52" },
-                    { lng: 100.648686382317, lat: 4.96687280458496, label: "53" },
-                    { lng: 100.648816296892, lat: 4.96754768444246, label: "54" },
-                    { lng: 100.648738186714, lat: 4.96836777096967, label: "55" },
-                    { lng: 100.648852592103, lat: 4.96925168133124, label: "56" },
-                    { lng: 100.649203669916, lat: 4.96992713804362, label: "57" },
-                    { lng: 100.649416948122, lat: 4.97058460212178, label: "58" },
-                    { lng: 100.649417468055, lat: 4.97079359262675, label: "59" },
-                    { lng: 100.649402958307, lat: 4.9714045280576, label: "60" },
-                    { lng: 100.649260571195, lat: 4.97216047018042, label: "61" },
-                    { lng: 100.649069534834, lat: 4.97269146600409, label: "62" },
-                    { lng: 100.649022885835, lat: 4.97327032937043, label: "63" },
-                    { lng: 100.649200493211, lat: 4.9737843261823, label: "64" },
-                    { lng: 100.649827094002, lat: 4.97436150355231, label: "65" },
-                    { lng: 100.650197259814, lat: 4.97495539881266, label: "66" },
-                    { lng: 100.650503147081, lat: 4.97548514961665, label: "67" },
-                    { lng: 100.65080899486, lat: 4.97599882392871, label: "68" },
-                    { lng: 100.651034734341, lat: 4.97652877510038, label: "69" },
-                    { lng: 100.651244364318, lat: 4.97702661392358, label: "70" },
-                    { lng: 100.651470104721, lat: 4.97755656469748, label: "71" },
-                    { lng: 100.65164747538, lat: 4.97797410274474, label: "72" },
-                    { lng: 100.651808535703, lat: 4.97827914770944, label: "73" },
-                    { lng: 100.65198622787, lat: 4.97882529486401, label: "74" },
-                    { lng: 100.65209964055, lat: 4.97930729818532, label: "75" },
-                    { lng: 100.652164121123, lat: 4.97945182269474, label: "76" },
-                    { lng: 100.652167251847, lat: 4.98070576362309, label: "77" },
-                    { lng: 100.652023384317, lat: 4.9808668875996, label: "78" },
-                    { lng: 100.651832229815, lat: 4.98134965568629, label: "79" },
-                    { lng: 100.651545176619, lat: 4.98194519851454, label: "80" },
-                    { lng: 100.651305891748, lat: 4.98241201125116, label: "81" },
-                    { lng: 100.651130204642, lat: 4.9826696727594, label: "82" },
-                    { lng: 100.650970426966, lat: 4.98287906549488, label: "83" },
-                    { lng: 100.650940092807, lat: 4.98357042147858, label: "84" },
-                    { lng: 100.6509094377, lat: 4.9841331680763, label: "85" },
-                    { lng: 100.650878581982, lat: 4.98461553381074, label: "86" },
-                    { lng: 100.650847927068, lat: 4.985178280422, label: "87" },
-                    { lng: 100.650801282395, lat: 4.98575714348005, label: "88" },
-                    { lng: 100.650738567626, lat: 4.98631997064712, label: "89" },
-                    { lng: 100.650691682166, lat: 4.98680237669006, label: "90" },
-                    { lng: 100.650676856856, lat: 4.987284702196, label: "91" },
-                    { lng: 100.650646001577, lat: 4.98776706798055, label: "92" },
-                    { lng: 100.650631256778, lat: 4.98828154583869, label: "93" },
-                    { lng: 100.650600321319, lat: 4.98873175928509, label: "94" },
-                    { lng: 100.650617275349, lat: 4.9891014710031, label: "95" },
-                    { lng: 100.6505862195, lat: 4.989503455932, label: "96" },
-                    { lng: 100.650555404763, lat: 4.99000189791155, label: "97" },
-                    { lng: 100.650797021936, lat: 4.99046750244226, label: "98" },
-                    { lng: 100.651568679517, lat: 4.99134975650485, label: "99" },
-                    { lng: 100.652324510294, lat: 4.99231243010065, label: "100" },
-                    { lng: 100.652551548789, lat: 4.99335681524503, label: "101" },
-                    { lng: 100.652906950993, lat: 4.99444910541527, label: "102" },
-                    { lng: 100.653582475948, lat: 4.99534767303139, label: "103" },
-                    { lng: 100.654561972573, lat: 4.99600432890766, label: "104" },
-                    { lng: 100.654512067443, lat: 4.99528102397111, label: "105" },
-                    { lng: 100.655, lat: 4.995, label: "106" }
-                ]
+                color: "skyblue",
+                CableId: 0,
+                //  icon: "../../Content/Images/placeholder-" + this.imgSize + "-black.png",
+                icon: "../../Content/Images/placeholder-24-black.png",
+                points: []
+            };
+            if (cableID[0] == "selectAll" || (cableID == cableVal[v].value || cableID.indexOf(cableVal[v].value) > -1)) {
+                CableList.label = cableVal[v].label;
+                CableList.type = "Aerial";
+                CableList.color = "skyblue";
+                CableList.points = [];
+                CableList.CableId = cableVal[v].value;
+                CableList.icon = "../../Content/Images/placeholder-24-black.png";
+                //if (!cableVal[v].Geodata)
+                //  cableVal[v].Geodata = 'LINESTRING(103.903083 1.730833, 103.902516698374 1.73121879229169)';
+
+                var currGeoData = cableVal[v].Geodata.replace("LINESTRING (", "").replace(")", "").split(", ");
+                var gArr = [];
+                for (let v in currGeoData) {
+                    var gData = { lng: 0, lat: 0, label: "" };
+
+                    gData.lng = parseFloat(currGeoData[v].split(" ")[0]);
+                    gData.lat = parseFloat(currGeoData[v].split(" ")[1]);
+                    gData.label = CableList.label + gData.lng + "_" + gData.lat;
+                    gArr.push(gData);
+                }
+                CableList.points = gArr;
+                CableArr.push(CableList);
             }
-        ];
+
+        }
+        console.log(CableArr);
+        return CableArr;
     };
-
-
     getBuildings(marker: IMarker): IMarker[] {
         console.log(marker);
         var arr = [
@@ -373,18 +244,6 @@ export class MapComponent implements OnInit {
         ].filter(a => types.indexOf(a.type) != -1);
     }
 
-    //getCabelTypes(): any[] {
-    //    return [
-    //        {
-    //            value: "Ground",
-    //            label: "Ground"
-    //        },
-    //        {
-    //            value: "Aerial",
-    //            label: "Aerial"
-    //        }
-    //    ];
-    //}
 
     getCabelNames(types: string[]): any[] {
         return [
@@ -407,7 +266,7 @@ export class MapComponent implements OnInit {
         ].filter(a => types.indexOf(a.type) != -1);
     }
 
-   
+
 
 
     form: FormGroup;
@@ -437,10 +296,9 @@ export class MapComponent implements OnInit {
 
     onSingleSelected(item: any) {
         this.logSingle("- selected (value: " + item.value + ", label:" + item.label + ")");
-        var p: IMarker = this.points.filter(p => p.label === this.form.value["selectSingle"])[0];
-        this.lat = p.lat;
-        this.lng = p.lng;
-        this.zoom = 18;
+        /// var p: IMarker = this.points.filter(p => p.label === this.form.value["selectSingle"])[0];
+        //this.lat = p.lat;
+        // this.lng = p.lng;
         //this.closeNav();
     }
 
@@ -455,50 +313,251 @@ export class MapComponent implements OnInit {
     onMultipleClosed() {
         this.logMultiple("- closed");
     }
-
-    onMultipleSelected(item: any) {
-        this.logMultiple("- selected (value: " + item.value + ", label:" + item.label + ")");
-        this.mapService.postNEtypes(this.form.value["selectMultiple"])
+    //markers: IMarker[];
+    onLRDSelected(item: any) {
+        this.logMultiple("- selected (value: " + item.value + ", label:" + item.label + " ,role:" + item.role + ")");
+        this.mapService.getNEtypes(this.form.value["selectMultiple"][0].LrdName)
             .subscribe((value) => {
-                debugger;
                 var NEArr = [];
+
                 for (let v in value) {
                     var NEList = {
                         label: "",
-                        value: ""
+                        value: "",
+                        role: ""
                     };
-                    NEList.label = value[v];
-                    NEList.value = value[v];
+
+                    NEList.label = value[v].NetworkElementName;
+                    NEList.value = value[v].NetworkElementType;
+                    NEList.role = value[v].Role;
+
                     NEArr.push(NEList);
                 }
-                this.markerTypes = NEArr;
+                this.neNameData = NEArr;
+
             });
-            this.res = [
-                      {
-                        "NEName": "GCKCA",
-                        "NEType": "one",
-                        "Roles": "one R"
-                      },
-                      {
-                        "NEName": "GGKPA",
-                        "NEType": "two",
-                        "Roles": "Two R"
-                      },
-                      {
-                        "NEName": "GSRWA",
-                        "NEType": "three",
-                        "Roles": "Three R"
-                      }
-                    ];
-        this.markerNames = this.getMarkerNames(this.form.value["selectMultiple"]);
+
+        var NEArr = [];
+        var NEList = {
+            label: "",
+            value: "",
+            type: "",
+            lng: 0,
+            lat: 0,
+            icon: "../../Content/Images/satellite-dish-24-blue.png"
+        };
+        var currVal = this.form.value["selectMultiple"];
+        for (let v in currVal) {
+            NEList = {
+                label: "",
+                value: "",
+                type: "",
+                lng: 0,
+                lat: 0,
+                icon: "../../Content/Images/satellite-dish-24-blue.png"
+            };
+            NEList.label = currVal[v].LrdName;
+            NEList.value = currVal[v].LrdName;
+            NEList.type = "Ethernet Switch";
+            NEList.icon = "../../Content/Images/satellite-dish-24-blue.png";
+            var pt = currVal[v].GeodataValue;
+            NEList.lng = parseFloat(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')))
+            NEList.lat = parseFloat(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')))
+            NEArr.push(NEList);
+        }
+        console.log(NEArr);
+        this.points = NEArr;
+
+
+
+        //this.markerNames = this.getMarkerNames(this.form.value["selectMultiple"]);
     }
 
-    onMultipleDeselected(item: any) {
-        this.logMultiple("- deselected (value: " + item.value + ", label:" + item.label + ")");
-        this.markerNames = this.getMarkerNames(this.form.value["selectMultiple"]);
+
+    onStructSelected(item: any, cableId1: any) {
+        var obj = {
+            CableId: "0",
+            range: 0,
+            searchpoint: "POINT (0,0)"
+        };
+        obj.range = parseInt(this.form.value["selectedDistance"]);
+        obj.searchpoint = "POINT (" + item.lng + " " + item.lat + ")";
+        //obj.searchpoint = "POINT (101.594202549788 3.0506066924328)";
+        //obj.CableId = cableId;
+        obj.CableId = cableId1;
+        this.structs = [];
+        this.mapService.getStruct(obj)
+            .subscribe((value: any) => {
+                for (var v in value) {
+                    var StructList = {
+                        label: "",
+                        value: "",
+                        type: "",
+                        lng: 0,
+                        lat: 0,
+                        icon: "../../Content/Images/flats-24-blue.png"
+                    };
+                    StructList.label = value[v].StructureName;
+                    StructList.value = value[v].StructureId;
+                    StructList.type = value[v].StructureOtName;
+                    if (StructList.type == "Manhole") {
+                        StructList.icon = "../../Content/Images/manhole_16.png";
+                    } else if (StructList.type == "Site Location") {
+                        StructList.icon = "../../Content/Images/world-web.png";
+                    }
+                    else if (StructList.type == "Fiber Cable") {
+                        StructList.icon = "../../Content/Images/fiber_cable_16.png";
+                    }
+                    else if (StructList.type == "Pole") {
+                        StructList.icon = "../../Content/Images/pole_16.png";
+                    }
+                    else if (StructList.type == "Handhole") {
+                        StructList.icon = "../../Content/Images/handhold_16.png";
+                    }
+                    else if (StructList.type == "Junction Box") {
+                        StructList.icon = "../../Content/Images/_junction_box.png";
+                    }
+                    else if (StructList.type == "Customer Site Location") {
+                        StructList.icon = "../../Content/Images/home.png";
+                    }
+
+
+
+
+                    var pt = value[v].Geodata;
+                    StructList.lng = parseFloat(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')))
+                    StructList.lat = parseFloat(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')))
+                    this.structs.push(StructList);
+                }
+            });
     }
 
+    onBuildingSelected(item: any) {
+        var cableArr = [];
+        var LRD = this.form.value["selectMultiple"];
+        //var bd = this.form.value["selectSingle"];
 
+
+        //this.mapService.getNEtypes(this.form.value["selectMultiple"])
+        //    .subscribe((value) => {
+        //        var NEArr = [];
+        //        for (let v in value) {
+        //            var NEList = {
+        //                label: "",
+        //                value: "",
+        //                role:" "
+        //            };
+        //            NEList.label = value[v].NetworkElementName;
+        //            NEList.value = value[v].NetworkElementType;
+        //            NEList.role = value[v].Role;
+        //            NEArr.push(NEList);
+        //        }
+        //    });
+        //  this.buildings = [];
+        //item this.form.value["selectSingle"]
+        this.data = this.form.value["selectSingle"];
+        this.buildings = [];
+        for (let b in this.buildingNames) {
+            var currBuilding = this.buildingNames[b];
+            for (let s in this.data) {
+                var currSelBuilding = this.data[s];
+                if (this.data[s] == currBuilding.value) {
+                    console.log(currBuilding.lrd);
+                    this.buildings.push(currBuilding);
+                }
+            }
+        }
+
+        var newBuilding = [];
+
+        // if (item[0] == "selectAll" || (item == pt.value || item.indexOf(pt.value) > -1)) {
+        for (let v in this.buildings) {
+            var BuildingList = {
+                label: "",
+                value: "",
+                lrd: "",
+                type: "",
+                lng: 0,
+                lat: 0,
+                icon: "../../Content/Images/flats-24-blue.png"
+            };
+            BuildingList.label = this.buildings[v].label;
+            BuildingList.value = this.buildings[v].value;
+            BuildingList.lrd = this.buildings[v].lrd;
+            BuildingList.type = "Building";
+            BuildingList.icon = "../../Content/Images/flats-24-blue.png";
+            var pt = this.data[v];
+            BuildingList.lng = parseFloat(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')))
+            BuildingList.lat = parseFloat(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')))
+
+            this.buildings.push(BuildingList);
+            newBuilding.push(BuildingList);
+            for (let v in LRD) {
+                var CableList = {
+                    label: "",
+                    type: "Aerial",
+                    color: "black",
+                    CableId: 0,
+                    //  icon: "../../Content/Images/placeholder-" + this.imgSize + "-black.png",
+                    icon: "../../Content/Images/placeholder-24-black.png",
+                    points: []
+                };
+                LRD[v].LrdName = this.buildings[v].lrd;
+                if (LRD[v].LrdName == this.buildings[v].lrd) {
+                    BuildingList.label = this.buildings[v].label;
+                    BuildingList.value = this.buildings[v].value;
+                    BuildingList.lrd = this.buildings[v].lrd;
+
+                    BuildingList.type = "Building";
+                    BuildingList.icon = "../../Content/Images/flats-24-blue.png";
+                    //if (!item[v].Geodata)
+                    //    item[v].Geodata = 'LINESTRING(103.903083 1.730833, 103.902516698374 1.73121879229169)';
+
+                    var currGeoData = this.buildings[v].value.replace("POINT (", "").replace(")", "").split(", ");
+                    var gArr = [];
+                    for (let v in currGeoData) {
+                        var gData = { lng: 0, lat: 0, label: "" };
+
+                        gData.lng = parseFloat(currGeoData[v].split(" ")[0]);
+                        gData.lat = parseFloat(currGeoData[v].split(" ")[1]);
+                        gData.label = CableList.label + gData.lng + "_" + gData.lat;
+                        gArr.push(gData);
+                    }
+                    CableList.points = gArr;
+                    newBuilding.push(CableList);
+                }
+
+            }
+            console.log(newBuilding);
+            this.buildLRD = JSON.parse("[{ \"label\":\"DEJJ0011144T01F\",\"type\":\"Aerial\",\"color\":\"skyblue\",\"CableId\":\"9110439617013031211\",\"icon\":\"../../Content/Images/placeholder-24-black.png\",\"points\":[{\"lng\":103.803877976925,\"lat\":1.5423787855778,\"label\":\"DEJJ0011144T01F103.803877976925_1.5423787855778\"},{\"lng\":103.804006963172,\"lat\":1.54214807516075,\"label\":\"DEJJ0011144T01F103.804006963172_1.54214807516075\"}]}]");
+            //this.buildings = newBuilding;
+
+        }
+
+    }
+    // this.buildings = buildings;
+    //onMultipleSelectedCable(item: any) {
+
+    //    this.cables = [];
+    //   // item this.form.value["selectMultiple"]
+
+    //    var CableList = {
+    //        label: "",
+    //        value: "",
+    //        type: "",
+    //        lng: 0,
+    //        lat: 0,
+    //        icon: "../../Content/Images/placeholder-24-blue.png"
+    //    };
+    //    CableList.label = item.label;
+    //    CableList.value = item.value;
+    //    CableList.type = "Cable";
+    //    CableList.icon = "../../Content/Images/placeholder-24-blue.png";
+    //    var pt = CableList.value;
+    //    CableList.lng = parseInt(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')))
+    //    CableList.lat = parseInt(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')))
+    //    this.cables.push(CableList);
+    //}
 
 
 
@@ -510,32 +569,146 @@ export class MapComponent implements OnInit {
         this.logSingle("- closed");
     }
 
+
     onSingleSelected1(item: any) {
         this.logSingle("- selected (value: " + item.value + ", label:" +
             item.label + ")");
     }
-   
-    onSingleSelected2(item: any) {
 
+
+    onSingleSelected2(item: any) {
+        this.zoom = 10;
         this.logSingle("- selected (value: " + item.value + ", label:" +
             item.label + ")");
-        this.mapService.postLRD(item)
-                .subscribe((value) => {
-                    debugger;
-                    var NEArr = [];
-                    for (let v in value) {
-                        var NEList = {
-                            label: "",
-                            value:""
-                        };
-                        NEList.label = value[v]; 
-                        NEList.value = value[v];
-                        NEArr.push(NEList);
-                    }
-                    this.markerTypes = NEArr;
-                });
-       
-            }
+        this.mapService.getLRD(item)
+            .subscribe((value) => {
+                var NEArr = [];
+                var selectAll = {
+                    label: 'selectAll',
+                    value: 'selectAll'
+
+                }
+
+                NEArr.push(selectAll);
+
+                var NEList = {
+                    label: "",
+                    value: "",
+                    type: "",
+                    lng: 0,
+                    lat: 0,
+                    icon: "../../Content/Images/satellite-dish-24-blue.png"
+                };
+                for (let v in value) {
+                    NEList = {
+                        label: "",
+                        value: "",
+                        type: "",
+                        lng: 0,
+                        lat: 0,
+                        icon: "../../Content/Images/satellite-dish-24-blue.png"
+                    };
+                    NEList.label = value[v].LrdName;
+                    NEList.value = value[v];
+                    NEList.type = "Ethernet Switch";
+                    NEList.icon = "../../Content/Images/satellite-dish-24-blue.png";
+                    var pt = value[v].GeodataValue;
+                    NEList.lng = parseInt(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')))
+                    NEList.lat = parseInt(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')))
+                    NEArr.push(NEList);
+                }
+                console.log(NEArr);
+                //this.points = NEArr;
+                this.markerTypes = NEArr;
+            });
+
+        this.mapService.getBuilding(item)
+            .subscribe((value) => {
+                var NEArr = [];
+                var selectAll = {
+                    label: 'selectAll',
+                    value: 'selectAll'
+
+                }
+
+                NEArr.push(selectAll);
+                for (let v in value) {
+                    var NEList = {
+                        label: "",
+                        value: "",
+                        lrd: ""
+                    };
+                    NEList.label = value[v].BuildingName;
+                    NEList.value = value[v].Geodata;
+                    NEList.lrd = value[v].Lrd;
+                    NEArr.push(NEList);
+                }
+                // this.buildings = NEArr;
+
+                this.buildingNames = NEArr;
+            });
+        ///structure//
+
+        //this.mapService.getStruct(item)
+        //    .subscribe((value) => {
+        //        var NEArr = [];
+        //        var selectAll = {
+        //            label: 'selectAll',
+        //            value: 'selectAll'
+
+        //        }
+
+        //        NEArr.push(selectAll);
+
+        //        for (let v in value) {
+        //            var NEList = {
+        //                label: "",
+        //                value: "",
+        //            };
+        //            NEList.label = value[v];
+        //            NEList.value = value[v];
+        //            NEArr.push(NEList);
+        //        }
+        //        this.structs = NEArr;
+
+        //        this.structNames = NEArr;
+        //    });
+
+
+
+
+
+
+
+        this.mapService.getCable(item)
+            .subscribe((value) => {
+                var CableArr = [];
+                var selectAll = {
+                    label: 'selectAll',
+                    value: 'selectAll'
+
+                }
+
+                CableArr.push(selectAll);
+
+                for (let v in value) {
+                    var CableList = {
+                        label: "",
+                        value: "",
+                        Geodata: ""
+                    };
+                    CableList.label = value[v].CableName;
+                    CableList.value = value[v].CableId;
+                    CableList.Geodata = value[v].Geodata;
+                    CableArr.push(CableList);
+                }
+                this.cableTypes = CableArr;
+            });
+
+
+
+    }
+
     onSingleDeselected2(item: any) {
         this.logSingle("- deselected (value: " + item.value + ", label:" + item.label + ")");
     }
@@ -570,16 +743,45 @@ export class MapComponent implements OnInit {
     onMultipleClosed1() {
         this.logMultiple("- closed");
     }
+    //onCableDeselected(item: any) {
+    //    this.logSingle("- deselected (value: " + item.value + ", label:" + item.label + ")");
+    //   // this.markers = this.getCables(this.form.value["selectSingle1"]);
+    //}
 
-    onMultipleSelected1(item: any) {
+    onCableSelected(item: any) {
+        this.zoom = 12;
+        //console.log(this.cableTypes = NEArr;
+        //this.mapService.getStruct(item.value)
+        //    .subscribe(
+        //    data =>  this.onStructSelected(item) )
+        this.markers = this.getCables(this.form.value["selectSingle1"]);
+        var p = this.markers.filter(p => p.label === this.form.value["selectSingle1"])[0];
+        // var p: ICable = this.markers.filter(p => p.label === "DSH10033048D01F")[0];
+        // this.lat = p.points
+        //     .reduce<number>((sum, a, i, ar) =>
+        //     {
+        //         sum += a.lat;
+        //         return i == ar.length - 1 ? (ar.length == 0 ? 0 : sum / ar.length) : sum;
+        //     }, 0);  
+
+        // this.lng = p.points
+        //     .reduce<number>((sum, a, i, ar) => {
+        //         sum += a.lng;
+        //         return i == ar.length - 1 ? (ar.length == 0 ? 0 : sum / ar.length) : sum;
+        //     }, 0);  
+        //this.lat = p.points[Math.round(p.points.length / 2)].lat;
+        //this.lng = p.points[Math.round(p.points.length / 2)].lng;
+        //this.zoom = 18;
         this.logMultiple("- selected (value: " + item.value + ", label:" + item.label + ")");
-        this.cabelNames = this.getCabelNames(this.form.value["selectMultiple1"]);
+        //this.logSingle("- selected (value: " + item.value + ", label:" +
+        //  item.label + ")");
+        // this.cabelTypes = this.getCable(this.form.value["selectMultiple1"]);
         //this.closeNav();
     }
 
     onMultipleDeselected1(item: any) {
         this.logMultiple("- deselected (value: " + item.value + ", label:" + item.label + ")");
-       this.cabelNames = this.getCabelNames(this.form.value["selectMultiple1"]);
+        // this.cabelTypes = this.getCable(this.form.value["selectMultiple1"]);
     }
 
     check(checked) {
@@ -635,110 +837,96 @@ export class MapComponent implements OnInit {
     selectSingle1: any;
     foo: any[];
 
-        ngOnInit() {
+    ngOnInit() {
 
-            this.form = new FormGroup({});
-            this.form.addControl("selectSingle", new FormControl(""));
-            this.form.addControl("selectMultiple", new FormControl(""));
-            this.form.addControl("selectSingle1", new FormControl(""));
-            this.form.addControl("selectMultiple1", new FormControl(""));
-            this.form.addControl("searchControl", new FormControl(""));
-           // this.getMarker();
-            //this.getDistance();
-            this.getCabelTypes();
-            //this.mapService.getMarker()
-            //    .subscribe((value) => {
-            //        debugger;
-            //        var NEArr = [];
-            //        for (let v in value) {
-            //            var NEList = {
-            //                label: "",
-            //                value:""
-            //            };
-            //            NEList.label = value[v]; 
-            //            NEList.value = value[v];
-            //            NEArr.push(NEList);
-            //        }
-            //        this.markerTypes = NEArr;
-            //    });
-            this.mapService.getCableTypes()
-                .subscribe((value) => {
-                    debugger;
-                    var CAArr = [];
-                    for (let c in value) {
-                        var CAList = {
-                            label: "",
-                            value: ""
-                        };
-                        CAList.label = value[c];
-                        CAList.value = value[c];
-//console.log(c);
-                        CAArr.push(CAList);
+        this.form = new FormGroup({});
+        this.form.addControl("selectSingle", new FormControl(""));
+        this.form.addControl("selectMultiple", new FormControl(""));
+        this.form.addControl("selectSingle1", new FormControl(""));
+        this.form.addControl("selectMultiple1", new FormControl(""));
+        this.form.addControl("searchControl", new FormControl(""));
+        this.form.addControl("selectedDistance", new FormControl(""));
+
+        // this.getMarker();
+        //this.getDistance();
+        this.getCabelTypes();
+        this.getBuilding();
+        this.getCable();
+        this.getLRD();
+        //this.getStructure();
+        //this.mapService.getBuilding()
+        //    .subscribe((value) => {
+        //        debugger;
+        //        var NEbuild = [];
+        //        for (let b in value) {
+        //            var building = [];
+
+        //            building.label = value[b];
+        //            building.value = value[b];
+        //            NEbuild.push(building);
+        //        }
+        //        this.markerNames = NEbuild;
+        //    });
+        //function(value) {
+        //    return this.markerTypes = value
+        //}
+        //console.log(this.markerTypes);
+        //        // this.searchElementRef = this.form.value["searchControl"];
+
+        //        // set google maps defaults
+        this.zoom = 6;
+        this.lat = 4.210484;
+        this.lng = 101.97576600000002;
+
+        // create search FormControl
+        // this.searchControl = new FormControl();
+
+        // set current position
+        this.setCurrentPosition();
+
+        // load Places Autocompletes
+        this.mapsAPILoader.load().then(() => {
+            let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+                types: ["address"]
+            });
+            autocomplete.addListener("place_changed", () => {
+                this.ngZone.run(() => {
+                    // get the place result
+
+                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+                    // verify result
+                    if (place.geometry === undefined || place.geometry === null) {
+                        return;
                     }
-                    this.cabelTypes = CAArr;
-                });
 
-            //function(value) {
-            //    return this.markerTypes = value
-            //}
-            //console.log(this.markerTypes);
-            //        // this.searchElementRef = this.form.value["searchControl"];
-            
-    //        // set google maps defaults
-            this.zoom = 6;
-            this.lat = 4.210484;
-            this.lng = 101.97576600000002;
-
-            // create search FormControl
-            // this.searchControl = new FormControl();
-
-            // set current position
-            this.setCurrentPosition();
-
-            // load Places Autocompletes
-            this.mapsAPILoader.load().then(() => {
-                let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-                    types: ["address"]
-                });
-                autocomplete.addListener("place_changed", () => {
-                    this.ngZone.run(() => {
-                        // get the place result
-
-                        let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-                        // verify result
-                        if (place.geometry === undefined || place.geometry === null) {
-                            return;
-                        }
-
-                        // set latitude, longitude and zoom
-                        debugger;
-                        this.lat = place.geometry.location.lat();
-                        this.lng = place.geometry.location.lng();
-                        var point = "POINT(" + this.lat + " " + this.lng + ")";
-                        // Service -> Set Distance with Point
-                        this.mapService.load(point).subscribe;
-                        this.zoom = 12;
-                        //this.openNav();
-                    });
+                    // set latitude, longitude and zoom
+                    this.lat = place.geometry.location.lat();
+                    this.lng = place.geometry.location.lng();
+                    var point = "POINT(" + this.lng + " " + this.lat + ")";
+                    // Service -> Set Distance with Point
+                    this.mapService.getload(point).subscribe;
+                    this.zoom = 8;
+                    //this.openNav();
                 });
             });
+        });
 
-            //document.getElementsByTagName("sebm-google-map")[0].style.height = screen.height;
-        }
+        //document.getElementsByTagName("sebm-google-map")[0].style.height = screen.height;
+    }
 
-        private setCurrentPosition() {
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    this.lat = position.coords.latitude;
-                    this.lng = position.coords.longitude;
-                    this.latitude = this.lat;
-                    this.longitude = this.lng;
-                    this.zoom = 12;
-                });
-            }
+    private setCurrentPosition() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.lat = position.coords.latitude;
+                this.lng = position.coords.longitude;
+                this.latitude = this.lat;
+                this.longitude = this.lng;
+                this.zoom = 12;
+            });
         }
     }
+}
 
 
 ////  just an interface for type safety.
@@ -755,5 +943,13 @@ interface ICable {
     label: string;
     type: string;
     color: string;
+}
+
+// just an interface for type safety.
+interface ImarkerTest {
+    lat: number;
+    lng: number;
+    label?: string;
+    draggable: boolean;
 }
 

@@ -1,25 +1,60 @@
-﻿<table  class="table table-bordered">
-    <thead>
-        <tr>
-            <th>NE Name</th>
-            <th>NE Type</th>
-            <th>NE Roles</th>
-            <th>Capacity</th>
-        </tr>
-    </thead>
-    <tbody *ngFor="let user of sourcedataMck">
-        <tr>
-            <td>{{ user.NEName }}</td>
-            <td>{{ user.NEType }}</td>
-            <td>{{ user.Roles }}</td>
-            <td><template #popTemplate>
-                <div [innerHtml]="html"></div>
-            </template>
-            <button type="button" class="btn btn-default btn-secondary"
-                    [popover]="popTemplate" placement="right">
-                Capacity
-            </button>
-            </td>
-          </tr>
-    </tbody>
-</table>
+﻿<div class="neheader">
+    <div class="netable">
+        NE Table
+    </div>
+    <div class="table-scrollable">
+        <table class="table table-bordered table-hover" [hidden]="!sourcedata || sourcedata.length < 1">
+            <thead>
+                <tr>
+                    <th>NE Name</th>
+                    <th>NE Type</th>
+                    <th>NE Roles</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of sourcedata">
+                    <td (click)="updatethresh(user.label)">{{ user.label }}</td>
+                    <td>{{ user.value }}</td>
+                    <td>{{ user.role }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+<br />
+<div class="nehead">
+
+    <div class="netable">Threshhold Table</div>
+    <br />
+    <div class="table-scrollable">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Available</th>
+                    <th>Oldval</th>
+                    <th>Name</th>
+                    <th>Total</th>
+
+                    <th>Used</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of testdataval">
+                    <td>{{ user.Available }}</td>
+                    <td>{{ user.OldValue }}</td>
+                    <td>{{ user.ThresholdTemplateName }}</td>
+                    <td>{{ user.Total }}</td>
+
+                    <td>{{ user.Used }}</td>
+                    <td>{{ user.Value }}</td>
+
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
