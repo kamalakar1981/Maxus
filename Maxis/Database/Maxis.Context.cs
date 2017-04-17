@@ -13,11 +13,12 @@ namespace Maxis.Database
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MaxisEntities : DbContext
+    public partial class MaxisEntities : DbContext, IMaxisEntities
     {
         public MaxisEntities()
             : base("name=MaxisEntities")
         {
+            
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

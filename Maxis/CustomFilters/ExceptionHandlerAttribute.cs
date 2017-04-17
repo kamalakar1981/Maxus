@@ -24,7 +24,6 @@ namespace Maxis.CustomFilters
                 };
                 _db.EXCEPTIONLOGs.Add(exceptionDetails);
                 _db.SaveChanges();
-                filterContext.ExceptionHandled = true;
             }
         }
     }
