@@ -231,6 +231,7 @@
     <Compile Include="Database\EXCEPTIONLOG.cs">
       <DependentUpon>Maxis.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\IMaxisEntities.cs" />
     <Compile Include="Database\Maxis.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
