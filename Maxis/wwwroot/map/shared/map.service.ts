@@ -30,18 +30,6 @@ export class MapService {
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 
     }
-    getload(point: any): Observable<any> {
-        this._point = point;
-
-        let body = JSON.stringify(point);
-
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-
-        return this._http.post(this._mapLRDUrl, body, options)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
 
     getLRD(value: any): Observable<any> {
         let point = this._point;
