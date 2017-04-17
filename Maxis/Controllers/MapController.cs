@@ -5,7 +5,7 @@ using System.Data.Spatial;
 
 namespace Maxis.Controllers
 {
-    public class MapController : Controller
+    public class MapController : BaseController
     {
         private readonly IMapService _mapService;
 
@@ -43,13 +43,6 @@ namespace Maxis.Controllers
             return Json(_mapService.GetCables(DbGeography.FromText(pointViewModel.SearchPoint), pointViewModel.Range), JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Map/CableDetails
-        //show cablenames, geodata for cable names dropdown based on cable type
-        public JsonResult CableDetails(string cableType)
-        {
-            return Json(_mapService.GetCableDetails(cableType), JsonRequestBehavior.AllowGet);
-        }
-
         // GET: Map/Building
         //Show buildings based on nename
         public JsonResult Buildings(PointViewModel pointViewModel)
@@ -61,7 +54,7 @@ namespace Maxis.Controllers
         //Show cable structures 
         public JsonResult Structures(PointViewModel pointViewModel)
         {
-            return Json(_mapService.GetStructureDetails(DbGeography.FromText(pointViewModel.SearchPoint), pointViewModel.Range), JsonRequestBehavior.AllowGet);
+            return Json(_mapService.GetStructureDetails(DbGeography.FromText(pointViewModel.SearchPoint), pointViewModel.Range, pointViewModel.CableId), JsonRequestBehavior.AllowGet);
         }
 
 

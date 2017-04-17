@@ -1,5 +1,4 @@
 ﻿using Maxis.ViewModels;
-using System;
 using System.Collections.Generic;
 
 namespace Maxis.Services.Abstract
@@ -7,8 +6,9 @@ namespace Maxis.Services.Abstract
     public interface IUserService
     {
         List<EditUserViewModel> GetAllUsers();
-        List<EditUserViewModel> SelectById(long id);
-        void EditUser(EditUserViewModel editUserViewModel);
-        void CreateUser(LoginViewModel loginViewModel);
+        List<EditUserViewModel> GetUserById(long id);
+        bool EditUser(EditUserViewModel editUserViewModel);
+        List<UserDetailsViewModel> CreateUser(LoginViewModel loginViewModel);
+        UserDetailsViewModel GetDataByUser(string userName);
     }
 }

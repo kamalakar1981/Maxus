@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MAXISDEVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EXCEPTIONLOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EXCEPTION_MESSAGE" Type="varchar(max)" />
+          <Property Name="CONTROLLER_NAME" Type="varchar(max)" />
+          <Property Name="ACTION_NAME" Type="varchar(max)" />
+          <Property Name="STACKTRACE" Type="varchar(max)" />
+          <Property Name="LOG_TIME" Type="datetime" />
+          <Property Name="USERNAME" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="ONNET_SRCH_BUILDING">
           <Key>
             <PropertyRef Name="BUILDING_ID" />
@@ -140,19 +152,19 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="DEV_OT_ID" Type="bigint" />
           <Property Name="THR_TEMPL_ID" Type="bigint" Nullable="false" />
           <Property Name="TRH_TEMPL_NAME" Type="varchar" MaxLength="200" />
-          <Property Name="TOTAL" Type="decimal" Precision="38" Scale="3" />
-          <Property Name="AVAIL" Type="decimal" Precision="38" Scale="3" />
-          <Property Name="USED" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="TOTAL" Type="decimal" Precision="30" Scale="3" />
+          <Property Name="AVAIL" Type="decimal" Precision="30" Scale="3" />
+          <Property Name="USED" Type="decimal" Precision="30" Scale="3" />
           <Property Name="VALUE" Type="decimal" Precision="30" Scale="2" />
           <Property Name="OLD_VALUE" Type="decimal" Precision="30" Scale="2" />
-          <Property Name="PLANNED_TO_USE" Type="decimal" Precision="38" Scale="3" />
-          <Property Name="IS_DEV" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="PLANNED_TO_USE" Type="decimal" Precision="30" Scale="3" />
+          <Property Name="IS_DEV" Type="decimal" Precision="30" Scale="3" />
         </EntityType>
         <EntityType Name="ONNET_USER">
           <Key>
-            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Username" />
           </Key>
-          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="UserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
@@ -184,6 +196,18 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EXCEPTIONLOG_EXCEPTIONLOG">
+          <End Role="EXCEPTIONLOG" Type="Self.EXCEPTIONLOG" Multiplicity="1" />
+          <End Role="EXCEPTIONLOG1" Type="Self.EXCEPTIONLOG" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="EXCEPTIONLOG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EXCEPTIONLOG1">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE">
           <End Role="ONNET_SRCH_NE" Type="Self.ONNET_SRCH_NE" Multiplicity="1" />
           <End Role="ONNET_SRCH_DL_ID_LIST" Type="Self.ONNET_SRCH_DL_ID_LIST" Multiplicity="*" />
@@ -197,6 +221,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="MAXISDEVModelStoreContainer">
+          <EntitySet Name="EXCEPTIONLOG" EntityType="Self.EXCEPTIONLOG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ONNET_SRCH_BUILDING" EntityType="Self.ONNET_SRCH_BUILDING" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ONNET_SRCH_DL_ID_LIST" EntityType="Self.ONNET_SRCH_DL_ID_LIST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ONNET_SRCH_NE" EntityType="Self.ONNET_SRCH_NE" Schema="dbo" store:Type="Tables" />
@@ -259,6 +284,10 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <AssociationSet Name="FK__ONNET_USE__RoleI__1920BF5C" Association="Self.FK__ONNET_USE__RoleI__1920BF5C">
             <End Role="ONNET_USERROLE" EntitySet="ONNET_USERROLE" />
             <End Role="ONNET_USER" EntitySet="ONNET_USER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EXCEPTIONLOG_EXCEPTIONLOG" Association="Self.FK_EXCEPTIONLOG_EXCEPTIONLOG">
+            <End Role="EXCEPTIONLOG" EntitySet="EXCEPTIONLOG" />
+            <End Role="EXCEPTIONLOG1" EntitySet="EXCEPTIONLOG" />
           </AssociationSet>
           <AssociationSet Name="FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE" Association="Self.FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE">
             <End Role="ONNET_SRCH_NE" EntitySet="ONNET_SRCH_NE" />
@@ -360,7 +389,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
         </EntityType>
         <EntityType Name="ONNET_USER">
           <Key>
-            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Username" />
           </Key>
           <Property Name="UserId" Type="Int64" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
@@ -423,13 +452,13 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="DEV_OT_ID" Type="Int64" />
           <Property Name="THR_TEMPL_ID" Type="Int64" Nullable="false" />
           <Property Name="TRH_TEMPL_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="TOTAL" Type="Decimal" Precision="38" Scale="3" />
-          <Property Name="AVAIL" Type="Decimal" Precision="38" Scale="3" />
-          <Property Name="USED" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="TOTAL" Type="Decimal" Precision="30" Scale="3" />
+          <Property Name="AVAIL" Type="Decimal" Precision="30" Scale="3" />
+          <Property Name="USED" Type="Decimal" Precision="30" Scale="3" />
           <Property Name="VALUE" Type="Decimal" Precision="30" Scale="2" />
           <Property Name="OLD_VALUE" Type="Decimal" Precision="30" Scale="2" />
-          <Property Name="PLANNED_TO_USE" Type="Decimal" Precision="38" Scale="3" />
-          <Property Name="IS_DEV" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="PLANNED_TO_USE" Type="Decimal" Precision="30" Scale="3" />
+          <Property Name="IS_DEV" Type="Decimal" Precision="30" Scale="3" />
         </EntityType>
         <Association Name="FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE">
           <End Role="ONNET_SRCH_NE" Type="Self.ONNET_SRCH_NE" Multiplicity="1" />
@@ -490,7 +519,38 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             <End Role="ONNET_USERROLE" EntitySet="ONNET_USERROLE" />
             <End Role="ONNET_USER" EntitySet="ONNET_USER" />
           </AssociationSet>
+          <EntitySet Name="EXCEPTIONLOGs" EntityType="MAXISDEVModel.EXCEPTIONLOG" />
+          <AssociationSet Name="FK_EXCEPTIONLOG_EXCEPTIONLOG" Association="MAXISDEVModel.FK_EXCEPTIONLOG_EXCEPTIONLOG">
+            <End Role="EXCEPTIONLOG" EntitySet="EXCEPTIONLOGs" />
+            <End Role="EXCEPTIONLOG1" EntitySet="EXCEPTIONLOGs" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="EXCEPTIONLOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EXCEPTION_MESSAGE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CONTROLLER_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ACTION_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="STACKTRACE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LOG_TIME" Type="DateTime" Precision="3" />
+          <Property Name="USERNAME" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EXCEPTIONLOG1" Relationship="MAXISDEVModel.FK_EXCEPTIONLOG_EXCEPTIONLOG" FromRole="EXCEPTIONLOG" ToRole="EXCEPTIONLOG1" />
+          <NavigationProperty Name="EXCEPTIONLOG2" Relationship="MAXISDEVModel.FK_EXCEPTIONLOG_EXCEPTIONLOG" FromRole="EXCEPTIONLOG1" ToRole="EXCEPTIONLOG" />
+        </EntityType>
+        <Association Name="FK_EXCEPTIONLOG_EXCEPTIONLOG">
+          <End Type="MAXISDEVModel.EXCEPTIONLOG" Role="EXCEPTIONLOG" Multiplicity="1" />
+          <End Type="MAXISDEVModel.EXCEPTIONLOG" Role="EXCEPTIONLOG1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="EXCEPTIONLOG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EXCEPTIONLOG1">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -657,6 +717,19 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
                 <ScalarProperty Name="OLD_VALUE" ColumnName="OLD_VALUE" />
                 <ScalarProperty Name="PLANNED_TO_USE" ColumnName="PLANNED_TO_USE" />
                 <ScalarProperty Name="IS_DEV" ColumnName="IS_DEV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EXCEPTIONLOGs">
+            <EntityTypeMapping TypeName="MAXISDEVModel.EXCEPTIONLOG">
+              <MappingFragment StoreEntitySet="EXCEPTIONLOG">
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="LOG_TIME" ColumnName="LOG_TIME" />
+                <ScalarProperty Name="STACKTRACE" ColumnName="STACKTRACE" />
+                <ScalarProperty Name="ACTION_NAME" ColumnName="ACTION_NAME" />
+                <ScalarProperty Name="CONTROLLER_NAME" ColumnName="CONTROLLER_NAME" />
+                <ScalarProperty Name="EXCEPTION_MESSAGE" ColumnName="EXCEPTION_MESSAGE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

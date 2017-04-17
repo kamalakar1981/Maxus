@@ -35,5 +35,6 @@ namespace Maxis.Database
         public virtual DbSet<ONNET_SRCH_OSP_CABLE_STRUCT> ONNET_SRCH_OSP_CABLE_STRUCT { get; set; }
         public virtual DbSet<ONNET_SRCH_OSP_STRUCT> ONNET_SRCH_OSP_STRUCT { get; set; }
         public virtual DbSet<ONNET_SRCH_OSP_THRESHOLD> ONNET_SRCH_OSP_THRESHOLD { get; set; }
+        public virtual DbSet<EXCEPTIONLOG> EXCEPTIONLOGs { get; set; }
     }
 }

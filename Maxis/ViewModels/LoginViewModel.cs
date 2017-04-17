@@ -1,6 +1,4 @@
-﻿
-
-namespace Maxis.ViewModels
+﻿namespace Maxis.ViewModels
 {
     public class LoginViewModel
     {

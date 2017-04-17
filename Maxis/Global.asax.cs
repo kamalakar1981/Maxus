@@ -1,15 +1,16 @@
 ﻿using Maxis.App_Start;
+using Maxis.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Script.Serialization;
+using System.Web.Security;
 
 namespace Maxis
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -19,6 +20,22 @@ namespace Maxis
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             DependencyConfig.RegisterDependencyResolvers();
             MappingConfig.RegisterMaps();
+        }
+
+        protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
+        {
+            var authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+
+            if (authCookie == null) return;
+            var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+            var serializer = new JavaScriptSerializer();
+            if (authTicket == null) return;
+            var serializeModel = serializer.Deserialize<UserModel>(authTicket.UserData);
+            var newUser = new CustomPrincipal(authTicket.Name)
+            {
+                Username = serializeModel.Username
+            };
+            HttpContext.Current.User = newUser;
         }
     }
 }
