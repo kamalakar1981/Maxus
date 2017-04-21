@@ -32,7 +32,7 @@ namespace Maxis.Infrastructure.Repositories
                  new SqlParameter("@Long", searchPoint.Longitude),
                  new SqlParameter("@range", range)
              };
-            var result = _db.Database.SqlQuery<ONNET_SRCH_NE>("dbo.GETLRDVALUES @Lat, @Long, @range", parameterList.ToArray()).ToList();
+            var result = _db.Database.SqlQuery<ONNET_SRCH_NE>("dbo.GETLRDVALUES @Lat, @Long, @range", parameterList.ToArray());
             return result.Select(m => new LrdViewModel { LrdName = m.LRD, GeodataValue = m.GEODATA.AsText() })
                  .GroupBy(m => m.LrdName)
                  .Select(m => m.First())
@@ -57,14 +57,18 @@ namespace Maxis.Infrastructure.Repositories
                 new SqlParameter("@LRDs", lrd)
 
             };
-            var result = _db.Database.SqlQuery<ONNET_SRCH_NE>("dbo.GETNENAMES @Lat, @Long, @range, @LRDs", parameterList.ToArray());
-            return result.Select(g => new NeViewModel
+            var result = _db.Database.SqlQuery<ONNET_SRCH_NE>("dbo.GETNENAMES @Lat, @Long, @range, @LRDs", parameterList.ToArray())
+                .Join(_db.ONNET_SOURCE_TARGET, n => n.NE_ID, t => t.NE_ID,
+                    (n, t) => new { n, t })
+            .Select(g => new NeViewModel
             {
-                NetworkElementId = g.NE_ID,
-                NetworkElementName = g.NE_NAME,
-                NetworkElementType = g.NE_OT_NAME,
-                Role = g.ROLE
+                NetworkElementId  = g.n.NE_ID,
+                NetworkElementName = g.n.NE_NAME,
+                NetworkElementType = g.n.NE_OT_NAME,
+                Role = g.n.ROLE,
+                Target = g.t.TARGET
             }).OrderBy(m => m.NetworkElementName).ToList();
+            return result;
         }
 
         /// <summary>
