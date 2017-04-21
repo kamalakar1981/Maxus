@@ -248,6 +248,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Maxis.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Database\ONNET_SOURCE_TARGET.cs">
+      <DependentUpon>Maxis.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\ONNET_SRCH_BUILDING.cs">
       <DependentUpon>Maxis.tt</DependentUpon>
     </Compile>

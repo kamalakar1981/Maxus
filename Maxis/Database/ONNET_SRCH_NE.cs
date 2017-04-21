@@ -44,5 +44,6 @@ namespace Maxis.Database
         public virtual ICollection<ONNET_SRCH_DL_ID_LIST> ONNET_SRCH_DL_ID_LIST { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ONNET_SRCH_NE_ABE> ONNET_SRCH_NE_ABE { get; set; }
+        public virtual ONNET_SOURCE_TARGET ONNET_SOURCE_TARGET { get; set; }
     }
 }

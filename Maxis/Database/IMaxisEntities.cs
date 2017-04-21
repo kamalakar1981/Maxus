@@ -16,5 +16,6 @@ namespace Maxis.Database
         DbSet<ONNET_SRCH_OSP_STRUCT> ONNET_SRCH_OSP_STRUCT { get; set; }
         DbSet<ONNET_SRCH_OSP_THRESHOLD> ONNET_SRCH_OSP_THRESHOLD { get; set; }
         DbSet<EXCEPTIONLOG> EXCEPTIONLOGs { get; set; }
+        DbSet<ONNET_SOURCE_TARGET> ONNET_SOURCE_TARGET { get; set; }
     }
 }
