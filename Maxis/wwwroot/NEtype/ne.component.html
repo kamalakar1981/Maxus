@@ -3,7 +3,7 @@
         NE Table
     </div>
     <div class="table-scrollable">
-        <table class="table table-bordered table-hover" [hidden]="!sourcedata || sourcedata.length < 1">
+        <table class="table table-striped" [hidden]="!sourcedata || sourcedata.length < 1" id="color">
             <thead>
                 <tr>
                     <th>NE Name</th>
@@ -30,29 +30,24 @@
     <div class="netable">Threshhold Table</div>
     <br />
     <div class="table-scrollable">
-        <table class="table table-bordered table-hover">
+        <table class="table table-striped" id="color">
             <thead>
                 <tr>
-                    <th>Available</th>
-                    <th>Oldval</th>
                     <th>Name</th>
                     <th>Total</th>
+                    <th>Available</th>
 
                     <th>Used</th>
                     <th>Value</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let user of testdataval">
-                    <td>{{ user.Available }}</td>
-                    <td>{{ user.OldValue }}</td>
+                <tr *ngFor="let user of _threshdataval">
                     <td>{{ user.ThresholdTemplateName }}</td>
                     <td>{{ user.Total }}</td>
-
-                    <td>{{ user.Used }}</td>
+                    <td>{{ user.Available }}</td>
+                     <td>{{ user.Used }}</td>
                     <td>{{ user.Value }}</td>
-
-
                 </tr>
             </tbody>
         </table>

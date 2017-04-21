@@ -1,8 +1,8 @@
-﻿.neheader
-{width: 362px;
-       overflow-y: auto;
+﻿.neheader{
+    width: 362px;
+    overflow-y: auto;
     height:345px;
-}
+    }
 
 .netable {
     margin: 0;
@@ -10,9 +10,11 @@
     font-family: serif;
     text-align: center;
     font-size: 125%;
-}
+    }
 .nehead {
     overflow-y: auto;
-         height:345px;
-   
-}
+    height:345px;
+   }
+#color{
+    background-color:paleturquoise;
+   }

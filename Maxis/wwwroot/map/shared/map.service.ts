@@ -3,7 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { MapComponent } from './../../map/map.component';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/observable';
-import { Map } from './map.interface';
+import { ICable, IMarker } from './map.interface';
 
 @Injectable()
 export class MapService {
@@ -24,34 +24,15 @@ export class MapService {
     private _NEname;
     private _requestOption = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-    getMarker(): Observable<any[]> {
-        return this._http.get(this._mapLRDUrl)
-            .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-    }
-
-    getCableTypes(): Observable<any[]> {
-        return this._http.get(this._mapNEUrl)
-            .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-
-    }
     getload(point: any): Observable<any> {
         this._point = point;
-
-        let body = JSON.stringify(point);
-
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-
-        return this._http.post(this._mapLRDUrl, body, options)
+             let body = JSON.stringify(point);
+             return this._http.post(this._mapLRDUrl, body, this._requestOption)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     getLRD(value: any): Observable<any> {
-
-        //  point = "POINT (101.743026080221 2.99700230112665)";
         this._range = value.value;
         let body = JSON.stringify({ SearchPoint: this._point, Range: this._range });
         return this._http.post(this._mapLRDUrl, body, this._requestOption)
@@ -59,10 +40,6 @@ export class MapService {
             .catch(this.handleError);
     }
     getStruct(value: any): Observable<any> {
-        //let point = this._point;
-
-        // point = "POINT (101.743026080221 2.99700230112665)";
-        // this._range = value.value;
         let body = JSON.stringify(value);
         return this._http.post(this._structUrl, body, this._requestOption)
             .map(this.extractData)
@@ -70,8 +47,6 @@ export class MapService {
     }
 
     getCable(value: any): Observable<any> {
-
-        // point = "POINT (101.743026080221 2.99700230112665)";
         this._range = value.value;
         let body = JSON.stringify({ SearchPoint: this._point, Range: this._range });
         return this._http.post(this._cables, body, this._requestOption)
@@ -80,8 +55,6 @@ export class MapService {
     }
 
     getNEtypes(value: any): Observable<any> {
-
-        //point = "POINT (101.743026080221 2.99700230112665)";
         let body = JSON.stringify({ SearchPoint: this._point, Range: this._range, LRD: value });
         return this._http.post(this._mapNEtypesUrl, body, this._requestOption)
             .map(this.extractData)
@@ -89,8 +62,6 @@ export class MapService {
     }
 
     getBuilding(value: any): Observable<any> {
-
-        //point = "POINT (101.743026080221 2.99700230112665)";
         this._range = value.value;
         let body = JSON.stringify({ SearchPoint: this._point, Range: this._range });
         return this._http.post(this._mapBuildingUrl, body, this._requestOption)
@@ -119,6 +90,7 @@ export class MapService {
 
     private handleError(error: Response) {
         console.error(error);
+        alert("error");
         return Observable.throw(error.json().error || 'Server error');
     }
 }

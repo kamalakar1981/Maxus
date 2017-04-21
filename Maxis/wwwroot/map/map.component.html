@@ -13,22 +13,24 @@
             <div class="nav navbar-right">
                 <div class="dropdown" dropdown [dropdownToggle]="true" (onOpen)="doSomeActionOnOpen()" (onClose)="doSomeActionOnClose()">
                     <button class="btn btn-default" dropdown-open>
+                        <span class="username username-hide-mobile"></span>
+
                         <span class="glyphicon glyphicon-align-justify"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a routerLink="/list">Userlist</a></li>
-                        <li><a>Map config</a></li>
-                        <li><logout></logout></li>
+                        <li class="glyphicon glyphicon-user"><a class="user-dropdown" routerLink="/list">Userlist</a></li>
+                        <li class="glyphicon glyphicon-map-marker"><a class="user-dropdown">Map config</a></li>
+                        <li class="glyphicon glyphicon-log-out"><a class="user-dropdown" routerLink="/login">logout</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<input type="checkbox" id="navigation" style="width:345px!important;" />
-<label for="navigation"><span class="glyphicon glyphicon-align-justify  "></span></label>
+<input type="checkbox" id="navigation" class="navigation" />
+<label for="navigation" class="margin-style"><span class="glyphicon glyphicon-align-justify  "></span></label>
 <nav>
-    <form [formGroup]="form" id="pannelForm" style="overflow-y: scroll; height:700px;">
+    <form [formGroup]="form" id="pannelForm" class="map-form">
         <div id="pannel">
             <a id="a" href="javascript:void(0)" class="dropdown" onclick="closeNav()">&times;</a>
             <div>
@@ -55,13 +57,10 @@
                                class="dropdown-header">
                     </ng-select>
                 </div>
-
+                <button (click)="addtable($event)">Show NE Table</button>
                 <br />
                 <div class="distance-div">
-                    <span style="width:30px;">
-                        <netypetable [sourcedata]="neNameData"></netypetable>
-                    </span>
-                    <br />
+                   <br />
                     <div class="building-dropdown">Building</div>
                     <ng-select [options]="buildingNames" [multiple]="multiple1" formControlName="selectSingle" placeholder="Select Buildings" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onBuildingSelected($event)" (deselected)="onBuildingSelected($event)"
                                class="dropdown-header">
@@ -86,40 +85,44 @@
             <div class="nav-top">
                 <div class="distance-div">
 
-                    <input type="checkbox" [checked]="isAvailable" (change)="isAvailable = $event.target.checked">
+                    <span class="newidth">
+                        <netypetable [sourcedata]="neNameData"></netypetable>
+                    </span>
                 </div>
             </div>
         </div>
     </form>
 </nav>
-<div style="position:absolute;margin-top:-197px;margin-left: -58px;
-    width: 100%;">
-    <div class="search" style="margin-top: 197px;">
+<div class="map-search">
+    <div class="search">
         <div class="search-bar">
-            <div class="inner-addon right-addon" style="margin-left:11px;">
+            <div class="inner-addon right-addon search-addon" >
                 <i class="glyphicon glyphicon-search"></i>
-                <input placeholder="search for location" autocorrect="on" autocapitalize="off" spellcheck="true" type="text" name="searchControl" #search class="form-control mapping" id="search">
+                <input placeholder="search for location" style="margin-top: 56px !important;" autocorrect="on" autocapitalize="off" spellcheck="true" type="text" name="searchControl" #search class="form-control mapping" id="search">
             </div>
         </div>
     </div>
-    <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="true" [streetViewControl]="true">
+    <sebm-google-map [latitude]="lat" [longitude]="lng" [styles]="styles" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="true" [streetViewControl]="false">
         <div *ngFor="let m of markers;">
             <sebm-google-map-marker *ngFor="let p of m.points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="'../../Content/Images/dot-inside-a-circle.png'" (dragEnd)="markerDragEnd(p, $event)">
                 <sebm-google-map-info-window>
-                    <strong>cablename{{p.label}}</strong>
-                    <strong><button (click)="onStructSelected(p, m.CableId)">structure</button></strong>
+                    <strong>cablename{{p.label}}</strong><br/>
+                    <strong><button (click)="onStructSelected(p, m.CableId)">show structure</button></strong>
                 </sebm-google-map-info-window>
             </sebm-google-map-marker>
 
         </div>
         <sebm-google-map-marker *ngFor="let p of points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="p.icon" (dragEnd)="markerDragEnd(p, $event)">
             <sebm-google-map-info-window>
+                <strong>Lrd Name:{{p.label}}</strong>
             </sebm-google-map-info-window>
         </sebm-google-map-marker>
 
         <sebm-google-map-marker *ngFor="let p of buildings" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon">
             <sebm-google-map-info-window>
-                <strong>InfoWindow {{p.label}}</strong><br />
+                <strong>Building Name: {{p.label}}</strong><br/>
+                <strong><button (click)="onBuildconnectivity(p)">show connectivity</button></strong>
+         <br />
             </sebm-google-map-info-window>
         </sebm-google-map-marker>
         <sebm-google-map-marker *ngFor="let p of structs" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon">
@@ -131,7 +134,7 @@
             <sebm-google-map-polyline-point *ngFor="let p of m.points" [latitude]="p.lat" [longitude]="p.lng">
             </sebm-google-map-polyline-point>
         </sebm-google-map-polyline>
-        <sebm-google-map-polyline *ngFor="let m of buildLRD" [strokeColor]="m.color">
+        <sebm-google-map-polyline *ngFor="let m of buildLRD" [strokeColor]="m.color" [strokeWeight]="1">
             <sebm-google-map-polyline-point *ngFor="let p of m.points" [latitude]="p.lat" [longitude]="p.lng">
             </sebm-google-map-polyline-point>
         </sebm-google-map-polyline>
