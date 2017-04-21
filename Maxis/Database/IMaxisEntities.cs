@@ -3,7 +3,7 @@ using System.Data.Entity;
 
 namespace Maxis.Database
 {
-    public interface IMaxisEntities
+    public interface IMaxisEntities : IDbContext
     {
         DbSet<ONNET_SRCH_BUILDING> ONNET_SRCH_BUILDING { get; set; }
         DbSet<ONNET_SRCH_DL_ID_LIST> ONNET_SRCH_DL_ID_LIST { get; set; }
