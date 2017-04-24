@@ -28,7 +28,7 @@
     </div>
 </div>
 <input type="checkbox" id="navigation" class="navigation" />
-<label for="navigation" class="margin-style"><span class="glyphicon glyphicon-align-justify  "></span></label>
+<label for="navigation" class="search-fix"><span class="glyphicon glyphicon-align-justify  "></span></label>
 <nav>
     <form [formGroup]="form" id="pannelForm" class="map-form">
         <div id="pannel">
@@ -57,6 +57,7 @@
                                class="dropdown-header">
                     </ng-select>
                 </div>
+                <br/>
                 <button (click)="addtable($event)">Show NE Table</button>
                 <br />
                 <div class="distance-div">
@@ -98,7 +99,7 @@
         <div class="search-bar">
             <div class="inner-addon right-addon search-addon" >
                 <i class="glyphicon glyphicon-search"></i>
-                <input placeholder="search for location" style="margin-top: 56px !important;" autocorrect="on" autocapitalize="off" spellcheck="true" type="text" name="searchControl" #search class="form-control mapping" id="search">
+                <input placeholder="search for location" autocorrect="on" autocapitalize="off" spellcheck="true" type="text" name="searchControl" #search class="form-control mapping search-fix " id="search">
             </div>
         </div>
     </div>

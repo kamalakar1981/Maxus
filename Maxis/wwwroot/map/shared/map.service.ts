@@ -26,7 +26,7 @@ export class MapService {
 
     getload(point: any): Observable<any> {
         this._point = point;
-             let body = JSON.stringify(point);
+             let body = point;
              return this._http.post(this._mapLRDUrl, body, this._requestOption)
             .map(this.extractData)
             .catch(this.handleError);
@@ -34,13 +34,13 @@ export class MapService {
 
     getLRD(value: any): Observable<any> {
         this._range = value.value;
-        let body = JSON.stringify({ SearchPoint: this._point, Range: this._range });
+        let body = { SearchPoint: this._point, Range: this._range };
         return this._http.post(this._mapLRDUrl, body, this._requestOption)
             .map(this.extractData)
             .catch(this.handleError);
     }
     getStruct(value: any): Observable<any> {
-        let body = JSON.stringify(value);
+        let body = value;
         return this._http.post(this._structUrl, body, this._requestOption)
             .map(this.extractData)
             .catch(this.handleError);
@@ -48,14 +48,14 @@ export class MapService {
 
     getCable(value: any): Observable<any> {
         this._range = value.value;
-        let body = JSON.stringify({ SearchPoint: this._point, Range: this._range });
+        let body = { SearchPoint: this._point, Range: this._range };
         return this._http.post(this._cables, body, this._requestOption)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     getNEtypes(value: any): Observable<any> {
-        let body = JSON.stringify({ SearchPoint: this._point, Range: this._range, LRD: value });
+        let body = { SearchPoint: this._point, Range: this._range, LRD: value };
         return this._http.post(this._mapNEtypesUrl, body, this._requestOption)
             .map(this.extractData)
             .catch(this.handleError);
@@ -63,14 +63,14 @@ export class MapService {
 
     getBuilding(value: any): Observable<any> {
         this._range = value.value;
-        let body = JSON.stringify({ SearchPoint: this._point, Range: this._range });
+        let body ={ SearchPoint: this._point, Range: this._range };
         return this._http.post(this._mapBuildingUrl, body, this._requestOption)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     getDistance(value: any): Observable<any> {
-        let body = JSON.stringify(value);
+        let body = value;
         return this._http.post(this._mapLRDUrl, body, this._requestOption)
             .map(this.extractData)
             .catch(this.handleError);

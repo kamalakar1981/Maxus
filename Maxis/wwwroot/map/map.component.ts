@@ -25,10 +25,71 @@ declare var google: any;
 export class MapComponent implements OnInit {
     errorMessage: string;
     //public maps: Map[];
-    private neNameData;
+   public neNameData;
     private _data;
     selectedMap: any;
 
+    constructor(
+        private _mapsAPILoader: MapsAPILoader,
+        private _ngZone: NgZone,
+        private _router: Router, private _mapService: MapService,
+
+    ) { }
+    @ViewChild("search")
+    public searchElementRef: ElementRef;
+    isAvailable = true;
+
+
+    selectMultiple1: any;
+    selectSingle1: any;
+    foo: any[];
+
+    ngOnInit() {
+
+        this.form = new FormGroup({});
+        this.form.addControl("selectSingle", new FormControl(""));
+        this.form.addControl("selectMultiple", new FormControl(""));
+        this.form.addControl("selectSingle1", new FormControl(""));
+        this.form.addControl("selectMultiple1", new FormControl(""));
+        this.form.addControl("searchControl", new FormControl(""));
+        this.form.addControl("selectedDistance", new FormControl(""));
+
+       this.zoom = 6;
+        this.lat = 4.210484;
+        this.lng = 101.97576600000002;
+
+
+
+        this._setCurrentPosition();
+
+        // load Places Autocompletes
+        this._mapsAPILoader.load().then(() => {
+
+            let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+                types: ["address"]
+            });
+            autocomplete.addListener("place_changed", () => {
+                this._ngZone.run(() => {
+                    // get the place result
+
+                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+                    // verify result
+                    if (place.geometry === undefined || place.geometry === null) {
+                        return;
+                    }
+
+                    // set latitude, longitude and zoom
+                    this.lat = place.geometry.location.lat();
+                    this.lng = place.geometry.location.lng();
+                    var point = "POINT(" + this.lng + " " + this.lat + ")";
+                    this._mapService.getload(point).subscribe;
+                    this.zoom = 8;
+                });
+            });
+        });
+
+    }
 
     onSelect(map: any) {
         this.selectedMap = map;
@@ -38,17 +99,12 @@ export class MapComponent implements OnInit {
     buildLRD: any[];
     buildingNames: any[];
     structNames: any[];
-    getMarker() { }
-    //to call these function on initialisation
-    getBuilding() { }
-    getCabelTypes() { }
-    getCable() { }
-    getStruct() { }
-    getLRD() { }
     imgSize: number = 24;
     name: string = "Accionlabs";
     zoom: number = 18;
     //  initial center position for the map
+    public latitude: number;
+    public longitude: number;
 
     styles : any[] = [
 
@@ -142,8 +198,8 @@ export class MapComponent implements OnInit {
                 cableList.CableId = cableVal[v].value;
                 cableList.icon = "../../Content/Images/placeholder-24-black.png";
                 //need for reference for select
-                //if (!cableVal[v].Geodata)
-                //    cableVal[v].Geodata = 'LINESTRING(103.903083 1.730833, 103.902516698374 1.73121879229169)';
+               if (!cableVal[v].Geodata)
+                    cableVal[v].Geodata = '';
                
                 var currGeoData = cableVal[v].Geodata.replace("LINESTRING (", "").replace(")", "").split(", ");
                 var gArr = [];
@@ -164,10 +220,6 @@ export class MapComponent implements OnInit {
     };
     getBuildings(marker: IMarker): IMarker[] {
         var arr = [
-            "MENARA KURNIA, SELANGOR, PETALING JAYA, JALAN PJS 8/9",
-            "MENARA LUXOR, SELANGOR, PETALING JAYA, 6B PERSIARAN TROPICANA",
-            "MENARA MILLENIUM, WILAYAH PERSEKUTUAN, KUALA LUMPUR, KUALA LUMPUR, JALAN DAMANLELA",
-            "MENARA MILLENIUM ANNEXE, WILAYAH PERSEKUTUAN, KUALA LUMPUR, KUALA LUMPUR, JALAN DAMANLELA"
         ];
 
         var imgSize = this.imgSize;
@@ -222,48 +274,12 @@ export class MapComponent implements OnInit {
 
     getMarkerNames(types: string[]): any[] {
         return [
-            {
-                value: "BLANYBALI001",
-                label: "BLANYBALI001",
-                type: "Anymedia"
-            },
-            {
-                value: "BLANYBAZE001",
-                label: "BLANYBAZE001",
-                type: "Anymedia"
-            },
-            {
-                value: "WLANYWSEM002",
-                label: "WLANYWSEM002",
-                type: "Anymedia"
-            },
-            {
-                value: "BCUPEAMCP001",
-                label: "BCUPEAMCP001",
-                type: "Ethernet Switch"
-            }
         ].filter(a => types.indexOf(a.type) != -1);
     }
 
 
     getCabelNames(types: string[]): any[] {
         return [
-            {
-                value: "DSH10033048D01F",
-                label: "DSH10033048D01F",
-                type: "Ground"
-            },
-            {
-                value: "PKUS0031144T07F",
-                label: "PKUS0031144T07F",
-                type: "Ground"
-
-            },
-            {
-                value: "BKMR0011096T01F",
-                label: "BKMR0011096T01F",
-                type: "Aerial"
-            }
         ].filter(a => types.indexOf(a.type) != -1);
     }
 
@@ -285,31 +301,31 @@ export class MapComponent implements OnInit {
 
 
     onSingleOpened() {
-        this.logSingle("- opened");
+        this._logSingle("- opened");
     }
 
     onSingleClosed() {
-        this.logSingle("- closed");
+        this._logSingle("- closed");
     }
 
     onSingleSelected(item: any) {
-        this.logSingle("- selected (value: " + item.value + ", label:" + item.label + ")");
+        this._logSingle("- selected (value: " + item.value + ", label:" + item.label + ")");
         }
 
     onSingleDeselected(item: any) {
-        this.logSingle("- deselected (value: " + item.value + ", label:" + item.label + ")");
+        this._logSingle("- deselected (value: " + item.value + ", label:" + item.label + ")");
     }
 
     onMultipleOpened() {
-        this.logMultiple("- opened");
+        this._logMultiple("- opened");
     }
 
     onMultipleClosed() {
-        this.logMultiple("- closed");
+        this._logMultiple("- closed");
     }
     //markers: IMarker[];
     onLRDSelected(item: any) {
-        this.logMultiple("- selected (value: " + item.value + ", label:" + item.label + " ,role:" + item.role + ")");
+        this._logMultiple("- selected (value: " + item.value + ", label:" + item.label + " ,role:" + item.role + ")");
        
         var neArr = [];
         var neList = {
@@ -343,7 +359,7 @@ export class MapComponent implements OnInit {
         this.points = neArr;
     }
     addtable(item: any) {
-        this.logMultiple("- selected (value: " + item.value + ", label:" + item.label + " ,role:" + item.role + ")");
+        this._logMultiple("- selected (value: " + item.value + ", label:" + item.label + " ,role:" + item.role + ")");
         for (let v in this.form.value["selectMultiple"]) {
 
 
@@ -453,17 +469,21 @@ export class MapComponent implements OnInit {
                 icon: "../../Content/Images/flats-24-blue.png",
                 points: []
             };
-            buildingList.label = this.buildings[v].label;
-            buildingList.value = this.buildings[v].value;
-            buildingList.lrd = this.buildings[v].lrd;
-            buildingList.type = "Building";
-            buildingList.icon = "../../Content/Images/flats-24-blue.png";
-            var pt = this._data[v];
-            buildingList.lng = parseFloat(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')))
-            buildingList.lat = parseFloat(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')))
+            if (this.buildingNames[0].label == "selectAll" || (this.buildingNames == this.buildings[v].value || this.buildingNames.indexOf(this.buildings[v].value) > -1)) {
 
-            this.buildings.push(buildingList);
-           
+                buildingList.label = this.buildings[v].label;
+                buildingList.value = this.buildings[v].value;
+                buildingList.lrd = this.buildings[v].lrd;
+                buildingList.type = "Building";
+                buildingList.icon = "../../Content/Images/flats-24-blue.png";
+                if (!this.buildings[v].value)
+                    this._data[v] = '';
+                var pt = this._data[v];
+                buildingList.lng = parseFloat(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')))
+                buildingList.lat = parseFloat(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')))
+
+                this.buildings.push(buildingList);
+          }
         }
       }
 
@@ -520,23 +540,23 @@ export class MapComponent implements OnInit {
             }
 
      onSingleOpened1() {
-        this.logSingle("- opened");
+        this._logSingle("- opened");
     }
 
     onSingleClosed1() {
-        this.logSingle("- closed");
+        this._logSingle("- closed");
     }
 
 
     onSingleSelected1(item: any) {
-        this.logSingle("- selected (value: " + item.value + ", label:" +
+        this._logSingle("- selected (value: " + item.value + ", label:" +
             item.label + ")");
     }
 
 
     onSingleSelected2(item: any) {
         this.zoom = 10;
-        this.logSingle("- selected (value: " + item.value + ", label:" +
+        this._logSingle("- selected (value: " + item.value + ", label:" +
             item.label + ")");
         this._mapService.getLRD(item)
             .subscribe((value) => {
@@ -584,7 +604,8 @@ export class MapComponent implements OnInit {
                 var neArr = [];
                 var selectAll = {
                     label: 'selectAll',
-                    value: 'selectAll'
+                    value: '',
+                    lrd:''
 
                 }
 
@@ -632,114 +653,47 @@ export class MapComponent implements OnInit {
         }
 
     onSingleDeselected2(item: any) {
-        this.logSingle("- deselected (value: " + item.value + ", label:" + item.label + ")");
+        this._logSingle("- deselected (value: " + item.value + ", label:" + item.label + ")");
     }
 
 
     onSingleDeselected1(item: any) {
-        this.logSingle("- deselected (value: " + item.value + ", label:" + item.label + ")");
+        this._logSingle("- deselected (value: " + item.value + ", label:" + item.label + ")");
     }
 
     onMultipleOpened1() {
-        this.logMultiple("- opened");
+        this._logMultiple("- opened");
     }
 
     onMultipleClosed1() {
-        this.logMultiple("- closed");
+        this._logMultiple("- closed");
     }
    
     onCableSelected(item: any) {
         this.markers = this.getCables(this.form.value["selectSingle1"]);
         var p = this.markers.filter(p => p.label === this.form.value["selectSingle1"])[0];
-        this.logMultiple("- selected (value: " + item.value + ", label:" + item.label + ")");
+        this._logMultiple("- selected (value: " + item.value + ", label:" + item.label + ")");
        }
 
     onMultipleDeselected1(item: any) {
-        this.logMultiple("- deselected (value: " + item.value + ", label:" + item.label + ")");
+        this._logMultiple("- deselected (value: " + item.value + ", label:" + item.label + ")");
     }
 
     
-    private logSingle(msg: string) {
+    private _logSingle(msg: string) {
         this.logSingleString += msg + "\n";
      }
 
-    private logMultiple(msg: string) {
+    private _logMultiple(msg: string) {
         this.logMultipleString += msg + "\n";
         }
 
-    private scrollToBottom(elem: any) {
+    private _scrollToBottom(elem: any) {
         elem.scrollTop = elem.scrollHeight;
     }
-    public latitude: number;
-    public longitude: number;
 
-    @ViewChild("search")
-    public searchElementRef: ElementRef;
-    isAvailable = true;
-
-    constructor(
-        private _mapsAPILoader: MapsAPILoader,
-        private _ngZone: NgZone,
-        private _router: Router, private _mapService: MapService,
-
-    ) { }
-
-    selectMultiple1: any;
-    selectSingle1: any;
-    foo: any[];
-
-    ngOnInit() {
-
-        this.form = new FormGroup({});
-        this.form.addControl("selectSingle", new FormControl(""));
-        this.form.addControl("selectMultiple", new FormControl(""));
-        this.form.addControl("selectSingle1", new FormControl(""));
-        this.form.addControl("selectMultiple1", new FormControl(""));
-        this.form.addControl("searchControl", new FormControl(""));
-        this.form.addControl("selectedDistance", new FormControl(""));
-
-        this.getCabelTypes();
-        this.getBuilding();
-        this.getCable();
-        this.getLRD();
-        this.zoom = 6;
-        this.lat = 4.210484;
-        this.lng = 101.97576600000002;
-
-      
-
-        this.setCurrentPosition();
-
-        // load Places Autocompletes
-        this._mapsAPILoader.load().then(() => {
-
-            let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-                types: ["address"]
-            });
-            autocomplete.addListener("place_changed", () => {
-                this._ngZone.run(() => {
-                    // get the place result
-                    
-                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-                    // verify result
-                    if (place.geometry === undefined || place.geometry === null) {
-                        return;
-                    }
-
-                    // set latitude, longitude and zoom
-                    this.lat = place.geometry.location.lat();
-                    this.lng = place.geometry.location.lng();
-                    var point = "POINT(" + this.lng + " " + this.lat + ")";
-                    this._mapService.getload(point).subscribe;
-                    this.zoom = 8;
-                });
-            });
-        });
-
-    }
-
-    private setCurrentPosition() {
+    
+    private _setCurrentPosition() {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.lat = position.coords.latitude;
@@ -753,13 +707,4 @@ export class MapComponent implements OnInit {
 }
 
 
-//////  just an interface for type safety.
-
-//// just an interface for type safety.
-//interface ImarkerTest {
-//    lat: number;
-//    lng: number;
-//    label?: string;
-//    draggable: boolean;
-//}
 
