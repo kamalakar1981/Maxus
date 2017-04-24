@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, ViewChildren, ElementRef  } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy, ViewChildren, ElementRef } from '@angular/core';
 import { Userlist } from './../list/shared/list.interface';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/observable';
@@ -14,19 +14,20 @@ import { NgForm } from '@angular/forms';
 })
 
 export class EditComponent implements OnInit, OnDestroy {
+    year = new Date().getFullYear();
     errorMessage: string;
     ulist: any;
     private _sub: Subscription;
     public editForm: FormGroup;
 
     constructor(private _editservice: EditService,
-                private _formbuilder: FormBuilder,
-                private _router: Router,
-                private _route: ActivatedRoute) { }
+        private _formbuilder: FormBuilder,
+        private _router: Router,
+        private _route: ActivatedRoute) { }
 
-   ngOnInit(): void {
-       
-       this.editForm = this._formbuilder.group({
+    ngOnInit(): void {
+
+        this.editForm = this._formbuilder.group({
             Username: ['', <any>Validators.required],
             UserId: ['', <any>Validators.required],
             Email: ['', <any>Validators.required],
@@ -36,7 +37,7 @@ export class EditComponent implements OnInit, OnDestroy {
             Title: '',
             Status: ['', <any>Validators.required]
         });
-     
+
         this._sub = this._route.params.subscribe(
             params => {
                 let userId = +params['userId'];
@@ -44,7 +45,7 @@ export class EditComponent implements OnInit, OnDestroy {
             }
         );
     }
-   
+
     ngOnDestroy(): void {
         this._sub.unsubscribe();
     }
@@ -62,9 +63,9 @@ export class EditComponent implements OnInit, OnDestroy {
     }
 
     onlistretrieved(ulist: any): void {
-       
+
         this.ulist = ulist;
-      
+
         (<FormControl>this.editForm.controls['UserId'])
             .setValue(ulist.UserId, { onlySelf: true });
         (<FormControl>this.editForm.controls['Username'])
@@ -81,9 +82,9 @@ export class EditComponent implements OnInit, OnDestroy {
             .setValue(ulist.Title, { onlySelf: true });
         (<FormControl>this.editForm.controls['Status'])
             .setValue(ulist.Status, { onlySelf: true });
-         //TODO
-         //(<FormGroup>this.myForm)
-         //    .setValue(ulist, { onlySelf: true });
+        //TODO
+        //(<FormGroup>this.myForm)
+        //    .setValue(ulist, { onlySelf: true });
     }
 
     saveProduct(): void {

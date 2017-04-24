@@ -12,12 +12,12 @@ export class LoginGuard implements CanActivate {
             // logged in so return true
             if (adminPage.indexOf(route.url[0].path.toString()) > -1 && localStorage.getItem('userrole') == "ADMIN") {
                 return true;
-            } else if (adminPage.indexOf(route.url[0].path.toString()) == -1 ) {
+            } else if (adminPage.indexOf(route.url[0].path.toString()) == -1) {
                 return true;
             }
             return false;
         }
-                // not logged in so redirect to login page with the return url
+        // not logged in so redirect to login page with the return url
         this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
         return false;
     }

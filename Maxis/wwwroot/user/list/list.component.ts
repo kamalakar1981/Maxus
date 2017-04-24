@@ -3,7 +3,7 @@ import { Userlist } from './shared/list.interface';
 import { ListService } from './shared/list.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { DataTableModule, SharedModule, InputTextModule, PaginatorModule} from 'primeng/primeng';
+import { DataTableModule, SharedModule, InputTextModule, PaginatorModule } from 'primeng/primeng';
 
 @Component({
     selector: 'list',
@@ -11,19 +11,19 @@ import { DataTableModule, SharedModule, InputTextModule, PaginatorModule} from '
     styleUrls: ['wwwroot/user/list/list.component.css']
 })
 export class ListComponent implements OnInit {
-
+    year = new Date().getFullYear();
     userlists: Userlist[];
     errorMessage: string;
 
     constructor(private _listService: ListService,
-                private _router: Router) { }
+        private _router: Router) { }
 
     ngOnInit(): void {
         this._listService.getUserlist()
             .subscribe(userlists => this.userlists = userlists,
-                       error => this.errorMessage = <any>error);
+            error => this.errorMessage = <any>error);
     }
-    
+
     gotoDetail(UserId) {
         this._router.navigate(['/edit', UserId])
     }

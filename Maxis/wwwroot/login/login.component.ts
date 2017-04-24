@@ -23,10 +23,10 @@ export class LoginComponent {
             .subscribe(
             data => {
                 this._router.navigate(['map']);
-              },
+            },
             err => {
                 this.loginInvalid = true;
-             });
+            });
 
     }
 

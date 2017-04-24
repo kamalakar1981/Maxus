@@ -8,7 +8,7 @@ import { Userlist } from './../../list/shared/list.interface';
 export class EditService {
     private baseUrl = 'User/Edit';
     private url = 'User/UpdateUser';
-    
+
     constructor(private _http: Http) { }
 
     private extractData(res: Response) {
@@ -19,7 +19,7 @@ export class EditService {
     private handleError(error: any) {
         console.error('post error:', error);
         return Observable.throw(error.json().error || 'Server error');
-    } 
+    }
 
     getEditList(UserId: number): Observable<Userlist> {
         const url = `${this.baseUrl}/${UserId}`;
