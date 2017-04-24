@@ -20,19 +20,18 @@ import { LogoutComponent } from './logout/logout.component';
 import { LogoutService } from './logout/shared/logout.service';
 import { MapComponent } from './map/map.component';
 import { Router } from '@angular/router';
-import { DataTableModule, SharedModule } from 'primeng/primeng';
+import { DataTableModule, SharedModule, PaginatorModule } from 'primeng/primeng';
 import { NEComponent } from './NEtype/ne.component';
-import { PopoverModule } from 'ng2-bootstrap';
 import { SelectModule } from 'angular2-select';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import { DropdownModule } from "ngx-dropdown";
 import { MapService } from './map/shared/map.service';
-
+import { UiSwitchModule } from 'angular2-ui-switch';
 
 @NgModule({
     imports: [BrowserModule,
         HttpModule,
-        PopoverModule.forRoot(),
+        PaginatorModule,
         SelectModule,
         FormsModule,
         routing,
@@ -40,7 +39,7 @@ import { MapService } from './map/shared/map.service';
         SharedModule,
         AgmCoreModule.forRoot({ apiKey: "AIzaSyBKcHWQkH8hS_Hn1vBGMAVUXRApKB17Xu8", libraries: ["places"] }),
         DropdownModule,
-
+        UiSwitchModule,
         ReactiveFormsModule
     ],
     declarations: [AppComponent,
@@ -57,4 +56,4 @@ import { MapService } from './map/shared/map.service';
     bootstrap: [AppComponent],
     providers: [HomeService, AuthenticationService, LoginGuard, EditService, ListService, LogoutService,MapService]
 })
-export class AppModule { }
+export class AppModule { } 

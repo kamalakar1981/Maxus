@@ -1,160 +1,227 @@
-﻿<nav class="navbar navbar-light" >
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-cog"> UserDetails</span></a>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <span class="caret"></span></a>
-                <ul class="dropdown-menu"></ul>
-            </li>
-            <li><a href="#"><span class="glyphicon glyphicon-refresh"></span></a></li>
-        </ul>
-    </div>
-</nav>
-
-<div class="panel panel-default">
-    <div class="panel-body" style="padding:0px!important;">
-        <h2> Edit User</h2>
-    </div>
-</div>
-
-<div class="panel-body">
-    <div class="col-md-12">
-        <form  novalidate
-              (ngSubmit)="saveEdit()"
-              [formGroup]="editForm" >
-            <div class="col-md-6">
-                <div class="form-horizontal">
-                    <div class="form-group" [ngClass]="{'has-error': displayMessage.userId }">
-                        <label class="control-label col-sm-2" for="useridId">UserId:</label>
-                        <div class="col-sm-8">
-                            <input class="form-control"
-                                   id="useridId"
-                                   type="text"
-                                   placeholder="UserId (required)"
-                                   formControlName="userId" />
-                            <span class="help-block" *ngIf="displayMessage.userId">
-                                {{displayMessage.userId}}
-                            </span>
-                             </div>
-                    </div>
-                    <div class="form-group" [ngClass]="{'has-error': displayMessage.userName }">
-                        <label class="control-label col-sm-2" for="userNameId">UserName:</label>
-                        <div class="col-sm-8">
-                            <input class="form-control"
-                                   id="userNameId"
-                                   type="text"
-                                   placeholder="UserName (required)"
-                                   formControlName="userName" />
-                            <span class="help-block" *ngIf="displayMessage.userName">
-                                {{displayMessage.userName}}
-                            </span>
+﻿<div class="page-container-bg-solid">
+    <div class="page-wrapper">
+        <div class="page-wrapper-row">
+            <div class="page-wrapper-top">
+                <!-- BEGIN HEADER -->
+                <div class="page-header">
+                    <!-- BEGIN HEADER TOP -->
+                    <div class="page-header-top">
+                        <div class="container">
+                            <!-- BEGIN LOGO -->
+                            <div class="page-logo">
+                                <a href="index.html">
+                                    <img src="../../../Content/Images/Logo.png" alt="logo" class="logo-default">
+                                </a>
+                            </div>
+                            <!-- END LOGO -->
+                            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                            <a href="javascript:;" class="menu-toggler"></a>
+                            <!-- END RESPONSIVE MENU TOGGLER -->
+                            <!-- BEGIN TOP NAVIGATION MENU -->
+                            <div class="top-menu">
+                                <ul class="nav navbar-nav pull-right">
+                                    <!-- BEGIN USER LOGIN DROPDOWN -->
+                                    <li class="dropdown dropdown-user dropdown-dark">
+                                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
+                                            <img alt="" class="img-circle" src="../../../Content/Images/avatar9.jpg">
+                                            <span class="username username-hide-mobile">Robert</span>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-default">
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-user"></i> User List
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-map-marker"></i> Map Config
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-sign-out"></i> Log Out
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!-- END USER LOGIN DROPDOWN -->
+                                </ul>
+                            </div>
+                            <!-- END TOP NAVIGATION MENU -->
                         </div>
                     </div>
-                    <div class="form-group" [ngClass]="{'has-error': displayMessage.emailId }">
-                        <label class="control-label col-sm-2" for="emailidId">EmailId:</label>
-                        <div class="col-sm-8">
-                            <input class="form-control"
-                                   id="emailidId"
-                                   type="text"
-                                   placeholder="EmailId (required)"
-                                   formControlName="emailId" />
-                            <span class="help-block" *ngIf="displayMessage.emailId">
-                                {{displayMessage.emailId}}
-                            </span>
-                             </div>
+                    <!-- END HEADER TOP -->
+                    <!-- BEGIN HEADER MENU -->
+                    <div class="page-header-menu">
+                        <div class="container">
+                            <!-- BEGIN HEADER SEARCH BOX -->
+                            <form class="search-form" action="#" method="GET">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search" name="query">
+                                    <span class="input-group-btn">
+                                        <a href="#" class="btn submit">
+                                            <i class="icon-magnifier"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </form>
+                            <!-- END HEADER SEARCH BOX -->
+                            <!-- BEGIN MEGA MENU -->
+                            <div class="hor-menu  ">
+                                <ul class="nav navbar-nav">
+                                    <li class="menu-dropdown classic-menu-dropdown">
+                                        <a [routerLink]="['/map']">
+                                            Dashboard
+                                            <span class="arrow"></span>
+                                        </a>
+
+                                    </li>
+                                    <li class="menu-dropdown mega-menu-dropdown active">
+                                        <a [routerLink]="['/list']">
+                                            Users
+                                            <span class="arrow"></span>
+                                        </a>
+
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- END MEGA MENU -->
+                        </div>
                     </div>
-                    <div class="form-group" [ngClass]="{'has-error': displayMessage.mobileNo }">
-                        <label class="control-label col-sm-2" for="mobileNoId">Mobile No:</label>
-                        <div class="col-sm-8">
-                            <input class="form-control"
-                                   id="mobileNoId"
-                                   type="text"
-                                   placeholder="MobileNo(required)"
-                                   formControlName="mobileNo" />
-                            <span class="help-block" *ngIf="displayMessage.mobileNo">
-                                {{displayMessage.mobileNo}}
-                            </span>
-                         </div>
-                    </div>
-                   
+                    <!-- END HEADER MENU -->
                 </div>
+                <!-- END HEADER -->
             </div>
-            <div class="col-md-6">
-                <div class="form-horizontal">
-                    <div class="form-group"  [ngClass]="{'has-error': displayMessage.userRole }">
-                        <label class="control-label col-sm-2" for="userRoleId" style="color:red">User Role:</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" id="userRoleId" formControlName="userRole" >
-                                <option></option>
-                                <option>Admin</option>
-                                <option>Normal User</option>
-                                                             
-                            </select>
-                            <span class="help-block" *ngIf="displayMessage.userRole">
-                                {{displayMessage.userRole}}
-                            </span>
+        </div>
+        <div class="page-wrapper-row full-height">
+            <div class="page-wrapper-middle">
+                <div class="page-container">
+                    <div class="page-content-wrapper">
+                        <div class="page-head">
+                            <div class="container">
+                                <!-- BEGIN PAGE TITLE -->
+                                <div class="page-title">
+                                    <h1>
+                                        Users
+                                        <small>User  &amp; Details</small>
+                                    </h1>
+                                </div>
+                                <!-- END PAGE TITLE -->
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="form-group"  [ngClass]="{'has-error': displayMessage.department }">
-                        <label class="control-label col-sm-2" for="departmentId">Department:</label>
-                        <div class="col-sm-8">
-                            <input class="form-control"
-                                   id="departmentId"
-                                   type="text"
-                                   placeholder="Department (required)"
-                                   formControlName="department" />
-                            <span class="help-block" *ngIf="displayMessage.department">
-                                {{displayMessage.department}}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-group" [ngClass]="{'has-error': displayMessage.title }">
-                        <label class="control-label col-sm-2" for="titleId">Title:</label>
-                        <div class="col-sm-8">
-                            <input class="form-control"
-                                   id="titleId"
-                                   type="text"
-                                   placeholder="Title (required)"
-                                   formControlName="title" />
-                            <span class="help-block" *ngIf="displayMessage.title">
-                                {{displayMessage.title}}
-                            </span>
-                        </div>
-                    </div>
-                   
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="statusId" style="color:red">Status:</label>
-                        <div class="col-sm-8">
-                            <div class="btn-group btn-toggle">
-                                <button class="btn btn-sm btn-default">YES</button>
-                                <button class="btn btn-sm btn-primary active">NO</button>
+                        <div class="page-content">
+                            <div class="container">
+                                <div class="page-content-inner">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="portlet light ">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                        <i class="icon-equalizer font-red-sunglo"></i>
+                                                        <span class="caption-subject font-red-sunglo bold uppercase">User Details</span>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body form">
+                                                    <!-- BEGIN FORM-->
+                                                    <form action="#" class="form-horizontal" [formGroup]="editForm" novalidate (ngSubmit)="save(editForm.value, editForm.valid)">
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">User ID</label>
+                                                                <div class="col-md-4">
+                                                                    <input type="text" class="form-control" formControlName="UserId">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">User Name</label>
+                                                                <div class="col-md-4">
+                                                                    <input type="text" class="form-control" formControlName="Username">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">Email ID</label>
+                                                                <div class="col-md-4">
+                                                                    <input type="text" class="form-control" formControlName="Email">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">Mobile No</label>
+                                                                <div class="col-md-4">
+                                                                    <input type="text" class="form-control" formControlName="Mobile">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">User Role</label>
+                                                                <div class="col-md-4">
+                                                                    <select class="form-control" type="text" formControlName="RoleId">
+                                                                        <option></option>
+                                                                        <option value="1">ADMIN</option>
+                                                                        <option value="2">LDAP</option>
+                                                                        <option value="3">NORMAL</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">Department</label>
+                                                                <div class="col-md-4">
+                                                                    <input type="text" class="form-control" formControlName="Department">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">Title</label>
+                                                                <div class="col-md-4">
+                                                                    <input type="text" class="form-control" formControlName="Title">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group last">
+                                                                <label class="col-md-3 control-label">Status</label>
+                                                                <div class="col-md-4">
+                                                                    <div class="mt-radio-inline">
+                                                                        <label class="mt-radio">
+                                                                            <input type="radio" value="active" checked="" class="form-control" formControlName="Status"> Active
+                                                                            <span></span>
+                                                                        </label>
+                                                                        <label class="mt-radio">
+                                                                            <input type="radio" value="inactive" checked="" class="form-control" formControlName="Status"> Inactive
+                                                                            <span></span>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-actions">
+                                                            <div class="row">
+                                                                <div class="col-md-offset-3 col-md-4">
+                                                                    <button type="submit" class="btn green" (click)="saveProduct()">Submit</button>
+                                                                    <button type="button" class="btn default" [routerLink]="['/list']">Cancel</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <!-- END FORM-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-md-4 col-md-offset-2">
-                    <span>
-                        <button class="btn btn-primary"
-                                type="submit"
-                                [disabled]='!editForm.valid'>
-                            Save
-                        </button>
-                    </span>
-                    <span>
-                        <a class="btn btn-default"
-                           [routerLink]="['/list']">
-                            Cancel
-                        </a>
-                    </span>
-                    
+        </div>
+
+        <div class="page-wrapper-row">
+            <div class="page-wrapper-bottom">
+                <!-- BEGIN FOOTER -->
+                <!-- BEGIN INNER FOOTER -->
+                <div class="page-footer">
+                    <div class="container">
+                        {{year}} © OnNet All Rights Reserved
+                    </div>
                 </div>
+                <!-- END INNER FOOTER -->
+                <!-- END FOOTER -->
             </div>
-        </form>
-        <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+        </div>
     </div>
 </div>

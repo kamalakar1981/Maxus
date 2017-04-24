@@ -285,3 +285,6 @@ __pycache__/
 # !tools/packages.config
 
 # End of https://www.gitignore.io/api/visualstudio
+/Maxis/wwwroot.zip
+/Maxis/Content.zip
+/Maxis/wwwroot/shared/css/css/.DS_Store
