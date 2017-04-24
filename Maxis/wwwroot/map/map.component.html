@@ -10,103 +10,135 @@
             </button>
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a class="nav-colorbar" routerLink="/">Home</a></li>
-                <li><a class="nav-colorbar" routerLink="map">Map</a></li>
-            </ul>
             <div class="nav navbar-right">
                 <div class="dropdown" dropdown [dropdownToggle]="true" (onOpen)="doSomeActionOnOpen()" (onClose)="doSomeActionOnClose()">
                     <button class="btn btn-default" dropdown-open>
+                        <span class="username username-hide-mobile"></span>
+
                         <span class="glyphicon glyphicon-align-justify"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a>Map</a></li>
-                        <li><a>Map config</a></li>
-                        <li><a>Logout</a></li>
+                        <li class="glyphicon glyphicon-user"><a class="user-dropdown" routerLink="/list">Userlist</a></li>
+                        <li class="glyphicon glyphicon-map-marker"><a class="user-dropdown">Map config</a></li>
+                        <li class="glyphicon glyphicon-log-out"><a class="user-dropdown" routerLink="/login">logout</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<input type="checkbox" id="navigation" style="width:345px!important;" />
-<label for="navigation"><span class="glyphicon glyphicon-align-justify  "></span></label>
+<input type="checkbox" id="navigation" class="navigation" />
+<label for="navigation" class="search-fix"><span class="glyphicon glyphicon-align-justify  "></span></label>
 <nav>
-    <form [formGroup]="form" id="pannelForm">
+    <form [formGroup]="form" id="pannelForm" class="map-form">
         <div id="pannel">
             <a id="a" href="javascript:void(0)" class="dropdown" onclick="closeNav()">&times;</a>
-            <div class="nav-top">
+            <div>
                 <div class="distance-div">
                     <div class="distance">Distance</div>
                     <ng-select [options]="distance"
                                [multiple]="multiple0"
-                               placeholder="Select one"
-                               formControlName="selectSingle"
+                               placeholder="Select distance"
+                               formControlName="selectedDistance"
                                [allowClear]="true"
                                (opened)="onSingleOpened()"
                                (closed)="onSingleClosed()"
                                (selected)="onSingleSelected2($event)"
-                               (deselected)="onSingleDeselected2($event)"
+                               (deselected)="onSingleSelected2($event)"
                                class="dropdown-header">
                     </ng-select>
                 </div>
             </div>
-            <div class="nav-top">
+            <div>
                 <div class="distance-div">
                     <div class="label-lrd">LRD</div>
                     <ng-select [options]="markerTypes"
-                               [multiple]="multiple1" formControlName="selectMultiple" placeholder="Select multiple marker types" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onMultipleSelected($event)" (deselected)="onMultipleDeselected($event)"
+                               [multiple]="multiple1" formControlName="selectMultiple" placeholder="Select LRD's" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onLRDSelected($event)" (deselected)="onLRDSelected($event)"
                                class="dropdown-header">
                     </ng-select>
                 </div>
+                <br/>
+                <button (click)="addtable($event)">Show NE Table</button>
                 <br />
                 <div class="distance-div">
+                   <br />
                     <div class="building-dropdown">Building</div>
-                    <ng-select [options]="markerNames" [multiple]="multiple0" formControlName="selectSingle" placeholder="Select one marker name" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onSingleSelected($event)" (deselected)="onSingleDeselected($event)"
+                    <ng-select [options]="buildingNames" [multiple]="multiple1" formControlName="selectSingle" placeholder="Select Buildings" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onBuildingSelected($event)" (deselected)="onBuildingSelected($event)"
                                class="dropdown-header">
                     </ng-select>
-                    <span>
-                        <netypetable [sourcedata]="res"></netypetable>
-                    </span>
-                </div>
-            </div>
 
+                </div>
+
+            </div>
             <div class="nav-top">
                 <div class="distance-div">
-                    <input type="checkbox" [checked]="isAvailable" (change)="isAvailable = $event.target.checked">
+                    <div class="label-lrd">Cable</div>
+                    <!--<input id="chkCable"
+                           type="checkbox"
+                           [checked]="displayValue"
+                           (click)="setDisplayValue($event.target.checked)">-->
+                    <ng-select [options]="cableTypes"
+                               [multiple]="multiple1" formControlName="selectSingle1" placeholder="Select Cables" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onCableSelected($event)" (deselected)="onCableSelected($event)"
+                               class="dropdown-header">
+                    </ng-select>
+                </div>
+            </div>
+            <div class="nav-top">
+                <div class="distance-div">
+
+                    <span class="newidth">
+                        <netypetable [sourcedata]="neNameData"></netypetable>
+                    </span>
                 </div>
             </div>
         </div>
     </form>
 </nav>
-<div class="search">
-    <div class="search-bar">
-        <div class="inner-addon right-addon" style="margin-left:11px;">
-            <i class="glyphicon glyphicon-search"></i>
-            <input placeholder="search for location" autocorrect="on" autocapitalize="off" spellcheck="true" type="text" name="searchControl" #search class="form-control mapping" id="search">
+<div class="map-search">
+    <div class="search">
+        <div class="search-bar">
+            <div class="inner-addon right-addon search-addon" >
+                <i class="glyphicon glyphicon-search"></i>
+                <input placeholder="search for location" autocorrect="on" autocapitalize="off" spellcheck="true" type="text" name="searchControl" #search class="form-control mapping search-fix " id="search">
+            </div>
         </div>
     </div>
-</div>
-<sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-    <div *ngFor="let m of markers;">
-        <sebm-google-map-marker *ngFor="let p of m.points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="'../../Content/Images/placeholder-16-blue.png'" (dragEnd)="markerDragEnd(p, $event)">
+    <sebm-google-map [latitude]="lat" [longitude]="lng" [styles]="styles" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="true" [streetViewControl]="false">
+        <div *ngFor="let m of markers;">
+            <sebm-google-map-marker *ngFor="let p of m.points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="'../../Content/Images/dot-inside-a-circle.png'" (dragEnd)="markerDragEnd(p, $event)">
+                <sebm-google-map-info-window>
+                    <strong>cablename{{p.label}}</strong><br/>
+                    <strong><button (click)="onStructSelected(p, m.CableId)">show structure</button></strong>
+                </sebm-google-map-info-window>
+            </sebm-google-map-marker>
+
+        </div>
+        <sebm-google-map-marker *ngFor="let p of points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="p.icon" (dragEnd)="markerDragEnd(p, $event)">
             <sebm-google-map-info-window>
-                <strong>{{p.label}}</strong>
+                <strong>Lrd Name:{{p.label}}</strong>
             </sebm-google-map-info-window>
         </sebm-google-map-marker>
-    </div>
-    <sebm-google-map-marker *ngFor="let p of points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="p.icon" (dragEnd)="markerDragEnd(p, $event)">
-        <sebm-google-map-info-window>
-        </sebm-google-map-info-window>
-    </sebm-google-map-marker>
-    <sebm-google-map-marker *ngFor="let p of buildings" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon">
-        <sebm-google-map-info-window>
-            <strong> {{p.label}}</strong><br />
-        </sebm-google-map-info-window>
-    </sebm-google-map-marker>
-    <sebm-google-map-polyline *ngFor="let m of markers" [strokeColor]="m.color">
-        <sebm-google-map-polyline-point *ngFor="let p of m.points" [latitude]="p.lat" [longitude]="p.lng">
-        </sebm-google-map-polyline-point>
-    </sebm-google-map-polyline>
-    <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
-</sebm-google-map>
+
+        <sebm-google-map-marker *ngFor="let p of buildings" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon">
+            <sebm-google-map-info-window>
+                <strong>Building Name: {{p.label}}</strong><br/>
+                <strong><button (click)="onBuildconnectivity(p)">show connectivity</button></strong>
+         <br />
+            </sebm-google-map-info-window>
+        </sebm-google-map-marker>
+        <sebm-google-map-marker *ngFor="let p of structs" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon">
+            <sebm-google-map-info-window>
+                <strong>StructureName: {{p.label}}</strong><br />
+            </sebm-google-map-info-window>
+        </sebm-google-map-marker>
+        <sebm-google-map-polyline *ngFor="let m of markers" [strokeColor]="m.color">
+            <sebm-google-map-polyline-point *ngFor="let p of m.points" [latitude]="p.lat" [longitude]="p.lng">
+            </sebm-google-map-polyline-point>
+        </sebm-google-map-polyline>
+        <sebm-google-map-polyline *ngFor="let m of buildLRD" [strokeColor]="m.color" [strokeWeight]="1">
+            <sebm-google-map-polyline-point *ngFor="let p of m.points" [latitude]="p.lat" [longitude]="p.lng">
+            </sebm-google-map-polyline-point>
+        </sebm-google-map-polyline>
+        <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+    </sebm-google-map>
+</div>

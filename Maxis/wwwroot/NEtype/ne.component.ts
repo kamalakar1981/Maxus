@@ -4,18 +4,36 @@ import { MapService } from './../map/shared/map.service';
 
 @Component({
     selector: 'netypetable',
-    templateUrl: 'wwwroot/NEtype/ne.component.html'
+    templateUrl: 'wwwroot/NEtype/ne.component.html',
+    styleUrls: ['wwwroot/NEtype/ne.component.css']
+
 })
 
-export class NEComponent implements OnInit {
-    @Input() sourcedata: MapComponent;
+export class NEComponent  {
+    @Input() sourcedata: any;
+    @Input() thresh: any;
     title: string;
-    private sourcedataMck;
+    private _sourcedataMck;
+    private _threshholdMck;
+    private _threshdataval;
     serverData: any[];
 
-    public html: string = `
-`;
+   
+    constructor(private _mapService: MapService) {
+        this._sourcedataMck = this.sourcedata;
+        this._threshholdMck = this.thresh;
+    }
 
-    ngOnInit() {
-}
+    
+    updateModel() {
+        this._sourcedataMck = this.sourcedata;
+    }
+    updatethresh(capacity) {
+        this._threshholdMck = this.thresh;
+        this._mapService.getThreshold(capacity)
+            .subscribe((NEName) => {
+                this._threshdataval = NEName;
+        });
+    }
+
 }
