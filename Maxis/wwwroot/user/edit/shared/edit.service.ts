@@ -25,7 +25,6 @@ export class EditService {
         const url = `${this.baseUrl}/${UserId}`;
         return this._http.get(url)
             .map(this.extractData)
-            .do(data => console.log('getEditList: ' + data))
             .catch(this.handleError);
     }
 
@@ -40,7 +39,6 @@ export class EditService {
         const url = `${this.url}`;
         return this._http.post(url, ulist, options)
             .map(() => ulist)
-            .do(data => console.log('updateList: ' + data))
             .catch(this.handleError);
     }
 }

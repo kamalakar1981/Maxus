@@ -7,6 +7,7 @@ namespace Maxis.ViewModels
         public Int64 NetworkElementId { get; set; }
         public string NetworkElementName { get; set; }
         public string NetworkElementType { get; set; }
-        public string Role { get; set; }        
+        public string Role { get; set; }   
+        public string Target { get; set; }     
     }
 }

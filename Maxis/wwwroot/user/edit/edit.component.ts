@@ -16,7 +16,7 @@ import { NgForm } from '@angular/forms';
 export class EditComponent implements OnInit, OnDestroy {
     errorMessage: string;
     ulist: any;
-    private sub: Subscription;
+    private _sub: Subscription;
     public editForm: FormGroup;
 
     constructor(private _editservice: EditService,
@@ -37,7 +37,7 @@ export class EditComponent implements OnInit, OnDestroy {
             Status: ['', <any>Validators.required]
         });
      
-        this.sub = this._route.params.subscribe(
+        this._sub = this._route.params.subscribe(
             params => {
                 let userId = +params['userId'];
                 this.getEditList(userId);
@@ -46,7 +46,7 @@ export class EditComponent implements OnInit, OnDestroy {
     }
    
     ngOnDestroy(): void {
-        this.sub.unsubscribe();
+        this._sub.unsubscribe();
     }
 
 

@@ -13,11 +13,12 @@ namespace Maxis.Database
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MaxisEntities : DbContext
+    public partial class MaxisEntities : DbContext, IMaxisEntities
     {
         public MaxisEntities()
             : base("name=MAXISDEVEntities")
         {
+
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -36,5 +37,7 @@ namespace Maxis.Database
         public virtual DbSet<ONNET_SRCH_OSP_CABLE_STRUCT> ONNET_SRCH_OSP_CABLE_STRUCT { get; set; }
         public virtual DbSet<ONNET_SRCH_OSP_STRUCT> ONNET_SRCH_OSP_STRUCT { get; set; }
         public virtual DbSet<ONNET_SRCH_OSP_THRESHOLD> ONNET_SRCH_OSP_THRESHOLD { get; set; }
+        public virtual DbSet<EXCEPTIONLOG> EXCEPTIONLOGs { get; set; }
+        public virtual DbSet<ONNET_SOURCE_TARGET> ONNET_SOURCE_TARGET { get; set; }
     }
 }

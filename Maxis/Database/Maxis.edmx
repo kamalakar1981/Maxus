@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MAXISDEVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MAXISDEVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="EXCEPTIONLOG">
           <Key>
             <PropertyRef Name="ID" />
@@ -16,6 +16,17 @@
           <Property Name="STACKTRACE" Type="varchar(max)" />
           <Property Name="LOG_TIME" Type="datetime" />
           <Property Name="USERNAME" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SOURCE_TARGET' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ONNET_SOURCE_TARGET">
+          <Key>
+            <PropertyRef Name="NE_ID" />
+          </Key>
+          <Property Name="NE_ID" Type="bigint" Nullable="false" />
+          <Property Name="NE_NAME" Type="varchar(max)" />
+          <Property Name="NE_TYPE" Type="varchar(max)" />
+          <Property Name="TARGET" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="ONNET_SRCH_BUILDING">
           <Key>
@@ -76,9 +87,9 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_NE_ABE' does not have a pr
         <EntityType Name="ONNET_SRCH_NE_ABE">
           <Key>
             <PropertyRef Name="ABE_ID" />
-            <PropertyRef Name="ABE_OT_ID" />
-            <PropertyRef Name="NE_ID" />
-            <PropertyRef Name="NE_OT_ID" />
+            
+            
+            
           </Key>
           <Property Name="ABE_ID" Type="bigint" Nullable="false" />
           <Property Name="ABE_NAME" Type="varchar" MaxLength="200" />
@@ -152,13 +163,13 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="DEV_OT_ID" Type="bigint" />
           <Property Name="THR_TEMPL_ID" Type="bigint" Nullable="false" />
           <Property Name="TRH_TEMPL_NAME" Type="varchar" MaxLength="200" />
-          <Property Name="TOTAL" Type="decimal" Precision="38" Scale="3" />
-          <Property Name="AVAIL" Type="decimal" Precision="38" Scale="3" />
-          <Property Name="USED" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="TOTAL" Type="decimal" Precision="30" Scale="3" />
+          <Property Name="AVAIL" Type="decimal" Precision="30" Scale="3" />
+          <Property Name="USED" Type="decimal" Precision="30" Scale="3" />
           <Property Name="VALUE" Type="decimal" Precision="30" Scale="2" />
           <Property Name="OLD_VALUE" Type="decimal" Precision="30" Scale="2" />
-          <Property Name="PLANNED_TO_USE" Type="decimal" Precision="38" Scale="3" />
-          <Property Name="IS_DEV" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="PLANNED_TO_USE" Type="decimal" Precision="30" Scale="3" />
+          <Property Name="IS_DEV" Type="decimal" Precision="30" Scale="3" />
         </EntityType>
         <EntityType Name="ONNET_USER">
           <Key>
@@ -166,7 +177,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           </Key>
           <Property Name="UserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Mobile" Type="varchar" MaxLength="50" />
           <Property Name="Department" Type="varchar" MaxLength="50" />
@@ -175,7 +186,6 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="DateModified" Type="datetime" />
           <Property Name="RoleId" Type="bigint" Nullable="false" />
-          <Property Name="PasswordHash" Type="varchar" MaxLength="60" />
         </EntityType>
         <EntityType Name="ONNET_USERROLE">
           <Key>
@@ -209,6 +219,18 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ONNET_SOURCE_TARGET_ONNET_SRCH_NE">
+          <End Role="ONNET_SRCH_NE" Type="Self.ONNET_SRCH_NE" Multiplicity="1" />
+          <End Role="ONNET_SOURCE_TARGET" Type="Self.ONNET_SOURCE_TARGET" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ONNET_SRCH_NE">
+              <PropertyRef Name="NE_ID" />
+            </Principal>
+            <Dependent Role="ONNET_SOURCE_TARGET">
+              <PropertyRef Name="NE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE">
           <End Role="ONNET_SRCH_NE" Type="Self.ONNET_SRCH_NE" Multiplicity="1" />
           <End Role="ONNET_SRCH_DL_ID_LIST" Type="Self.ONNET_SRCH_DL_ID_LIST" Multiplicity="*" />
@@ -229,6 +251,14 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <EntitySet Name="ONNET_SRCH_OSP_CABLE" EntityType="Self.ONNET_SRCH_OSP_CABLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ONNET_USER" EntityType="Self.ONNET_USER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ONNET_USERROLE" EntityType="Self.ONNET_USERROLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ONNET_SOURCE_TARGET" EntityType="Self.ONNET_SOURCE_TARGET" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ONNET_SOURCE_TARGET].[NE_ID] AS [NE_ID], 
+    [ONNET_SOURCE_TARGET].[NE_NAME] AS [NE_NAME], 
+    [ONNET_SOURCE_TARGET].[NE_TYPE] AS [NE_TYPE], 
+    [ONNET_SOURCE_TARGET].[TARGET] AS [TARGET]
+    FROM [dbo].[ONNET_SOURCE_TARGET] AS [ONNET_SOURCE_TARGET]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="ONNET_SRCH_NE_ABE" EntityType="Self.ONNET_SRCH_NE_ABE" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ONNET_SRCH_NE_ABE].[ABE_ID] AS [ABE_ID], 
@@ -290,30 +320,19 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             <End Role="EXCEPTIONLOG" EntitySet="EXCEPTIONLOG" />
             <End Role="EXCEPTIONLOG1" EntitySet="EXCEPTIONLOG" />
           </AssociationSet>
+          <AssociationSet Name="FK_ONNET_SOURCE_TARGET_ONNET_SRCH_NE" Association="Self.FK_ONNET_SOURCE_TARGET_ONNET_SRCH_NE">
+            <End Role="ONNET_SRCH_NE" EntitySet="ONNET_SRCH_NE" />
+            <End Role="ONNET_SOURCE_TARGET" EntitySet="ONNET_SOURCE_TARGET" />
+          </AssociationSet>
           <AssociationSet Name="FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE" Association="Self.FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE">
             <End Role="ONNET_SRCH_NE" EntitySet="ONNET_SRCH_NE" />
             <End Role="ONNET_SRCH_DL_ID_LIST" EntitySet="ONNET_SRCH_DL_ID_LIST" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MAXISDEVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="EXCEPTIONLOG">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EXCEPTION_MESSAGE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CONTROLLER_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ACTION_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="STACKTRACE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="LOG_TIME" Type="DateTime" Precision="3" />
-          <Property Name="USERNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="EXCEPTIONLOG1" Relationship="Self.FK_EXCEPTIONLOG_EXCEPTIONLOG" FromRole="EXCEPTIONLOG" ToRole="EXCEPTIONLOG1" />
-          <NavigationProperty Name="EXCEPTIONLOG2" Relationship="Self.FK_EXCEPTIONLOG_EXCEPTIONLOG" FromRole="EXCEPTIONLOG1" ToRole="EXCEPTIONLOG" />
-        </EntityType>
         <EntityType Name="ONNET_SRCH_BUILDING">
           <Key>
             <PropertyRef Name="BUILDING_ID" />
@@ -326,13 +345,13 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="BUILDING_ID" Type="Int64" Nullable="false" />
           <Property Name="GEODATA" Type="Geography" />
           <Property Name="AREA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ADDR_CLUSTER" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="POST_CODE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="BLOCK_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="NUMBER" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
           <Property Name="APARTMENTS" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
           <Property Name="LTST_CRTD_WHEN" Type="DateTime" Precision="0" />
           <Property Name="LTST_UPTD_WHEN" Type="DateTime" Precision="0" />
+          <Property Name="ADDR_CLUSTER" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ONNET_SRCH_DL_ID_LIST">
           <Key>
@@ -369,6 +388,22 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="LTST_CRTD_WHEN" Type="DateTime" Precision="0" />
           <Property Name="LTST_UPTD_WHEN" Type="DateTime" Precision="0" />
           <NavigationProperty Name="ONNET_SRCH_DL_ID_LIST" Relationship="Self.FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE" FromRole="ONNET_SRCH_NE" ToRole="ONNET_SRCH_DL_ID_LIST" />
+          <NavigationProperty Name="ONNET_SRCH_NE_ABE" Relationship="Self.FK__ONNET_SRC__NE_ID__24927208" FromRole="ONNET_SRCH_NE" ToRole="ONNET_SRCH_NE_ABE" />
+          <NavigationProperty Name="ONNET_SOURCE_TARGET" Relationship="MAXISDEVModel.FK_ONNET_SOURCE_TARGET_ONNET_SRCH_NE" FromRole="ONNET_SRCH_NE" ToRole="ONNET_SOURCE_TARGET" />
+        </EntityType>
+        <EntityType Name="ONNET_SRCH_NE_ABE">
+          <Key>
+            <PropertyRef Name="ABE_ID" />
+          </Key>
+          <Property Name="ABE_ID" Type="Int64" Nullable="false" />
+          <Property Name="ABE_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ABE_OT_ID" Type="Int64" Nullable="false" />
+          <Property Name="ABE_OT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NE_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NE_ID" Type="Int64" Nullable="false" />
+          <Property Name="NE_OT_ID" Type="Int64" Nullable="false" />
+          <Property Name="NE_OT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ONNET_SRCH_NE" Relationship="Self.FK__ONNET_SRC__NE_ID__24927208" FromRole="ONNET_SRCH_NE_ABE" ToRole="ONNET_SRCH_NE" />
         </EntityType>
         <EntityType Name="ONNET_SRCH_OSP_CABLE">
           <Key>
@@ -392,19 +427,18 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Key>
             <PropertyRef Name="Username" />
           </Key>
-          <Property Name="UserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <Property Name="RoleId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="ONNET_USERROLE" Relationship="Self.FK__ONNET_USE__RoleI__1920BF5C" FromRole="ONNET_USER" ToRole="ONNET_USERROLE" />
           <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="DateModified" Type="DateTime" Precision="3" />
-          <Property Name="RoleId" Type="Int64" Nullable="false" />
-          <Property Name="PasswordHash" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ONNET_USERROLE" Relationship="Self.FK__ONNET_USE__RoleI__1920BF5C" FromRole="ONNET_USER" ToRole="ONNET_USERROLE" />
         </EntityType>
         <EntityType Name="ONNET_USERROLE">
           <Key>
@@ -414,22 +448,6 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="RoleName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ONNET_USER" Relationship="Self.FK__ONNET_USE__RoleI__1920BF5C" FromRole="ONNET_USERROLE" ToRole="ONNET_USER" />
-        </EntityType>
-        <EntityType Name="ONNET_SRCH_NE_ABE">
-          <Key>
-            <PropertyRef Name="ABE_ID" />
-            <PropertyRef Name="ABE_OT_ID" />
-            <PropertyRef Name="NE_ID" />
-            <PropertyRef Name="NE_OT_ID" />
-          </Key>
-          <Property Name="ABE_ID" Type="Int64" Nullable="false" />
-          <Property Name="ABE_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ABE_OT_ID" Type="Int64" Nullable="false" />
-          <Property Name="ABE_OT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="NE_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="NE_ID" Type="Int64" Nullable="false" />
-          <Property Name="NE_OT_ID" Type="Int64" Nullable="false" />
-          <Property Name="NE_OT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ONNET_SRCH_OSP_CABLE_STRUCT">
           <Key>
@@ -470,26 +488,14 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="DEV_OT_ID" Type="Int64" />
           <Property Name="THR_TEMPL_ID" Type="Int64" Nullable="false" />
           <Property Name="TRH_TEMPL_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="TOTAL" Type="Decimal" Precision="38" Scale="3" />
-          <Property Name="AVAIL" Type="Decimal" Precision="38" Scale="3" />
-          <Property Name="USED" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="TOTAL" Type="Decimal" Precision="30" Scale="3" />
+          <Property Name="AVAIL" Type="Decimal" Precision="30" Scale="3" />
+          <Property Name="USED" Type="Decimal" Precision="30" Scale="3" />
           <Property Name="VALUE" Type="Decimal" Precision="30" Scale="2" />
           <Property Name="OLD_VALUE" Type="Decimal" Precision="30" Scale="2" />
-          <Property Name="PLANNED_TO_USE" Type="Decimal" Precision="38" Scale="3" />
-          <Property Name="IS_DEV" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="PLANNED_TO_USE" Type="Decimal" Precision="30" Scale="3" />
+          <Property Name="IS_DEV" Type="Decimal" Precision="30" Scale="3" />
         </EntityType>
-        <Association Name="FK_EXCEPTIONLOG_EXCEPTIONLOG">
-          <End Role="EXCEPTIONLOG" Type="Self.EXCEPTIONLOG" Multiplicity="1" />
-          <End Role="EXCEPTIONLOG1" Type="Self.EXCEPTIONLOG" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="EXCEPTIONLOG">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="EXCEPTIONLOG1">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE">
           <End Role="ONNET_SRCH_NE" Type="Self.ONNET_SRCH_NE" Multiplicity="1" />
           <End Role="ONNET_SRCH_DL_ID_LIST" Type="Self.ONNET_SRCH_DL_ID_LIST" Multiplicity="*" />
@@ -498,6 +504,18 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
               <PropertyRef Name="NE_ID" />
             </Principal>
             <Dependent Role="ONNET_SRCH_DL_ID_LIST">
+              <PropertyRef Name="NE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ONNET_SRC__NE_ID__24927208">
+          <End Role="ONNET_SRCH_NE" Type="Self.ONNET_SRCH_NE" Multiplicity="1" />
+          <End Role="ONNET_SRCH_NE_ABE" Type="Self.ONNET_SRCH_NE_ABE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ONNET_SRCH_NE">
+              <PropertyRef Name="NE_ID" />
+            </Principal>
+            <Dependent Role="ONNET_SRCH_NE_ABE">
               <PropertyRef Name="NE_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -514,53 +532,98 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MAXISDEVEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="EXCEPTIONLOGs" EntityType="Self.EXCEPTIONLOG" />
+        <EntityContainer Name="MaxisEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ONNET_SRCH_BUILDING" EntityType="Self.ONNET_SRCH_BUILDING" />
           <EntitySet Name="ONNET_SRCH_DL_ID_LIST" EntityType="Self.ONNET_SRCH_DL_ID_LIST" />
           <EntitySet Name="ONNET_SRCH_NE" EntityType="Self.ONNET_SRCH_NE" />
+          <EntitySet Name="ONNET_SRCH_NE_ABE" EntityType="Self.ONNET_SRCH_NE_ABE" />
           <EntitySet Name="ONNET_SRCH_OSP_CABLE" EntityType="Self.ONNET_SRCH_OSP_CABLE" />
           <EntitySet Name="ONNET_USER" EntityType="Self.ONNET_USER" />
           <EntitySet Name="ONNET_USERROLE" EntityType="Self.ONNET_USERROLE" />
-          <EntitySet Name="ONNET_SRCH_NE_ABE" EntityType="Self.ONNET_SRCH_NE_ABE" />
           <EntitySet Name="ONNET_SRCH_OSP_CABLE_STRUCT" EntityType="Self.ONNET_SRCH_OSP_CABLE_STRUCT" />
           <EntitySet Name="ONNET_SRCH_OSP_STRUCT" EntityType="Self.ONNET_SRCH_OSP_STRUCT" />
           <EntitySet Name="ONNET_SRCH_OSP_THRESHOLD" EntityType="Self.ONNET_SRCH_OSP_THRESHOLD" />
-          <AssociationSet Name="FK_EXCEPTIONLOG_EXCEPTIONLOG" Association="Self.FK_EXCEPTIONLOG_EXCEPTIONLOG">
-            <End Role="EXCEPTIONLOG" EntitySet="EXCEPTIONLOGs" />
-            <End Role="EXCEPTIONLOG1" EntitySet="EXCEPTIONLOGs" />
-          </AssociationSet>
           <AssociationSet Name="FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE" Association="Self.FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE">
             <End Role="ONNET_SRCH_NE" EntitySet="ONNET_SRCH_NE" />
             <End Role="ONNET_SRCH_DL_ID_LIST" EntitySet="ONNET_SRCH_DL_ID_LIST" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ONNET_SRC__NE_ID__24927208" Association="Self.FK__ONNET_SRC__NE_ID__24927208">
+            <End Role="ONNET_SRCH_NE" EntitySet="ONNET_SRCH_NE" />
+            <End Role="ONNET_SRCH_NE_ABE" EntitySet="ONNET_SRCH_NE_ABE" />
           </AssociationSet>
           <AssociationSet Name="FK__ONNET_USE__RoleI__1920BF5C" Association="Self.FK__ONNET_USE__RoleI__1920BF5C">
             <End Role="ONNET_USERROLE" EntitySet="ONNET_USERROLE" />
             <End Role="ONNET_USER" EntitySet="ONNET_USER" />
           </AssociationSet>
+          <EntitySet Name="EXCEPTIONLOGs" EntityType="MAXISDEVModel.EXCEPTIONLOG" />
+          <AssociationSet Name="FK_EXCEPTIONLOG_EXCEPTIONLOG" Association="MAXISDEVModel.FK_EXCEPTIONLOG_EXCEPTIONLOG">
+            <End Role="EXCEPTIONLOG" EntitySet="EXCEPTIONLOGs" />
+            <End Role="EXCEPTIONLOG1" EntitySet="EXCEPTIONLOGs" />
+          </AssociationSet>
+          <EntitySet Name="ONNET_SOURCE_TARGET" EntityType="MAXISDEVModel.ONNET_SOURCE_TARGET" />
+          <AssociationSet Name="FK_ONNET_SOURCE_TARGET_ONNET_SRCH_NE" Association="MAXISDEVModel.FK_ONNET_SOURCE_TARGET_ONNET_SRCH_NE">
+            <End Role="ONNET_SRCH_NE" EntitySet="ONNET_SRCH_NE" />
+            <End Role="ONNET_SOURCE_TARGET" EntitySet="ONNET_SOURCE_TARGET" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="EXCEPTIONLOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EXCEPTION_MESSAGE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CONTROLLER_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ACTION_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="STACKTRACE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LOG_TIME" Type="DateTime" Precision="3" />
+          <Property Name="USERNAME" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EXCEPTIONLOG1" Relationship="MAXISDEVModel.FK_EXCEPTIONLOG_EXCEPTIONLOG" FromRole="EXCEPTIONLOG" ToRole="EXCEPTIONLOG1" />
+          <NavigationProperty Name="EXCEPTIONLOG2" Relationship="MAXISDEVModel.FK_EXCEPTIONLOG_EXCEPTIONLOG" FromRole="EXCEPTIONLOG1" ToRole="EXCEPTIONLOG" />
+        </EntityType>
+        <Association Name="FK_EXCEPTIONLOG_EXCEPTIONLOG">
+          <End Type="MAXISDEVModel.EXCEPTIONLOG" Role="EXCEPTIONLOG" Multiplicity="1" />
+          <End Type="MAXISDEVModel.EXCEPTIONLOG" Role="EXCEPTIONLOG1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="EXCEPTIONLOG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EXCEPTIONLOG1">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ONNET_SOURCE_TARGET">
+          <Key>
+            <PropertyRef Name="NE_ID" />
+          </Key>
+          <Property Name="NE_ID" Type="Int64" Nullable="false" />
+          <Property Name="NE_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NE_TYPE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TARGET" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ONNET_SRCH_NE" Relationship="MAXISDEVModel.FK_ONNET_SOURCE_TARGET_ONNET_SRCH_NE" FromRole="ONNET_SOURCE_TARGET" ToRole="ONNET_SRCH_NE" />
+        </EntityType>
+        <Association Name="FK_ONNET_SOURCE_TARGET_ONNET_SRCH_NE">
+          <End Type="MAXISDEVModel.ONNET_SRCH_NE" Role="ONNET_SRCH_NE" Multiplicity="1" />
+          <End Type="MAXISDEVModel.ONNET_SOURCE_TARGET" Role="ONNET_SOURCE_TARGET" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ONNET_SRCH_NE">
+              <PropertyRef Name="NE_ID" />
+            </Principal>
+            <Dependent Role="ONNET_SOURCE_TARGET">
+              <PropertyRef Name="NE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MAXISDEVModelStoreContainer" CdmEntityContainer="MAXISDEVEntities">
-          <EntitySetMapping Name="EXCEPTIONLOGs">
-            <EntityTypeMapping TypeName="MAXISDEVModel.EXCEPTIONLOG">
-              <MappingFragment StoreEntitySet="EXCEPTIONLOG">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="EXCEPTION_MESSAGE" ColumnName="EXCEPTION_MESSAGE" />
-                <ScalarProperty Name="CONTROLLER_NAME" ColumnName="CONTROLLER_NAME" />
-                <ScalarProperty Name="ACTION_NAME" ColumnName="ACTION_NAME" />
-                <ScalarProperty Name="STACKTRACE" ColumnName="STACKTRACE" />
-                <ScalarProperty Name="LOG_TIME" ColumnName="LOG_TIME" />
-                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+        <EntityContainerMapping StorageEntityContainer="MAXISDEVModelStoreContainer" CdmEntityContainer="MaxisEntities">
           <EntitySetMapping Name="ONNET_SRCH_BUILDING">
             <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_BUILDING">
               <MappingFragment StoreEntitySet="ONNET_SRCH_BUILDING">
+                <ScalarProperty Name="ADDR_CLUSTER" ColumnName="ADDR_CLUSTER" />
                 <ScalarProperty Name="STATE" ColumnName="STATE" />
                 <ScalarProperty Name="CITY" ColumnName="CITY" />
                 <ScalarProperty Name="STREET" ColumnName="STREET" />
@@ -569,7 +632,6 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
                 <ScalarProperty Name="BUILDING_ID" ColumnName="BUILDING_ID" />
                 <ScalarProperty Name="GEODATA" ColumnName="GEODATA" />
                 <ScalarProperty Name="AREA" ColumnName="AREA" />
-                <ScalarProperty Name="ADDR_CLUSTER" ColumnName="ADDR_CLUSTER" />
                 <ScalarProperty Name="POST_CODE" ColumnName="POST_CODE" />
                 <ScalarProperty Name="BLOCK_NAME" ColumnName="BLOCK_NAME" />
                 <ScalarProperty Name="NUMBER" ColumnName="NUMBER" />
@@ -594,12 +656,13 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <EntitySetMapping Name="ONNET_SRCH_NE">
             <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_NE">
               <MappingFragment StoreEntitySet="ONNET_SRCH_NE">
+                <ScalarProperty Name="GEODATA" ColumnName="GEODATA" />
+                <ScalarProperty Name="ST_AMOUNT" ColumnName="ST_AMOUNT" />
                 <ScalarProperty Name="NE_ID" ColumnName="NE_ID" />
                 <ScalarProperty Name="NE_NAME" ColumnName="NE_NAME" />
                 <ScalarProperty Name="NE_OT_ID" ColumnName="NE_OT_ID" />
                 <ScalarProperty Name="NE_OT_NAME" ColumnName="NE_OT_NAME" />
                 <ScalarProperty Name="ROLE" ColumnName="ROLE" />
-                <ScalarProperty Name="ST_AMOUNT" ColumnName="ST_AMOUNT" />
                 <ScalarProperty Name="DL_ID_LST" ColumnName="DL_ID_LST" />
                 <ScalarProperty Name="MANUFACTURER" ColumnName="MANUFACTURER" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
@@ -609,9 +672,22 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
                 <ScalarProperty Name="SITE_LONG_NAME" ColumnName="SITE_LONG_NAME" />
                 <ScalarProperty Name="ENGINEERING_REGION" ColumnName="ENGINEERING_REGION" />
                 <ScalarProperty Name="OPERATION_REGION" ColumnName="OPERATION_REGION" />
-                <ScalarProperty Name="GEODATA" ColumnName="GEODATA" />
                 <ScalarProperty Name="LTST_CRTD_WHEN" ColumnName="LTST_CRTD_WHEN" />
                 <ScalarProperty Name="LTST_UPTD_WHEN" ColumnName="LTST_UPTD_WHEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ONNET_SRCH_NE_ABE">
+            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_NE_ABE">
+              <MappingFragment StoreEntitySet="ONNET_SRCH_NE_ABE">
+                <ScalarProperty Name="ABE_ID" ColumnName="ABE_ID" />
+                <ScalarProperty Name="ABE_NAME" ColumnName="ABE_NAME" />
+                <ScalarProperty Name="ABE_OT_ID" ColumnName="ABE_OT_ID" />
+                <ScalarProperty Name="ABE_OT_NAME" ColumnName="ABE_OT_NAME" />
+                <ScalarProperty Name="NE_NAME" ColumnName="NE_NAME" />
+                <ScalarProperty Name="NE_ID" ColumnName="NE_ID" />
+                <ScalarProperty Name="NE_OT_ID" ColumnName="NE_OT_ID" />
+                <ScalarProperty Name="NE_OT_NAME" ColumnName="NE_OT_NAME" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -637,18 +713,17 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <EntitySetMapping Name="ONNET_USER">
             <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_USER">
               <MappingFragment StoreEntitySet="ONNET_USER">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Department" ColumnName="Department" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="DateModified" ColumnName="DateModified" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -658,20 +733,6 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ONNET_SRCH_NE_ABE">
-            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SRCH_NE_ABE">
-              <MappingFragment StoreEntitySet="ONNET_SRCH_NE_ABE">
-                <ScalarProperty Name="ABE_ID" ColumnName="ABE_ID" />
-                <ScalarProperty Name="ABE_NAME" ColumnName="ABE_NAME" />
-                <ScalarProperty Name="ABE_OT_ID" ColumnName="ABE_OT_ID" />
-                <ScalarProperty Name="ABE_OT_NAME" ColumnName="ABE_OT_NAME" />
-                <ScalarProperty Name="NE_NAME" ColumnName="NE_NAME" />
-                <ScalarProperty Name="NE_ID" ColumnName="NE_ID" />
-                <ScalarProperty Name="NE_OT_ID" ColumnName="NE_OT_ID" />
-                <ScalarProperty Name="NE_OT_NAME" ColumnName="NE_OT_NAME" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -719,6 +780,29 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
                 <ScalarProperty Name="OLD_VALUE" ColumnName="OLD_VALUE" />
                 <ScalarProperty Name="PLANNED_TO_USE" ColumnName="PLANNED_TO_USE" />
                 <ScalarProperty Name="IS_DEV" ColumnName="IS_DEV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EXCEPTIONLOGs">
+            <EntityTypeMapping TypeName="MAXISDEVModel.EXCEPTIONLOG">
+              <MappingFragment StoreEntitySet="EXCEPTIONLOG">
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="LOG_TIME" ColumnName="LOG_TIME" />
+                <ScalarProperty Name="STACKTRACE" ColumnName="STACKTRACE" />
+                <ScalarProperty Name="ACTION_NAME" ColumnName="ACTION_NAME" />
+                <ScalarProperty Name="CONTROLLER_NAME" ColumnName="CONTROLLER_NAME" />
+                <ScalarProperty Name="EXCEPTION_MESSAGE" ColumnName="EXCEPTION_MESSAGE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ONNET_SOURCE_TARGET">
+            <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_SOURCE_TARGET">
+              <MappingFragment StoreEntitySet="ONNET_SOURCE_TARGET">
+                <ScalarProperty Name="TARGET" ColumnName="TARGET" />
+                <ScalarProperty Name="NE_TYPE" ColumnName="NE_TYPE" />
+                <ScalarProperty Name="NE_NAME" ColumnName="NE_NAME" />
+                <ScalarProperty Name="NE_ID" ColumnName="NE_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

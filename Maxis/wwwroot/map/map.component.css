@@ -2,42 +2,38 @@
     height: 600px;
     width: 1200px;
 }
-
 .sebm-google-map-container-inner {
     position: initial !important;
 }
-
-    .sebm-google-map-container-inner[_ngcontent-wir-2] {
-        position: initial !important;
-    }
-
+.sebm-google-map-container-inner[_ngcontent-wir-2] {
+    position: initial !important;
+}
 sebm-google-map {
     height: 1000px;
 }
-
 #form {
     top: 0;
     position: absolute;
     right: 0;
     padding: 80px;
 }
-
+.user-dropdown {
+    margin-top: -20px;
+}
 .options {
     cursor: pointer;
     padding: 10px;
     border-bottom: 1px solid black;
 }
-
 .sebm-google-map-marker {
     height: 10px;
     width: 15px;
 }
-
 .hide-right-pane {
     background-position: 0 -23px;
 }
-
-.show-right-pane, .hide-right-pane {
+.show-right-pane,
+.hide-right-pane {
     width: 17px;
     height: 23px;
     position: absolute;
@@ -49,11 +45,9 @@ sebm-google-map {
     text-decoration: none;
     background: url("../app/Images/favicon.ico") no-repeat;
 }
-
 .wrapper {
     overflow: hidden;
 }
-
 section {
     padding: 30px 30px 30px 80px;
     -moz-transition: all 200ms ease-in;
@@ -61,7 +55,6 @@ section {
     -o-transition: all 200ms ease-in;
     transition: all 200ms ease-in;
 }
-
 nav {
     z-index: 1000;
     position: fixed;
@@ -78,37 +71,33 @@ nav {
     transition: all 200ms ease-in;
 }
 /* enable absolute positioning */
+
 .inner-addon {
     position: relative;
 }
+/* style glyph */
 
-    /* style glyph */
-    .inner-addon .glyphicon {
-        position: absolute;
-        padding: 10px;
-        pointer-events: none;
-    }
-
+.inner-addon .glyphicon {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+}
 /* align glyph */
+
 .left-addon .glyphicon {
     left: 0px;
 }
-
 .right-addon .glyphicon {
     right: 0px;
 }
-
 /* add padding  */
+
 .left-addon input {
     padding-left: 30px;
 }
-
 .right-addon input {
     padding-right: 30px;
 }
-
-
-
 label {
     display: block;
     font-family: 'helvetica neue', helvetica, arial, sans-serif;
@@ -131,49 +120,41 @@ label {
     transition: all 200ms ease-in;
     z-index: 1001;
 }
-
 input[type="checkbox"] {
     display: none;
 }
-
-    input[type="checkbox"]:checked ~ nav {
-        margin: 0;
-    }
-
-    input[type="checkbox"]:checked ~ label {
-        left: 373px;
-    }
-
-    input[type="checkbox"]:checked ~ section {
-        -webkit-transform: translate3d(373px, 0, 0);
-        -moz-transform: translate3d(373px, 0, 0);
-        -o-transform: translate3d(373px, 0, 0);
-        transform: translate3d(373px, 0, 0);
-    }
-
+input[type="checkbox"]:checked ~ nav {
+    margin: 0;
+}
+input[type="checkbox"]:checked ~ label {
+    left: 373px;
+}
+input[type="checkbox"]:checked ~ section {
+    -webkit-transform: translate3d(373px, 0, 0);
+    -moz-transform: translate3d(373px, 0, 0);
+    -o-transform: translate3d(373px, 0, 0);
+    transform: translate3d(373px, 0, 0);
+}
 #form {
     top: 0;
     position: absolute;
     right: 0;
     padding: 80px;
 }
-
 .options {
     cursor: pointer;
     padding: 10px;
     border-bottom: 1px solid black;
 }
-
 .sebm-google-map-marker {
     height: 10px;
     width: 15px;
 }
-
 .hide-right-pane {
     background-position: 0 -23px;
 }
-
-.show-right-pane, .hide-right-pane {
+.show-right-pane,
+.hide-right-pane {
     width: 17px;
     height: 23px;
     position: absolute;
@@ -185,7 +166,6 @@ input[type="checkbox"] {
     text-decoration: none;
     background: url("../app/Images/favicon.ico") no-repeat;
 }
-
 .mapping {
     width: 363px;
     box-sizing: border-box;
@@ -199,28 +179,42 @@ input[type="checkbox"] {
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
 }
-
 .onnetlogo {
     width: 105px;
     margin-left: -42px;
     height: 50px;
 }
-
 .distance {
     margin: 0;
-    font-weight: 400;
-    font-family: inherit;
+    font-weight: 800;
+    font-family: serif;
     text-align: center;
     margin-top: 115px;
+    font-size: 125%;
 }
-
 .label-lrd {
     margin: 0;
-    font-weight: 400;
-    font-family: inherit;
+    font-weight: 800;
+    font-family: serif;
     text-align: center;
+    font-size: 125%;
 }
-
+.map-form {
+    overflow-y: scroll;
+    height: 700px;
+}
+.map-search {
+    position: absolute;
+    margin-top: -197px;
+    margin-left: -58px;
+    width: 100%;
+}
+.search-fix {
+    margin-top: 7px !important;
+}
+.nestyle {
+    width: 30px;
+}
 .search {
     position: fixed;
     display: block;
@@ -228,8 +222,8 @@ input[type="checkbox"] {
     margin: 0;
     left: 10px;
     z-index: 1001;
+    margin-top: 197px;
 }
-
 .dropdown {
     position: absolute;
     top: 0;
@@ -237,47 +231,39 @@ input[type="checkbox"] {
     font-size: 36px;
     margin-left: 50px;
 }
-
 .search-bar {
     position: relative;
     padding: 0;
     margin: 0;
 }
-
 .building-dropdown {
     margin: 0;
-    font-weight: 400;
-    font-family: inherit;
+    font-weight: 800;
+    font-family: serif;
     text-align: center;
+    font-size: 125%;
 }
-
 @media screen and (max-height: 450px) {
     #pannel {
         padding-top: 80px;
     }
-
-        #pannel a {
-            font-size: 18px;
-        }
+    #pannel a {
+        font-size: 18px;
+    }
 }
-
 .nav-colorbar {
     color: black !important;
 }
-
 .nav-color {
     background-color: skyblue;
 }
-
 .distance-div {
     display: inline;
     width: 50%;
 }
-
 .nav-top {
     margin: 60px 0 0;
 }
-
 .header {
     background-color: #0143A3;
     background: -webkit-linear-gradient(#0143A3, #0273D4);
@@ -285,15 +271,15 @@ input[type="checkbox"] {
     color: #FFF;
     padding: 30px;
 }
-
 section {
     padding-top: 30px;
 }
-
 .search-addon {
     margin-left: 11px;
 }
-
 .navigation {
     width: 345px !important;
+}
+.newidth {
+    width: 30px;
 }
