@@ -18,7 +18,7 @@ namespace Maxis.Database
         public MaxisEntities()
             : base("name=MaxisEntities")
         {
-            
+
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -37,5 +37,6 @@ namespace Maxis.Database
         public virtual DbSet<ONNET_SRCH_OSP_STRUCT> ONNET_SRCH_OSP_STRUCT { get; set; }
         public virtual DbSet<ONNET_SRCH_OSP_THRESHOLD> ONNET_SRCH_OSP_THRESHOLD { get; set; }
         public virtual DbSet<EXCEPTIONLOG> EXCEPTIONLOGs { get; set; }
+        public virtual DbSet<ONNET_SOURCE_TARGET> ONNET_SOURCE_TARGET { get; set; }
     }
 }
