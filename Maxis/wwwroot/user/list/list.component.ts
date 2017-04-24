@@ -1,8 +1,9 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Userlist } from './shared/list.interface';
 import { ListService } from './shared/list.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { DataTableModule, SharedModule, InputTextModule } from 'primeng/primeng';
+import { DataTableModule, SharedModule, InputTextModule, PaginatorModule } from 'primeng/primeng';
 
 @Component({
     selector: 'list',
@@ -13,10 +14,9 @@ export class ListComponent implements OnInit {
 
     userlists: Userlist[];
     errorMessage: string;
-   
-    constructor(private _listService: ListService) {
 
-    }
+    constructor(private _listService: ListService,
+        private _router: Router) { }
 
     ngOnInit(): void {
         this._listService.getUserlist()
@@ -24,29 +24,7 @@ export class ListComponent implements OnInit {
             error => this.errorMessage = <any>error);
     }
 
-    downloadPdf() {
-        this._listService.getPdf()
-            .subscribe(
-            data => {
-                console.log('success:', data);
-            },
-            err => {
-                console.log('error:', err)
-            });
-
-
+    gotoDetail(UserId) {
+        this._router.navigate(['/edit', UserId])
     }
-    downloadExl() {
-        this._listService.getExl()
-            .subscribe(
-            data => {
-                console.log('success:', data);
-            },
-            err => {
-                console.log('error:', err)
-            });
-
-
-    }
-
 }

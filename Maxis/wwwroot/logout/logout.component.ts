@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { LogoutService } from './shared/logout.service';
 import { Router, ActivatedRoute } from '@angular/router';
 @Component({
@@ -7,12 +7,9 @@ import { Router, ActivatedRoute } from '@angular/router';
     styleUrls: ['wwwroot/logout/logout.component.css']
 })
 
-export class LogoutComponent implements OnInit {
-    constructor(private _logoutService: LogoutService) {
+export class LogoutComponent {
+    constructor(private _logoutService: LogoutService) { }
 
-    }
-    ngOnInit() {
-    }
     logout() {
         this._logoutService.logout().subscribe(() => {
             localStorage.removeItem('currentUser');

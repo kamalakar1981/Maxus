@@ -1,27 +1,29 @@
-﻿<div class="container">
-    <h3>Log In</h3>
-    <div *ngIf="loginInvalid" class="alert alert-danger">
-        {{errorMsg}}
-    </div>
-    <form #form="ngForm" (submit)="submitForm(form)" novalidate>
-        <div class="centered">
-            <div class="form-group" [class.has-error]="username.invalid && username.touched">
-                <label class="control-label" for="email"></label>
-                <input #username="ngModel" required type="text" class="form-control" name="username" [(ngModel)]="user.username"
-                       placeholder="Username" style="background-color:aliceblue" />
+﻿<div class="login">
+    <div class="content">
+        <form #form="ngForm" class="login-form" (submit)="submitForm(form)" novalidate>
+            <div class="text-center">
+                <br>
+                <img src="../../Content/Images/Logo_Login.png" alt="">
             </div>
-            <div class="form-group" [class.has-error]="password.invalid && password.touched">                
-                <label class="control-label " for="password"></label>
-                <input #password="ngModel" required type="password" class="form-control" name="password" [(ngModel)]="user.password"
-                       placeholder="Password" />
+            <h3 class="form-title font-green">Sign In</h3>
+            <div *ngIf="loginInvalid" class="alert alert-danger">
+                {{errorMsg}}
+            </div>
 
+            <div class="form-group" [class.has-error]="username.invalid && username.touched">
+                <label class="control-label visible-ie8 visible-ie9">Username</label>
+                <input #username="ngModel" required type="text" class="form-control form-control-solid placeholder-no-fix" name="username" [(ngModel)]="user.username" placeholder="Username" style="background-color:aliceblue" />
             </div>
-            <div class="form-group">
-                <button class="btn btn-danger"
-                        type="submit" [disabled]="form.invalid">
-                    LOGIN
+            <div class="form-group" [class.has-error]="password.invalid && password.touched">
+                <label class="control-label visible-ie8 visible-ie9">Password</label>
+                <input #password="ngModel" required type="password" class="form-control form-control-solid placeholder-no-fix" name="password" [(ngModel)]="user.password" placeholder="Password" />
+            </div>
+            <div class="form-actions">
+                <button class="btn green uppercase" type="submit" [disabled]="form.invalid">
+                    Login
                 </button>
             </div>
-        </div>
-    </form>
+
+        </form>
+    </div>
 </div>

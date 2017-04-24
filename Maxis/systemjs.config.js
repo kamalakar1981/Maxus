@@ -23,14 +23,12 @@
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
             // other libraries
             'rxjs': 'npm:rxjs',
-            'ng2-bootstrap': 'node_modules/ng2-bootstrap/bundles/ng2-bootstrap.umd.js',
-            'moment': 'node_modules/moment/moment.js',
             'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
             'primeng': 'node_modules/primeng',
-
+            'angular2-ui-switch': 'npm:angular2-ui-switch/dist',
             'angular2-google-maps/core': 'npm:angular2-google-maps/core/core.umd.js',
             'angular2-select': 'npm:angular2-select',
-                    "ngx-dropdown": "node_modules/ngx-dropdown",
+            'ngx-dropdown': 'node_modules/ngx-dropdown',
 
 
 
@@ -49,17 +47,17 @@
                 defaultExtension: 'js'
             },
             'angular2-select': {
-                main: 'index.js',
+                main: './index.js',
                 defaultExtension: 'js'
             },
             'primeng': {
                 defaultExtension: 'js'
-            } ,
-            "ngx-dropdown": { "main": "index.js", "defaultExtension": "js" },
-            'ng2-bootstrap': {
+            },
+            'angular2-ui-switch': {
+                main: './index.js',
                 defaultExtension: 'js'
             },
-            'moment': { defaultExtension: 'js' },
+            "ngx-dropdown": { "main": "index.js", "defaultExtension": "js" },
 
         }
     });

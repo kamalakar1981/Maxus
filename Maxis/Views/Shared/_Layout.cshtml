@@ -11,9 +11,19 @@
     <script src="~/libs/reflect-metadata/Reflect.js"></script>
     <script src="~/libs/systemjs/dist/system.src.js"></script>
 
-
+    <link href="~/wwwroot/shared/css/css/dashboard.css" rel="stylesheet">
+    <link href="~/wwwroot/shared/css/css/default.min.css" rel="stylesheet">
+    <link href="~/wwwroot/shared/css/css/layout.min.css" rel="stylesheet">
+    <link href="~/wwwroot/shared/css/css/plugins.min.css" rel="stylesheet">
+    <link href="~/wwwroot/shared/css/css/components.min.css" rel="stylesheet">
+    <link href="~/wwwroot/shared/css/css/datatables.bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/primeng.min.css"></link>
+    <link rel="stylesheet" href="~/Content/theme.css"></link>
+    <link rel="stylesheet" href="~/Content/primeui-ng-all.min.css"></link>
+    <link rel="stylesheet" href="~/Content/font-awesome.css"></link>
+    <script src="~/Content/primeui-ng-all.min.js"></script>
     <!-- 2. Configure SystemJS -->
-    
+
     <script src="~/systemjs.config.js"></script>
     <script>
         System.import('../Scripts/app/main').catch(function (err)
@@ -26,7 +36,7 @@
 
 </head>
 <body>
-    <div class="container body-content">
+    <div class="">
         @RenderBody()
     </div>
 
