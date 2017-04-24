@@ -18,6 +18,7 @@ export class EditComponent implements OnInit, OnDestroy {
     ulist: any;
     private sub: Subscription;
     public editForm: FormGroup;
+    year = new Date().getFullYear();
 
     constructor(private _editservice: EditService,
         private _formbuilder: FormBuilder,

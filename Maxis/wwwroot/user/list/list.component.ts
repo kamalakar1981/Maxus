@@ -11,7 +11,7 @@ import { DataTableModule, SharedModule, InputTextModule, PaginatorModule } from 
     styleUrls: ['wwwroot/user/list/list.component.css']
 })
 export class ListComponent implements OnInit {
-
+    year = new Date().getFullYear();
     userlists: Userlist[];
     errorMessage: string;
 
