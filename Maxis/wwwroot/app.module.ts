@@ -20,9 +20,8 @@ import { LogoutComponent } from './logout/logout.component';
 import { LogoutService } from './logout/shared/logout.service';
 import { MapComponent } from './map/map.component';
 import { Router } from '@angular/router';
-import { DataTableModule, SharedModule } from 'primeng/primeng';
+import { DataTableModule, SharedModule, PaginatorModule } from 'primeng/primeng';
 import { NEComponent } from './NEtype/ne.component';
-//import { PopoverModule } from 'ng2-bootstrap';
 import { SelectModule } from 'angular2-select';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import { DropdownModule } from "ngx-dropdown";
@@ -32,7 +31,7 @@ import { UiSwitchModule } from 'angular2-ui-switch';
 @NgModule({
     imports: [BrowserModule,
         HttpModule,
-        
+        PaginatorModule,
         SelectModule,
         FormsModule,
         routing,
@@ -57,4 +56,4 @@ import { UiSwitchModule } from 'angular2-ui-switch';
     bootstrap: [AppComponent],
     providers: [HomeService, AuthenticationService, LoginGuard, EditService, ListService, LogoutService,MapService]
 })
-export class AppModule { }
+export class AppModule { } 

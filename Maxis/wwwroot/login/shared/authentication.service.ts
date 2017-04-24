@@ -3,7 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { LoginComponent } from './../../login/login.component';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/observable';
-import { User } from './login.interface';
+import { IUser } from './login.interface';
 
 @Injectable()
 export class AuthenticationService {
@@ -12,9 +12,9 @@ export class AuthenticationService {
 
     private extractData(res: Response) {
         let body = res.json();
-        if (body && body.RoleId) {
+        if (body && body.Username) {
             // store user details and token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', body.RoleId);
+            localStorage.setItem('currentUser', body.Username);
             localStorage.setItem('userrole', body.Roles);
         }
         return body || {};
@@ -26,7 +26,7 @@ export class AuthenticationService {
     }
 
     postForm(username: string, password: string): Observable<any> {
-        let body = JSON.stringify({ username: username, password: password });
+        let body = { username: username, password: password };
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });

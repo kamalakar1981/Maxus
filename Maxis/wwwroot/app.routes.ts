@@ -17,6 +17,7 @@ export const routes: Routes = [
         redirectTo: '/login',
         pathMatch: 'full'
     },
+
     // Add routes form a different file
     ...contactRoutes,
     ...aboutRoutes,

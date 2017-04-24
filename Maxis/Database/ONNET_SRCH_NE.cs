@@ -18,7 +18,6 @@ namespace Maxis.Database
         public ONNET_SRCH_NE()
         {
             this.ONNET_SRCH_DL_ID_LIST = new HashSet<ONNET_SRCH_DL_ID_LIST>();
-            this.ONNET_SRCH_NE_ABE = new HashSet<ONNET_SRCH_NE_ABE>();
         }
     
         public long NE_ID { get; set; }
@@ -42,7 +41,5 @@ namespace Maxis.Database
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ONNET_SRCH_DL_ID_LIST> ONNET_SRCH_DL_ID_LIST { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ONNET_SRCH_NE_ABE> ONNET_SRCH_NE_ABE { get; set; }
     }
 }

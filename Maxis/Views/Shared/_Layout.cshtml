@@ -10,18 +10,20 @@
     <script src="~/libs/zone.js/dist/zone.js"></script>
     <script src="~/libs/reflect-metadata/Reflect.js"></script>
     <script src="~/libs/systemjs/dist/system.src.js"></script>
-    
-	<link rel="stylesheet" href="https://www.primefaces.org/primeng/resources/primeng.min.css"></link>
-    <link rel="stylesheet" href="https://www.primefaces.org/primeng/showcase/resources/icons/css/font-awesome.min.css"></link>
-    @*<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"></link>
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>*@
-    <link rel="stylesheet" href="https://npmcdn.com/primeui/themes/delta/theme.css"></link>
-    <link rel="stylesheet" href="https://npmcdn.com/primeui/primeui-ng-all.min.css"></link>
-    <link rel="stylesheet" href="https://npmcdn.com/font-awesome/css/font-awesome.min.css"></link>
-    <script src="https://npmcdn.com/primeui/primeui-all.min.js"></script>
 
-    <!-- 2. Configure SystemJS -->
-    
+    <link href="~/wwwroot/shared/css/css/dashboard.css" rel="stylesheet">
+    <link href="~/wwwroot/shared/css/css/default.min.css" rel="stylesheet">
+    <link href="~/wwwroot/shared/css/css/layout.min.css" rel="stylesheet">
+    <link href="~/wwwroot/shared/css/css/plugins.min.css" rel="stylesheet">
+    <link href="~/wwwroot/shared/css/css/components.min.css" rel="stylesheet">
+    <link href="~/wwwroot/shared/css/css/datatables.bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/primeng.min.css"></link>
+    <link rel="stylesheet" href="~/Content/theme.css"></link>
+    <link rel="stylesheet" href="~/Content/primeui-ng-all.min.css"></link>
+    <link rel="stylesheet" href="~/Content/font-awesome.css"></link>
+    <script src="~/Content/primeui-ng-all.min.js"></script>
+  <!-- 2. Configure SystemJS -->
+
     <script src="~/systemjs.config.js"></script>
     <script>
         System.import('../Scripts/app/main').catch(function (err)
@@ -34,7 +36,7 @@
 
 </head>
 <body>
-    <div class="container body-content">
+    <div class="">
         @RenderBody()
     </div>
 

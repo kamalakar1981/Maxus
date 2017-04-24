@@ -18,13 +18,14 @@ namespace Maxis.Database
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public Nullable<System.DateTime> DateCreated { get; set; }
-        public Nullable<System.DateTime> DateModified { get; set; }
-        public long RoleId { get; set; }
         public string Mobile { get; set; }
         public string Department { get; set; }
         public string Title { get; set; }
         public string Status { get; set; }
+        public Nullable<System.DateTime> DateCreated { get; set; }
+        public Nullable<System.DateTime> DateModified { get; set; }
+        public long RoleId { get; set; }
+        public string PasswordHash { get; set; }
     
         public virtual ONNET_USERROLE ONNET_USERROLE { get; set; }
     }

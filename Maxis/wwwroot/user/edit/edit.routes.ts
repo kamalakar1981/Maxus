@@ -6,5 +6,4 @@ import { ListComponent } from './../list/list.component';
 export const editRoutes: Routes = [
    { path: 'edit', component: EditComponent, canActivate: [LoginGuard] },
    { path: 'edit/:userId', component: EditComponent },
-   { path: 'list/:userId', component: ListComponent },
 ]; 
