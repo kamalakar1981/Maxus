@@ -316,9 +316,6 @@
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\font.min.css" />
     <Content Include="Content\Images\avatar9.jpg" />
@@ -392,6 +389,7 @@
       <LastGenOutput>Maxis.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -401,20 +399,12 @@
     <Content Include="package.json" />
     <Content Include="wwwroot\NEtype\ne.component.css" />
     <Content Include="wwwroot\NEtype\ne.component.html" />
-    <Content Include="wwwroot\shared\css\css\.DS_Store" />
-    <Content Include="wwwroot\shared\css\css\bootstrap-theme.css" />
-    <Content Include="wwwroot\shared\css\css\bootstrap-theme.min.css" />
-    <Content Include="wwwroot\shared\css\css\bootstrap.css" />
-    <Content Include="wwwroot\shared\css\css\bootstrap.min.css" />
     <Content Include="wwwroot\shared\css\css\components.min.css" />
     <Content Include="wwwroot\shared\css\css\dashboard.css" />
     <Content Include="wwwroot\shared\css\css\datatables.bootstrap.css" />
     <Content Include="wwwroot\shared\css\css\default.min.css" />
     <Content Include="wwwroot\shared\css\css\layout.min.css" />
-    <Content Include="wwwroot\shared\css\css\login.min.css" />
     <Content Include="wwwroot\shared\css\css\plugins.min.css" />
-    <Content Include="wwwroot\shared\css\css\signin.css" />
-    <Content Include="wwwroot\shared\css\css\simple-line-icons.min.css" />
     <Content Include="wwwroot\user\edit\edit.component.css" />
     <Content Include="wwwroot\user\edit\edit.component.html" />
     <Content Include="wwwroot\user\list\list.component.css" />
@@ -430,9 +420,11 @@
     <Content Include="Database\Maxis.edmx.diagram">
       <DependentUpon>Maxis.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\fontawesome-webfont.ttf" />
-    <Content Include="Content\fontawesome-webfont.woff" />
-    <Content Include="Content\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -478,17 +470,12 @@
     <Content Include="wwwroot\map\map.component.css" />
     <Content Include="wwwroot\map\map.component.html" />
     <Content Include="wwwroot\tsconfig.json" />
-    <Content Include="wwwroot\shared\css\css\bootstrap-theme.css.map" />
-    <Content Include="wwwroot\shared\css\css\bootstrap-theme.min.css.map" />
-    <Content Include="wwwroot\shared\css\css\bootstrap.css.map" />
-    <Content Include="wwwroot\shared\css\css\bootstrap.min.css.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Export\" />
     <Folder Include="Views\Map\" />
     <Folder Include="Views\User\" />
-    <Folder Include="wwwroot\shared\directives\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -513,6 +500,7 @@
     <TypeScriptCompile Include="wwwroot\login\shared\login.guard.ts" />
     <TypeScriptCompile Include="wwwroot\logout\shared\logout.service.ts" />
     <TypeScriptCompile Include="wwwroot\NEtype\ne.component.ts" />
+    <TypeScriptCompile Include="wwwroot\shared\directives\error.service.ts" />
     <TypeScriptCompile Include="wwwroot\user\edit\edit.routes.ts" />
     <TypeScriptCompile Include="wwwroot\logout\logout.component.ts" />
     <TypeScriptCompile Include="wwwroot\logout\logout.routes.ts" />
