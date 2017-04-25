@@ -163,13 +163,13 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="DEV_OT_ID" Type="bigint" />
           <Property Name="THR_TEMPL_ID" Type="bigint" Nullable="false" />
           <Property Name="TRH_TEMPL_NAME" Type="varchar" MaxLength="200" />
-          <Property Name="TOTAL" Type="decimal" Precision="30" Scale="3" />
-          <Property Name="AVAIL" Type="decimal" Precision="30" Scale="3" />
-          <Property Name="USED" Type="decimal" Precision="30" Scale="3" />
+          <Property Name="TOTAL" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="AVAIL" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="USED" Type="decimal" Precision="38" Scale="3" />
           <Property Name="VALUE" Type="decimal" Precision="30" Scale="2" />
           <Property Name="OLD_VALUE" Type="decimal" Precision="30" Scale="2" />
-          <Property Name="PLANNED_TO_USE" Type="decimal" Precision="30" Scale="3" />
-          <Property Name="IS_DEV" Type="decimal" Precision="30" Scale="3" />
+          <Property Name="PLANNED_TO_USE" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="IS_DEV" Type="decimal" Precision="38" Scale="3" />
         </EntityType>
         <EntityType Name="ONNET_USER">
           <Key>
@@ -177,7 +177,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           </Key>
           <Property Name="UserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Mobile" Type="varchar" MaxLength="50" />
           <Property Name="Department" Type="varchar" MaxLength="50" />
@@ -186,6 +186,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="DateModified" Type="datetime" />
           <Property Name="RoleId" Type="bigint" Nullable="false" />
+          <Property Name="PasswordHash" Type="varchar" MaxLength="60" />
         </EntityType>
         <EntityType Name="ONNET_USERROLE">
           <Key>
@@ -429,7 +430,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           </Key>
           <Property Name="UserId" Type="Int64" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="DateModified" Type="DateTime" Precision="3" />
@@ -439,6 +440,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ONNET_USERROLE">
           <Key>
@@ -488,13 +490,13 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="DEV_OT_ID" Type="Int64" />
           <Property Name="THR_TEMPL_ID" Type="Int64" Nullable="false" />
           <Property Name="TRH_TEMPL_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="TOTAL" Type="Decimal" Precision="30" Scale="3" />
-          <Property Name="AVAIL" Type="Decimal" Precision="30" Scale="3" />
-          <Property Name="USED" Type="Decimal" Precision="30" Scale="3" />
+          <Property Name="TOTAL" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="AVAIL" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="USED" Type="Decimal" Precision="38" Scale="3" />
           <Property Name="VALUE" Type="Decimal" Precision="30" Scale="2" />
           <Property Name="OLD_VALUE" Type="Decimal" Precision="30" Scale="2" />
-          <Property Name="PLANNED_TO_USE" Type="Decimal" Precision="30" Scale="3" />
-          <Property Name="IS_DEV" Type="Decimal" Precision="30" Scale="3" />
+          <Property Name="PLANNED_TO_USE" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="IS_DEV" Type="Decimal" Precision="38" Scale="3" />
         </EntityType>
         <Association Name="FK_ONNET_SRCH_DL_ID_LIST_ONNET_SRCH_NE">
           <End Role="ONNET_SRCH_NE" Type="Self.ONNET_SRCH_NE" Multiplicity="1" />
@@ -713,6 +715,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <EntitySetMapping Name="ONNET_USER">
             <EntityTypeMapping TypeName="MAXISDEVModel.ONNET_USER">
               <MappingFragment StoreEntitySet="ONNET_USER">
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Department" ColumnName="Department" />

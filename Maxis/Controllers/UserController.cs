@@ -5,7 +5,6 @@ using Maxis.ViewModels;
 
 namespace Maxis.Controllers
 {
-    
     public class UserController : BaseController
     {
         private readonly IUserService _userService;

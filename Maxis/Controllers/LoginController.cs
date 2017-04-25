@@ -22,25 +22,15 @@ namespace Maxis.Controllers
             var ldap = bool.Parse(WebConfigurationManager.AppSettings["LDAPAuthentication"]);
             if (ldap)
             {
-                var userDetails = ValidateUser(loginModel, true);
-                if (userDetails != null)
-                {
-                    CreateToken(userDetails);
-                }
+                 var userDetails= UserDetails(loginModel);
                 return Json(userDetails, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                var userDetails = ValidateUser(loginModel,false);
-                if (userDetails != null)
-                {
-                    CreateToken(userDetails);
-                }
-
+                var userDetails = UserDetails(loginModel);
                 return Json(userDetails, JsonRequestBehavior.AllowGet);
             }
         }
-
         public void LogOff()
         {
             FormsAuthentication.SignOut();
@@ -63,10 +53,19 @@ namespace Maxis.Controllers
             var faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
             Response.Cookies.Add(faCookie);
         }
-
         private UserDetailsViewModel ValidateUser(LoginViewModel loginViewModel, bool ldap)
         {
             return _userService.CreateUser(loginViewModel, ldap);
+        }
+
+        public JsonResult UserDetails(LoginViewModel loginViewModel)
+        {
+            var userDetails = ValidateUser(loginViewModel, true);
+            if (userDetails != null)
+            {
+                CreateToken(userDetails);
+            }
+            return Json(userDetails, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using Maxis.ViewModels;
-
 namespace Maxis.CustomFilters
 {
     public class CustomAuthorizeAttribute : AuthorizeAttribute

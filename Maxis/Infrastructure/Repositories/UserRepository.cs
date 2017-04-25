@@ -5,6 +5,7 @@ using Maxis.Database;
 using Maxis.Infrastructure.Repositories.Abstract;
 using Maxis.ViewModels;
 using System.Security.Cryptography;
+using System.Web.Configuration;
 
 namespace Maxis.Infrastructure.Repositories
 {
@@ -78,7 +79,7 @@ namespace Maxis.Infrastructure.Repositories
                 {
                     var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == loginViewModel.Username);
                     if (user != null) return GetRoles(loginViewModel).FirstOrDefault();
-                    var salt = CreateSalt((int)Enum.CreateSalt.Size);
+                    var salt = CreateSalt(int.Parse(WebConfigurationManager.AppSettings["salt"]) );
                     var encyptval = Encrypt(loginViewModel.Password, salt);
                     var newuser = new ONNET_USER
                     {
