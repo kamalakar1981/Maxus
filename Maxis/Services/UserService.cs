@@ -16,7 +16,7 @@ namespace Maxis.Services
         {
             return _userRepository.UserList();
         }
-        public List<EditUserViewModel> GetUserById(long id)
+        public EditUserViewModel GetUserById(long id)
         {
             return _userRepository.UserById(id);
         }
@@ -24,14 +24,9 @@ namespace Maxis.Services
         {
             return _userRepository.Update(editUserModel);
         }
-        public List<UserDetailsViewModel> CreateUser(LoginViewModel loginViewModel)
+        public UserDetailsViewModel CreateUser(LoginViewModel loginViewModel, bool ldap)
         {
-            return _userRepository.ValidateUser(loginViewModel);
-        }
-
-        public UserDetailsViewModel GetDataByUser(string userName)
-        {
-            return _userRepository.GetDataByUser(userName);
+            return _userRepository.ValidateUser(loginViewModel, ldap);
         }
     }
 }

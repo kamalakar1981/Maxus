@@ -5,6 +5,7 @@ using System.Web.Script.Serialization;
 using System.Web.Security;
 using Maxis.ViewModels;
 using Maxis.Services.Abstract;
+using System.Web.Configuration;
 
 namespace Maxis.Controllers
 {
@@ -18,10 +19,27 @@ namespace Maxis.Controllers
 
         public JsonResult Login(LoginViewModel loginModel)
         {
-            ValidateUser(loginModel);
-            var userDetails = GetDataByUser(loginModel.Username);
-            CreateToken(userDetails);
-            return Json(userDetails, JsonRequestBehavior.AllowGet);
+            var ldap = bool.Parse(WebConfigurationManager.AppSettings["LDAPAuthentication"]);
+            if (ldap)
+            {
+                var userDetails = ValidateUser(loginModel, true);
+                if (userDetails != null)
+                {
+                    CreateToken(userDetails);
+                }
+
+                return Json(userDetails, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var userDetails = ValidateUser(loginModel, false);
+                if (userDetails != null)
+                {
+                    CreateToken(userDetails);
+                }
+
+                return Json(userDetails, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public void LogOff()
@@ -47,14 +65,9 @@ namespace Maxis.Controllers
             Response.Cookies.Add(faCookie);
         }
 
-        private void ValidateUser(LoginViewModel loginViewModel)
+        private UserDetailsViewModel ValidateUser(LoginViewModel loginViewModel, bool ldap)
         {
-             _userService.CreateUser(loginViewModel);
-        }
-
-        public UserDetailsViewModel GetDataByUser(string userName)
-        {
-            return _userService.GetDataByUser(userName);
+            return _userService.CreateUser(loginViewModel, ldap);
         }
     }
 }

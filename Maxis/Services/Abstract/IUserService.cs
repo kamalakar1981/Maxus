@@ -6,9 +6,8 @@ namespace Maxis.Services.Abstract
     public interface IUserService
     {
         List<EditUserViewModel> GetAllUsers();
-        List<EditUserViewModel> GetUserById(long id);
+        EditUserViewModel GetUserById(long id);
         bool EditUser(EditUserViewModel editUserViewModel);
-        List<UserDetailsViewModel> CreateUser(LoginViewModel loginViewModel);
-        UserDetailsViewModel GetDataByUser(string userName);
+        UserDetailsViewModel CreateUser(LoginViewModel loginViewModel, bool ldap);
     }
 }
