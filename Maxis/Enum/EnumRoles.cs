@@ -6,4 +6,9 @@
         Ldap,
         Normal
     }
+
+    public enum CreateSalt
+    {
+        Size = 16
+    }
 }

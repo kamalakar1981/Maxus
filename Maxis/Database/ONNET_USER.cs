@@ -14,6 +14,12 @@ namespace Maxis.Database
     
     public partial class ONNET_USER
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ONNET_USER()
+        {
+            this.ONNET_USERROLES = new HashSet<ONNET_USERROLES>();
+        }
+    
         public long UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
@@ -25,7 +31,10 @@ namespace Maxis.Database
         public string Department { get; set; }
         public string Title { get; set; }
         public string Status { get; set; }
+        public string PasswordHash { get; set; }
     
         public virtual ONNET_USERROLE ONNET_USERROLE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ONNET_USERROLES> ONNET_USERROLES { get; set; }
     }
 }

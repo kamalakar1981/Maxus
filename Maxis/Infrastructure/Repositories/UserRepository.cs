@@ -60,7 +60,7 @@ namespace Maxis.Infrastructure.Repositories
                                   Status = ep.Status,
                                   Roles = e.RoleName,
                                   RoleId = e.RoleId
-                              }).Single();
+                              }).FirstOrDefault();
 
                 return result;
             }
@@ -74,11 +74,11 @@ namespace Maxis.Infrastructure.Repositories
         {
             try
             {
-                if (ldap == true)
+                if (ldap)
                 {
                     var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == loginViewModel.Username);
                     if (user != null) return GetRoles(loginViewModel).FirstOrDefault();
-                    var salt = CreateSalt(16);
+                    var salt = CreateSalt((int)Enum.CreateSalt.Size);
                     var encyptval = Encrypt(loginViewModel.Password, salt);
                     var newuser = new ONNET_USER
                     {
@@ -91,7 +91,7 @@ namespace Maxis.Infrastructure.Repositories
                     _db.ONNET_USER.Add(newuser);
                     _db.SaveChanges();
 
-                    return GetRoles(loginViewModel).FirstOrDefault();
+                   return GetRoles(loginViewModel).FirstOrDefault();
                 }
                 else
                 {
@@ -164,7 +164,7 @@ namespace Maxis.Infrastructure.Repositories
                        select new UserDetailsViewModel()
                        {
                            Username = ep.Username,
-                           Roles = e.RoleName
+                           Roles = e.RoleName,
                        };
             return role;
         }
@@ -178,13 +178,9 @@ namespace Maxis.Infrastructure.Repositories
         }
         public string GetSalt(string username)
         {
-            var salt = (from ep in _db.ONNET_USER
-                        where ep.Username == username
-                        select new LoginViewModel()
-                        {
-                            Password = ep.Password
-                        }).Single();
-            return salt.Password;
+            var salt = from ep in _db.ONNET_USER   
+            select ep.Password;   
+            return salt.FirstOrDefault();
         }
     }
 }

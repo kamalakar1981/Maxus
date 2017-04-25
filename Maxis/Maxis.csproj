@@ -282,6 +282,9 @@
     <Compile Include="Database\ONNET_USERROLE.cs">
       <DependentUpon>Maxis.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\ONNET_USERROLES.cs">
+      <DependentUpon>Maxis.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\CustomPrincipal.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

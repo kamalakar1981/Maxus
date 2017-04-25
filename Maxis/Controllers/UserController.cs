@@ -5,6 +5,7 @@ using Maxis.ViewModels;
 
 namespace Maxis.Controllers
 {
+    
     public class UserController : BaseController
     {
         private readonly IUserService _userService;
@@ -12,7 +13,7 @@ namespace Maxis.Controllers
         {
             _userService = userService;
         }
-        // GET: USER/UsersList
+        // GET: USER/UsersList 
         [CustomAuthorize]
         public JsonResult UsersList()
         {

@@ -27,12 +27,11 @@ namespace Maxis.Controllers
                 {
                     CreateToken(userDetails);
                 }
-
                 return Json(userDetails, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                var userDetails = ValidateUser(loginModel, false);
+                var userDetails = ValidateUser(loginModel,false);
                 if (userDetails != null)
                 {
                     CreateToken(userDetails);
