@@ -20,16 +20,8 @@ namespace Maxis.Controllers
         public JsonResult Login(LoginViewModel loginModel)
         {
             var ldap = bool.Parse(WebConfigurationManager.AppSettings["LDAPAuthentication"]);
-            if (ldap)
-            {
-                 var userDetails= UserDetails(loginModel);
-                return Json(userDetails, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                var userDetails = UserDetails(loginModel);
-                return Json(userDetails, JsonRequestBehavior.AllowGet);
-            }
+            var userDetails = ldap? LdapUserDetails(loginModel): UserDetails(loginModel);
+            return Json(userDetails, JsonRequestBehavior.AllowGet);
         }
         public void LogOff()
         {
@@ -58,9 +50,19 @@ namespace Maxis.Controllers
             return _userService.CreateUser(loginViewModel, ldap);
         }
 
-        public JsonResult UserDetails(LoginViewModel loginViewModel)
+        public JsonResult LdapUserDetails(LoginViewModel loginViewModel)
         {
             var userDetails = ValidateUser(loginViewModel, true);
+            if (userDetails != null)
+            {
+                CreateToken(userDetails);
+            }
+            return Json(userDetails, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UserDetails(LoginViewModel loginViewModel)
+        {
+            var userDetails = ValidateUser(loginViewModel, false);
             if (userDetails != null)
             {
                 CreateToken(userDetails);

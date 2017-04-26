@@ -337,8 +337,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="package.json" />
-    <Content Include="wwwroot\NEtype\ne.component.css" />
-    <Content Include="wwwroot\NEtype\ne.component.html" />
     <Content Include="wwwroot\user\edit\edit.component.css" />
     <Content Include="wwwroot\user\edit\edit.component.html" />
     <Content Include="wwwroot\user\list\list.component.css" />
@@ -429,7 +427,6 @@
     <TypeScriptCompile Include="wwwroot\home\shared\home.service.ts" />
     <TypeScriptCompile Include="wwwroot\login\shared\login.guard.ts" />
     <TypeScriptCompile Include="wwwroot\logout\shared\logout.service.ts" />
-    <TypeScriptCompile Include="wwwroot\NEtype\ne.component.ts" />
     <TypeScriptCompile Include="wwwroot\user\edit\edit.routes.ts" />
     <TypeScriptCompile Include="wwwroot\logout\logout.component.ts" />
     <TypeScriptCompile Include="wwwroot\logout\logout.routes.ts" />
