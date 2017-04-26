@@ -112,7 +112,7 @@ label {
     height: 34px;
     line-height: 1.1em;
     position: fixed;
-    margin-top: 0px;
+    margin-top: 52px;
     left: 0;
     -moz-transition: all 200ms ease-in;
     -webkit-transition: all 200ms ease-in;
@@ -209,8 +209,13 @@ input[type="checkbox"]:checked ~ section {
     margin-left: -58px;
     width: 100%;
 }
+.ne-button {
+    float: right;
+    margin-right: 22px;
+    color: cadetblue;
+}
 .search-fix {
-    margin-top: 51px !important;
+    margin-top: 0px !important;
 }
 .nestyle {
     width: 30px;
@@ -222,7 +227,7 @@ input[type="checkbox"]:checked ~ section {
     margin: 0;
     left: 10px;
     z-index: 1001;
-    margin-top: 197px;
+    margin-top: 248px;
 }
 .dropdown {
     position: absolute;
@@ -282,4 +287,8 @@ section {
 }
 .newidth {
     width: 30px;
+}
+#dropdown-button {
+    margin-top: -10px !important;
+    border: 0px !important;
 }

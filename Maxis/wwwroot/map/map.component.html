@@ -1,7 +1,7 @@
-﻿<div class="navbar navbar-inverse navbar-fixed-top nav-color">
+﻿<div class="navbar navbar-inverse navbar-fixed-top nav-color" style="background-color:white;">
     <div class="container">
         <div class="navbar-header">
-            <img src="/Content/Images/OnNet_Logo_V1.jpg" class="onnetlogo" />
+            <img src="/Content/Images/Logo.png" class="onnetlogo" />
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -12,23 +12,25 @@
         <div class="navbar-collapse collapse">
             <div class="nav navbar-right">
                 <div class="dropdown" dropdown [dropdownToggle]="true" (onOpen)="doSomeActionOnOpen()" (onClose)="doSomeActionOnClose()">
-                    <button class="btn btn-default" dropdown-open>
-                        <span class="username username-hide-mobile"></span>
+                    <button class="btn btn-default " dropdown-open id="dropdown-button">
+                        <img alt="" class="img-circle" src="/Content/Images/avatar9.jpg">
 
-                        <span class="glyphicon glyphicon-align-justify"></span>
+                        <span class="username username-hide-mobile">Alex</span>
+
                     </button>
                     <ul class="dropdown-menu">
                         <li class="glyphicon glyphicon-user"><a class="user-dropdown" routerLink="/list">Userlist</a></li>
-                        <li class="glyphicon glyphicon-map-marker"><a class="user-dropdown">Map config</a></li>
-                        <li class="glyphicon glyphicon-log-out"><a class="user-dropdown" routerLink="/login">logout</a></li>
+                        <br />
+                        <li class="glyphicon glyphicon-log-out"><a class="user-dropdown" routerLink="/login">Logout</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <input type="checkbox" id="navigation" class="navigation" />
-<label for="navigation" class="search-fix"><span class="glyphicon glyphicon-align-justify  "></span></label>
+<label for="navigation" >+</label>
 <nav>
     <form [formGroup]="form" id="pannelForm" class="map-form">
         <div id="pannel">
@@ -53,15 +55,15 @@
                 <div class="distance-div">
                     <div class="label-lrd">LRD</div>
                     <ng-select [options]="markerTypes"
-                               [multiple]="multiple1" formControlName="selectMultiple" placeholder="Select LRD's" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onLRDSelected($event)" (deselected)="onLRDSelected($event)"
+                               [multiple]="multiple1" formControlName="selectMultiple" placeholder="Select LRD's" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onLRDSelected($event)" (deselected)="onLRDSelected($event)" [disabled]="!onSingleSelected2"
                                class="dropdown-header">
                     </ng-select>
                 </div>
-                <br/>
-                <button (click)="addtable($event)">Show NE Table</button>
+                <br />
+                <button class="ne-button" (click)="addtable($event)">Show NE Table</button>
                 <br />
                 <div class="distance-div">
-                   <br />
+                    <br />
                     <div class="building-dropdown">Building</div>
                     <ng-select [options]="buildingNames" [multiple]="multiple1" formControlName="selectSingle" placeholder="Select Buildings" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onBuildingSelected($event)" (deselected)="onBuildingSelected($event)"
                                class="dropdown-header">
@@ -73,10 +75,6 @@
             <div class="nav-top">
                 <div class="distance-div">
                     <div class="label-lrd">Cable</div>
-                    <!--<input id="chkCable"
-                           type="checkbox"
-                           [checked]="displayValue"
-                           (click)="setDisplayValue($event.target.checked)">-->
                     <ng-select [options]="cableTypes"
                                [multiple]="multiple1" formControlName="selectSingle1" placeholder="Select Cables" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onCableSelected($event)" (deselected)="onCableSelected($event)"
                                class="dropdown-header">
@@ -97,7 +95,7 @@
 <div class="map-search">
     <div class="search">
         <div class="search-bar">
-            <div class="inner-addon right-addon search-addon" >
+            <div class="inner-addon right-addon search-addon">
                 <i class="glyphicon glyphicon-search"></i>
                 <input placeholder="search for location" autocorrect="on" autocapitalize="off" spellcheck="true" type="text" name="searchControl" #search class="form-control mapping search-fix " id="search">
             </div>
@@ -107,8 +105,8 @@
         <div *ngFor="let m of markers;">
             <sebm-google-map-marker *ngFor="let p of m.points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="'../../Content/Images/dot-inside-a-circle.png'" (dragEnd)="markerDragEnd(p, $event)">
                 <sebm-google-map-info-window>
-                    <strong>cablename{{p.label}}</strong><br/>
-                    <strong><button (click)="onStructSelected(p, m.CableId)">show structure</button></strong>
+                    <strong>Cablename:{{p.label}}</strong><br /><br />
+                    <strong><button class="ne-button" (click)="onStructSelected(p, m.CableId)">show structure</button></strong>
                 </sebm-google-map-info-window>
             </sebm-google-map-marker>
 
@@ -121,9 +119,9 @@
 
         <sebm-google-map-marker *ngFor="let p of buildings" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon">
             <sebm-google-map-info-window>
-                <strong>Building Name: {{p.label}}</strong><br/>
-                <strong><button (click)="onBuildconnectivity(p)">show connectivity</button></strong>
-         <br />
+                <strong>Building Name: {{p.label}}</strong><br /><br />
+                <strong><button class="ne-button" (click)="onBuildconnectivity(p)">show connectivity</button></strong>
+                <br />
             </sebm-google-map-info-window>
         </sebm-google-map-marker>
         <sebm-google-map-marker *ngFor="let p of structs" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon">
