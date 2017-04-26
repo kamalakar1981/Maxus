@@ -6,9 +6,8 @@ namespace Maxis.Infrastructure.Repositories.Abstract
     public interface IUserRepository
     {
         List<EditUserViewModel> UserList();
-        List<EditUserViewModel> UserById(long id);
-        List<UserDetailsViewModel> ValidateUser(LoginViewModel loginViewModel);
+        EditUserViewModel UserById(long id);
+        UserDetailsViewModel ValidateUser(LoginViewModel loginViewModel, bool ldap);
         bool Update(EditUserViewModel editUserViewModel);
-        UserDetailsViewModel GetDataByUser(string userName);
     }
 }

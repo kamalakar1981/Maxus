@@ -5,6 +5,7 @@ using Maxis.CustomFilters;
 namespace Maxis.Controllers
 {
     [ExceptionHandler]
+    [CustomAuthorize]
     public class BaseController : Controller
     {
         protected new virtual CustomPrincipal User

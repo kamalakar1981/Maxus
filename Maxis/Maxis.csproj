@@ -227,6 +227,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="CustomFilters\CutomAuthorizeAttribute.cs" />
     <Compile Include="CustomFilters\ExceptionHandlerAttribute.cs" />
     <Compile Include="Database\EXCEPTIONLOG.cs">
       <DependentUpon>Maxis.tt</DependentUpon>
