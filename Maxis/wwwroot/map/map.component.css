@@ -292,3 +292,7 @@ section {
     margin-top: -10px !important;
     border: 0px !important;
 }
+
+.navbar-top {
+    background-color: white;
+}
