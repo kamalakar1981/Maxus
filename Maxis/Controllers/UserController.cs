@@ -13,7 +13,6 @@ namespace Maxis.Controllers
             _userService = userService;
         }
         // GET: USER/UsersList 
-        [CustomAuthorize]
         public JsonResult UsersList()
         {
             return Json(_userService.GetAllUsers(), JsonRequestBehavior.AllowGet);
