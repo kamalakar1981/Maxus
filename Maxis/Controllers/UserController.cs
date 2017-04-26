@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Maxis.CustomFilters;
 using Maxis.Services.Abstract;
 using Maxis.ViewModels;
 
@@ -11,7 +12,7 @@ namespace Maxis.Controllers
         {
             _userService = userService;
         }
-        // GET: USER/UsersList
+        // GET: USER/UsersList 
         public JsonResult UsersList()
         {
             return Json(_userService.GetAllUsers(), JsonRequestBehavior.AllowGet);

@@ -25,6 +25,7 @@ namespace Maxis.Database
         public string Department { get; set; }
         public string Title { get; set; }
         public string Status { get; set; }
+        public string PasswordHash { get; set; }
     
         public virtual ONNET_USERROLE ONNET_USERROLE { get; set; }
     }
