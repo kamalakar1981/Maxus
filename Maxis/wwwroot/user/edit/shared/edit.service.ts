@@ -3,28 +3,30 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/observable';
 import { Userlist } from './../../list/shared/list.interface';
-
+import { ErrorService } from './../../../shared/directives/error.service';
 @Injectable()
 export class EditService {
-    private baseUrl = 'api/products';
+    private baseUrl = 'User/Edit';
+    private url = 'User/UpdateUser';
 
-    constructor(private _http: Http) { }
+    constructor(private _http: Http,
+        private _errorService: ErrorService) { }
 
     private extractData(res: Response) {
         let body = res.json();
-        return body.data || {};
+        return body || {};
     }
 
     private handleError(error: any) {
         console.error('post error:', error);
         return Observable.throw(error.json().error || 'Server error');
-    } 
+    }
 
-    getEditList(id: number): Observable<Userlist> {
-        const url = `${this.baseUrl}/${id}`;
+    getEditList(UserId: number): Observable<Userlist> {
+        const url = `${this.baseUrl}/${UserId}`;
         return this._http.get(url)
             .map(this.extractData)
-            .do(data => console.log('getEditList: ' + JSON.stringify(data)))
+            .do(data => console.log('getEditList: ' + data))
             .catch(this.handleError);
     }
 
@@ -36,11 +38,11 @@ export class EditService {
     }
 
     private updateList(ulist: Userlist, options: RequestOptions): Observable<Userlist> {
-        const url = `${this.baseUrl}/${ulist.userId}`;
-        return this._http.put(url, ulist, options)
+        const url = `${this.url}`;
+        return this._http.post(url, ulist, options)
             .map(() => ulist)
-            .do(data => console.log('updateList: ' + JSON.stringify(data)))
-            .catch(this.handleError);
+            .do(data => console.log('updateList: ' + data))
+            .catch(this._errorService.handelError);
     }
 }
 
