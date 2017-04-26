@@ -5,5 +5,5 @@
     templateUrl: 'wwwroot/app.component.html'
 })
 export class AppComponent {
-  
+
 }

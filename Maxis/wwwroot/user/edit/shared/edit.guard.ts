@@ -5,8 +5,7 @@ import { EditComponent } from './../../edit/edit.component';
 @Injectable()
 export class UserDetailGuard implements CanActivate {
 
-    constructor(private _router: Router) {
-    }
+    constructor(private _router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
         let id = +route.url[1].path;
@@ -25,8 +24,8 @@ export class UserDetailGuard implements CanActivate {
 export class UserEditGuard implements CanDeactivate<EditComponent> {
 
     canDeactivate(component: EditComponent): boolean {
-        if (component.editform.dirty) {
-            let userName = component.editform.get('userName').value || 'New Product';
+        if (component.editForm.dirty) {
+            let userName = component.editForm.get('userName').value || 'New Product';
             return confirm(`Navigate away and lose all changes to ${userName}?`);
         }
         return true;

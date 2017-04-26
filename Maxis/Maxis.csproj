@@ -318,6 +318,68 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\font.min.css" />
+    <Content Include="Content\Images\avatar9.jpg" />
+    <Content Include="Content\Images\dot-inside-a-circle.png" />
+    <Content Include="Content\Images\ethernet_16.png" />
+    <Content Include="Content\Images\ethernet_24.png" />
+    <Content Include="Content\Images\ethernet_32.png" />
+    <Content Include="Content\Images\fiber_cable_16.png" />
+    <Content Include="Content\Images\flats-16-black.png" />
+    <Content Include="Content\Images\flats-16-blue.png" />
+    <Content Include="Content\Images\flats-16-red.png" />
+    <Content Include="Content\Images\flats-16-voilate.png" />
+    <Content Include="Content\Images\flats-24-black.png" />
+    <Content Include="Content\Images\flats-24-blue.png" />
+    <Content Include="Content\Images\flats-24-red.png" />
+    <Content Include="Content\Images\flats-24-voilate.png" />
+    <Content Include="Content\Images\flats-32-black.png" />
+    <Content Include="Content\Images\flats-32-blue.png" />
+    <Content Include="Content\Images\flats-32-red.png" />
+    <Content Include="Content\Images\flats-32-voilate.png" />
+    <Content Include="Content\Images\handdhold_24.png" />
+    <Content Include="Content\Images\handhold_16.png" />
+    <Content Include="Content\Images\handhold_32.png" />
+    <Content Include="Content\Images\home.png" />
+    <Content Include="Content\Images\Logo.png" />
+    <Content Include="Content\Images\Logo_Login.png" />
+    <Content Include="Content\Images\manhole_16.png" />
+    <Content Include="Content\Images\manhole_24.png" />
+    <Content Include="Content\Images\manhole_32.png" />
+    <Content Include="Content\Images\OnNet_Logo_V1.jpg" />
+    <Content Include="Content\Images\placeholder-16-black.png" />
+    <Content Include="Content\Images\placeholder-16-blue.png" />
+    <Content Include="Content\Images\placeholder-16-red.png" />
+    <Content Include="Content\Images\placeholder-16-voilate.png" />
+    <Content Include="Content\Images\placeholder-24-black.png" />
+    <Content Include="Content\Images\placeholder-24-blue.png" />
+    <Content Include="Content\Images\placeholder-24-red.png" />
+    <Content Include="Content\Images\placeholder-24-voilate.png" />
+    <Content Include="Content\Images\placeholder-32-black.png" />
+    <Content Include="Content\Images\placeholder-32-blue.png" />
+    <Content Include="Content\Images\placeholder-32-red.png" />
+    <Content Include="Content\Images\placeholder-32-voilate.png" />
+    <Content Include="Content\Images\pole_16.png" />
+    <Content Include="Content\Images\pole_24.png" />
+    <Content Include="Content\Images\pole_32.png" />
+    <Content Include="Content\Images\satellite-dish-16-blue.png" />
+    <Content Include="Content\Images\satellite-dish-16-green.png" />
+    <Content Include="Content\Images\satellite-dish-16-red.png" />
+    <Content Include="Content\Images\satellite-dish-24-blue.png" />
+    <Content Include="Content\Images\satellite-dish-24-green.png" />
+    <Content Include="Content\Images\satellite-dish-24-red.png" />
+    <Content Include="Content\Images\satellite-dish-32-blue.png" />
+    <Content Include="Content\Images\satellite-dish-32-green.png" />
+    <Content Include="Content\Images\satellite-dish-32-red.png" />
+    <Content Include="Content\Images\site_location_16.png" />
+    <Content Include="Content\Images\site_location_red.png" />
+    <Content Include="Content\Images\world-web.png" />
+    <Content Include="Content\Images\_junction_box.png" />
+    <Content Include="Content\primeng.min.css" />
+    <Content Include="Content\primeui-ng-all.min.css" />
+    <Content Include="Content\primeui-ng-all.min.js" />
+    <Content Include="Content\theme.css" />
     <Content Include="Database\Maxis.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Maxis.edmx</DependentUpon>
@@ -329,6 +391,7 @@
       <LastGenOutput>Maxis.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -336,6 +399,14 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="package.json" />
+    <Content Include="wwwroot\NEtype\ne.component.css" />
+    <Content Include="wwwroot\NEtype\ne.component.html" />
+    <Content Include="wwwroot\shared\css\css\components.min.css" />
+    <Content Include="wwwroot\shared\css\css\dashboard.css" />
+    <Content Include="wwwroot\shared\css\css\datatables.bootstrap.css" />
+    <Content Include="wwwroot\shared\css\css\default.min.css" />
+    <Content Include="wwwroot\shared\css\css\layout.min.css" />
+    <Content Include="wwwroot\shared\css\css\plugins.min.css" />
     <Content Include="wwwroot\user\edit\edit.component.css" />
     <Content Include="wwwroot\user\edit\edit.component.html" />
     <Content Include="wwwroot\user\list\list.component.css" />
@@ -351,6 +422,11 @@
     <Content Include="Database\Maxis.edmx.diagram">
       <DependentUpon>Maxis.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -402,7 +478,6 @@
     <Folder Include="Views\Export\" />
     <Folder Include="Views\Map\" />
     <Folder Include="Views\User\" />
-    <Folder Include="wwwroot\shared\directives\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -426,6 +501,8 @@
     <TypeScriptCompile Include="wwwroot\home\shared\home.service.ts" />
     <TypeScriptCompile Include="wwwroot\login\shared\login.guard.ts" />
     <TypeScriptCompile Include="wwwroot\logout\shared\logout.service.ts" />
+    <TypeScriptCompile Include="wwwroot\NEtype\ne.component.ts" />
+    <TypeScriptCompile Include="wwwroot\shared\directives\error.service.ts" />
     <TypeScriptCompile Include="wwwroot\user\edit\edit.routes.ts" />
     <TypeScriptCompile Include="wwwroot\logout\logout.component.ts" />
     <TypeScriptCompile Include="wwwroot\logout\logout.routes.ts" />

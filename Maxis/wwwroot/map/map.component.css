@@ -210,7 +210,7 @@ input[type="checkbox"]:checked ~ section {
     width: 100%;
 }
 .search-fix {
-    margin-top: 7px !important;
+    margin-top: 51px !important;
 }
 .nestyle {
     width: 30px;
