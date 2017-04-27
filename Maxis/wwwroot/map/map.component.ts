@@ -190,7 +190,7 @@ export class MapComponent implements OnInit {
                 icon: "../../Content/Images/placeholder-24-black.png",
                 points: []
             };
-            if (cableID[0] == "selectAll" || (cableID == cableVal[v].value || cableID.indexOf(cableVal[v].value) > -1)) {
+            if (cableID[0] == "SelectAll" || (cableID == cableVal[v].value || cableID.indexOf(cableVal[v].value) > -1)) {
                 cableList.label = cableVal[v].label;
                 cableList.type = "Aerial";
                 cableList.color = "skyblue";
@@ -376,13 +376,14 @@ export class MapComponent implements OnInit {
                     var neList = {
                         label: "",
                         value: "",
-                        role: ""
+                        role: "",
+                        target: " "
                     };
 
                     neList.label = value[v].NetworkElementName;
                     neList.value = value[v].NetworkElementType;
                     neList.role = value[v].Role;
-
+                    neList.target = value[v].Target;
                     neArr.push(neList);
                 }
                 this.neNameData = neArr;
@@ -469,21 +470,19 @@ export class MapComponent implements OnInit {
                 icon: "../../Content/Images/flats-24-blue.png",
                 points: []
             };
-            if (this.buildingNames[0].label == "selectAll" || (this.buildingNames == this.buildings[v].value || this.buildingNames.indexOf(this.buildings[v].value) > -1)) {
+           // if (this.buildingNames[0].label == "SelectAll" || this.buildingNames.indexOf(this.buildings[v].value) > -1) {
 
                 buildingList.label = this.buildings[v].label;
                 buildingList.value = this.buildings[v].value;
                 buildingList.lrd = this.buildings[v].lrd;
                 buildingList.type = "Building";
                 buildingList.icon = "../../Content/Images/flats-24-blue.png";
-                if (!this.buildings[v].value)
-                    this._data[v] = '';
                 var pt = this._data[v];
                 buildingList.lng = parseFloat(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')))
                 buildingList.lat = parseFloat(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')))
 
                 this.buildings.push(buildingList);
-          }
+          
         }
       }
 
@@ -561,13 +560,13 @@ export class MapComponent implements OnInit {
         this._mapService.getLRD(item)
             .subscribe((value) => {
                 var neArr = [];
-                var selectAll = {
-                    label: 'selectAll',
-                    value: 'selectAll'
+                var SelectAll = {
+                    label: 'SelectAll',
+                    value: 'SelectAll'
 
                 }
 
-                neArr.push(selectAll);
+                neArr.push(SelectAll);
 
                 var neList = {
                     label: "",
@@ -603,7 +602,7 @@ export class MapComponent implements OnInit {
             .subscribe((value) => {
                 var neArr = [];
                 var selectAll = {
-                    label: 'selectAll',
+                    label: 'SelectAll',
                     value: '',
                     lrd:''
 
@@ -630,8 +629,8 @@ export class MapComponent implements OnInit {
             .subscribe((value) => {
                 var cableArr = [];
                 var selectAll = {
-                    label: 'selectAll',
-                    value: 'selectAll'
+                    label: 'SelectAll',
+                    value: 'SelectAll'
 
                 }
 

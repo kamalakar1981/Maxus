@@ -11,7 +11,12 @@ namespace Maxis.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly MaxisEntities _db = new MaxisEntities();
+        private readonly IMaxisEntities _db;
+
+        public UserRepository(IMaxisEntities maxisDbContext)
+        {
+            _db = maxisDbContext;
+        }
 
         public List<EditUserViewModel> UserList()
         {
@@ -77,6 +82,7 @@ namespace Maxis.Infrastructure.Repositories
             {
                 if (ldap)
                 {
+                    
                     var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == loginViewModel.Username);
                     if (user != null) return GetRoles(loginViewModel).FirstOrDefault();
                     var salt = CreateSalt(int.Parse(WebConfigurationManager.AppSettings["salt"]) );
@@ -104,11 +110,17 @@ namespace Maxis.Infrastructure.Repositories
                         var verifyUser =
                             _db.ONNET_USER.FirstOrDefault(
                                 u => u.Username == loginViewModel.Username && u.PasswordHash == hashedPassword);
-                        return verifyUser != null ? GetRoles(loginViewModel).FirstOrDefault() : null;
+                        return verifyUser != null ? GetRoles(loginViewModel).FirstOrDefault() : new UserDetailsViewModel
+                            {
+                                ErrorStatus = "Password mismatch"
+                            };
                     }
                     else
                     {
-                        return null;
+                        return new UserDetailsViewModel
+                        {
+                            ErrorStatus = "User not found"
+                        };
                     }
                 }
             }
@@ -179,7 +191,8 @@ namespace Maxis.Infrastructure.Repositories
         }
         public string GetSalt(string username)
         {
-            var salt = from ep in _db.ONNET_USER   
+            var salt = from ep in _db.ONNET_USER
+                       where ep.Username == username   
             select ep.Password;   
             return salt.FirstOrDefault();
         }

@@ -91,8 +91,6 @@ export class MapService {
     }
 
     private handleError(error: Response) {
-        console.error(error);
-        alert("error");
         return Observable.throw(error.json().error || 'Server error');
     }
 }

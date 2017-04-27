@@ -10,5 +10,6 @@
         public string Title { get; set; }
         public string Status { get; set; }
         public string Roles { get; set; }
+        public string ErrorStatus { get; set; }
     }
 }

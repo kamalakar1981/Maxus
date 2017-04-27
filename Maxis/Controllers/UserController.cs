@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using Maxis.CustomFilters;
 using Maxis.Services.Abstract;
 using Maxis.ViewModels;
 
