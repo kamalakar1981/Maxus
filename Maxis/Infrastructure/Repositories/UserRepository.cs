@@ -179,7 +179,8 @@ namespace Maxis.Infrastructure.Repositories
         }
         public string GetSalt(string username)
         {
-            var salt = from ep in _db.ONNET_USER   
+            var salt = from ep in _db.ONNET_USER
+                       where ep.Username == username   
             select ep.Password;   
             return salt.FirstOrDefault();
         }
