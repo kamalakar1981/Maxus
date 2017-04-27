@@ -2,21 +2,25 @@
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/observable';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Routes } from '@angular/router';
 
 @Injectable()
 export class ErrorService {
+ 
 
-    constructor(private _router: Router) { }
+    constructor(public _router: Router) { }
 
-    public handelError(error: any) {
+    public handelError = (error: any) => {
         console.error('post error:', error);
         if (error.status == 403) {
             localStorage.removeItem('currentUser');
-            this._router.navigate(['/login']);
-        } 
-        return Observable.throw(error.statusText);
+            this._router.navigate(['login']);
+                
+        }
+        else {
+            return Observable.throw(error.statusText);
+        }
     }
-
 }
 

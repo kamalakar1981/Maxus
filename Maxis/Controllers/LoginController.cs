@@ -42,7 +42,7 @@ namespace Maxis.Controllers
                      1,
                      userModel.Username,
                      DateTime.Now,
-                     DateTime.Now.AddMinutes(15),
+                     DateTime.Now.AddMinutes(1),
                      false,
                      userData);
 

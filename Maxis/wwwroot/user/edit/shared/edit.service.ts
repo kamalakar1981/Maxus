@@ -27,7 +27,7 @@ export class EditService {
         return this._http.get(url)
             .map(this.extractData)
             .do(data => console.log('getEditList: ' + data))
-            .catch(this.handleError);
+            .catch(this._errorService.handelError);
     }
 
     saveProduct(ulist: Userlist): Observable<Userlist> {
