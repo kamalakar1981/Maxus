@@ -9,7 +9,7 @@ import { MapService } from './../map/shared/map.service';
 
 })
 
-export class NEComponent  {
+export class NEComponent {
     @Input() sourcedata: any;
     @Input() thresh: any;
     title: string;
@@ -18,13 +18,13 @@ export class NEComponent  {
     private _threshdataval;
     serverData: any[];
 
-   
+
     constructor(private _mapService: MapService) {
         this._sourcedataMck = this.sourcedata;
         this._threshholdMck = this.thresh;
     }
 
-    
+
     updateModel() {
         this._sourcedataMck = this.sourcedata;
     }
@@ -33,7 +33,7 @@ export class NEComponent  {
         this._mapService.getThreshold(capacity)
             .subscribe((NEName) => {
                 this._threshdataval = NEName;
-        });
+            });
     }
 
 }

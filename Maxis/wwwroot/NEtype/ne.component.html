@@ -1,22 +1,23 @@
 ﻿<div class="neheader">
-    <div class="netable">
-        NE Table
-    </div>
     <div class="table-scrollable">
-        <table class="table table-striped" [hidden]="!sourcedata || sourcedata.length < 1" id="color">
+        
+        <table class="table tab" [hidden]="!sourcedata || sourcedata.length < 1" id="color">
+            <thead class="netable">NE Table</thead><br/>
             <thead>
                 <tr>
                     <th>NE Name</th>
                     <th>NE Type</th>
                     <th>NE Roles</th>
+                    <th>NE Target</th>
 
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let user of sourcedata">
-                    <td (click)="updatethresh(user.label)">{{ user.label }}</td>
+                    <td><a (click)="updatethresh(user.label)" style="color:black">{{ user.label }}</a></td>
                     <td>{{ user.value }}</td>
                     <td>{{ user.role }}</td>
+                    <td>{{user.target}}</td>
                 </tr>
             </tbody>
         </table>
@@ -27,10 +28,10 @@
 <br />
 <div class="nehead">
 
-    <div class="netable">Threshhold Table</div>
     <br />
     <div class="table-scrollable">
-        <table class="table table-striped" id="color">
+        <table class="table table-striped" [hidden]="!_threshdataval || _threshdataval.length < 1" id="color">
+            <thead class="netable">Threshold Table</thead><br/>
             <thead>
                 <tr>
                     <th>Name</th>
@@ -46,7 +47,7 @@
                     <td>{{ user.ThresholdTemplateName }}</td>
                     <td>{{ user.Total }}</td>
                     <td>{{ user.Available }}</td>
-                     <td>{{ user.Used }}</td>
+                    <td>{{ user.Used }}</td>
                     <td>{{ user.Value }}</td>
                 </tr>
             </tbody>
