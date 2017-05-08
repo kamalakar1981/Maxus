@@ -1,7 +1,10 @@
 ﻿.login {
-    background-color: #364150 !important;
-    padding-top: 10%;
-    padding-bottom: 100%;
+    background-color: #5ca2f8;
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
 }
 
     .login .logo {
@@ -17,18 +20,19 @@
         -ms-border-radius: 7px;
         -o-border-radius: 7px;
         border-radius: 7px;
-        width: 400px;
-        margin: 80px auto 10px;
+        width: 340px;
+        margin: 12% auto;
         padding: 10px 30px 30px;
         overflow: hidden;
         position: relative;
+        -webkit-box-shadow: 0 0 8px 0 #666;
+        box-shadow: 0 0 8px 0 #666;
     }
 
         .login .content h3 {
             color: #4db3a5;
             text-align: center;
-            font-size: 28px;
-            font-weight: 400 !important;
+            font-size: 24px;
         }
 
         .login .content h4 {
@@ -90,10 +94,8 @@
         .login .content .form-actions {
             clear: both;
             border: 0;
-            border-bottom: 1px solid #eee;
-            padding: 25px 30px;
-            margin-left: -30px;
-            margin-right: -30px;
+            margin-top:30px;
+            padding-left:95px;
         }
 
             .login .content .form-actions > .btn {

@@ -14,8 +14,8 @@ export class AuthenticationService {
         let body = res.json();
         if (body && body.Username) {
             // store user details and token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', body.Username);
-            localStorage.setItem('userrole', body.Roles);
+            sessionStorage.setItem('currentUser', body.Username);
+            sessionStorage.setItem('userrole', body.Roles);
         }
         return body || {};
     }

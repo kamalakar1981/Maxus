@@ -13,10 +13,8 @@
             <div class="nav navbar-right">
                 <div class="dropdown" dropdown [dropdownToggle]="true" (onOpen)="doSomeActionOnOpen()" (onClose)="doSomeActionOnClose()">
                     <button class="btn btn-default " dropdown-open id="dropdown-button">
-                        <img alt="" class="img-circle" src="/Content/Images/avatar9.jpg">
-
-                        <span class="username username-hide-mobile"></span>
-
+                        <div class="glyphicon glyphicon-user">&nbsp;{{user}}</div> &nbsp;
+                        <span class="glyphicon glyphicon-align-justify"></span>
                     </button>
                     <ul class="dropdown-menu">
                         <li class="glyphicon glyphicon-user"><a class="user-dropdown" routerLink="/list">Userlist</a></li>
@@ -30,7 +28,7 @@
 </div>
 
 <input type="checkbox" id="navigation" class="navigation" />
-<label for="navigation" >+</label>
+<label for="navigation">+</label>
 <nav>
     <form [formGroup]="form" id="pannelForm" class="map-form">
         <div id="pannel">
@@ -60,7 +58,7 @@
                     </ng-select>
                 </div>
                 <br />
-                <button class="ne-button" (click)="addtable($event)">Show NE Table</button>
+                <button class="ne-button btn btn-primary btn-sm" (click)="addtable($event)">Show NE Table</button>
                 <br />
                 <div class="distance-div">
                     <br />
@@ -105,7 +103,7 @@
         <div *ngFor="let m of markers;">
             <sebm-google-map-marker *ngFor="let p of m.points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="'../../Content/Images/dot-inside-a-circle.png'" (dragEnd)="markerDragEnd(p, $event)">
                 <sebm-google-map-info-window>
-                    <strong>Cablename:{{p.label}}</strong><br /><br />
+                    <strong>Cablename:<br>{{p.label}}</strong><br /><br />
                     <strong><button class="ne-button" (click)="onStructSelected(p, m.CableId)">show structure</button></strong>
                 </sebm-google-map-info-window>
             </sebm-google-map-marker>
