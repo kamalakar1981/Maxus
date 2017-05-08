@@ -8,9 +8,9 @@ export class LoginGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         let adminPage = ['list', 'edit'];
-        if (localStorage.getItem('currentUser')) {
+        if (sessionStorage.getItem('currentUser')) {
             // logged in so return true
-            if (adminPage.indexOf(route.url[0].path.toString()) > -1 && localStorage.getItem('userrole') == "ADMIN") {
+            if (adminPage.indexOf(route.url[0].path.toString()) > -1 && sessionStorage.getItem('userrole') == "ADMIN") {
                 return true;
             } else if (adminPage.indexOf(route.url[0].path.toString()) == -1) {
                 return true;

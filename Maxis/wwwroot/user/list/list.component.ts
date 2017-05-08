@@ -14,7 +14,7 @@ export class ListComponent implements OnInit {
     year = new Date().getFullYear();
     userlists: Userlist[];
     errorMessage: string;
-
+    public user = sessionStorage.getItem('currentUser');
     constructor(private _listService: ListService,
         private _router: Router) { }
 

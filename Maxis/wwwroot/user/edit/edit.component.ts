@@ -6,6 +6,7 @@ import { EditService } from './shared/edit.service';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControlName } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { DropdownModule } from "ngx-dropdown";
 
 @Component({
     selector: 'edit',
@@ -19,7 +20,7 @@ export class EditComponent implements OnInit, OnDestroy {
     private sub: Subscription;
     public editForm: FormGroup;
     year = new Date().getFullYear();
-
+    public user = sessionStorage.getItem('currentUser');
     constructor(private _editservice: EditService,
         private _formbuilder: FormBuilder,
         private _router: Router,
