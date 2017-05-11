@@ -12,6 +12,6 @@ export class LogoutService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        return this._http.post('/login/logoff', {}, options);
+        return this._http.post('/Login/Logoff', {}, options);
     }
 }
