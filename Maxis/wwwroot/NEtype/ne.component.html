@@ -1,14 +1,20 @@
 ﻿<div class="neheader">
     <div class="table-scrollable">
-        
-        <table class="table tab" [hidden]="!sourcedata || sourcedata.length < 1" id="color">
-            <thead class="netable">NE Table</thead><br/>
+
+        <table class="table tab table-striped table-bordered" [hidden]="!sourcedata || sourcedata.length < 1" id="color">
             <thead>
                 <tr>
-                    <th>NE Name</th>
-                    <th>NE Type</th>
-                    <th>NE Roles</th>
-                    <th>NE Target</th>
+                    <th class="netable" colspan="4">
+                        NE Table
+                    </th>
+                </tr>
+            </thead>
+            <thead>
+                <tr class="row-head-color">
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Roles</th>
+                    <th>Target</th>
 
                 </tr>
             </thead>
@@ -27,13 +33,17 @@
 </div>
 <br />
 <div class="nehead">
-
-    <br />
     <div class="table-scrollable">
-        <table class="table table-striped" [hidden]="!_threshdataval || _threshdataval.length < 1" id="color">
-            <thead class="netable">Threshold Table</thead><br/>
+        <table class="table table-striped table-bordered" [hidden]="!_threshdataval || _threshdataval.length < 1" id="color">
             <thead>
                 <tr>
+                    <th class="netable" colspan="4">
+                        Capacity
+                    </th>
+                </tr>
+            </thead>
+            <thead>
+                <tr class="row-head-color">
                     <th>Name</th>
                     <th>Total</th>
                     <th>Available</th>

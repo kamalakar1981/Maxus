@@ -4,7 +4,7 @@ import { ListService } from './shared/list.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { DataTableModule, SharedModule, InputTextModule, PaginatorModule } from 'primeng/primeng';
-
+import { DropdownModule } from "ngx-dropdown";
 @Component({
     selector: 'list',
     templateUrl: 'wwwroot/user/list/list.component.html',
@@ -14,7 +14,7 @@ export class ListComponent implements OnInit {
     year = new Date().getFullYear();
     userlists: Userlist[];
     errorMessage: string;
-
+    public user = sessionStorage.getItem('currentUser');
     constructor(private _listService: ListService,
         private _router: Router) { }
 

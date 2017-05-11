@@ -1,4 +1,3 @@
-
 import { Component, NgModule, OnInit, ViewChild, NgZone, ElementRef } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { MapsAPILoader } from "angular2-google-maps/core";
@@ -25,7 +24,8 @@ declare var google: any;
 export class MapComponent implements OnInit {
     errorMessage: string;
     //public maps: Map[];
-   public neNameData;
+    public neNameData;
+    public user = sessionStorage.getItem('currentUser');
     private _data;
     selectedMap: any;
 
@@ -54,7 +54,7 @@ export class MapComponent implements OnInit {
         this.form.addControl("searchControl", new FormControl(""));
         this.form.addControl("selectedDistance", new FormControl(""));
 
-       this.zoom = 6;
+        this.zoom = 6;
         this.lat = 4.210484;
         this.lng = 101.97576600000002;
 
@@ -106,15 +106,15 @@ export class MapComponent implements OnInit {
     public latitude: number;
     public longitude: number;
 
-    styles : any[] = [
+    styles: any[] = [
 
-            {
-                featureType: "poi",
-                stylers: [
-                    { visibility: "off" }
-                ]
-            }
-];
+        {
+            featureType: "poi",
+            stylers: [
+                { visibility: "off" }
+            ]
+        }
+    ];
 
     lat: number = 3.15104206724095;
     lng: number = 101.663805603203;
@@ -173,9 +173,9 @@ export class MapComponent implements OnInit {
         ];
     };
 
-   
 
-   
+
+
     getCables(cableID): ICable[] {
 
         var cableVal = this.cableTypes;
@@ -190,7 +190,8 @@ export class MapComponent implements OnInit {
                 icon: "../../Content/Images/placeholder-24-black.png",
                 points: []
             };
-            if (cableID[0] == "SelectAll" || (cableID == cableVal[v].value || cableID.indexOf(cableVal[v].value) > -1)) {
+            if (cableID[0] == "Select All" || (cableID == cableVal[v].value || cableID.indexOf(cableVal[v].value) > -1)) {
+                //  this.zoom = 3F00;
                 cableList.label = cableVal[v].label;
                 cableList.type = "Aerial";
                 cableList.color = "skyblue";
@@ -198,17 +199,18 @@ export class MapComponent implements OnInit {
                 cableList.CableId = cableVal[v].value;
                 cableList.icon = "../../Content/Images/placeholder-24-black.png";
                 //need for reference for select
-               if (!cableVal[v].Geodata)
+                if (!cableVal[v].Geodata)
                     cableVal[v].Geodata = '';
-               
+
                 var currGeoData = cableVal[v].Geodata.replace("LINESTRING (", "").replace(")", "").split(", ");
                 var gArr = [];
                 for (let v in currGeoData) {
-                    var gData = { lng: 0, lat: 0, label: "" };
+                    var gData = { lng: 0, lat: 0, label: "" ,lab:""};
 
                     gData.lng = parseFloat(currGeoData[v].split(" ")[0]);
                     gData.lat = parseFloat(currGeoData[v].split(" ")[1]);
                     gData.label = cableList.label + gData.lng + "_" + gData.lat;
+                    gData.lab = cableList.label;
                     gArr.push(gData);
                 }
                 cableList.points = gArr;
@@ -310,7 +312,7 @@ export class MapComponent implements OnInit {
 
     onSingleSelected(item: any) {
         this._logSingle("- selected (value: " + item.value + ", label:" + item.label + ")");
-        }
+    }
 
     onSingleDeselected(item: any) {
         this._logSingle("- deselected (value: " + item.value + ", label:" + item.label + ")");
@@ -326,7 +328,7 @@ export class MapComponent implements OnInit {
     //markers: IMarker[];
     onLRDSelected(item: any) {
         this._logMultiple("- selected (value: " + item.value + ", label:" + item.label + " ,role:" + item.role + ")");
-       
+
         var neArr = [];
         var neList = {
             label: "",
@@ -365,7 +367,7 @@ export class MapComponent implements OnInit {
 
             var lrdArray = (this.form.value["selectMultiple"][v].LrdName + ",") + lrdArray;
         }
-        
+
 
 
         this._mapService.getNEtypes(lrdArray)
@@ -417,7 +419,7 @@ export class MapComponent implements OnInit {
                     structList.value = value[v].StructureId;
                     structList.type = value[v].StructureOtName;
                     if (structList.type == "Manhole") {
-                        structList.icon = "../../Content/Images/manhole_16.png";
+                        structList.icon = "../../Content/Images/shower-circular-holes-for-water.png";
                     } else if (structList.type == "Site Location") {
                         structList.icon = "../../Content/Images/world-web.png";
                     }
@@ -470,75 +472,75 @@ export class MapComponent implements OnInit {
                 icon: "../../Content/Images/flats-24-blue.png",
                 points: []
             };
-           // if (this.buildingNames[0].label == "SelectAll" || this.buildingNames.indexOf(this.buildings[v].value) > -1) {
+            // if (this.buildingNames[0].label == "Select All" || this.buildingNames.indexOf(this.buildings[v].value) > -1) {
 
-                buildingList.label = this.buildings[v].label;
-                buildingList.value = this.buildings[v].value;
-                buildingList.lrd = this.buildings[v].lrd;
-                buildingList.type = "Building";
-                buildingList.icon = "../../Content/Images/flats-24-blue.png";
-                var pt = this._data[v];
-                buildingList.lng = parseFloat(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')))
-                buildingList.lat = parseFloat(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')))
+            buildingList.label = this.buildings[v].label;
+            buildingList.value = this.buildings[v].value;
+            buildingList.lrd = this.buildings[v].lrd;
+            buildingList.type = "Building";
+            buildingList.icon = "../../Content/Images/flats-24-blue.png";
+            var pt = this._data[v];
+            buildingList.lng = parseFloat(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')))
+            buildingList.lat = parseFloat(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')))
 
-                this.buildings.push(buildingList);
-          
+            this.buildings.push(buildingList);
+
         }
-      }
+    }
 
 
     onBuildconnectivity(item: any) {
-         var cableArr = [];
+        var cableArr = [];
         var LRD = this.form.value["selectMultiple"];
         var newBuilding = [];
 
-            for (let v in LRD) {
-                    var cableList = {
-                        CableId: "",
-                        label: "",
-                        type: "Aerial",
-                        color: "Navy",
-                        icon: "../../Content/Images/placeholder-24-black.png",
-                        points: []
-                    };
-                    LRD[v].LrdName = this.buildings[v].lrd;
-                    if (LRD[v].LrdName == this.buildings[v].lrd) {
-                        cableList.CableId = this.buildings[v].value;
-                        cableList.label = this.buildings[v].label;
+        for (let v in LRD) {
+            var cableList = {
+                CableId: "",
+                label: "",
+                type: "Aerial",
+                color: "Navy",
+                icon: "../../Content/Images/placeholder-24-black.png",
+                points: []
+            };
+            LRD[v].LrdName = this.buildings[v].lrd;
+            if (LRD[v].LrdName == this.buildings[v].lrd) {
+                cableList.CableId = this.buildings[v].value;
+                cableList.label = this.buildings[v].label;
 
-                        cableList.type = "Building";
-                        cableList.icon = "../../Content/Images/flats-24-blue.png";
-                        
-                        var currGeoData = this.buildings[v].value.replace("POINT (", "").replace(")", "").split(", ");
-                        var gArr = [];
-                        for (let v in currGeoData) {
-                            var gData = { lng: 0, lat: 0, label: "" };
+                cableList.type = "Building";
+                cableList.icon = "../../Content/Images/flats-24-blue.png";
 
-                            gData.lng = parseFloat(currGeoData[v].split(" ")[0]);
-                            gData.lat = parseFloat(currGeoData[v].split(" ")[1]);
-                            gData.label = cableList.label + gData.lng + "_" + gData.lat;
-                            gArr.push(gData);
-                            gData = { lng: 0, lat: 0, label: "" };
-                            var currLRd = LRD[v].GeodataValue.replace("POINT (", "").replace(")", "").split(", ");
-                            gData.lng = parseFloat(currLRd[v].split(" ")[0]);
-                            gData.lat = parseFloat(currLRd[v].split(" ")[1]);
-                            gData.label = cableList.label + gData.lng + "_" + gData.lat;
-                            gArr.push(gData);
+                var currGeoData = this.buildings[v].value.replace("POINT (", "").replace(")", "").split(", ");
+                var gArr = [];
+                for (let v in currGeoData) {
+                    var gData = { lng: 0, lat: 0, label: "" };
 
-                        }
-
-
-                        cableList.points = gArr;
-                        newBuilding.push(cableList);
-                    }
+                    gData.lng = parseFloat(currGeoData[v].split(" ")[0]);
+                    gData.lat = parseFloat(currGeoData[v].split(" ")[1]);
+                    gData.label = cableList.label + gData.lng + "_" + gData.lat;
+                    gArr.push(gData);
+                    gData = { lng: 0, lat: 0, label: "" };
+                    var currLRd = LRD[v].GeodataValue.replace("POINT (", "").replace(")", "").split(", ");
+                    gData.lng = parseFloat(currLRd[v].split(" ")[0]);
+                    gData.lat = parseFloat(currLRd[v].split(" ")[1]);
+                    gData.label = cableList.label + gData.lng + "_" + gData.lat;
+                    gArr.push(gData);
 
                 }
-                this.buildLRD = newBuilding;
-                return this.buildLRD;
 
+
+                cableList.points = gArr;
+                newBuilding.push(cableList);
             }
 
-     onSingleOpened1() {
+        }
+        this.buildLRD = newBuilding;
+        return this.buildLRD;
+
+    }
+
+    onSingleOpened1() {
         this._logSingle("- opened");
     }
 
@@ -561,8 +563,8 @@ export class MapComponent implements OnInit {
             .subscribe((value) => {
                 var neArr = [];
                 var SelectAll = {
-                    label: 'SelectAll',
-                    value: 'SelectAll'
+                    label: 'Select All',
+                    value: 'Select All'
 
                 }
 
@@ -601,14 +603,14 @@ export class MapComponent implements OnInit {
         this._mapService.getBuilding(item)
             .subscribe((value) => {
                 var neArr = [];
-                var selectAll = {
-                    label: 'SelectAll',
+                var SelectAll = {
+                    label: 'Select All',
                     value: '',
-                    lrd:''
+                    lrd: ''
 
                 }
 
-                neArr.push(selectAll);
+                neArr.push(SelectAll);
                 for (let v in value) {
                     var neList = {
                         label: "",
@@ -623,18 +625,18 @@ export class MapComponent implements OnInit {
 
                 this.buildingNames = neArr;
             });
-        
+
 
         this._mapService.getCable(item)
             .subscribe((value) => {
                 var cableArr = [];
-                var selectAll = {
-                    label: 'SelectAll',
-                    value: 'SelectAll'
+                var SelectAll = {
+                    label: 'Select All',
+                    value: 'Select All'
 
                 }
 
-                cableArr.push(selectAll);
+                cableArr.push(SelectAll);
 
                 for (let v in value) {
                     var cableList = {
@@ -649,7 +651,7 @@ export class MapComponent implements OnInit {
                 }
                 this.cableTypes = cableArr;
             });
-        }
+    }
 
     onSingleDeselected2(item: any) {
         this._logSingle("- deselected (value: " + item.value + ", label:" + item.label + ")");
@@ -667,31 +669,31 @@ export class MapComponent implements OnInit {
     onMultipleClosed1() {
         this._logMultiple("- closed");
     }
-   
+
     onCableSelected(item: any) {
         this.markers = this.getCables(this.form.value["selectSingle1"]);
         var p = this.markers.filter(p => p.label === this.form.value["selectSingle1"])[0];
         this._logMultiple("- selected (value: " + item.value + ", label:" + item.label + ")");
-       }
+    }
 
     onMultipleDeselected1(item: any) {
         this._logMultiple("- deselected (value: " + item.value + ", label:" + item.label + ")");
     }
 
-    
+
     private _logSingle(msg: string) {
         this.logSingleString += msg + "\n";
-     }
+    }
 
     private _logMultiple(msg: string) {
         this.logMultipleString += msg + "\n";
-        }
+    }
 
     private _scrollToBottom(elem: any) {
         elem.scrollTop = elem.scrollHeight;
     }
 
-    
+
     private _setCurrentPosition() {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition((position) => {
@@ -704,6 +706,3 @@ export class MapComponent implements OnInit {
         }
     }
 }
-
-
-

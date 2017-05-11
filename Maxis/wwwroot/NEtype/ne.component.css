@@ -1,20 +1,30 @@
 ﻿.neheader{
-    width: 362px;
+    width: 330px;
     overflow-y: auto;
-    height:345px;
+    height:250px;
     }
 
 .netable {
     margin: 0;
-    font-weight: 800 ;
-    font-family: serif;
+    font-weight: bold ;
     text-align: center;
-    font-size: 125%;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#5cb85c;
+    color:#fff;
     }
 .nehead {
     overflow-y: auto;
     height:345px;
+    width: 330px;
    }
 #color{
-    background-color:paleturquoise;
+    background-color:aliceblue;
    }
+
+.row-head-color {
+    background: #3276b1;
+    color: #fff;
+}
+
+
+

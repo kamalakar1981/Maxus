@@ -319,6 +319,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\font.min.css" />
     <Content Include="Content\Images\avatar9.jpg" />
@@ -345,6 +346,7 @@
     <Content Include="Content\Images\home.png" />
     <Content Include="Content\Images\Logo.png" />
     <Content Include="Content\Images\Logo_Login.png" />
+    <Content Include="Content\Images\manhole.png" />
     <Content Include="Content\Images\manhole_16.png" />
     <Content Include="Content\Images\manhole_24.png" />
     <Content Include="Content\Images\manhole_32.png" />
@@ -373,6 +375,7 @@
     <Content Include="Content\Images\satellite-dish-32-blue.png" />
     <Content Include="Content\Images\satellite-dish-32-green.png" />
     <Content Include="Content\Images\satellite-dish-32-red.png" />
+    <Content Include="Content\Images\shower-circular-holes-for-water.png" />
     <Content Include="Content\Images\site_location_16.png" />
     <Content Include="Content\Images\site_location_red.png" />
     <Content Include="Content\Images\world-web.png" />

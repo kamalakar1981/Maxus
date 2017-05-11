@@ -12,7 +12,7 @@ export class LogoutComponent {
 
     logout() {
         this._logoutService.logout().subscribe(() => {
-            localStorage.removeItem('currentUser');
+            sessionStorage.removeItem('currentUser');
         })
     }
 }
