@@ -26,7 +26,9 @@ export class MapComponent implements OnInit {
     //public maps: Map[];
     public neNameData;
     public user = sessionStorage.getItem('currentUser');
+    public role = sessionStorage.getItem('userrole');
     private _data;
+    year = new Date().getFullYear();
     selectedMap: any;
 
     constructor(

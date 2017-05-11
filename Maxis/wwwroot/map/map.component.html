@@ -25,22 +25,17 @@
                                     <i class="fa fa-navicon"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-default dropdown-dark">
-                                    <li>
+                                    <li  [hidden]="role!='ADMIN'">
                                         <a href="#" routerLink="/list">
                                             <i class="fa fa-user"></i> Userlist
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" routerLink="/login">
-                                            <i class="fa fa-sign-out"></i> Log Out
-                                        </a>
+                                         <logout></logout>
                                     </li>
                                 </ul>
                             </div>
                             <!-- END TOP NAVIGATION MENU -->
-
-
-
                         </div>
                     </div>
                     <!-- END HEADER TOP -->
