@@ -3,7 +3,7 @@
     padding-bottom:0;
     position: absolute;
     top: 0;
-    z-index: 1;
+    z-index: 99999;
 }
 
 
@@ -79,7 +79,7 @@ nav {
     -webkit-transition: all 200ms ease-in;
     -o-transition: all 200ms ease-in;
     transition: all 200ms ease-in;
-    padding:55px 0 0 15px;
+    padding:120px 0 0 15px;
     font-family: Arial, Helvetica, sans-serif;
 }
 /* enable absolute positioning */
@@ -285,6 +285,14 @@ input[type="checkbox"]:checked ~ section {
     color: #FFF;
     padding: 30px;
 }
+.netable-icon {
+    margin-left: -28px;
+    display: inline-block;
+    text-align: center;
+    position:relative;
+    top:2px;
+}
+
 section {
     padding-top: 30px;
 }

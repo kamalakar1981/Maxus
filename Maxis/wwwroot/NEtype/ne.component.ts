@@ -17,7 +17,7 @@ export class NEComponent {
     private _threshholdMck;
     private _threshdataval;
     serverData: any[];
-
+    capacityName: any;
 
     constructor(private _mapService: MapService) {
         this._sourcedataMck = this.sourcedata;
@@ -29,6 +29,8 @@ export class NEComponent {
         this._sourcedataMck = this.sourcedata;
     }
     updatethresh(capacity) {
+        this.capacityName = capacity;
+
         this._threshholdMck = this.thresh;
         this._mapService.getThreshold(capacity)
             .subscribe((NEName) => {
