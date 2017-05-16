@@ -43,10 +43,7 @@
                 <!-- END HEADER -->
             </div>
         </div>
-        <div class="panel panel-default" style="position: fixed;
-    z-index: 1001;
-    margin-top: 74px;
-    width: 100%;">
+        <div class="panel panel-default menubar-head">
             <div class="bs-example">
                 <div class="list-group">
                     <ul class="list-inline">
@@ -184,13 +181,13 @@
                     </sebm-google-map-marker>
 
                 </div>
-                <sebm-google-map-marker *ngFor="let p of points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="p.icon" (dragEnd)="markerDragEnd(p, $event)">
+                <sebm-google-map-marker *ngFor="let p of points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="p.icon" [title]="p.label" (dragEnd)="markerDragEnd(p, $event)" [label]="p.label">
                     <sebm-google-map-info-window>
                         <strong>Lrd Name : {{p.label}}</strong>
                     </sebm-google-map-info-window>
                 </sebm-google-map-marker>
 
-                <sebm-google-map-marker *ngFor="let p of buildings" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon">
+                <sebm-google-map-marker *ngFor="let p of buildings" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon" [label]="p.label" [title]="p.label">
                     <sebm-google-map-info-window>
                         <strong>Building Name: {{p.label}}</strong><br /><br />
                         <strong><button class="ne-button" (click)="onBuildconnectivity(p)">show connectivity</button></strong>

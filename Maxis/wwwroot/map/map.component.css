@@ -21,6 +21,12 @@ sebm-google-map {
     height: 100%;
     width:100%;
 }
+.menubar-head{
+    position: fixed;
+    z-index: 1001;
+    margin-top: 74px;
+    width: 100%;
+}
 #form {
     top: 0;
     position: absolute;
