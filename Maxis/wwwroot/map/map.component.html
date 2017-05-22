@@ -43,13 +43,42 @@
                 <!-- END HEADER -->
             </div>
         </div>
+        <div class="panel panel-default menubar-head">
+            <div class="bs-example">
+                <div class="list-group">
+                    <ul class="list-inline">
+                        <img src="/Content/Images/satellite-dish-24-red.png" /><li>LRD&nbsp;</li>
+
+                        <img src="/Content/Images/flats-24-blue.png" /> <li>Building&nbsp;</li>
+                        <img src="/Content/Images/dot-inside-a-circle-8x8.png" /> <li>Cable&nbsp;</li>
+                        <img src="/Content/Images/target-with-four-holes.png" /> <li>Manhole&nbsp;</li>
+                        <img src="/Content/Images/pole_16.png" /><li>Pole&nbsp;</li>
+                        <img src="/Content/Images/world-web.png" /><li>Site Location&nbsp;</li>
+                        <img src="/Content/Images/home.png" /> <li>Customer Site Location&nbsp;</li>
+                        <img src="/Content/Images/handhold_16.png" /> <li>Handhold&nbsp;</li>
+                        <img src="/Content/Images/fiber_cable_16.png" /> <li>Fiber Cable&nbsp;</li>
+                        <img src="/Content/Images/junction-box-24x24.png" /><li>Junction Box&nbsp;</li>
+                    </ul>
+
+
+
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
         <div class="page-wrapper-row page-footer">
             <div class="page-wrapper-bottom">
                 <!-- BEGIN FOOTER -->
                 <!-- BEGIN INNER FOOTER -->
                 <div class="clearfix">
                     <div class="container">
-                        {{year}} © OnNet All Rights Reserved
+                        {{year}} © Maxis OnNet All Rights Reserved
                     </div>
                 </div>
                 <!-- END INNER FOOTER -->
@@ -83,7 +112,7 @@
                     <div>
                         <div class="distance-div">
                             <br />
-                            <div class="building-dropdown">Building</div>
+                            <div class="building-dropdown">OnNet Building</div>
                             <ng-select [options]="buildingNames" [multiple]="multiple1" formControlName="selectSingle" placeholder="Select Buildings" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onBuildingSelected($event)" (deselected)="onBuildingSelected($event)"
                                        class="dropdown-header">
                             </ng-select>
@@ -96,10 +125,12 @@
                                        [multiple]="multiple1" formControlName="selectMultiple" placeholder="Select LRD's" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onLRDSelected($event)" (deselected)="onLRDSelected($event)" [disabled]="!onSingleSelected2"
                                        class="dropdown-header">
                             </ng-select>
+                            <a title="Show NE Table" class="netable-icon" (click)="addtable($event)"><i class="fa fa-table"></i></a>
+
                         </div>
-                        <br />
+                        <!--<br />
                         <button class="ne-button btn btn-primary btn-sm" (click)="addtable($event)">Show NE Table</button>
-                        <br />
+                        <br />-->
                         <!--<div class="distance-div">
                             <br />
                             <div class="building-dropdown">Building</div>
@@ -150,13 +181,13 @@
                     </sebm-google-map-marker>
 
                 </div>
-                <sebm-google-map-marker *ngFor="let p of points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="p.icon" (dragEnd)="markerDragEnd(p, $event)">
+                <sebm-google-map-marker *ngFor="let p of points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="p.icon" [title]="p.label" (dragEnd)="markerDragEnd(p, $event)" [label]="p.label">
                     <sebm-google-map-info-window>
                         <strong>Lrd Name : {{p.label}}</strong>
                     </sebm-google-map-info-window>
                 </sebm-google-map-marker>
 
-                <sebm-google-map-marker *ngFor="let p of buildings" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon">
+                <sebm-google-map-marker *ngFor="let p of buildings" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon" [label]="p.label" [title]="p.label">
                     <sebm-google-map-info-window>
                         <strong>Building Name: {{p.label}}</strong><br /><br />
                         <strong><button class="ne-button" (click)="onBuildconnectivity(p)">show connectivity</button></strong>
