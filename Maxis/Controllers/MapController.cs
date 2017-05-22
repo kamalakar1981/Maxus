@@ -14,11 +14,22 @@ namespace Maxis.Controllers
             _mapService = mapService;
         }
 
+        /// <summary>
+        /// Load default values for the map components
+        /// </summary>
+        /// <param name="pointViewModel"></param>
+        /// <returns></returns>
+        public JsonResult DefaultValues(PointViewModel pointViewModel)
+        {
+            return Json(_mapService.GetDefaultValues(DbGeography.FromText(pointViewModel.SearchPoint)), JsonRequestBehavior.AllowGet);
+        }
+
+
         // GET: Map/LRD
         //show LRD 
-        public JsonResult LRD(PointViewModel pointViewModel)
+        public JsonResult LRD(string buildingId)
         {
-            return Json(_mapService.GetLrdValues(DbGeography.FromText(pointViewModel.SearchPoint), pointViewModel.Range), JsonRequestBehavior.AllowGet);
+            return Json(_mapService.GetLrdValues(buildingId), JsonRequestBehavior.AllowGet);
         }
 
 

@@ -558,10 +558,6 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
             <End Role="ONNET_USER" EntitySet="ONNET_USER" />
           </AssociationSet>
           <EntitySet Name="EXCEPTIONLOGs" EntityType="MAXISDEVModel.EXCEPTIONLOG" />
-          <AssociationSet Name="FK_EXCEPTIONLOG_EXCEPTIONLOG" Association="MAXISDEVModel.FK_EXCEPTIONLOG_EXCEPTIONLOG">
-            <End Role="EXCEPTIONLOG" EntitySet="EXCEPTIONLOGs" />
-            <End Role="EXCEPTIONLOG1" EntitySet="EXCEPTIONLOGs" />
-          </AssociationSet>
           <EntitySet Name="ONNET_SOURCE_TARGET" EntityType="MAXISDEVModel.ONNET_SOURCE_TARGET" />
           <AssociationSet Name="FK_ONNET_SOURCE_TARGET_ONNET_SRCH_NE" Association="MAXISDEVModel.FK_ONNET_SOURCE_TARGET_ONNET_SRCH_NE">
             <End Role="ONNET_SRCH_NE" EntitySet="ONNET_SRCH_NE" />
@@ -579,21 +575,7 @@ warning 6002: The table/view 'MAXISDEV.dbo.ONNET_SRCH_OSP_THRESHOLD' does not ha
           <Property Name="STACKTRACE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LOG_TIME" Type="DateTime" Precision="3" />
           <Property Name="USERNAME" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="EXCEPTIONLOG1" Relationship="MAXISDEVModel.FK_EXCEPTIONLOG_EXCEPTIONLOG" FromRole="EXCEPTIONLOG" ToRole="EXCEPTIONLOG1" />
-          <NavigationProperty Name="EXCEPTIONLOG2" Relationship="MAXISDEVModel.FK_EXCEPTIONLOG_EXCEPTIONLOG" FromRole="EXCEPTIONLOG1" ToRole="EXCEPTIONLOG" />
         </EntityType>
-        <Association Name="FK_EXCEPTIONLOG_EXCEPTIONLOG">
-          <End Type="MAXISDEVModel.EXCEPTIONLOG" Role="EXCEPTIONLOG" Multiplicity="1" />
-          <End Type="MAXISDEVModel.EXCEPTIONLOG" Role="EXCEPTIONLOG1" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="EXCEPTIONLOG">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="EXCEPTIONLOG1">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="ONNET_SOURCE_TARGET">
           <Key>
             <PropertyRef Name="NE_ID" />

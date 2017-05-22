@@ -83,7 +83,7 @@ body {
     float: left;
     display: block;
     width: 255px;
-    height: 75px
+    height: 75px;
 }
 .page-header .page-header-top .page-logo .logo-default {
     margin: 15.5px 0 0
@@ -1120,7 +1120,7 @@ html {
 .page-footer {
     font-size: 13px;
     font-weight: 300;
-    padding: 17px 0;
+    padding: 10px 0;
     /* position: absolute;
     left: 0;
     right: 0;

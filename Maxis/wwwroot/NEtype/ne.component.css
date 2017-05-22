@@ -1,5 +1,5 @@
 ﻿.neheader{
-    width: 330px;
+    width: 420px;
     overflow-y: auto;
     height:250px;
     }
@@ -15,7 +15,7 @@
 .nehead {
     overflow-y: auto;
     height:345px;
-    width: 330px;
+    width: 420px;
    }
 #color{
     background-color:aliceblue;
