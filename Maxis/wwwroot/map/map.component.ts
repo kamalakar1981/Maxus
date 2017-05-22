@@ -9,8 +9,6 @@ import { Router } from '@angular/router';
 import { DataTableModule, SharedModule } from 'primeng/primeng';
 import { DropdownModule } from "ngx-dropdown";
 import { NEComponent } from './../NEtype/ne.component';
-//import { ThreshComponent } from './../Threshold/thresh.component';
-//import { ThresholdComponent } from './../../Threshold/thresh.component';
 
 import { LogoutComponent } from './../logout/logout.component';
 import { SelectModule } from 'angular2-select';
@@ -71,6 +69,7 @@ export class MapComponent implements OnInit {
                 types: ["address"]
             });
             autocomplete.addListener("place_changed", () => {
+
                 this._ngZone.run(() => {
                     // get the place result
 
@@ -134,43 +133,43 @@ export class MapComponent implements OnInit {
         return [
             {
                 value: "10",
-                label: "within 10 km"
+                label: "10 km"
             },
             {
                 value: "20",
-                label: "within 20 km"
+                label: "20 km"
             },
             {
                 value: "30",
-                label: "within 30 km"
+                label: "30 km"
             },
             {
                 value: "40",
-                label: "within 40 km"
+                label: "40 km"
             },
             {
                 value: "50",
-                label: "within 50 km"
+                label: "50 km"
             },
             {
                 value: "60",
-                label: "within 60 km"
+                label: "60 km"
             },
             {
                 value: "70",
-                label: "within 70 km"
+                label: "70 km"
             },
             {
                 value: "80",
-                label: "within 80 km"
+                label: "80 km"
             },
             {
                 value: "90",
-                label: "within 90 km"
+                label: "90 km"
             },
             {
                 value: "100",
-                label: "within 100 km"
+                label: "100 km"
             }
         ];
     };
@@ -300,11 +299,7 @@ export class MapComponent implements OnInit {
 
     logSingleString: string = "";
     logMultipleString: string = "";
-
-
-
-
-    onSingleOpened() {
+   onSingleOpened() {
         this._logSingle("- opened");
     }
 
@@ -330,7 +325,7 @@ export class MapComponent implements OnInit {
     //markers: IMarker[];
     onLRDSelected(item: any) {
         this._logMultiple("- selected (value: " + item.value + ", label:" + item.label + " ,role:" + item.role + ")");
-
+       
         var neArr = [];
         var neList = {
             label: "",
@@ -361,6 +356,7 @@ export class MapComponent implements OnInit {
             neArr.push(neList);
         }
         this.points = neArr;
+        
     }
     addtable(item: any) {
         this._logMultiple("- selected (value: " + item.value + ", label:" + item.label + " ,role:" + item.role + ")");
@@ -422,23 +418,24 @@ export class MapComponent implements OnInit {
                     structList.type = value[v].StructureOtName;
                     if (structList.type == "Manhole") {
                         structList.icon = "../../Content/Images/shower-circular-holes-for-water.png";
-                    } else if (structList.type == "Site Location") {
-                        structList.icon = "../../Content/Images/world-web.png";
+                    }
+                    else if (structList.type == "Site Location") {
+                        structList.icon = "../../Content/Images/world-web_24-1.png";
                     }
                     else if (structList.type == "Fiber Cable") {
-                        structList.icon = "../../Content/Images/fiber_cable_16.png";
+                        structList.icon = "../../Content/Images/fiber_cable_24.png";
                     }
                     else if (structList.type == "Pole") {
-                        structList.icon = "../../Content/Images/pole_16.png";
+                        structList.icon = "../../Content/Images/pole_24.png";
                     }
                     else if (structList.type == "Handhole") {
-                        structList.icon = "../../Content/Images/handhold_16.png";
+                        structList.icon = "../../Content/Images/handhold_24.png";
                     }
                     else if (structList.type == "Junction Box") {
-                        structList.icon = "../../Content/Images/_junction_box.png";
+                        structList.icon = "../../Content/Images/junction-box-24x24.png";
                     }
                     else if (structList.type == "Customer Site Location") {
-                        structList.icon = "../../Content/Images/home.png";
+                        structList.icon = "../../Content/Images/home_24.png";
                     }
                     var pt = value[v].Geodata;
                     structList.lng = parseFloat(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')))
