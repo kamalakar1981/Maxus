@@ -19,7 +19,6 @@
         <AssociationConnector Association="MAXISDEVModel.FK__ONNET_SRC__NE_ID__24927208" ManuallyRouted="false" />
         <AssociationConnector Association="MAXISDEVModel.FK__ONNET_USE__RoleI__1920BF5C" ManuallyRouted="false" />
         <EntityTypeShape EntityType="MAXISDEVModel.EXCEPTIONLOG" Width="1.5" PointX="10.375" PointY="0.75" />
-        <AssociationConnector Association="MAXISDEVModel.FK_EXCEPTIONLOG_EXCEPTIONLOG" />
         <EntityTypeShape EntityType="MAXISDEVModel.ONNET_SOURCE_TARGET" Width="1.5" PointX="3" PointY="11.125" />
         <AssociationConnector Association="MAXISDEVModel.FK_ONNET_SOURCE_TARGET_ONNET_SRCH_NE" />
       </Diagram>

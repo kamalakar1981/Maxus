@@ -15,11 +15,14 @@ namespace Maxis.Services
         {
             _mapRepository = mapRepository;
         }
-        
-        
-        public List<LrdViewModel> GetLrdValues(DbGeography searchPoint, int range)
+        public DefaultRangeViewModel GetDefaultValues(DbGeography searchPoint)
         {
-            return _mapRepository.GetLrdValues(searchPoint, range);
+            return _mapRepository.GetDefaultValues(searchPoint);
+        }
+
+        public List<LrdViewModel> GetLrdValues(string buildingIds)
+        {
+            return _mapRepository.GetLrdValues(buildingIds);
         }
 
         public List<NeViewModel> GetNeNames(DbGeography searchPoint, int range, string lrd)

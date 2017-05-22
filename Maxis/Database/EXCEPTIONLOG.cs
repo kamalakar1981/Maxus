@@ -21,8 +21,5 @@ namespace Maxis.Database
         public string STACKTRACE { get; set; }
         public Nullable<System.DateTime> LOG_TIME { get; set; }
         public string USERNAME { get; set; }
-    
-        public virtual EXCEPTIONLOG EXCEPTIONLOG1 { get; set; }
-        public virtual EXCEPTIONLOG EXCEPTIONLOG2 { get; set; }
     }
 }
