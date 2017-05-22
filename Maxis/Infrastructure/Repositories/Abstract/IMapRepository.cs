@@ -5,9 +5,10 @@ using System.Data.Spatial;
 namespace Maxis.Infrastructure.Repositories.Abstract
 {
     public interface IMapRepository
-    {           
+    {
+        DefaultRangeViewModel GetDefaultValues(DbGeography searchPoint);
 
-        List<LrdViewModel> GetLrdValues(DbGeography searchPoint, int range);
+        List<LrdViewModel> GetLrdValues(string buildingIds);
 
         List<NeViewModel> GetNeNames(DbGeography searchPoint, int range, string lrd);
 

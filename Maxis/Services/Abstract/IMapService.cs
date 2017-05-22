@@ -6,7 +6,9 @@ namespace Maxis.Services.Abstract
 {
     public interface IMapService
     {
-        List<LrdViewModel> GetLrdValues(DbGeography searchPoint, int range);
+        DefaultRangeViewModel GetDefaultValues(DbGeography searchPoint);
+
+        List<LrdViewModel> GetLrdValues(string buildingIds);
 
         List<NeViewModel> GetNeNames(DbGeography searchPoint, int range, string lrd);
 
