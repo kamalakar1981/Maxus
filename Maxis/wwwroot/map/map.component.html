@@ -39,36 +39,37 @@
                         </div>
                     </div>
                     <!-- END HEADER TOP -->
+
+                    <div class="header-top-icons">
+                        <ul class="list-inline">
+                            <img src="/Content/Images/satellite-dish-24-red.png" />
+                            <li>LRD&nbsp;</li>
+
+                            <img src="/Content/Images/flats-24-blue.png" />
+                            <li>Building&nbsp;</li>
+                            <img src="/Content/Images/dot-inside-a-circle-8x8.png" />
+                            <li>Cable&nbsp;</li>
+                            <img src="/Content/Images/shower-circular-holes-for-water.png" />
+                            <li>Manhole&nbsp;</li>
+                            <img src="/Content/Images/pole_24.png" />
+                            <li>Pole&nbsp;</li>
+                            <img src="/Content/Images/world-web_24-1.png" />
+                            <li>Site Location&nbsp;</li>
+                            <img src="/Content/Images/home_24.png" />
+                            <li>Customer Site Location&nbsp;</li>
+                            <img src="/Content/Images/handdhold_24.png" />
+                            <li>Handhold&nbsp;</li>
+                            <img src="/Content/Images/fiber_cable_24.png" />
+                            <li>Fiber Cable&nbsp;</li>
+                            <img src="/Content/Images/junction-box-24x24.png" />
+                            <li>Junction Box&nbsp;</li>
+                        </ul>
+
+                    </div>
+
                                   </div>
                 <!-- END HEADER -->
             </div>
-        </div>
-        <div class="panel panel-default menubar-head">
-            <div class="bs-example">
-                <div class="list-group">
-                    <ul class="list-inline">
-                        <img src="/Content/Images/satellite-dish-24-red.png" /><li>LRD&nbsp;</li>
-
-                        <img src="/Content/Images/flats-24-blue.png" /> <li>Building&nbsp;</li>
-                        <img src="/Content/Images/dot-inside-a-circle-8x8.png" /> <li>Cable&nbsp;</li>
-                        <img src="/Content/Images/target-with-four-holes.png" /> <li>Manhole&nbsp;</li>
-                        <img src="/Content/Images/pole_16.png" /><li>Pole&nbsp;</li>
-                        <img src="/Content/Images/world-web.png" /><li>Site Location&nbsp;</li>
-                        <img src="/Content/Images/home.png" /> <li>Customer Site Location&nbsp;</li>
-                        <img src="/Content/Images/handhold_16.png" /> <li>Handhold&nbsp;</li>
-                        <img src="/Content/Images/fiber_cable_16.png" /> <li>Fiber Cable&nbsp;</li>
-                        <img src="/Content/Images/junction-box-24x24.png" /><li>Junction Box&nbsp;</li>
-                    </ul>
-
-
-
-
-
-
-                </div>
-
-            </div>
-
         </div>
 
 
@@ -105,7 +106,7 @@
                                        (closed)="onSingleClosed()"
                                        (selected)="onSingleSelected2($event)"
                                        (deselected)="onSingleSelected2($event)"
-                                       class="dropdown-header">
+                                       class="dropdown-header" >
                             </ng-select>
                         </div>
                     </div>
@@ -122,8 +123,8 @@
                         <div class="distance-div">
                             <div class="label-lrd">LRD</div>
                             <ng-select [options]="markerTypes"
-                                       [multiple]="multiple1" formControlName="selectMultiple" placeholder="Select LRD's" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onLRDSelected($event)" (deselected)="onLRDSelected($event)" [disabled]="!onSingleSelected2"
-                                       class="dropdown-header">
+                                       [multiple]="multiple1" formControlName="selectMultiple" placeholder="Select LRD's" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onLRDSelected($event)" (deselected)="onLRDSelected($event)"
+                                       class="dropdown-header" >
                             </ng-select>
                             <a title="Show NE Table" class="netable-icon" (click)="addtable($event)"><i class="fa fa-table"></i></a>
 
@@ -167,7 +168,7 @@
                 <div class="search-bar">
                     <div class="inner-addon right-addon search-addon">
                         <i class="glyphicon glyphicon-search"></i>
-                        <input placeholder="search for location" autocorrect="on" autocapitalize="off" spellcheck="true" type="text" name="searchControl" #search class="form-control mapping search-fix " id="search">
+                        <input placeholder="search for location" autocorrect="on" autocapitalize="off" spellcheck="true" type="text" name="searchControl" #search class="form-control mapping search-fix " id="search" autofocus>
                     </div>
                 </div>
             </div>
@@ -181,11 +182,14 @@
                     </sebm-google-map-marker>
 
                 </div>
-                <sebm-google-map-marker *ngFor="let p of points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="p.icon" [title]="p.label" (dragEnd)="markerDragEnd(p, $event)" [label]="p.label">
-                    <sebm-google-map-info-window>
-                        <strong>Lrd Name : {{p.label}}</strong>
-                    </sebm-google-map-info-window>
-                </sebm-google-map-marker>
+                <div class="label-pos">
+                    <sebm-google-map-marker *ngFor="let p of points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="p.icon" [title]="p.label" (dragEnd)="markerDragEnd(p, $event)" [label]="p.label">
+                        <sebm-google-map-info-window>
+                            <strong>Lrd Name : {{p.label}}</strong>
+                        </sebm-google-map-info-window>
+                    </sebm-google-map-marker>
+                </div>
+                
 
                 <sebm-google-map-marker *ngFor="let p of buildings" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon" [label]="p.label" [title]="p.label">
                     <sebm-google-map-info-window>

@@ -323,11 +323,13 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\font.min.css" />
     <Content Include="Content\Images\avatar9.jpg" />
+    <Content Include="Content\Images\dot-inside-a-circle-8x8.png" />
     <Content Include="Content\Images\dot-inside-a-circle.png" />
     <Content Include="Content\Images\ethernet_16.png" />
     <Content Include="Content\Images\ethernet_24.png" />
     <Content Include="Content\Images\ethernet_32.png" />
     <Content Include="Content\Images\fiber_cable_16.png" />
+    <Content Include="Content\Images\fiber_cable_24.png" />
     <Content Include="Content\Images\flats-16-black.png" />
     <Content Include="Content\Images\flats-16-blue.png" />
     <Content Include="Content\Images\flats-16-red.png" />
@@ -344,6 +346,8 @@
     <Content Include="Content\Images\handhold_16.png" />
     <Content Include="Content\Images\handhold_32.png" />
     <Content Include="Content\Images\home.png" />
+    <Content Include="Content\Images\home_24.png" />
+    <Content Include="Content\Images\junction-box-24x24.png" />
     <Content Include="Content\Images\Logo.png" />
     <Content Include="Content\Images\Logo_Login.png" />
     <Content Include="Content\Images\manhole.png" />
@@ -378,7 +382,10 @@
     <Content Include="Content\Images\shower-circular-holes-for-water.png" />
     <Content Include="Content\Images\site_location_16.png" />
     <Content Include="Content\Images\site_location_red.png" />
+    <Content Include="Content\Images\target-with-four-holes.png" />
     <Content Include="Content\Images\world-web.png" />
+    <Content Include="Content\Images\world-web_24-1.png" />
+    <Content Include="Content\Images\world-web_24.png" />
     <Content Include="Content\Images\_junction_box.png" />
     <Content Include="Content\primeng.min.css" />
     <Content Include="Content\primeui-ng-all.min.css" />
