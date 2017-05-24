@@ -23,7 +23,7 @@ namespace Maxis.Controllers
         }
         // PUT: USER/UpdateUser/
         [HttpPost]
-        public bool UpdateUser(EditUserViewModel editUserViewModel)
+        public  bool UpdateUser(EditUserViewModel editUserViewModel)
         {
             return _userService.EditUser(editUserViewModel);
         }

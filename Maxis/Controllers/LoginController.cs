@@ -43,13 +43,13 @@ namespace Maxis.Controllers
                      1,
                      userModel.Username,
                      DateTime.Now,
-                     DateTime.Now.AddMinutes(2),
+                     DateTime.Now.AddMinutes(20),
                      false,
                      userData);
 
             var encTicket = FormsAuthentication.Encrypt(authTicket);
             var faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
-            faCookie.Expires = authTicket.Expiration;
+            faCookie.Expires = authTicket.Expiration ;
             Response.Cookies.Add(faCookie);
         }
 
