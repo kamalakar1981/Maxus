@@ -11,9 +11,10 @@ import { DropdownModule } from "ngx-dropdown";
 import { NEComponent } from './../NEtype/ne.component';
 //import { ThreshComponent } from './../Threshold/thresh.component';
 //import { ThresholdComponent } from './../../Threshold/thresh.component';
-
 import { LogoutComponent } from './../logout/logout.component';
 import { SelectModule } from 'angular2-select';
+
+
 declare var google: any;
 @Component({
     selector: 'map',
@@ -22,7 +23,9 @@ declare var google: any;
 })
 
 export class MapComponent implements OnInit {
-    errorMessage: string;
+   
+    errorMsg: string;
+    mapInvalid = false;
     //public maps: Map[];
     public neNameData;
     public user = sessionStorage.getItem('currentUser');
@@ -31,6 +34,7 @@ export class MapComponent implements OnInit {
     year = new Date().getFullYear();
     selectedMap: any;
 
+   // public errorMsg: any;
     constructor(
         private _mapsAPILoader: MapsAPILoader,
         private _ngZone: NgZone,
@@ -47,7 +51,6 @@ export class MapComponent implements OnInit {
     foo: any[];
 
     ngOnInit() {
-
         this.form = new FormGroup({});
         this.form.addControl("selectSingle", new FormControl(""));
         this.form.addControl("selectMultiple", new FormControl(""));
@@ -93,6 +96,7 @@ export class MapComponent implements OnInit {
 
     }
 
+    
     onSelect(map: any) {
         this.selectedMap = map;
     }
@@ -372,7 +376,7 @@ export class MapComponent implements OnInit {
 
 
 
-        this._mapService.getNEtypes(lrdArray)
+       this._mapService.getNEtypes(lrdArray)
             .subscribe((value) => {
                 var neArr = [];
 
@@ -445,6 +449,11 @@ export class MapComponent implements OnInit {
                     structList.lat = parseFloat(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')))
                     this.structs.push(structList);
                 }
+            },
+            err => {
+                this.mapInvalid = true;
+                this.errorMsg = 'Something went wrong . please try again later !';
+                console.log(this.errorMsg);
             });
     }
 
@@ -600,7 +609,13 @@ export class MapComponent implements OnInit {
                     neArr.push(neList);
                 }
                 this.markerTypes = neArr;
-            });
+            },
+            err => {
+                this.mapInvalid = true;
+                this.errorMsg = 'Something went wrong . please try again later !';
+                console.log(this.errorMsg);
+            }
+        );
 
         this._mapService.getBuilding(item)
             .subscribe((value) => {

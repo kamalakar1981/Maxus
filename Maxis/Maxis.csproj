@@ -405,6 +405,7 @@
     <Content Include="package.json" />
     <Content Include="wwwroot\NEtype\ne.component.css" />
     <Content Include="wwwroot\NEtype\ne.component.html" />
+    <Content Include="wwwroot\shared\css\css\busy.css" />
     <Content Include="wwwroot\shared\css\css\components.min.css" />
     <Content Include="wwwroot\shared\css\css\dashboard.css" />
     <Content Include="wwwroot\shared\css\css\datatables.bootstrap.css" />

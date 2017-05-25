@@ -27,6 +27,8 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 import { DropdownModule } from "ngx-dropdown";
 import { MapService } from './map/shared/map.service';
 import { UiSwitchModule } from 'angular2-ui-switch';
+import { ErrorService } from './shared/directives/error.service';
+
 
 @NgModule({
     imports: [BrowserModule,
@@ -40,7 +42,7 @@ import { UiSwitchModule } from 'angular2-ui-switch';
         AgmCoreModule.forRoot({ apiKey: "AIzaSyBKcHWQkH8hS_Hn1vBGMAVUXRApKB17Xu8", libraries: ["places"] }),
         DropdownModule,
         UiSwitchModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
     declarations: [AppComponent,
         AboutComponent,
@@ -51,9 +53,9 @@ import { UiSwitchModule } from 'angular2-ui-switch';
         MapComponent,
         EditComponent,
         NEComponent,
-        ListComponent
+        ListComponent,
     ],
     bootstrap: [AppComponent],
-    providers: [HomeService, AuthenticationService, LoginGuard, EditService, ListService, LogoutService, MapService]
+    providers: [HomeService, AuthenticationService, LoginGuard, EditService, ListService, LogoutService, MapService, ErrorService]
 })
 export class AppModule { } 

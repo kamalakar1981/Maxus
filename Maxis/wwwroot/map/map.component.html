@@ -17,7 +17,12 @@
                             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
                             <!-- END RESPONSIVE MENU TOGGLER -->
                             <!-- BEGIN TOP NAVIGATION MENU -->
-
+                            <div *ngIf="mapInvalid" class="alert alert-info alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <strong>{{errorMsg}}!</strong>
+                            </div>
                             <div class="top-menu dropdown dropdown-user" dropdown [dropdownToggle]="true" (onOpen)="doSomeActionOnOpen()" (onClose)="doSomeActionOnClose()">
                                 <button class="btn btn-default " dropdown-open id="dropdown-button">
                                     <i class="fa fa-user"></i>
@@ -43,6 +48,7 @@
                 <!-- END HEADER -->
             </div>
         </div>
+        
         <div class="panel panel-default menubar-head">
             <div class="bs-example">
                 <div class="list-group">
@@ -71,7 +77,7 @@
 
         </div>
 
-
+       
         <div class="page-wrapper-row page-footer">
             <div class="page-wrapper-bottom">
                 <!-- BEGIN FOOTER -->
@@ -86,7 +92,7 @@
             </div>
         </div>
 
-
+       
         <input type="checkbox" id="navigation" class="navigation" />
         <label for="navigation">+</label>
         <nav>

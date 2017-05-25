@@ -15,6 +15,7 @@ import { DropdownModule } from "ngx-dropdown";
 })
 
 export class EditComponent implements OnInit, OnDestroy {
+
     errorMessage: string;
     ulist: any;
     private sub: Subscription;

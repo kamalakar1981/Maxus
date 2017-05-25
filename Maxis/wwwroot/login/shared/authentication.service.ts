@@ -4,11 +4,13 @@ import { LoginComponent } from './../../login/login.component';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/observable';
 import { IUser } from './login.interface';
+import { ErrorService } from './../../shared/directives/error.service';
 
 @Injectable()
 export class AuthenticationService {
 
-    constructor(private _http: Http) { }
+    constructor(private _http: Http,
+                private _errorService: ErrorService) { }
 
     private extractData(res: Response) {
         let body = res.json();
@@ -33,7 +35,7 @@ export class AuthenticationService {
 
         return this._http.post('Login/Login', body, options)
             .map(this.extractData)
-            .catch(this.handelError);
+            .catch(this._errorService.handelError);
     }
 }
 
