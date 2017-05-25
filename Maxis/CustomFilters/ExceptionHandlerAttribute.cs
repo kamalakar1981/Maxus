@@ -23,7 +23,14 @@ namespace Maxis.CustomFilters
 
                 };
                 _db.EXCEPTIONLOGs.Add(exceptionDetails);
-                _db.SaveChanges();
+                try
+                {
+                    _db.SaveChanges();
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
     }
