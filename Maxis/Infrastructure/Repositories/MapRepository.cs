@@ -17,29 +17,46 @@ namespace Maxis.Infrastructure.Repositories
         {
             _db = maxisDbContext;
         }
+
+        /// <summary>
+        /// Returns default values in the nearest range available as per the search coordinates.
+        /// </summary>
+        /// <param name="searchPoint">Search coordinates</param>
+        /// <returns></returns>
+        public DefaultRangeViewModel GetDefaultValues(DbGeography searchPoint)
+        {
+            int range;
+            List<BuildingViewModel> buildings = null;
+            List<CableViewModel> cables = null;
+            for (range = 10; range <= 100; range = range + 10)
+            {
+                buildings = GetBuildingDetails(searchPoint, range);
+                if (buildings.Count() > 0) break;
+            }
+            cables = GetCables(searchPoint, range);
+            return new DefaultRangeViewModel
+            {
+                Range = (range > 100) ? 100 : range ,
+                Buildings = buildings,
+                Cables = cables                
+            };
+        }
+
         /// <summary>
         /// Get LRD Details
         /// </summary>
-        /// <param name="searchPoint">Search coordinates</param>
+        /// <param name="buildingIds">Comma seperated building Ids</param>
         /// <param name="range">range</param>
-        /// <returns>LrdViewModel</returns>
-        public List<LrdViewModel> GetLrdValues(DbGeography searchPoint, int range)
+        /// <returns>LrdViewModel</returns>        
+        public List<LrdViewModel> GetLrdValues(string buildingIds)
         {
-
-            var parameterList = new List<SqlParameter>
-             {
-                 new SqlParameter("@Lat", searchPoint.Latitude),
-                 new SqlParameter("@Long", searchPoint.Longitude),
-                 new SqlParameter("@range", range)
-             };
-            var result = _db.Database.SqlQuery<ONNET_SRCH_NE>("dbo.GETLRDVALUES @Lat, @Long, @range", parameterList.ToArray());
+            var result = _db.Database.SqlQuery<ONNET_SRCH_NE>("dbo.GETLRDBYBUILDING @BUILDINGIDS", new SqlParameter("@BUILDINGIDS", buildingIds));
             return result.Select(m => new LrdViewModel { LrdName = m.LRD, GeodataValue = m.GEODATA.AsText() })
                  .GroupBy(m => m.LrdName)
                  .Select(m => m.First())
                  .OrderBy(m => m.LrdName)
                  .ToList();
         }
-
         /// <summary>
         /// Get Network Element details
         /// </summary>

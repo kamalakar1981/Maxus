@@ -23,7 +23,7 @@ namespace Maxis.Controllers
             var userDetails = ValidateUser(loginModel, ldap);
             if (userDetails != null)
                 {
-                    CreateToken(userDetails);
+                   CreateToken(userDetails);
                 }
             return Json(userDetails, JsonRequestBehavior.AllowGet);
         }
@@ -32,6 +32,7 @@ namespace Maxis.Controllers
         {
             FormsAuthentication.SignOut();
         }
+
         private void CreateToken(UserDetailsViewModel userModel)
         {
             var userData = new JavaScriptSerializer().Serialize(new UserModel
@@ -42,19 +43,19 @@ namespace Maxis.Controllers
                      1,
                      userModel.Username,
                      DateTime.Now,
-                     DateTime.Now.AddMinutes(15),
+                     DateTime.Now.AddMinutes(20),
                      false,
                      userData);
 
             var encTicket = FormsAuthentication.Encrypt(authTicket);
             var faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+            faCookie.Expires = authTicket.Expiration ;
             Response.Cookies.Add(faCookie);
         }
+
         private UserDetailsViewModel ValidateUser(LoginViewModel loginViewModel, bool ldap)
         {
             return _userService.CreateUser(loginViewModel, ldap);
         }
-
-       
     }
 }

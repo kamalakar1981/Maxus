@@ -1,38 +1,30 @@
 ﻿<div class="login">
     <div class="content">
-        <form #form="ngForm" class="login-form" (submit)="submitForm(form)" novalidate>
-            <div class="text-center">
-                <br>
-                <img src="../../Content/Images/Logo.png" alt="">
+       
+                <form #form="ngForm" class="login-form" (submit)="submitForm(form)" novalidate>
+                    <div class="text-center">
+                        <br>
+                        <img src="../../Content/Images/Logo_Login.png" alt="">
+                    </div>
+                    <h3 class="form-title font-green">Sign In</h3>
+                    <div *ngIf="loginInvalid" class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                        {{errorMsg}}
+                    </div>
+                    <div class="form-group" [class.has-error]="username.invalid && username.touched">
+                        <label class="control-label visible-ie8 visible-ie9">Username</label>
+                        <input #username="ngModel" required type="text" class="form-control form-control-solid placeholder-no-fix" name="username" [(ngModel)]="user.username" placeholder="Username" style="background-color:aliceblue" />
+                    </div>
+                    <div class="form-group" [class.has-error]="password.invalid && password.touched">
+                        <label class="control-label visible-ie8 visible-ie9">Password</label>
+                        <input #password="ngModel" required type="password" class="form-control form-control-solid placeholder-no-fix" name="password" [(ngModel)]="user.password" placeholder="Password" />
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn green uppercase btn-block" type="submit" [disabled]="form.invalid">
+                            Login
+                        </button>
+                    </div>
+                </form>
             </div>
-            <h3 class="form-title font-green">Sign In</h3>
-            <!--<div *ngIf="loginInvalid" class="alert alert-danger alert-dismissable">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                {{errorMsg}}
-            </div>-->
-
-            <div *ngIf="loginInvalid" class="alert alert-warning alert-dismissible" role="alert">
-                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <strong>{{errorMsg}}!</strong> 
-            </div>
-
-            <div class="form-group" [class.has-error]="username.invalid && username.touched">
-                <label class="control-label visible-ie8 visible-ie9">Username</label>
-                <input #username="ngModel" required type="text" class="form-control form-control-solid placeholder-no-fix" name="username" [(ngModel)]="user.username" placeholder="Username" style="background-color:aliceblue" />
-            </div>
-            <div class="form-group" [class.has-error]="password.invalid && password.touched">
-                <label class="control-label visible-ie8 visible-ie9">Password</label>
-                <input #password="ngModel" required type="password" class="form-control form-control-solid placeholder-no-fix" name="password" [(ngModel)]="user.password" placeholder="Password" />
-            </div>
-            <div class="form-actions">
-                <button class="btn green uppercase" type="submit" [disabled]="form.invalid">
-                    Login
-                </button>
-            </div>
-
-        </form>
-    </div>
-</div>
-
+        </div>
+       
