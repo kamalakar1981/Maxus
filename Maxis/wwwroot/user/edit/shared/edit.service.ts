@@ -18,11 +18,6 @@ export class EditService {
         return body || {};
     }
 
-    private handleError(error: any) {
-        console.error('post error:', error);
-        return Observable.throw(error.json().error || 'Server error');
-    }
-
     getEditList(UserId: number): Observable<Userlist> {
         const url = `${this.baseUrl}/${UserId}`;
         return this._http.get(url)

@@ -22,11 +22,6 @@ export class AuthenticationService {
         return body || {};
     }
 
-    private handelError(error: any) {
-        console.error('post error:', error);
-        return Observable.throw(error.statusText);
-    }
-
     postForm(username: string, password: string): Observable<any> {
         let body = { username: username, password: password };
         let headers = new Headers();

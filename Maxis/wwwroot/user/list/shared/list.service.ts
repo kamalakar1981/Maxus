@@ -16,25 +16,10 @@ export class ListService {
         return body.data || {};
     }
 
-    private handelError(error: any) {
-        console.error('post error:', error);
-        return Observable.throw(error.statusText);
-    }
-
     getUserlist(): Observable<Userlist[]> {
         return this._http.get('User/UsersList')
             .map((response: Response) => <Userlist[]>response.json())
             .do(data => console.log('All: ' + data))
             .catch(this._errorService.handelError);
     }
-
-    getExl(): Observable<Userlist[]> {
-        return this._http.get('USER/UsersList')
-            .map((response: Response) => <Userlist[]>response.json())
-            .do(data => console.log('All: ' + data))
-            .catch(this._errorService.handelError);
-    }
-
-
 }
-

@@ -17,7 +17,9 @@
                             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
                             <!-- END RESPONSIVE MENU TOGGLER -->
                             <!-- BEGIN TOP NAVIGATION MENU -->
-
+                            <div *ngIf="mapInvalid" class="alert alert-warning" role="alert">
+                                <strong>{{errorMsg}}!</strong>
+                            </div>
                             <div class="top-menu dropdown dropdown-user" dropdown [dropdownToggle]="true" (onOpen)="doSomeActionOnOpen()" (onClose)="doSomeActionOnClose()">
                                 <button class="btn btn-default " dropdown-open id="dropdown-button">
                                     <i class="fa fa-user"></i>

@@ -87,30 +87,8 @@ export class MapService {
             .map(this.extractData)
             .catch(this._errorService.handelError);
     }
-
     private extractData(res: Response) {
         let body = res.json();
         return body || [];
-    }
-
-    public handleError(error: Response) {
-        console.error('post error:', error);
-        if (error.status == 403) {
-            sessionStorage.removeItem('currentUser');
-            sessionStorage.removeItem('userrole');
-            this._router.navigate(['login']);
-        }
-        else {
-             //this._mapComponent.errormessage(error.statusText);
-    //        return Observable.throw(error.json().error || 'Server error').map(data => {
-    //            if (error.statusText) {
-    //                return error.statusText;
-    //            } else {
-    //                return false;
-    //            }
-    //        }
-    //);
-            return Observable.throw('Server error');
-        }
     }
 }

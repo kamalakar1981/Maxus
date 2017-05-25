@@ -36,8 +36,6 @@ export class LoginComponent {
                 this.loginInvalid = true;
                 this.errorMsg = 'Something went wrong . please try again later !';
             });
-
     }
-
 }
 
