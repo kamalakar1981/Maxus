@@ -6890,7 +6890,7 @@ fieldset[disabled] .btn.purple-soft:not(.btn-outline):hover {
     background-color: #0362fd;
     transition: all .3s
 }
-.close {
+/*.close {
     display: inline-block;
     margin-top: 0;
     margin-right: 0;
@@ -6900,7 +6900,7 @@ fieldset[disabled] .btn.purple-soft:not(.btn-outline):hover {
     text-indent: -10000px;
     outline: 0;
     background-image: url(../img/remove-icon-small.png)!important
-}
+}*/
 .dropdown.open>.dropdown-toggle,
 .dropup.open>.dropdown-toggle {
     border-color: #ddd

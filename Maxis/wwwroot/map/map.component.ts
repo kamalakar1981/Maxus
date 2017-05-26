@@ -21,6 +21,8 @@ declare var google: any;
 
 export class MapComponent implements OnInit {
     errorMessage: string;
+    errorMsg: string;
+    mapInvalid = false;
     //public maps: Map[];
     public neNameData;
     public user = sessionStorage.getItem('currentUser');
@@ -388,7 +390,13 @@ export class MapComponent implements OnInit {
                 }
                 this.neNameData = neArr;
 
-            });
+            },
+            err => {
+                this.mapInvalid = true;
+                this.errorMsg = 'Something went wrong . please try again later !';
+                console.log(this.errorMsg);
+            }
+        );
 
     }
 
@@ -442,6 +450,11 @@ export class MapComponent implements OnInit {
                     structList.lat = parseFloat(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')))
                     this.structs.push(structList);
                 }
+            },
+            err => {
+                this.mapInvalid = true;
+                this.errorMsg = 'Something went wrong . please try again later !';
+                console.log(this.errorMsg);
             });
     }
 
@@ -597,6 +610,11 @@ export class MapComponent implements OnInit {
                     neArr.push(neList);
                 }
                 this.markerTypes = neArr;
+            },
+            err => {
+                this.mapInvalid = true;
+                this.errorMsg = 'Something went wrong . please try again later !';
+                console.log(this.errorMsg);
             });
 
         this._mapService.getBuilding(item)
@@ -623,6 +641,11 @@ export class MapComponent implements OnInit {
                 }
 
                 this.buildingNames = neArr;
+            },
+            err => {
+                this.mapInvalid = true;
+                this.errorMsg = 'Something went wrong . please try again later !';
+                console.log(this.errorMsg);
             });
 
 
@@ -649,6 +672,11 @@ export class MapComponent implements OnInit {
                     cableArr.push(cableList);
                 }
                 this.cableTypes = cableArr;
+            },
+            err => {
+                this.mapInvalid = true;
+                this.errorMsg = 'Something went wrong . please try again later !';
+                console.log(this.errorMsg);
             });
     }
 
