@@ -43,6 +43,11 @@ body {
     background: #eff3f8 !important;
 }
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 .page-header {
     opacity: 1;
     filter: alpha(opacity=100);
@@ -938,9 +943,7 @@ body {
     height: 3px!important
 }
 .page-wrapper,
-.page-wrapper .page-wrapper-row.full-height,
-body,
-html {
+.page-wrapper .page-wrapper-row.full-height {
     height: 100%
 }
 .pace .pace-activity {
@@ -1963,3 +1966,16 @@ html {
     display: none;
     transition: all 2s
 }
+
+/** Footer Sticky **/
+
+.footer-bottom {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 38px;
+    width: 100%;
+    overflow:hidden;
+}
+
+

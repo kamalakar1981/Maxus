@@ -14,6 +14,10 @@
 .user-dropdown {
     margin-top: -20px;
 }
+.text-red {
+    color :red;
+}
+
 #loader {
   position: absolute;
   left: 50%;
