@@ -6,6 +6,8 @@ using Maxis.Infrastructure.Repositories.Abstract;
 using Maxis.ViewModels;
 using System.Security.Cryptography;
 using System.Web.Configuration;
+using System.DirectoryServices.AccountManagement;
+using System.DirectoryServices;
 
 namespace Maxis.Infrastructure.Repositories
 {
@@ -82,26 +84,43 @@ namespace Maxis.Infrastructure.Repositories
             {
                 if (ldap)
                 {
-                    
-                    var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == loginViewModel.Username);
-                    if (user != null) return GetRoles(loginViewModel).FirstOrDefault();
-                    var salt = CreateSalt(int.Parse(WebConfigurationManager.AppSettings["salt"]) );
-                    var encyptval = Encrypt(loginViewModel.Password, salt);
-                    var newuser = new ONNET_USER
+                    bool result = ValidateLdap(loginViewModel);
+                    if (result)
                     {
-                        Username = loginViewModel.Username,
-                        Password = salt,
-                        RoleId = (long)Enum.Roles.Normal,
-                        PasswordHash = encyptval
-                    };
+                        var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == loginViewModel.Username);
+                        if (user != null) return GetRoles(loginViewModel).FirstOrDefault();
+                        else
+                        {
+                            var salt = CreateSalt(int.Parse(WebConfigurationManager.AppSettings["salt"]));
+                            var encyptval = Encrypt(loginViewModel.Password, salt);
+                            DirectoryEntry myResultPropCall = LoadUserInfo(loginViewModel);
+                            var newuser = new ONNET_USER
+                            {
+                                Username = loginViewModel.Username,
+                                Password = salt,
+                                RoleId = (long)Enum.Roles.Normal,
+                                PasswordHash = encyptval,
+                                Mobile = myResultPropCall.Properties["mobile"][0].ToString(),
+                                Title = myResultPropCall.Properties["title"][0].ToString(),
+                                Email = myResultPropCall.Properties["mail"][0].ToString(),
+                            };
+                            _db.ONNET_USER.Add(newuser);
+                            _db.SaveChanges();
 
-                    _db.ONNET_USER.Add(newuser);
-                    _db.SaveChanges();
-
-                   return GetRoles(loginViewModel).FirstOrDefault();
+                            return GetRoles(loginViewModel).FirstOrDefault();
+                        }
+                    }
+                    else
+                    {
+                        return new UserDetailsViewModel
+                        {
+                            ErrorStatus = "Invalid user"
+                        };
+                    }
                 }
                 else
                 {
+
                     var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == loginViewModel.Username);
                     if (user != null)
                     {
@@ -111,9 +130,9 @@ namespace Maxis.Infrastructure.Repositories
                             _db.ONNET_USER.FirstOrDefault(
                                 u => u.Username == loginViewModel.Username && u.PasswordHash == hashedPassword);
                         return verifyUser != null ? GetRoles(loginViewModel).FirstOrDefault() : new UserDetailsViewModel
-                            {
-                                ErrorStatus = "Password mismatch"
-                            };
+                        {
+                            ErrorStatus = "Password mismatch"
+                        };
                     }
                     else
                     {
@@ -144,7 +163,6 @@ namespace Maxis.Infrastructure.Repositories
                     entity.Status = editViewModel.Status;
                     entity.RoleId = editViewModel.RoleId;
                 }
-
                 _db.SaveChanges();
                 return true;
             }
@@ -192,9 +210,45 @@ namespace Maxis.Infrastructure.Repositories
         public string GetSalt(string username)
         {
             var salt = from ep in _db.ONNET_USER
-                       where ep.Username == username   
-            select ep.Password;   
+                       where ep.Username == username
+                       select ep.Password;
             return salt.FirstOrDefault();
+        }
+
+        public static bool ValidateLdap(LoginViewModel loginViewModel)
+        {
+            bool functionReturnValue;
+            try
+            {
+                using (PrincipalContext pCtx = new PrincipalContext(ContextType.ApplicationDirectory, WebConfigurationManager.AppSettings["Ldapserver"], "O=users", ContextOptions.SimpleBind, WebConfigurationManager.AppSettings["Ldapusername"], WebConfigurationManager.AppSettings["Ldappassword"]))
+                {
+                    functionReturnValue = pCtx.ValidateCredentials(loginViewModel.Username, loginViewModel.Password);
+                }
+
+                return functionReturnValue;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public DirectoryEntry LoadUserInfo(LoginViewModel loginViewModel)
+        {
+            using (PrincipalContext pCtx = new PrincipalContext(ContextType.ApplicationDirectory, WebConfigurationManager.AppSettings["Ldapserver"], "O=users", ContextOptions.SimpleBind, WebConfigurationManager.AppSettings["Ldapusername"], WebConfigurationManager.AppSettings["Ldappassword"]))
+            {
+                UserPrincipal obj = UserPrincipal.FindByIdentity(pCtx, IdentityType.Name, loginViewModel.Username);
+                DirectoryEntry myResultPropColl = (DirectoryEntry)obj.GetUnderlyingObject();
+                DirectorySearcher dSearch = new DirectorySearcher(myResultPropColl);
+                dSearch.Filter = "cn=" + loginViewModel.Username;
+                dSearch.SearchScope = SearchScope.Subtree;
+                foreach (SearchResult Result in dSearch.FindAll())
+                {
+                    ResultPropertyCollection myResultPropColl1 = default(ResultPropertyCollection);
+                    myResultPropColl1 = Result.Properties;
+                }
+                return myResultPropColl;
+            }
         }
     }
 }

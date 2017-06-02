@@ -27,18 +27,14 @@ namespace Maxis.Infrastructure.Repositories
         {
             int range;
             List<BuildingViewModel> buildings = null;
-            List<CableViewModel> cables = null;
             for (range = 10; range <= 100; range = range + 10)
             {
                 buildings = GetBuildingDetails(searchPoint, range);
                 if (buildings.Count() > 0) break;
             }
-            cables = GetCables(searchPoint, range);
             return new DefaultRangeViewModel
             {
-                Range = (range > 100) ? 100 : range ,
-                Buildings = buildings,
-                Cables = cables                
+                Range = (range > 100) ? 100 : range ,                 
             };
         }
 
