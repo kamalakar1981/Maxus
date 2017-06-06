@@ -9,10 +9,10 @@ import { Router } from '@angular/router';
 import { DataTableModule, SharedModule } from 'primeng/primeng';
 import { DropdownModule } from "ngx-dropdown";
 import { NEComponent } from './../NEtype/ne.component';
-
 import { LogoutComponent } from './../logout/logout.component';
 import { SelectModule } from 'angular2-select';
 declare var google: any;
+
 @Component({
     selector: 'map',
     templateUrl: 'wwwroot/map/map.component.html',
@@ -20,10 +20,9 @@ declare var google: any;
 })
 
 export class MapComponent implements OnInit {
-    errorMessage: string;
     errorMsg: string;
     mapInvalid = false;
-    //public maps: Map[];
+    Map: any;
     public neNameData;
     public user = sessionStorage.getItem('currentUser');
     public role = sessionStorage.getItem('userrole');
@@ -34,21 +33,22 @@ export class MapComponent implements OnInit {
     constructor(
         private _mapsAPILoader: MapsAPILoader,
         private _ngZone: NgZone,
-        private _router: Router, private _mapService: MapService,
-
+        private _router: Router, private _mapService: MapService,    
     ) { }
+
     @ViewChild("search")
     public searchElementRef: ElementRef;
     isAvailable = true;
-
-
     selectMultiple1: any;
     selectSingle1: any;
     foo: any[];
 
     ngOnInit() {
-        this.buildingLoad = "Loading.....";
 
+        this.buildingLoad = "Loading.....";
+        this.distanceLoad = "Loading.....";
+        this.lrdLoad = "Loading.....";
+        this.cableLoad = "Loading.....";
         this.form = new FormGroup({});
         this.form.addControl("selectSingle", new FormControl(""));
         this.form.addControl("selectMultiple", new FormControl(""));
@@ -56,77 +56,49 @@ export class MapComponent implements OnInit {
         this.form.addControl("selectMultiple1", new FormControl(""));
         this.form.addControl("searchControl", new FormControl(""));
         this.form.addControl("selectedDistance", new FormControl(""));
-
         this.zoom = 6;
         this.lat = 4.210484;
         this.lng = 101.97576600000002;
-
-
-
         this._setCurrentPosition();
-        this.myFunction();
 
         // load Places Autocompletes
         this._mapsAPILoader.load().then(() => {
 
-            let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-                types: ["address"]
-            });
-            autocomplete.addListener("place_changed", () => {
-
+            var autocomplete = new google.maps.places.Autocomplete(document.getElementById("autocompleteInput"), {});
+            google.maps.event.addListener(autocomplete, 'place_changed', () => {
                 this._ngZone.run(() => {
-                    // get the place result
-
-                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-                    // verify result
-                    if (place.geometry === undefined || place.geometry === null) {
-                        return;
-                    }
-
+                    var place = autocomplete.getPlace();
+                    this.markers.push({
+                        lat: place.geometry.location.lat(),
+                        lng: place.geometry.location.lng(),
+                        label: place.name
+                    });
                     // set latitude, longitude and zoom
                     this.lat = place.geometry.location.lat();
                     this.lng = place.geometry.location.lng();
                     var point = "POINT(" + this.lng + " " + this.lat + ")";
-                    this.myFunction();
 
                     this._mapService.getload(point).subscribe(
                         data => {
-                            setTimeout(this.showPage, 0);
                             var allDistance = [];
                             var a = 0;
                             for (let i = data.Range; i <= 100; i = i + 10) {
                                 allDistance[a] = i;
                                 a++;
                             }
-
                             this.getDistance(allDistance);
                         },
                         err => {
-                            console.log(err);
+                            this.mapInvalid = true;
+                            this.errorMsg = 'Something went wrong . please try again later !';
                         }
                     );
                     this.zoom = 8;
                 });
             });
         });
-
     }
-    Map: any;
-
-    checkvalue(a: any) {
-        var mystring = (<HTMLInputElement>document.getElementById('search')).value;
-        if (!mystring.match(/\S/)) {
-
-            (<HTMLInputElement>document.getElementById('navigation')).disabled = true;
-            return false;
-        } else {
-            (<HTMLInputElement>document.getElementById('navigation')).disabled = false;
-            this.form.reset();
-            return true;
-        }
-    }
-
+    
     onSelect(map: any) {
         this.selectedMap = map;
     }
@@ -159,6 +131,9 @@ export class MapComponent implements OnInit {
     cabelNames = this.getCabelNames([]);
 
     buildingLoad: any;
+    distanceLoad: any;
+    lrdLoad: any;
+    cableLoad : any;
     points = [];
     buildings = [];
     structs = [];
@@ -173,25 +148,18 @@ export class MapComponent implements OnInit {
             _dist.push({ value: val.toString(), label: val.toString() });
         });
         this.dist = _dist;
-        var n = _dist[0].value;
-        var b = _dist[0];
         var distance = this;
         setTimeout(function () {
-
-                distance.form.controls['selectedDistance'].setValue(n);
+            distance.form.controls['selectedDistance'].setValue(_dist[0].value);
             }
             , 1000);
-
-        this.onDistanceSelected(b);
-        this.buildingLoad = "loading";
-
-
+        this.onDistanceSelected(_dist[0]);
+        this.distanceLoad = "Select Distance";
     };
-    getCables(cableID): any[] {
-
+    getCables(cableID): ICable[] {
         var cableVal = this.cableTypes;
         var cableArr = [];
-
+        this.structs = [];
         for (let v in cableVal) {
             var cableList = {
                 label: "",
@@ -212,12 +180,10 @@ export class MapComponent implements OnInit {
                 //need for reference for select
                 if (!cableVal[v].Geodata)
                     cableVal[v].Geodata = '';
-
                 var currGeoData = cableVal[v].Geodata.replace("LINESTRING (", "").replace(")", "").split(", ");
                 var gArr = [];
                 for (let v in currGeoData) {
                     var gData = { lng: 0, lat: 0, label: "" ,lab:""};
-
                     gData.lng = parseFloat(currGeoData[v].split(" ")[0]);
                     gData.lat = parseFloat(currGeoData[v].split(" ")[1]);
                     gData.label = cableList.label + gData.lng + "_" + gData.lat;
@@ -227,52 +193,14 @@ export class MapComponent implements OnInit {
                 cableList.points = gArr;
                 cableArr.push(cableList);
             }
-
         }
         return cableArr;
     };
-    getBuildings(marker: IMarker): IMarker[] {
-        var arr = [
-        ];
-
-        var imgSize = this.imgSize;
-
-        var a: IMarker[] = arr.map(function (value: string, index: number, array: string[]) {
-            return {
-                label: value,
-                type: "Building",
-                lng: marker.lng + Math.random() * 0.001 * (Math.round(Math.random() * 1) ? -1 : 1),
-                lat: marker.lat + Math.random() * 0.001 * (Math.round(Math.random() * 1) ? -1 : 1),
-                icon: marker.icon.replace("satellite-dish", "flats").replace("placeholder", "flats")
-            }
-        });
-
-
-        return a;
-    }
-
-    getPoints(): IMarker[] {
-        return;
-    }
-
-    myFunction() {
-        this.showPage;
-    }
-
-    showPage() {
-
-        document.getElementById("loader").style.display = "none";
-        document.getElementById("myDiv").style.display = "block";
-    }
-
-
-
-
+   
     getMarkerNames(types: string[]): any[] {
         return [
         ].filter(a => types.indexOf(a.type) != -1);
     }
-
 
     getCabelNames(types: string[]): any[] {
         return [
@@ -280,19 +208,17 @@ export class MapComponent implements OnInit {
     }
 
     form: FormGroup;
-
     multiple0: boolean = false;
     multiple1: boolean = true;
     options0: Array<any> = [];
     options1: Array<any> = [];
     selection: Array<string>;
-
     @ViewChild("preSingle") preSingle: ElementRef;
     @ViewChild("preMultiple") preMultiple: ElementRef;
-
     logSingleString: string = "";
     logMultipleString: string = "";
-   onSingleOpened() {
+
+    onSingleOpened() {
         this._logSingle("- opened");
     }
 
@@ -318,7 +244,7 @@ export class MapComponent implements OnInit {
     //markers: IMarker[];
     onLRDSelected(item: any) {
         this._logMultiple("- selected (value: " + item.value + ", label:" + item.label + " ,role:" + item.role + ")");
-       
+        this.points = [];
         var neArr = [];
         var neList = {
             label: "",
@@ -353,7 +279,8 @@ export class MapComponent implements OnInit {
 
             }
             return true;
-        } else {
+        }
+        else {
             for (let v in currVal) {
                 neList = {
                     label: "",
@@ -363,7 +290,6 @@ export class MapComponent implements OnInit {
                     lat: 0,
                     icon: "../../Content/Images/satellite-dish-24-blue.png"
                 };
-
                 neList.label = currVal[v].LrdName;
                 neList.value = currVal[v].LrdName;
                 neList.type = "Ethernet Switch";
@@ -372,7 +298,6 @@ export class MapComponent implements OnInit {
                 neList.lng = parseFloat(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')))
                 neList.lat = parseFloat(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')))
                 neArr.push(neList);
-
                 this.points = neArr;
             }
         }
@@ -384,13 +309,9 @@ export class MapComponent implements OnInit {
 
             var lrdArray = (this.form.value["selectMultiple"][v].LrdName + ",") + lrdArray;
         }
-
-
-
         this._mapService.getNEtypes(lrdArray)
-            .subscribe((value) => {
+            .subscribe((value) => {                   
                 var neArr = [];
-
                 for (let v in value) {
                     var neList = {
                         label: "",
@@ -406,15 +327,12 @@ export class MapComponent implements OnInit {
                     neArr.push(neList);
                 }
                 this.neNameData = neArr;
-
             },
             err => {
                 this.mapInvalid = true;
                 this.errorMsg = 'Something went wrong . please try again later !';
-                console.log(this.errorMsg);
             }
         );
-
     }
 
     onStructSelected(item: any, cableId1: any) {
@@ -463,23 +381,23 @@ export class MapComponent implements OnInit {
                         structList.icon = "../../Content/Images/home_24.png";
                     }
                     var pt = value[v].Geodata;
-                    structList.lng = parseFloat(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')))
-                    structList.lat = parseFloat(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')))
+                    structList.lng = parseFloat(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')));
+                    structList.lat = parseFloat(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')));
                     this.structs.push(structList);
                 }
             },
             err => {
                 this.mapInvalid = true;
                 this.errorMsg = 'Something went wrong . please try again later !';
-                console.log(this.errorMsg);
             });
     }
 
     onBuildingSelected(item: any, BuildingId: any) {
         this._logSingle("- selected (value: " + item.value + ", label:" + item.label + ",id:" + item.id + ")");
-
         this._data = this.form.value["selectSingle"];
         this.buildings = [];
+        this.buildLRD = [];
+        this.points = [];
         for (let b in this.buildingNames) {
             var currBuilding = this.buildingNames[b];
             for (let s in this._data) {
@@ -550,6 +468,7 @@ export class MapComponent implements OnInit {
         }
         this._mapService.getLRD(buildId)
             .subscribe((value) => {
+                this.lrdLoad = "Select LRD";
                 var neArr = [];
                 var SelectAll = {
                     label: 'Select All',
@@ -589,14 +508,13 @@ export class MapComponent implements OnInit {
             });
     }
 
-
-
     onBuildconnectivity(item: any) {
         var cableArr = [];
         var LRD = this.form.value["selectMultiple"];
         var newBuilding = [];
         var a = this.markerTypes;
-
+        this.buildLRD = [];
+       
         if (LRD[0] === "Select All") {
             for (var v = 1; v <= this.markerTypes.length - 1; v++) {
                 var cableList = {
@@ -610,14 +528,11 @@ export class MapComponent implements OnInit {
                 if (a[v].label == item.lrd) {
                     cableList.CableId = item.value;
                     cableList.label = item.label;
-
                     cableList.type = "Building";
                     cableList.icon = "../../Content/Images/flats-24-blue.png";
-
                     var currGeoData = item.value.replace("POINT (", "").replace(")", "").split(", ");
                     var gArr = [];
                     var gData = { lng: 0, lat: 0, label: "" };
-
                     gData.lng = parseFloat(currGeoData[0].split(" ")[0]);
                     gData.lat = parseFloat(currGeoData[0].split(" ")[1]);
                     gData.label = cableList.label + gData.lng + "_" + gData.lat;
@@ -631,7 +546,6 @@ export class MapComponent implements OnInit {
                     cableList.points = gArr;
                     newBuilding.push(cableList);
                 }
-
             }
         }
 
@@ -648,14 +562,11 @@ export class MapComponent implements OnInit {
                 if (LRD[v].LrdName == item.lrd) {
                     cableList.CableId = item.value;
                     cableList.label = item.label;
-
                     cableList.type = "Building";
                     cableList.icon = "../../Content/Images/flats-24-blue.png";
-
                     var currGeoData = item.value.replace("POINT (", "").replace(")", "").split(", ");
                     var gArr = [];
                     var gData = { lng: 0, lat: 0, label: "" };
-
                     gData.lng = parseFloat(currGeoData[0].split(" ")[0]);
                     gData.lat = parseFloat(currGeoData[0].split(" ")[1]);
                     gData.label = cableList.label + gData.lng + "_" + gData.lat;
@@ -669,12 +580,10 @@ export class MapComponent implements OnInit {
                     cableList.points = gArr;
                     newBuilding.push(cableList);
                 }
-
             }
         }
         this.buildLRD = newBuilding;
         return this.buildLRD;
-
     }
 
     onSingleOpened1() {
@@ -685,29 +594,29 @@ export class MapComponent implements OnInit {
         this._logSingle("- closed");
     }
 
-
     onSingleSelected1(item: any) {
         this._logSingle("- selected (value: " + item.value + ", label:" +
             item.label + ")");
     }
 
-
     onDistanceSelected(item: any) {
         this.zoom = 10;
         this._logSingle("- selected (value: " + item.value + ", label:" +
             item.label + ")");
+        var build = this;
+        setTimeout(function () {
+            build.buildingLoad = "Loading.....";
+           }
+            , 1000);
         this._mapService.getBuilding(item)
             .subscribe((value) => {
                     this.buildingLoad = "Select Building";
-
                 var neArr = [];
                 var SelectAll = {
                     label: 'Select All',
                     value: '',
-                    lrd: ''
-                    ,
+                    lrd: '',
                     id: ''
-
                 }
 
                 neArr.push(SelectAll);
@@ -715,36 +624,30 @@ export class MapComponent implements OnInit {
                     var neList = {
                         label: "",
                         value: "",
-                        lrd: ""
-                        ,
+                        lrd: "",
                         id: ''
                     };
                     neList.label = value[v].BuildingName;
                     neList.value = value[v].Geodata;
                     neList.lrd = value[v].Lrd;
                     neList.id = value[v].BuildingId;
-
                     neArr.push(neList);
                 }
-
                 this.buildingNames = neArr;
             },
             err => {
                 this.mapInvalid = true;
                 this.errorMsg = 'Something went wrong . please try again later !';
-                console.log(this.errorMsg);
             });
-
 
         this._mapService.getCable(item)
             .subscribe((value) => {
+                    this.cableLoad = "Select Cable";
                 var cableArr = [];
                 var SelectAll = {
                     label: 'Select All',
                     value: 'Select All'
-
                 }
-
                 cableArr.push(SelectAll);
 
                 for (let v in value) {
@@ -763,7 +666,6 @@ export class MapComponent implements OnInit {
             err => {
                 this.mapInvalid = true;
                 this.errorMsg = 'Something went wrong . please try again later !';
-                console.log(this.errorMsg);
             });
     }
 
@@ -806,7 +708,6 @@ export class MapComponent implements OnInit {
     private _scrollToBottom(elem: any) {
         elem.scrollTop = elem.scrollHeight;
     }
-
 
     private _setCurrentPosition() {
         if ("geolocation" in navigator) {
