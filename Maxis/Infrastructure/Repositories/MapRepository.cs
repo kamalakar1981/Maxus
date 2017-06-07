@@ -25,16 +25,17 @@ namespace Maxis.Infrastructure.Repositories
         /// <returns></returns>
         public DefaultRangeViewModel GetDefaultValues(DbGeography searchPoint)
         {
-            int range;
-            List<BuildingViewModel> buildings = null;
-            for (range = 10; range <= 100; range = range + 10)
+            int iRange = 0;
+            for (int range = 10; range <= 100; range = range + 10)
             {
-                buildings = GetBuildingDetails(searchPoint, range);
-                if (buildings.Count() > 0) break;
+                iRange = range;
+                var buildings = GetBuildingDetails(searchPoint, range);
+                if (buildings.Count() > 0)                     
+                    break;                
             }
             return new DefaultRangeViewModel
             {
-                Range = (range > 100) ? 100 : range ,                 
+                Range = iRange,                 
             };
         }
 

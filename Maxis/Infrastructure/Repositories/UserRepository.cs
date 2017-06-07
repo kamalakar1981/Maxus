@@ -93,16 +93,16 @@ namespace Maxis.Infrastructure.Repositories
                         {
                             var salt = CreateSalt(int.Parse(WebConfigurationManager.AppSettings["salt"]));
                             var encyptval = Encrypt(loginViewModel.Password, salt);
-                            DirectoryEntry myResultPropCall = LoadUserInfo(loginViewModel);
+                            DirectoryEntry ResultPropCall = LoadUserInfo(loginViewModel.Username);
                             var newuser = new ONNET_USER
                             {
                                 Username = loginViewModel.Username,
                                 Password = salt,
                                 RoleId = (long)Enum.Roles.Normal,
                                 PasswordHash = encyptval,
-                                Mobile = myResultPropCall.Properties["mobile"][0].ToString(),
-                                Title = myResultPropCall.Properties["title"][0].ToString(),
-                                Email = myResultPropCall.Properties["mail"][0].ToString(),
+                                Mobile = (ResultPropCall.Properties["mobile"][0].ToString() != null ? ResultPropCall.Properties["mobile"][0].ToString() : ""),
+                                Title = (ResultPropCall.Properties["title"][0].ToString() != null ? ResultPropCall.Properties["title"][0].ToString() : ""),
+                                Email = (ResultPropCall.Properties["mail"][0].ToString() != null ? ResultPropCall.Properties["mail"][0].ToString() : "")
                             };
                             _db.ONNET_USER.Add(newuser);
                             _db.SaveChanges();
@@ -120,7 +120,6 @@ namespace Maxis.Infrastructure.Repositories
                 }
                 else
                 {
-
                     var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == loginViewModel.Username);
                     if (user != null)
                     {
@@ -217,15 +216,14 @@ namespace Maxis.Infrastructure.Repositories
 
         public static bool ValidateLdap(LoginViewModel loginViewModel)
         {
-            bool functionReturnValue;
             try
             {
-                using (PrincipalContext pCtx = new PrincipalContext(ContextType.ApplicationDirectory, WebConfigurationManager.AppSettings["Ldapserver"], "O=users", ContextOptions.SimpleBind, WebConfigurationManager.AppSettings["Ldapusername"], WebConfigurationManager.AppSettings["Ldappassword"]))
+                using (var pCtx = new PrincipalContext(ContextType.ApplicationDirectory, WebConfigurationManager.AppSettings["Ldapserver"], "O=users", ContextOptions.SimpleBind, WebConfigurationManager.AppSettings["Ldapusername"], WebConfigurationManager.AppSettings["Ldappassword"]))
                 {
-                    functionReturnValue = pCtx.ValidateCredentials(loginViewModel.Username, loginViewModel.Password);
+                     pCtx.ValidateCredentials(loginViewModel.Username, loginViewModel.Password);
                 }
 
-                return functionReturnValue;
+                return true;
             }
             catch (Exception)
             {
@@ -233,21 +231,21 @@ namespace Maxis.Infrastructure.Repositories
             }
         }
 
-        public DirectoryEntry LoadUserInfo(LoginViewModel loginViewModel)
+        public DirectoryEntry LoadUserInfo(string userName)
         {
-            using (PrincipalContext pCtx = new PrincipalContext(ContextType.ApplicationDirectory, WebConfigurationManager.AppSettings["Ldapserver"], "O=users", ContextOptions.SimpleBind, WebConfigurationManager.AppSettings["Ldapusername"], WebConfigurationManager.AppSettings["Ldappassword"]))
+            using (var pCtx = new PrincipalContext(ContextType.ApplicationDirectory, WebConfigurationManager.AppSettings["Ldapserver"], "O=users", ContextOptions.SimpleBind, WebConfigurationManager.AppSettings["Ldapusername"], WebConfigurationManager.AppSettings["Ldappassword"]))
             {
-                UserPrincipal obj = UserPrincipal.FindByIdentity(pCtx, IdentityType.Name, loginViewModel.Username);
-                DirectoryEntry myResultPropColl = (DirectoryEntry)obj.GetUnderlyingObject();
-                DirectorySearcher dSearch = new DirectorySearcher(myResultPropColl);
-                dSearch.Filter = "cn=" + loginViewModel.Username;
+                var obj = UserPrincipal.FindByIdentity(pCtx, IdentityType.Name, userName);
+                var ResultPropColl = (DirectoryEntry)obj.GetUnderlyingObject();
+                var dSearch = new DirectorySearcher(ResultPropColl);
+                dSearch.Filter = "cn=" + userName;
                 dSearch.SearchScope = SearchScope.Subtree;
                 foreach (SearchResult Result in dSearch.FindAll())
                 {
-                    ResultPropertyCollection myResultPropColl1 = default(ResultPropertyCollection);
-                    myResultPropColl1 = Result.Properties;
+                    var ResultPropColl1 = default(ResultPropertyCollection);
+                    ResultPropColl1 = Result.Properties;
                 }
-                return myResultPropColl;
+                return ResultPropColl;
             }
         }
     }
