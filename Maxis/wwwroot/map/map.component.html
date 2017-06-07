@@ -102,7 +102,6 @@
                         <ng-select  [options]="dist"
                                     placeholder="{{distanceLoad}}"      
                                     [multiple]="multiple0"
-                                    placeholder="Select distance"
                                     formControlName="selectedDistance"
                                     [allowClear]="true"
                                     (opened)="onSingleOpened()"
@@ -181,9 +180,6 @@
         <sebm-google-map-marker *ngFor="let p of points" [latitude]="p.lat"  [longitude]="p.lng" [label]="{text: p.label, color: 'red',fontWeight :'bold'}" [iconUrl]="'../../Content/Images/transparen_58.png'" [title]="p.label">
 
             <sebm-google-map-marker *ngFor="let p of points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" (dragEnd)="markerDragEnd(p, $event)" [iconUrl]="p.icon">
-                <sebm-google-map-info-window>
-                    <strong>Lrd Name:{{p.label}}</strong>
-                </sebm-google-map-info-window>
             </sebm-google-map-marker>
         </sebm-google-map-marker>
                 

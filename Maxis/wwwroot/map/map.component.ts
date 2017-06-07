@@ -13,6 +13,7 @@ import { LogoutComponent } from './../logout/logout.component';
 import { SelectModule } from 'angular2-select';
 declare var google: any;
 
+
 @Component({
     selector: 'map',
     templateUrl: 'wwwroot/map/map.component.html',
@@ -23,6 +24,7 @@ export class MapComponent implements OnInit {
     errorMsg: string;
     mapInvalid = false;
     Map: any;
+    
     public neNameData;
     public user = sessionStorage.getItem('currentUser');
     public role = sessionStorage.getItem('userrole');
@@ -42,7 +44,21 @@ export class MapComponent implements OnInit {
     selectMultiple1: any;
     selectSingle1: any;
     foo: any[];
-
+    buildingLoad: any;
+    distanceLoad: any;
+    lrdLoad: any;
+    cableLoad: any;
+    points = [];
+    buildings = [];
+    structs = [];
+    cables = [];
+    markers = [];
+    dist: any[];
+    markerTypes: any[];
+    cableTypes: any[];
+    buildLRD: any[];
+    buildingNames: any[];
+    structNames: any[];
     ngOnInit() {
 
         this.buildingLoad = "Loading.....";
@@ -63,7 +79,7 @@ export class MapComponent implements OnInit {
 
         // load Places Autocompletes
         this._mapsAPILoader.load().then(() => {
-
+            var map;
             var autocomplete = new google.maps.places.Autocomplete(document.getElementById("autocompleteInput"), {});
             google.maps.event.addListener(autocomplete, 'place_changed', () => {
                 this._ngZone.run(() => {
@@ -72,19 +88,21 @@ export class MapComponent implements OnInit {
                         lat: place.geometry.location.lat(),
                         lng: place.geometry.location.lng(),
                         label: place.name
-                    });
+                });
                     // set latitude, longitude and zoom
                     this.lat = place.geometry.location.lat();
                     this.lng = place.geometry.location.lng();
                     var point = "POINT(" + this.lng + " " + this.lat + ")";
+                    this.form.reset();
+                   
 
                     this._mapService.getload(point).subscribe(
                         data => {
                             var allDistance = [];
-                            var a = 0;
+                            var distval = 0;
                             for (let i = data.Range; i <= 100; i = i + 10) {
-                                allDistance[a] = i;
-                                a++;
+                                allDistance[distval] = i;
+                                distval++;
                             }
                             this.getDistance(allDistance);
                         },
@@ -102,17 +120,12 @@ export class MapComponent implements OnInit {
     onSelect(map: any) {
         this.selectedMap = map;
     }
-    markerTypes: any[];
-    cableTypes: any[];
-    buildLRD: any[];
-    buildingNames: any[];
-    structNames: any[];
-    imgSize: number = 24;
-    name: string = "Accionlabs";
-    zoom: number = 18;
     //  initial center position for the map
     public latitude: number;
     public longitude: number;
+    imgSize: number = 24;
+    name: string = "Accionlabs";
+    zoom: number = 18;
 
     styles: any[] = [
 
@@ -129,22 +142,11 @@ export class MapComponent implements OnInit {
     markerNumber: string = "";
     cabelTypes: any[];
     cabelNames = this.getCabelNames([]);
-
-    buildingLoad: any;
-    distanceLoad: any;
-    lrdLoad: any;
-    cableLoad : any;
-    points = [];
-    buildings = [];
-    structs = [];
-    cables = [];
-    markers = [];
-    dist: any[];
-    getDistance(a): void {
+    getDistance(distval): void {
 
         this.dist = [];
         var _dist = [];
-        a.map(function (val) {
+        distval.map(function (val) {
             _dist.push({ value: val.toString(), label: val.toString() });
         });
         this.dist = _dist;
@@ -256,9 +258,9 @@ export class MapComponent implements OnInit {
         };
         var currVal = this.form.value["selectMultiple"];
         if (currVal[0] == "Select All") {
-            var a = this.markerTypes;
+            var lrdval = this.markerTypes;
 
-            for (var v = 1; v <= a.length - 1; v++) {
+            for (var v = 1; v <= lrdval.length - 1; v++) {
                 neList = {
                     label: "",
                     value: "",
@@ -267,11 +269,11 @@ export class MapComponent implements OnInit {
                     lat: 0,
                     icon: "../../Content/Images/satellite-dish-24-blue.png"
                 };
-                neList.label = a[v].label;
-                neList.value = a[v].label;
+                neList.label = lrdval[v].label;
+                neList.value = lrdval[v].label;
                 neList.type = "Ethernet Switch";
                 neList.icon = "../../Content/Images/satellite-dish-24-blue.png";
-                var pt = a[v].value.GeodataValue;
+                var pt = lrdval[v].value.GeodataValue;
                 neList.lng = parseFloat(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')));
                 neList.lat = parseFloat(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')));
                 neArr.push(neList);
@@ -410,9 +412,9 @@ export class MapComponent implements OnInit {
         var buildId = '';
         var newBuilding = [];
         if (item.label == "Select All") {
-            var a = this.buildingNames;
+            var buildval = this.buildingNames;
 
-            for (var v = 1; v <= a.length - 1; v++) {
+            for (var v = 1; v <= buildval.length - 1; v++) {
                 var buildingList = {
                     label: "",
                     value: "",
@@ -425,13 +427,13 @@ export class MapComponent implements OnInit {
                     points: []
                 };
 
-                buildingList.label = a[v].label;
-                buildingList.value = a[v].value;
-                buildingList.lrd = a[v].lrd;
+                buildingList.label = buildval[v].label;
+                buildingList.value = buildval[v].value;
+                buildingList.lrd = buildval[v].lrd;
                 buildingList.type = "Building";
-                buildingList.id = a[v].id;
+                buildingList.id = buildval[v].id;
                 buildingList.icon = "../../Content/Images/flats-24-blue.png";
-                var pt = a[v].value;
+                var pt = buildval[v].value;
                 buildingList.lng = parseFloat(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')));
                 buildingList.lat = parseFloat(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')));
                 buildId = buildId + ("," + buildingList.id);
@@ -512,7 +514,7 @@ export class MapComponent implements OnInit {
         var cableArr = [];
         var LRD = this.form.value["selectMultiple"];
         var newBuilding = [];
-        var a = this.markerTypes;
+        var LRDval = this.markerTypes;
         this.buildLRD = [];
        
         if (LRD[0] === "Select All") {
@@ -525,7 +527,7 @@ export class MapComponent implements OnInit {
                     icon: "../../Content/Images/placeholder-24-black.png",
                     points: []
                 };
-                if (a[v].label == item.lrd) {
+                if (LRDval[v].label == item.lrd) {
                     cableList.CableId = item.value;
                     cableList.label = item.label;
                     cableList.type = "Building";
@@ -538,7 +540,7 @@ export class MapComponent implements OnInit {
                     gData.label = cableList.label + gData.lng + "_" + gData.lat;
                     gArr.push(gData);
                     gData = { lng: 0, lat: 0, label: "" };
-                    var currLRd = a[v].value.GeodataValue.replace("POINT (", "").replace(")", "").split(", ");
+                    var currLRd = LRDval[v].value.GeodataValue.replace("POINT (", "").replace(")", "").split(", ");
                     gData.lng = parseFloat(currLRd[0].split(" ")[0]);
                     gData.lat = parseFloat(currLRd[0].split(" ")[1]);
                     gData.label = cableList.label + gData.lng + "_" + gData.lat;
