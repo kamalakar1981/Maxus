@@ -13,7 +13,6 @@ import { LogoutComponent } from './../logout/logout.component';
 import { SelectModule } from 'angular2-select';
 declare var google: any;
 
-
 @Component({
     selector: 'map',
     templateUrl: 'wwwroot/map/map.component.html',
@@ -35,7 +34,7 @@ export class MapComponent implements OnInit {
     constructor(
         private _mapsAPILoader: MapsAPILoader,
         private _ngZone: NgZone,
-        private _router: Router, private _mapService: MapService,    
+        private _router: Router, private _mapService: MapService  
     ) { }
 
     @ViewChild("search")
@@ -59,12 +58,29 @@ export class MapComponent implements OnInit {
     buildLRD: any[];
     buildingNames: any[];
     structNames: any[];
-    ngOnInit() {
+    multiple0: boolean = false;
+    multiple1: boolean = true;
+    options0: Array<any> = [];
+    options1: Array<any> = [];
+    selection: Array<string>;
+    public latitude: number;
+    public longitude: number;
+    zoom: number = 18;
+    markerNumber: string = "";
+    cabelTypes: any[];
+    form: FormGroup;
 
-        this.buildingLoad = "Loading.....";
-        this.distanceLoad = "Loading.....";
-        this.lrdLoad = "Loading.....";
-        this.cableLoad = "Loading.....";
+    @ViewChild("preSingle") preSingle: ElementRef;
+    @ViewChild("preMultiple") preMultiple: ElementRef;
+    logSingleString: string = "";
+    logMultipleString: string = "";
+
+    ngOnInit() {
+        var load = "Loading....";
+        this.buildingLoad = load;
+        this.distanceLoad = load;
+        this.lrdLoad = load;
+        this.cableLoad = load;
         this.form = new FormGroup({});
         this.form.addControl("selectSingle", new FormControl(""));
         this.form.addControl("selectMultiple", new FormControl(""));
@@ -72,15 +88,18 @@ export class MapComponent implements OnInit {
         this.form.addControl("selectMultiple1", new FormControl(""));
         this.form.addControl("searchControl", new FormControl(""));
         this.form.addControl("selectedDistance", new FormControl(""));
+
         this.zoom = 6;
+        //  initial center position for the map
+
         this.lat = 4.210484;
         this.lng = 101.97576600000002;
         this._setCurrentPosition();
-
+       
         // load Places Autocompletes
         this._mapsAPILoader.load().then(() => {
             var map;
-            var autocomplete = new google.maps.places.Autocomplete(document.getElementById("autocompleteInput"), {});
+            var autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
             google.maps.event.addListener(autocomplete, 'place_changed', () => {
                 this._ngZone.run(() => {
                     var place = autocomplete.getPlace();
@@ -89,12 +108,15 @@ export class MapComponent implements OnInit {
                         lng: place.geometry.location.lng(),
                         label: place.name
                 });
-                    // set latitude, longitude and zoom
+                    this.points = [];
+                    this.buildings = [];
+                    this.buildLRD = [];
+                    this.structs = [];
+                    this.markers = [];
                     this.lat = place.geometry.location.lat();
                     this.lng = place.geometry.location.lng();
                     var point = "POINT(" + this.lng + " " + this.lat + ")";
                     this.form.reset();
-                   
 
                     this._mapService.getload(point).subscribe(
                         data => {
@@ -120,12 +142,6 @@ export class MapComponent implements OnInit {
     onSelect(map: any) {
         this.selectedMap = map;
     }
-    //  initial center position for the map
-    public latitude: number;
-    public longitude: number;
-    imgSize: number = 24;
-    name: string = "Accionlabs";
-    zoom: number = 18;
 
     styles: any[] = [
 
@@ -139,9 +155,6 @@ export class MapComponent implements OnInit {
 
     lat: number = 3.15104206724095;
     lng: number = 101.663805603203;
-    markerNumber: string = "";
-    cabelTypes: any[];
-    cabelNames = this.getCabelNames([]);
     getDistance(distval): void {
 
         this.dist = [];
@@ -162,6 +175,7 @@ export class MapComponent implements OnInit {
         var cableVal = this.cableTypes;
         var cableArr = [];
         this.structs = [];
+        this.cables = [];
         for (let v in cableVal) {
             var cableList = {
                 label: "",
@@ -172,7 +186,7 @@ export class MapComponent implements OnInit {
                 points: []
             };
             if (cableID[0] == "Select All" || (cableID == cableVal[v].value || cableID.indexOf(cableVal[v].value) > -1)) {
-                //  this.zoom = 3F00;
+                
                 cableList.label = cableVal[v].label;
                 cableList.type = "Aerial";
                 cableList.color = "skyblue";
@@ -194,31 +208,13 @@ export class MapComponent implements OnInit {
                 }
                 cableList.points = gArr;
                 cableArr.push(cableList);
+               
             }
         }
         return cableArr;
     };
    
-    getMarkerNames(types: string[]): any[] {
-        return [
-        ].filter(a => types.indexOf(a.type) != -1);
-    }
-
-    getCabelNames(types: string[]): any[] {
-        return [
-        ].filter(a => types.indexOf(a.type) != -1);
-    }
-
-    form: FormGroup;
-    multiple0: boolean = false;
-    multiple1: boolean = true;
-    options0: Array<any> = [];
-    options1: Array<any> = [];
-    selection: Array<string>;
-    @ViewChild("preSingle") preSingle: ElementRef;
-    @ViewChild("preMultiple") preMultiple: ElementRef;
-    logSingleString: string = "";
-    logMultipleString: string = "";
+   
 
     onSingleOpened() {
         this._logSingle("- opened");
@@ -243,7 +239,6 @@ export class MapComponent implements OnInit {
     onMultipleClosed() {
         this._logMultiple("- closed");
     }
-    //markers: IMarker[];
     onLRDSelected(item: any) {
         this._logMultiple("- selected (value: " + item.value + ", label:" + item.label + " ,role:" + item.role + ")");
         this.points = [];
@@ -261,14 +256,6 @@ export class MapComponent implements OnInit {
             var lrdval = this.markerTypes;
 
             for (var v = 1; v <= lrdval.length - 1; v++) {
-                neList = {
-                    label: "",
-                    value: "",
-                    type: "",
-                    lng: 0,
-                    lat: 0,
-                    icon: "../../Content/Images/satellite-dish-24-blue.png"
-                };
                 neList.label = lrdval[v].label;
                 neList.value = lrdval[v].label;
                 neList.type = "Ethernet Switch";
@@ -284,14 +271,6 @@ export class MapComponent implements OnInit {
         }
         else {
             for (let v in currVal) {
-                neList = {
-                    label: "",
-                    value: "",
-                    type: "",
-                    lng: 0,
-                    lat: 0,
-                    icon: "../../Content/Images/satellite-dish-24-blue.png"
-                };
                 neList.label = currVal[v].LrdName;
                 neList.value = currVal[v].LrdName;
                 neList.type = "Ethernet Switch";
@@ -400,6 +379,7 @@ export class MapComponent implements OnInit {
         this.buildings = [];
         this.buildLRD = [];
         this.points = [];
+       
         for (let b in this.buildingNames) {
             var currBuilding = this.buildingNames[b];
             for (let s in this._data) {
@@ -411,22 +391,23 @@ export class MapComponent implements OnInit {
         }
         var buildId = '';
         var newBuilding = [];
+        var buildingList = {
+            label: "",
+            value: "",
+            lrd: "",
+            id: "",
+            type: "",
+            lng: 0,
+            lat: 0,
+            icon: "../../Content/Images/flats-24-blue.png",
+            points: []
+        };
+
         if (item.label == "Select All") {
             var buildval = this.buildingNames;
 
             for (var v = 1; v <= buildval.length - 1; v++) {
-                var buildingList = {
-                    label: "",
-                    value: "",
-                    lrd: "",
-                    id: "",
-                    type: "",
-                    lng: 0,
-                    lat: 0,
-                    icon: "../../Content/Images/flats-24-blue.png",
-                    points: []
-                };
-
+               
                 buildingList.label = buildval[v].label;
                 buildingList.value = buildval[v].value;
                 buildingList.lrd = buildval[v].lrd;
@@ -443,18 +424,7 @@ export class MapComponent implements OnInit {
         }
         else {
             for (let v in this.buildings) {
-                var buildingList = {
-                    label: "",
-                    value: "",
-                    lrd: "",
-                    id: "",
-                    type: "",
-                    lng: 0,
-                    lat: 0,
-                    icon: "../../Content/Images/flats-24-blue.png",
-                    points: []
-                };
-
+             
                 buildingList.label = this.buildings[v].label;
                 buildingList.value = this.buildings[v].value;
                 buildingList.lrd = this.buildings[v].lrd;
@@ -516,17 +486,17 @@ export class MapComponent implements OnInit {
         var newBuilding = [];
         var LRDval = this.markerTypes;
         this.buildLRD = [];
-       
+        var cableList = {
+            CableId: "",
+            label: "",
+            type: "Aerial",
+            color: "Navy",
+            icon: "../../Content/Images/placeholder-24-black.png",
+            points: []
+        };
+
         if (LRD[0] === "Select All") {
             for (var v = 1; v <= this.markerTypes.length - 1; v++) {
-                var cableList = {
-                    CableId: "",
-                    label: "",
-                    type: "Aerial",
-                    color: "Navy",
-                    icon: "../../Content/Images/placeholder-24-black.png",
-                    points: []
-                };
                 if (LRDval[v].label == item.lrd) {
                     cableList.CableId = item.value;
                     cableList.label = item.label;
@@ -553,14 +523,6 @@ export class MapComponent implements OnInit {
 
         else {
             for (let v in LRD) {
-                var cableList = {
-                    CableId: "",
-                    label: "",
-                    type: "Aerial",
-                    color: "Navy",
-                    icon: "../../Content/Images/placeholder-24-black.png",
-                    points: []
-                };
                 if (LRD[v].LrdName == item.lrd) {
                     cableList.CableId = item.value;
                     cableList.label = item.label;
