@@ -26,19 +26,19 @@ namespace Maxis.Infrastructure.Repositories
         public DefaultRangeViewModel GetDefaultValues(DbGeography searchPoint)
         {
             int range;
-            List<BuildingViewModel> buildings = null;
-            List<CableViewModel> cables = null;
+            //List<BuildingViewModel> buildings = null;
+            //List<CableViewModel> cables = null;
             for (range = 10; range <= 100; range = range + 10)
             {
-                buildings = GetBuildingDetails(searchPoint, range);
-                if (buildings.Count() > 0) break;
+               var buildings = GetBuildingDetails(searchPoint, range);
+                if (buildings.Any()) break;
             }
-            cables = GetCables(searchPoint, range);
+            //cables = GetCables(searchPoint, range);
             return new DefaultRangeViewModel
             {
                 Range = (range > 100) ? 100 : range ,
-                Buildings = buildings,
-                Cables = cables                
+                //Buildings = buildings,
+                //Cables = cables                
             };
         }
 
@@ -160,7 +160,7 @@ namespace Maxis.Infrastructure.Repositories
                 .Join(_db.ONNET_SRCH_NE, n => n.a.NE_ID, ne => ne.NE_ID, (n, ne) => new { n, ne })
                 .Select(m => new BuildingViewModel()
                 {
-                    BuildingId = m.n.a.ABE_ID,
+                    BuildingId = m.n.a.ABE_ID.ToString(),
                     BuildingName = m.n.b.BUILDING,
                     Street = m.n.b.STREET,
                     City = m.n.b.CITY,
