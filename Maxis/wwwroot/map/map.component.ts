@@ -152,12 +152,10 @@ export class MapComponent implements OnInit {
             ]
         }
     ];
-
     lat: number = 3.15104206724095;
     lng: number = 101.663805603203;
     getDistance(distval): void {
-
-        this.dist = [];
+       this.dist = [];
         var _dist = [];
         distval.map(function (val) {
             _dist.push({ value: val.toString(), label: val.toString() });
