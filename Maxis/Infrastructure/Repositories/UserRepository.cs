@@ -84,7 +84,11 @@ namespace Maxis.Infrastructure.Repositories
             {
                 if (ldap)
                 {
-                    bool result = ValidateLdap(loginViewModel);
+                    bool result = false;
+                    var pCtx = new PrincipalContext(ContextType.ApplicationDirectory, WebConfigurationManager.AppSettings["Ldapserver"], "O=users", ContextOptions.SimpleBind, WebConfigurationManager.AppSettings["Ldapusername"], WebConfigurationManager.AppSettings["Ldappassword"]);
+                    {
+                         result = pCtx.ValidateCredentials(loginViewModel.Username, loginViewModel.Password);
+                    }
                     if (result)
                     {
                         var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == loginViewModel.Username);
@@ -93,16 +97,17 @@ namespace Maxis.Infrastructure.Repositories
                         {
                             var salt = CreateSalt(int.Parse(WebConfigurationManager.AppSettings["salt"]));
                             var encyptval = Encrypt(loginViewModel.Password, salt);
-                            DirectoryEntry ResultPropCall = LoadUserInfo(loginViewModel.Username);
+                            DirectoryEntry ResultPropColl = LoadUserInfo(loginViewModel.Username);
+
                             var newuser = new ONNET_USER
                             {
                                 Username = loginViewModel.Username,
                                 Password = salt,
                                 RoleId = (long)Enum.Roles.Normal,
                                 PasswordHash = encyptval,
-                                Mobile = (ResultPropCall.Properties["mobile"][0].ToString() != null ? ResultPropCall.Properties["mobile"][0].ToString() : ""),
-                                Title = (ResultPropCall.Properties["title"][0].ToString() != null ? ResultPropCall.Properties["title"][0].ToString() : ""),
-                                Email = (ResultPropCall.Properties["mail"][0].ToString() != null ? ResultPropCall.Properties["mail"][0].ToString() : "")
+                                Mobile = (ResultPropColl.Properties["mobile"][0] != null ? ResultPropColl.Properties["mobile"][0].ToString() : string.Empty),
+                                Title = (ResultPropColl.Properties["title"][0] != null ? ResultPropColl.Properties["title"][0].ToString() : string.Empty),
+                                Email = (ResultPropColl.Properties["mail"][0] != null ? ResultPropColl.Properties["mail"][0].ToString() : string.Empty)
                             };
                             _db.ONNET_USER.Add(newuser);
                             _db.SaveChanges();
@@ -161,9 +166,14 @@ namespace Maxis.Infrastructure.Repositories
                     entity.Title = editViewModel.Title;
                     entity.Status = editViewModel.Status;
                     entity.RoleId = editViewModel.RoleId;
+
+                    _db.SaveChanges();
+                    return true;
                 }
-                _db.SaveChanges();
-                return true;
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {
@@ -212,23 +222,6 @@ namespace Maxis.Infrastructure.Repositories
                        where ep.Username == username
                        select ep.Password;
             return salt.FirstOrDefault();
-        }
-
-        public static bool ValidateLdap(LoginViewModel loginViewModel)
-        {
-            try
-            {
-                using (var pCtx = new PrincipalContext(ContextType.ApplicationDirectory, WebConfigurationManager.AppSettings["Ldapserver"], "O=users", ContextOptions.SimpleBind, WebConfigurationManager.AppSettings["Ldapusername"], WebConfigurationManager.AppSettings["Ldappassword"]))
-                {
-                     pCtx.ValidateCredentials(loginViewModel.Username, loginViewModel.Password);
-                }
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
         }
 
         public DirectoryEntry LoadUserInfo(string userName)
