@@ -82,6 +82,7 @@ namespace Maxis.Infrastructure.Repositories
         {
             try
             {
+                var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == loginViewModel.Username);
                 if (ldap)
                 {
                     bool result = false;
@@ -91,7 +92,6 @@ namespace Maxis.Infrastructure.Repositories
                     }
                     if (result)
                     {
-                        var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == loginViewModel.Username);
                         if (user != null) return GetRoles(loginViewModel).FirstOrDefault();
                         else
                         {
@@ -125,7 +125,6 @@ namespace Maxis.Infrastructure.Repositories
                 }
                 else
                 {
-                    var user = _db.ONNET_USER.FirstOrDefault(u => u.Username == loginViewModel.Username);
                     if (user != null)
                     {
                         var generatedSalt = GetSalt(loginViewModel.Username);
@@ -235,8 +234,8 @@ namespace Maxis.Infrastructure.Repositories
                 dSearch.SearchScope = SearchScope.Subtree;
                 foreach (SearchResult Result in dSearch.FindAll())
                 {
-                    var ResultPropColl1 = default(ResultPropertyCollection);
-                    ResultPropColl1 = Result.Properties;
+                    var dPropResult = default(ResultPropertyCollection);
+                    dPropResult = Result.Properties;
                 }
                 return ResultPropColl;
             }
