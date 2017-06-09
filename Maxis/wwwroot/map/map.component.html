@@ -1,220 +1,213 @@
 ﻿<div class="page-container-bg-solid">
-    <div class="page-wrapper">
-        <div class="page-wrapper-row">
-            <div class="page-wrapper-top">
-                <!-- BEGIN HEADER -->
-                <div class="page-header margin-muted">
-                    <!-- BEGIN HEADER TOP -->
-                    <div class="page-header-top">
-                        <div class="container">
-                            <!-- BEGIN LOGO -->
-                            <div class="page-logo">
-                                <img src="../../../Content/Images/Logo.png" alt="logo" class="logo-default">    
-                            </div>
-                            <!-- END LOGO -->
-                            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-                            <!-- END RESPONSIVE MENU TOGGLER -->
-                            <!-- BEGIN TOP NAVIGATION MENU -->
-                            <div *ngIf="mapInvalid" class="alert alert-warning" role="alert">
-                                <strong>{{errorMsg}}!</strong>
-                            </div>
-                            <div class="top-menu dropdown dropdown-user" dropdown [dropdownToggle]="true" (onOpen)="doSomeActionOnOpen()" (onClose)="doSomeActionOnClose()">
-                                <button class="btn btn-default " dropdown-open id="dropdown-button">
-                                    <i class="fa fa-user"></i>
-                                    <span class="username username-hide-mobile">{{user}}</span>
-                                    <i class="fa fa-navicon"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-default dropdown-dark">
-                                    <li  [hidden]="role!='ADMIN'">
-                                        <a href="#" routerLink="/list">
-                                            <i class="fa fa-user"></i> Userlist
-                                        </a>
-                                    </li>
-                                    <li>
-                                         <logout></logout>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- END TOP NAVIGATION MENU -->
-                        </div>
+<div class="page-wrapper">
+<div class="page-wrapper-row">
+    <div class="page-wrapper-top">
+        <!-- BEGIN HEADER -->
+        <div class="page-header margin-muted">
+            <!-- BEGIN HEADER TOP -->
+            <div class="page-header-top">
+                <div class="container">
+                    <!-- BEGIN LOGO -->
+                    <div class="page-logo">
+                            <img src="../../../Content/Images/Logo.png" alt="logo" class="logo-default">
+                       
                     </div>
-                    <!-- END HEADER TOP -->
-
-                    <div class="header-top-icons">
-                        <ul class="list-inline">
-                            <img src="/Content/Images/satellite-dish-24-red.png" />
-                            <li>LRD&nbsp;</li>
-
-                            <img src="/Content/Images/flats-24-blue.png" />
-                            <li>Building&nbsp;</li>
-                            <img src="/Content/Images/dot-inside-a-circle-8x8.png" />
-                            <li>Cable&nbsp;</li>
-                            <img src="/Content/Images/shower-circular-holes-for-water.png" />
-                            <li>Manhole&nbsp;</li>
-                            <img src="/Content/Images/pole_24.png" />
-                            <li>Pole&nbsp;</li>
-                            <img src="/Content/Images/world-web_24-1.png" />
-                            <li>Site Location&nbsp;</li>
-                            <img src="/Content/Images/home_24.png" />
-                            <li>Customer Site Location&nbsp;</li>
-                            <img src="/Content/Images/handdhold_24.png" />
-                            <li>Handhold&nbsp;</li>
-                            <img src="/Content/Images/fiber_cable_24.png" />
-                            <li>Fiber Cable&nbsp;</li>
-                            <img src="/Content/Images/junction-box-24x24.png" />
-                            <li>Junction Box&nbsp;</li>
+                    <!-- END LOGO -->
+                    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                    <!-- END RESPONSIVE MENU TOGGLER -->
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                    <div *ngIf="mapInvalid" class="alert alert-warning" role="alert">
+                               <strong>{{errorMsg}}!</strong>
+                           </div>
+                            
+                    <div class="top-menu dropdown dropdown-user" dropdown [dropdownToggle]="true" (onOpen)="doSomeActionOnOpen()" (onClose)="doSomeActionOnClose()">
+                        <button class="btn btn-default " dropdown-open id="dropdown-button">
+                            <i class="fa fa-user"></i>
+                            <span class="username username-hide-mobile">{{user}}</span>
+                            <i class="fa fa-navicon"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-default dropdown-dark">
+                            <li  [hidden]="role!='ADMIN'">
+                                <a href="#" routerLink="/list">
+                                    <i class="fa fa-user"></i> Userlist
+                                </a>
+                            </li>
+                            <li>
+                                <logout></logout>
+                            </li>
                         </ul>
-
                     </div>
+                    <!-- END TOP NAVIGATION MENU -->
+                </div>
+            </div>
+            <!-- END HEADER TOP -->
 
-                                  </div>
-                <!-- END HEADER -->
+            <div class="header-top-icons">
+                <ul class="list-inline">
+                    <img src="/Content/Images/satellite-dish-24-red.png" />
+                    <li>LRD&nbsp;</li>
+
+                    <img src="/Content/Images/flats-24-blue.png" />
+                    <li>Building&nbsp;</li>
+                    <img src="/Content/Images/dot-inside-a-circle-8x8.png" />
+                    <li>Cable&nbsp;</li>
+                    <img src="/Content/Images/shower-circular-holes-for-water.png" />
+                    <li>Manhole&nbsp;</li>
+                    <img src="/Content/Images/pole_24.png" />
+                    <li>Pole&nbsp;</li>
+                    <img src="/Content/Images/world-web_24-1.png" />
+                    <li>Site Location&nbsp;</li>
+                    <img src="/Content/Images/home_24.png" />
+                    <li>Customer Site Location&nbsp;</li>
+                    <img src="/Content/Images/handdhold_24.png" />
+                    <li>Handhold&nbsp;</li>
+                    <img src="/Content/Images/fiber_cable_24.png" />
+                    <li>Fiber Cable&nbsp;</li>
+                    <img src="/Content/Images/junction-box-24x24.png" />
+                    <li>Junction Box&nbsp;</li>
+                </ul>
+
+            </div>
+
+        </div>
+        <!-- END HEADER -->
+    </div>
+</div>
+
+
+<div class="page-wrapper-row page-footer">
+    <div class="page-wrapper-bottom">
+        <!-- BEGIN FOOTER -->
+        <!-- BEGIN INNER FOOTER -->
+        <div class="clearfix">
+            <div class="container">
+                {{year}} © Maxis OnNet All Rights Reserved
             </div>
         </div>
+        <!-- END INNER FOOTER -->
+        <!-- END FOOTER -->
+    </div>
+</div>
 
 
-        <div class="page-wrapper-row page-footer">
-            <div class="page-wrapper-bottom">
-                <!-- BEGIN FOOTER -->
-                <!-- BEGIN INNER FOOTER -->
-                <div class="clearfix">
-                    <div class="container">
-                        {{year}} © Maxis OnNet All Rights Reserved
+<input type="checkbox" id="navigation" class="navigation"  />
+<label for="navigation" ><i class="fa fa-navicon"></i></label>
+<nav>
+  <form [formGroup]="form" id="pannelForm" class="map-form scroll-blue">
+            <div id="pannel">
+
+                <div>
+                    <div class="distance-div">
+                        <div class="distance">Distance</div>
+                        <ng-select  [options]="dist"
+                                    placeholder="{{distanceLoad}}"      
+                                    [multiple]="multiple0"
+                                    formControlName="selectedDistance"
+                                    [allowClear]="true"
+                                    (opened)="onSingleOpened()"
+                                    (closed)="onSingleClosed()"
+                                    (selected)="onDistanceSelected($event)"
+                                    (deselected)="onDistanceSelected($event)"
+                                    class="dropdown-header">
+                        </ng-select>
+                                
                     </div>
                 </div>
-                <!-- END INNER FOOTER -->
-                <!-- END FOOTER -->
-            </div>
-        </div>
-
-
-        <input type="checkbox" id="navigation" class="navigation" />
-        <label for="navigation">+</label>
-        <nav>
-            <form [formGroup]="form" id="pannelForm" class="map-form scroll-blue">
-                <div id="pannel">
-                    
-                    <div>
-                        <div class="distance-div">
-                            <div class="distance">Distance</div>
-                            <ng-select [options]="distance"
-                                       [multiple]="multiple0"
-                                       placeholder="Select distance"
-                                       formControlName="selectedDistance"
-                                       [allowClear]="true"
-                                       (opened)="onSingleOpened()"
-                                       (closed)="onSingleClosed()"
-                                       (selected)="onSingleSelected2($event)"
-                                       (deselected)="onSingleSelected2($event)"
-                                       class="dropdown-header" >
-                            </ng-select>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="distance-div">
-                            <br />
-                            <div class="building-dropdown">OnNet Building</div>
-                            <ng-select [options]="buildingNames" [multiple]="multiple1" formControlName="selectSingle" placeholder="Select Buildings" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onBuildingSelected($event)" (deselected)="onBuildingSelected($event)"
-                                       class="dropdown-header">
-                            </ng-select>
-                            <br/>
-                        </div>
+                <div>
+                    <div class="distance-div">
                         <br />
-                        <div class="distance-div">
-                            <div class="label-lrd">LRD</div>
-                            <ng-select [options]="markerTypes"
-                                       [multiple]="multiple1" formControlName="selectMultiple" placeholder="Select LRD's" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onLRDSelected($event)" (deselected)="onLRDSelected($event)"
-                                       class="dropdown-header" >
-                            </ng-select>
-                            <a title="Show NE Table" class="netable-icon" (click)="addtable($event)"><i class="fa fa-table"></i></a>
+                        <div class="building-dropdown">OnNet Building</div>
 
-                        </div>
-                        <!--<br />
-                        <button class="ne-button btn btn-primary btn-sm" (click)="addtable($event)">Show NE Table</button>
-                        <br />-->
-                        <!--<div class="distance-div">
-                            <br />
-                            <div class="building-dropdown">Building</div>
-                            <ng-select [options]="buildingNames" [multiple]="multiple1" formControlName="selectSingle" placeholder="Select Buildings" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onBuildingSelected($event)" (deselected)="onBuildingSelected($event)"
-                                       class="dropdown-header">
-                            </ng-select>
-
-                        </div>-->
+                        <ng-select [options]="buildingNames" [multiple]="multiple1" formControlName="selectSingle" placeholder="{{buildingLoad}}" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onBuildingSelected($event)" (deselected)="onBuildingSelected($event)"
+                                   class="dropdown-header"  >
+                                
+                        </ng-select>
+                        <br />
+                    </div>
+                    <br />
+                    <div class="distance-div">
+                        <div class="label-lrd">LRD</div>
+                        <ng-select [options]="markerTypes"
+                                   [multiple]="multiple1" formControlName="selectMultiple" placeholder="{{lrdLoad}}" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onLRDSelected($event)" (deselected)="onLRDSelected($event)"
+                                   class="dropdown-header">
+                        </ng-select>
+                        <a title="Show NE Table" class="netable-icon" (click)="addtable($event)"><i class="fa fa-table"></i></a>
 
                     </div>
-                    <div class="nav-top">
-                        <div class="distance-div">
-                            <div class="label-lrd">Cable</div>
-                            <ng-select [options]="cableTypes"
-                                       [multiple]="multiple1" formControlName="selectSingle1" placeholder="Select Cables" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onCableSelected($event)" (deselected)="onCableSelected($event)"
-                                       class="dropdown-header">
-                            </ng-select>
-                        </div>
-                    </div>
-                    <div class="nav-top">
-                        <div class="distance-div">
-
-                            <span class="newidth">
-                                <netypetable [sourcedata]="neNameData"></netypetable>
-                            </span>
-                        </div>
+                           
+                </div>
+                <div class="nav-top">
+                    <div class="distance-div">
+                        <div class="label-lrd">Cable</div>
+                        <ng-select [options]="cableTypes"
+                                   [multiple]="multiple1" formControlName="selectSingle1" placeholder="{{cableLoad}}" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onCableSelected($event)" (deselected)="onCableSelected($event)"
+                                   class="dropdown-header">
+                        </ng-select>
                     </div>
                 </div>
-            </form>
-        </nav>
+                <div class="nav-top">
+                    <div class="distance-div">
 
-        <div class="map-search">
-            <div class="search">
-                <div class="search-bar">
-                    <div class="inner-addon right-addon search-addon">
-                        <i class="glyphicon glyphicon-search"></i>
-                        <input placeholder="search for location" autocorrect="on" autocapitalize="off" spellcheck="true" type="text" name="searchControl" #search class="form-control mapping search-fix " id="search" autofocus>
+                        <span class="newidth">
+                            <netypetable [sourcedata]="neNameData"></netypetable>
+                        </span>
                     </div>
                 </div>
             </div>
-            <sebm-google-map [latitude]="lat" [longitude]="lng" [styles]="styles" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="true" [streetViewControl]="false">
-                <div *ngFor="let m of markers;">
-                    <sebm-google-map-marker *ngFor="let p of m.points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="'../../Content/Images/dot-inside-a-circle.png'" (dragEnd)="markerDragEnd(p, $event)">
-                        <sebm-google-map-info-window>
-                            <strong>Cablename:<br>{{p.lab}}<br/>{{p.lat}}<br/>{{p.lng}}</strong><br /><br />
-                            <strong><button class="ne-button" (click)="onStructSelected(p, m.CableId)">show structure</button></strong>
-                        </sebm-google-map-info-window>
-                    </sebm-google-map-marker>
+        </form>
+</nav>
 
-                </div>
-                <div class="label-pos">
-                    <sebm-google-map-marker *ngFor="let p of points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="p.icon" [title]="p.label" (dragEnd)="markerDragEnd(p, $event)" [label]="p.label">
-                        <sebm-google-map-info-window>
-                            <strong>Lrd Name : {{p.label}}</strong>
-                        </sebm-google-map-info-window>
-                    </sebm-google-map-marker>
-                </div>
+<div class="map-search">
+    <div class="search">
+        <div class="search-bar">
+            <div class="inner-addon right-addon search-addon">
+                <i class="glyphicon glyphicon-search"></i>
+                <input placeholder="search for location"  autocorrect="on" autocapitalize="off" spellcheck="true" type="text" name="searchControl" #search class="form-control mapping search-fix " id="autocompleteInput">
+            </div>
+        </div>
+    </div>
+    <sebm-google-map [latitude]="lat" [longitude]="lng" [styles]="styles" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="true" [streetViewControl]="false">
+        <div *ngFor="let m of markers;">
+            <sebm-google-map-marker *ngFor="let p of m.points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" [iconUrl]="'../../Content/Images/dot-inside-a-circle.png'" (dragEnd)="markerDragEnd(p, $event)">
+                <sebm-google-map-info-window>
+                    <strong>Cablename:<br>{{p.lab}}<br/>{{p.lat}}<br/>{{p.lng}}</strong><br /><br />
+                    <strong><button class="ne-button" (click)="onStructSelected(p, m.CableId)">show structure</button></strong>
+                </sebm-google-map-info-window>
+            </sebm-google-map-marker>
+
+        </div>
+               
+        <sebm-google-map-marker *ngFor="let p of points" [latitude]="p.lat"  [longitude]="p.lng" [label]="{text: p.label, color: 'red',fontWeight :'bold'}" [iconUrl]="'../../Content/Images/transparen_58.png'" [title]="p.label">
+
+            <sebm-google-map-marker *ngFor="let p of points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" (dragEnd)="markerDragEnd(p, $event)" [iconUrl]="p.icon">
+            </sebm-google-map-marker>
+        </sebm-google-map-marker>
                 
 
-                <sebm-google-map-marker *ngFor="let p of buildings" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon" [label]="p.label" [title]="p.label">
-                    <sebm-google-map-info-window>
-                        <strong>Building Name: {{p.label}}</strong><br /><br />
-                        <strong><button class="ne-button" (click)="onBuildconnectivity(p)">show connectivity</button></strong>
-                        <br />
-                    </sebm-google-map-info-window>
-                </sebm-google-map-marker>
-                <sebm-google-map-marker *ngFor="let p of structs" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon">
-                    <sebm-google-map-info-window>
-                        <strong>{{p.type}} : {{p.label}}</strong><br />
-                    </sebm-google-map-info-window>
-                </sebm-google-map-marker>
-                <sebm-google-map-polyline *ngFor="let m of markers" [strokeColor]="m.color">
-                    <sebm-google-map-polyline-point *ngFor="let p of m.points" [latitude]="p.lat" [longitude]="p.lng">
-                    </sebm-google-map-polyline-point>
-                </sebm-google-map-polyline>
-                <sebm-google-map-polyline *ngFor="let m of buildLRD" [strokeColor]="m.color" [strokeWeight]="1">
-                    <sebm-google-map-polyline-point *ngFor="let p of m.points" [latitude]="p.lat" [longitude]="p.lng">
-                    </sebm-google-map-polyline-point>
-                </sebm-google-map-polyline>
-                <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
-            </sebm-google-map>
-        </div>
+        <sebm-google-map-marker *ngFor="let p of buildings" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon"  [title]="p.label" [label]="{text: p.label, color: 'blue',fontWeight :'bold'}">
 
-       
+            <sebm-google-map-info-window>
+                <strong>Building Name: {{p.label}}</strong><br /><br />
+                <strong><button class="ne-button" (click)="onBuildconnectivity(p)">show connectivity</button></strong>
+                <br />
+            </sebm-google-map-info-window>
+        </sebm-google-map-marker>
+
+        <sebm-google-map-marker *ngFor="let p of structs" [latitude]="p.lat" [longitude]="p.lng" [iconUrl]="p.icon">
+            <sebm-google-map-info-window>
+                <strong>{{p.type}} : {{p.label}}</strong><br />
+            </sebm-google-map-info-window>
+        </sebm-google-map-marker>
+        <sebm-google-map-polyline *ngFor="let m of markers" [strokeColor]="m.color">
+            <sebm-google-map-polyline-point *ngFor="let p of m.points" [latitude]="p.lat" [longitude]="p.lng">
+            </sebm-google-map-polyline-point>
+        </sebm-google-map-polyline>
+        <sebm-google-map-polyline *ngFor="let m of buildLRD" [strokeColor]="m.color" [strokeWeight]="1">
+            <sebm-google-map-polyline-point *ngFor="let p of m.points" [latitude]="p.lat" [longitude]="p.lng">
+            </sebm-google-map-polyline-point>
+        </sebm-google-map-polyline>
+        <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+    </sebm-google-map>
+</div>
 </div>
 </div>
