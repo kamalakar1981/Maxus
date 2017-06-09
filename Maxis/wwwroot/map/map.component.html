@@ -9,7 +9,7 @@
                 <div class="container">
                     <!-- BEGIN LOGO -->
                     <div class="page-logo">
-                            <img src="../../../Content/Images/Logo.png" alt="logo" class="logo-default">
+                        <img src="../../../Content/Images/Logo.png" alt="logo" class="logo-default">
                        
                     </div>
                     <!-- END LOGO -->
@@ -17,8 +17,8 @@
                     <!-- END RESPONSIVE MENU TOGGLER -->
                     <!-- BEGIN TOP NAVIGATION MENU -->
                     <div *ngIf="mapInvalid" class="alert alert-warning" role="alert">
-                               <strong>{{errorMsg}}!</strong>
-                           </div>
+                        <strong>{{errorMsg}}!</strong>
+                    </div>
                             
                     <div class="top-menu dropdown dropdown-user" dropdown [dropdownToggle]="true" (onOpen)="doSomeActionOnOpen()" (onClose)="doSomeActionOnClose()">
                         <button class="btn btn-default " dropdown-open id="dropdown-button">
@@ -93,68 +93,68 @@
 <input type="checkbox" id="navigation" class="navigation"  />
 <label for="navigation" ><i class="fa fa-navicon"></i></label>
 <nav>
-  <form [formGroup]="form" id="pannelForm" class="map-form scroll-blue">
-            <div id="pannel">
+    <form [formGroup]="form" id="pannelForm" class="map-form scroll-blue">
+        <div id="pannel">
 
-                <div>
-                    <div class="distance-div">
-                        <div class="distance">Distance</div>
-                        <ng-select  [options]="dist"
-                                    placeholder="{{distanceLoad}}"      
-                                    [multiple]="multiple0"
-                                    formControlName="selectedDistance"
-                                    [allowClear]="true"
-                                    (opened)="onSingleOpened()"
-                                    (closed)="onSingleClosed()"
-                                    (selected)="onDistanceSelected($event)"
-                                    (deselected)="onDistanceSelected($event)"
-                                    class="dropdown-header">
-                        </ng-select>
+            <div>
+                <div class="distance-div">
+                    <div class="distance">Distance</div>
+                    <ng-select  [options]="dist"
+                                placeholder="{{distanceLoad}}"      
+                                [multiple]="multiple0"
+                                formControlName="selectedDistance"
+                                [allowClear]="true"
+                                (opened)="onSingleOpened()"
+                                (closed)="onSingleClosed()"
+                                (selected)="onDistanceSelected($event)"
+                                (deselected)="onDistanceSelected($event)"
+                                class="dropdown-header">
+                    </ng-select>
                                 
-                    </div>
-                </div>
-                <div>
-                    <div class="distance-div">
-                        <br />
-                        <div class="building-dropdown">OnNet Building</div>
-
-                        <ng-select [options]="buildingNames" [multiple]="multiple1" formControlName="selectSingle" placeholder="{{buildingLoad}}" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onBuildingSelected($event)" (deselected)="onBuildingSelected($event)"
-                                   class="dropdown-header"  >
-                                
-                        </ng-select>
-                        <br />
-                    </div>
-                    <br />
-                    <div class="distance-div">
-                        <div class="label-lrd">LRD</div>
-                        <ng-select [options]="markerTypes"
-                                   [multiple]="multiple1" formControlName="selectMultiple" placeholder="{{lrdLoad}}" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onLRDSelected($event)" (deselected)="onLRDSelected($event)"
-                                   class="dropdown-header">
-                        </ng-select>
-                        <a title="Show NE Table" class="netable-icon" (click)="addtable($event)"><i class="fa fa-table"></i></a>
-
-                    </div>
-                           
-                </div>
-                <div class="nav-top">
-                    <div class="distance-div">
-                        <div class="label-lrd">Cable</div>
-                        <ng-select [options]="cableTypes"
-                                   [multiple]="multiple1" formControlName="selectSingle1" placeholder="{{cableLoad}}" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onCableSelected($event)" (deselected)="onCableSelected($event)"
-                                   class="dropdown-header">
-                        </ng-select>
-                    </div>
-                </div>
-                <div class="nav-top">
-                    <div class="distance-div">
-
-                        <span class="newidth">
-                            <netypetable [sourcedata]="neNameData"></netypetable>
-                        </span>
-                    </div>
                 </div>
             </div>
-        </form>
+            <div>
+                <div class="distance-div">
+                    <br />
+                    <div class="building-dropdown">OnNet Building</div>
+
+                    <ng-select [options]="buildingNames" [multiple]="multiple1" formControlName="selectSingle" placeholder="{{buildingLoad}}" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onBuildingSelected($event)" (deselected)="onBuildingSelected($event)"
+                               class="dropdown-header"  >
+                                
+                    </ng-select>
+                    <br />
+                </div>
+                <br />
+                <div class="distance-div">
+                    <div class="label-lrd">LRD</div>
+                    <ng-select [options]="markerTypes"
+                               [multiple]="multiple1" formControlName="selectMultiple" placeholder="{{lrdLoad}}" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onLRDSelected($event)" (deselected)="onLRDSelected($event)"
+                               class="dropdown-header">
+                    </ng-select>
+                    <a title="Show NE Table" class="netable-icon" (click)="addtable($event)"><i class="fa fa-table"></i></a>
+
+                </div>
+                           
+            </div>
+            <div class="nav-top">
+                <div class="distance-div">
+                    <div class="label-lrd">Cable</div>
+                    <ng-select [options]="cableTypes"
+                               [multiple]="multiple1" formControlName="selectSingle1" placeholder="{{cableLoad}}" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onCableSelected($event)" (deselected)="onCableSelected($event)"
+                               class="dropdown-header">
+                    </ng-select>
+                </div>
+            </div>
+            <div class="nav-top">
+                <div class="distance-div">
+
+                    <span class="newidth">
+                        <netypetable [sourcedata]="neNameData"></netypetable>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
 </nav>
 
 <div class="map-search">
@@ -177,7 +177,7 @@
 
         </div>
                
-        <sebm-google-map-marker *ngFor="let p of points" [latitude]="p.lat"  [longitude]="p.lng" [label]="{text: p.label, color: 'red',fontWeight :'bold'}" [iconUrl]="'../../Content/Images/transparen_58.png'" [title]="p.label">
+        <sebm-google-map-marker *ngFor="let p of points" [latitude]="p.lat"  [longitude]="p.lng" [label]="{text: p.label, color: 'red',fontWeight :'bold'}" [iconUrl]="'../../Content/Images/transparen.png'" [title]="p.label">
 
             <sebm-google-map-marker *ngFor="let p of points" (markerClick)="clickedMarker(p.label, i)" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]="p.draggable" (dragEnd)="markerDragEnd(p, $event)" [iconUrl]="p.icon">
             </sebm-google-map-marker>

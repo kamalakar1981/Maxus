@@ -14,7 +14,7 @@ export class MapService {
     constructor(private _http: Http,
         private _errorService: ErrorService,
         private _router: Router,
-       ) { }
+    ) { }
     private _mapNEtypesUrl = 'Map/NENames';
     private _mapLRDUrl = 'Map/LRD';
     private _mapBuildingUrl = 'Map/Buildings';
@@ -43,7 +43,7 @@ export class MapService {
         return this._http.post(this._mapLRDUrl, body, this._requestOption)
             .map(this.extractData)
             .catch(this._errorService.handelError);
-        
+
     }
     getStruct(value: any): Observable<any> {
         let body = value;
