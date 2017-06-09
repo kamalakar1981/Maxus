@@ -14,7 +14,7 @@ export class MapService {
     constructor(private _http: Http,
         private _errorService: ErrorService,
         private _router: Router,
-       ) { }
+    ) { }
     private _mapNEtypesUrl = 'Map/NENames';
     private _mapLRDUrl = 'Map/LRD';
     private _mapBuildingUrl = 'Map/Buildings';
@@ -27,22 +27,23 @@ export class MapService {
     private _range;
     private _NEname;
     private _requestOption = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
+    private _default = 'Map/DefaultValues';
 
     getload(point: any): Observable<any> {
         this._point = point;
-        let body = point;
-        return this._http.post(this._mapLRDUrl, body, this._requestOption)
+        let body = { SearchPoint: this._point };
+        return this._http.post(this._default, body, this._requestOption)
             .map(this.extractData)
             .catch(this._errorService.handelError);
     }
 
     getLRD(value: any): Observable<any> {
-        this._range = value.value;
-        let body = { SearchPoint: this._point, Range: this._range };
+        this._range = value;
+        let body = { buildingId: this._range };
         return this._http.post(this._mapLRDUrl, body, this._requestOption)
             .map(this.extractData)
             .catch(this._errorService.handelError);
-        
+
     }
     getStruct(value: any): Observable<any> {
         let body = value;
