@@ -98,7 +98,6 @@ namespace Maxis.Infrastructure.Repositories
                             var salt = CreateSalt(int.Parse(WebConfigurationManager.AppSettings["salt"]));
                             var encyptval = Encrypt(loginViewModel.Password, salt);
                             DirectoryEntry ResultPropColl = LoadUserInfo(loginViewModel.Username);
-
                             var newuser = new ONNET_USER
                             {
                                 Username = loginViewModel.Username,
@@ -129,10 +128,8 @@ namespace Maxis.Infrastructure.Repositories
                     {
                         var generatedSalt = GetSalt(loginViewModel.Username);
                         var hashedPassword = Encrypt(loginViewModel.Password, generatedSalt);
-                        var verifyUser =
-                            _db.ONNET_USER.FirstOrDefault(
-                                u => u.Username == loginViewModel.Username && u.PasswordHash == hashedPassword);
-                        return verifyUser != null ? GetRoles(loginViewModel).FirstOrDefault() : new UserDetailsViewModel
+                        var verifyUser = user.Username == loginViewModel.Username && user.PasswordHash == hashedPassword;
+                        return verifyUser == true ? GetRoles(loginViewModel).FirstOrDefault() : new UserDetailsViewModel
                         {
                             ErrorStatus = "Password mismatch"
                         };
