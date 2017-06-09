@@ -128,8 +128,9 @@ namespace Maxis.Infrastructure.Repositories
                     {
                         var generatedSalt = GetSalt(loginViewModel.Username);
                         var hashedPassword = Encrypt(loginViewModel.Password, generatedSalt);
-                        var verifyUser = user.Username == loginViewModel.Username && user.PasswordHash == hashedPassword;
-                        return verifyUser == true ? GetRoles(loginViewModel).FirstOrDefault() : new UserDetailsViewModel
+                        var verifyUser = user.Username == loginViewModel.Username && 
+                                         user.PasswordHash == hashedPassword;
+                        return verifyUser ? GetRoles(loginViewModel).FirstOrDefault() : new UserDetailsViewModel
                         {
                             ErrorStatus = "Password mismatch"
                         };
