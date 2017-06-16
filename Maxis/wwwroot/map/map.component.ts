@@ -49,6 +49,7 @@ export class MapComponent implements OnInit {
     load: string = "Loading....";
     lat: number;
     lng: number;
+    lrdValue: boolean;
     manholeIcon: string = "../../Content/Images/shower-circular-holes-for-water.png";
     poleIcon: string = "../../Content/Images/pole_24.png";
     handholeIcon: string = "../../Content/Images/handhold_24.png";
@@ -214,8 +215,10 @@ export class MapComponent implements OnInit {
         this._logMultiple("- selected (value: " + item.value + ", label:" + item.label + " ,role:" + item.role + ")");
         this.points = [];
         var neArr = [];
+        this.buildLRD = [];
         var currVal = this.form.value["selectMultiple"];
-        if (currVal[0] === "Select All") {
+
+        if (this.lrdValue === true || currVal[0] === "Select All") {
             var lrdval = this.markerTypes;
             for (var v = 1; v <= lrdval.length - 1; v++) {
                 var lrdPoints = lrdval[v].value.GeodataValue;
@@ -230,6 +233,7 @@ export class MapComponent implements OnInit {
                     icon: this.lrdIcon
                 };
                 neArr.push(neList);
+                this.lrdValue = false;
                 this.points = neArr;
             }
         }
@@ -339,6 +343,7 @@ export class MapComponent implements OnInit {
         this.buildings = [];
         this.buildLRD = [];
         this.points = [];
+        this.markerTypes = [];
         for (let b in this.buildingNames) {
             var currBuilding = this.buildingNames[b];
             for (let s in this.buildingData) {
@@ -350,12 +355,14 @@ export class MapComponent implements OnInit {
         }
         var buildId = '';
         var newBuilding = [];
-        if (item.label === "Select All") {
+        if (this.buildings[0] != null && this.buildings[0].label === "Select All") {
             var buildval = this.buildingNames;
             for (var v = 1; v <= buildval.length - 1; v++) {
                 var buildingPoint = buildval[v].value;
-                var lng = parseFloat(buildingPoint.substring(buildingPoint.indexOf('(') + 1, buildingPoint.lastIndexOf(' ')));
-                var lat = parseFloat(buildingPoint.substring(buildingPoint.lastIndexOf(' ') + 1, buildingPoint.lastIndexOf(')')));
+                var lng = parseFloat(buildingPoint.substring(buildingPoint.indexOf('(') + 1,
+                    buildingPoint.lastIndexOf(' ')));
+                var lat = parseFloat(buildingPoint.substring(buildingPoint.lastIndexOf(' ') + 1,
+                    buildingPoint.lastIndexOf(')')));
                 var buildingList = {
                     label: buildval[v].label,
                     value: buildval[v].value,
@@ -373,22 +380,26 @@ export class MapComponent implements OnInit {
         }
         else {
             for (let v in this.buildings) {
-                var buildingPoint = this.buildingData[v];
-                var lng = parseFloat(buildingPoint.substring(buildingPoint.indexOf('(') + 1, buildingPoint.lastIndexOf(' ')));
-                var lat = parseFloat(buildingPoint.substring(buildingPoint.lastIndexOf(' ') + 1, buildingPoint.lastIndexOf(')')));
-                var buildingList = {
-                    label: this.buildings[v].label,
-                    value: this.buildings[v].value,
-                    lrd: this.buildings[v].lrd,
-                    id: this.buildings[v].id,
-                    type: "Building",
-                    lng: lng,
-                    lat: lat,
-                    icon: this.buildingIcon,
-                    points: []
-                };
-                buildId = buildId + ("," + buildingList.id);
-                this.buildings.push(buildingList);
+                if (!(this.buildingData[v] === undefined)) {
+                    var buildingPoint = this.buildingData[v];
+                    var lng = parseFloat(buildingPoint.substring(buildingPoint.indexOf('(') + 1,
+                        buildingPoint.lastIndexOf(' ')));
+                    var lat = parseFloat(buildingPoint.substring(buildingPoint.lastIndexOf(' ') + 1,
+                        buildingPoint.lastIndexOf(')')));
+                    var buildingList = {
+                        label: this.buildings[v].label,
+                        value: this.buildings[v].value,
+                        lrd: this.buildings[v].lrd,
+                        id: this.buildings[v].id,
+                        type: "Building",
+                        lng: lng,
+                        lat: lat,
+                        icon: this.buildingIcon,
+                        points: []
+                    };
+                    buildId = buildId + ("," + buildingList.id);
+                    this.buildings.push(buildingList);
+                }
             }
         }
         this._mapService.getLRD(buildId)
@@ -402,8 +413,8 @@ export class MapComponent implements OnInit {
                 neArr.push(SelectAll);
                 for (let v in value) {
                     var pt = value[v].GeodataValue;
-                    var lng = parseInt(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')));
-                    var lat = parseInt(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')));
+                    var lng = parseFloat(pt.substring(pt.indexOf('(') + 1, pt.lastIndexOf(' ')));
+                    var lat = parseFloat(pt.substring(pt.lastIndexOf(' ') + 1, pt.lastIndexOf(')')));
                     var neList = {
                         label: value[v].LrdName,
                         value: value[v],
@@ -415,6 +426,16 @@ export class MapComponent implements OnInit {
                     neArr.push(neList);
                 }
                 this.markerTypes = neArr;
+                if (value[0] != null && !(value.length === 0)) {
+                    var buildingval = this;
+                    setTimeout(function () {
+                            buildingval.form.controls['selectMultiple'].setValue(neArr[0].value);
+                        },
+                        1000);
+                    this.lrdValue = true;
+                    this.onLRDSelected(neArr[0]);
+
+                }
             });
     }
 
@@ -488,6 +509,11 @@ export class MapComponent implements OnInit {
 
     onDistanceSelected(item: any) {
         this.zoom = 10;
+        this.points = [];
+        this.buildings = [];
+        this.buildLRD = [];
+        this.structs = [];
+        this.markers = [];
         this._logSingle("- selected (value: " + item.value + ", label:" + item.label + ")");
         var build = this;
 
