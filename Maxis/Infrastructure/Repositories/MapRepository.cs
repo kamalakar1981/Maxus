@@ -157,7 +157,7 @@ namespace Maxis.Infrastructure.Repositories
                 .Join(_db.ONNET_SRCH_NE, n => n.a.NE_ID, ne => ne.NE_ID, (n, ne) => new { n, ne })
                 .Select(m => new BuildingViewModel()
                 {
-                    BuildingId = m.n.a.ABE_ID,
+                    BuildingId = m.n.a.ABE_ID.ToString(),
                     BuildingName = m.n.b.BUILDING,
                     Street = m.n.b.STREET,
                     City = m.n.b.CITY,
